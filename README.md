@@ -1,2 +1,3 @@
-# ruya
-A language and environment for analysing columnar data.
+# Ruya
+
+A language and environment for analyzing columnar databases.
