@@ -25,7 +25,7 @@
         (let [[e ts] (parse-expr (nthrest tokens 2))]
           (when-not e
             (ex (str "no value to bind: " x)))
-          [[x e] ts])
+          [[:define x e] ts])
         [x (rest tokens)])
       [nil tokens])))
 

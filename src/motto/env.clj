@@ -4,6 +4,9 @@
   {:parent nil
    :bindings {}})
 
+(defn global []
+  (make))
+
 (defn amend [env var val]
   (let [b (:bindings env)]
     (assoc env :bindings (assoc b var val))))

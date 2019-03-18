@@ -1,8 +1,7 @@
 (ns motto.core
-  (:require [clojure.string :as s]
-            [motto.eval :as e])
+  (:require [motto.repl :as r])
   (:gen-class))
 
 (defn -main [& args]
   (println "motto v0.0.1")
-  (println (e/compile-string (s/join " " args))))
+  (r/repl))
