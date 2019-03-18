@@ -2,7 +2,6 @@
   (:require [motto.str-util :as su]))
 
 (def ^:private ident-graphs #{\_ \@ \$})
-(def ^:private oprs #{\: \+ \- \* \/})
 
 (def ^:private oprs-kw {\: :define
                         \+ :plus
@@ -10,26 +9,30 @@
                         \* :mul
                         \/ :div})
 
+(def ^:private oprs (keys oprs-kw))
+
 (defn- ex [s]
   (throw (Exception. (str "tokens: " s))))
 
 (defn- ident-start-char? [ch]
-  (or (Character/isAlphabetic ch)
+  (or (Character/isAlphabetic (int ch))
       (some #{ch} ident-graphs)))
 
 (defn- opr-char? [ch]
   (some #{ch} oprs))
 
 (defn- num-char? [ch]
-  (or (Character/isDigit ch)
+  (or (Character/isDigit (int ch))
       (= ch \.)))
 
 (defn- str-start-char? [ch]
   (= ch \"))
 
+(def ^:private str-end-char? str-start-char?)
+
 (defn- ident-char? [ch]
   (or (ident-start-char? ch)
-      (Character/isDigit ch)))
+      (Character/isDigit (int ch))))
 
 (defn- multichar-token [s predic mk]
   (loop [s s, cs []]
@@ -60,8 +63,15 @@
   (multichar-token s num-char? number))
 
 (defn- str-literal [s]
-  ;; TODO
-  )
+  (loop [s (rest s), prev-ch \space, cs []]
+    (if (seq s)
+      (let [ch (first s)]
+        (if (str-end-char? ch)
+          (if (= prev-ch \\)
+            (recur (rest s) ch (conj cs ch))
+            [(rest s) (su/implode cs)])
+          (recur (rest s) ch (conj cs ch))))
+      (ex (str "string not terminated: " (su/implode cs))))))
 
 (defn- tokenizer [ch]
   (cond
@@ -75,7 +85,7 @@
   (loop [s s, ts []]
     (if (seq s)
       (let [c (first s)]
-        (if (Character/isWhitespace c)
+        (if (Character/isWhitespace (int c))
           (recur (rest s) ts)
           (let [tf (tokenizer c)
                 [s t] (tf s)]
