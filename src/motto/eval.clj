@@ -1,10 +1,10 @@
 (ns motto.eval
-  (:require [motto.env :as env]))
+  (:require [motto.env :as env]
+            [motto.tokens :as t]
+            [motto.parse :as p]))
 
-(defn- literal [x]
-  (or (number? x)
-      (string? x)
-      (boolean? x)))
+(defn- ex [s]
+  (throw (Exception. (str "eval: " s))))
 
 (declare evaluate)
 
@@ -18,6 +18,15 @@
 
 (defn evaluate [expr env]
   (cond
-    (literal? expr) [expr env]
-    (symbol? expr) [(env/lookup env expr) env]
+    (p/literal? expr) [expr env]
+    (p/identifier? expr) [(env/lookup env expr) env]
     (seq expr) (eval-form (first expr) (rest expr) env)))
+
+(defn compile-string [s]
+  (let [tokens (t/tokens s)]
+    (loop [[expr tokens] (p/parse-expr tokens)]
+      (when-not expr
+        (ex (str "compilation failed: " s)))
+      (if (seq tokens)
+        (recur (p/parse-expr tokens))
+        expr))))
