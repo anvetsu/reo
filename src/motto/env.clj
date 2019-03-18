@@ -1,4 +1,4 @@
-(ns ruya.env)
+(ns motto.env)
 
 (defn make []
   {:parent nil

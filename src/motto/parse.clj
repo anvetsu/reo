@@ -1,4 +1,4 @@
-(ns ruya.parse)
+(ns motto.parse)
 
 (defn parse [s]
   )

@@ -1,5 +1,5 @@
-(ns ruya.eval
-  (:require [ruya.env :as env]))
+(ns motto.eval
+  (:require [motto.env :as env]))
 
 (defn- literal [x]
   (or (number? x)
