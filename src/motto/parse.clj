@@ -10,13 +10,33 @@
 (defn- ex [s]
   (throw (Exception. (str "parser: " s))))
 
-(defn- parse-literal [tokens]
+(declare parse-expr fetch-expr)
+
+(defn- parse-val [tokens]
   (let [x (first tokens)]
-    (if (literal? x)
+    (if (or (identifier? x) (literal? x))
       [x (rest tokens)]
       [nil tokens])))
 
-(declare parse-expr)
+(defn- parse-factor [tokens]
+  (let [[x ts1] (parse-val tokens)]
+    (if (and x (seq ts1))
+      (let [y (first ts1)]
+        (if (or (= :mul y) (= :div y))
+          (let [[z ts2] (parse-expr (rest ts1))]
+            [[(if (= :mul y) '* '/) x z] ts2])
+          [x ts1]))
+      [x nil])))
+
+(defn- parse-term [tokens]
+  (let [[x ts1] (parse-factor tokens)]
+    (if (and x (seq ts1))
+      (let [y (first ts1)]
+        (if (or (= :plus y) (= :minus y))
+          (let [[z ts2] (parse-expr (rest ts1))]
+            [[(if (= :plus y) '+ '-) x z] ts2])
+          [x ts1]))
+      [x nil])))
 
 (defn- parse-define [tokens]
   (let [[x y] [(first tokens) (second tokens)]]
@@ -26,7 +46,7 @@
           (when-not e
             (ex (str "no value to bind: " x)))
           [[:define x e] ts])
-        [x (rest tokens)])
+        [nil tokens])
       [nil tokens])))
 
 (defn- fetch-expr [[e tokens] next-parser]
@@ -36,4 +56,4 @@
       (fetch-expr (next-parser tokens) nil))))
 
 (defn parse-expr [tokens]
-  (fetch-expr (parse-define tokens) parse-literal))
+  (fetch-expr (parse-define tokens) parse-term))

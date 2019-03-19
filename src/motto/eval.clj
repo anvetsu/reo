@@ -12,10 +12,25 @@
   (let [[val env] (evaluate val-expr env)]
     [val (env/amend env var val)]))
 
+(defn- eval-map [exprs env]
+  (loop [exprs exprs, env env, vals []]
+    (if (seq exprs)
+      (let [[val env] (evaluate (first exprs) env)]
+        (recur (rest exprs) env (conj vals val)))
+      [vals env])))
+
+(defn- apply-fn [fnname args env]
+  (if (p/identifier? fnname)
+    (if-let [fnval (env/lookup env fnname)]
+      (let [[eargs env] (eval-map args env)]
+        [(apply fnval eargs) env])
+      (ex (str "function not found: " fnname)))
+    (ex (str "invalid function object: " fnname))))
+
 (defn- eval-form [ident args env]
   (case ident
     :define (amend (first args) (second args) env)
-    (ex (str "invalid form: " ident))))
+    (apply-fn ident args env)))
 
 (defn evaluate [expr env]
   (cond

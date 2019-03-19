@@ -1,11 +1,11 @@
 (ns motto.env)
 
-(defn make []
-  {:parent nil
-   :bindings {}})
-
-(defn global []
-  (make))
+(defn make
+  ([bindings]
+   {:parent nil
+    :bindings bindings})
+  ([]
+   (make {})))
 
 (defn amend [env var val]
   (let [b (:bindings env)]
@@ -18,3 +18,7 @@
         val
         (when-let [p (:parent env)]
           (recur p))))))
+
+(defn global []
+  (let [bindings {'+ + '- - '* * '/ /}]
+    (make bindings)))
