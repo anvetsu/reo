@@ -1,5 +1,6 @@
 (ns motto.env
-  (:require [motto.lib.list :as ml]))
+  (:require [motto.lib.list :as mll]
+            [motto.lib.arith :as mla]))
 
 (defn make
   ([bindings]
@@ -21,7 +22,8 @@
           (recur p))))))
 
 (defn global []
-  (let [bindings {'+ + '- - '* * '/ /
+  (let [bindings {'+ mla/add '- mla/sub
+                  '* mla/mul '/ mla/div
                   '= =
-                  'til ml/til}]
+                  'til mll/til}]
     (make bindings)))
