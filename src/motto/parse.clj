@@ -35,7 +35,14 @@
   (parse-arith tokens parse-factor :plus :minus '+ '-))
 
 (defn- parse-eq [tokens]
-  (parse-term tokens))
+  (let [[x ts1] (parse-term tokens)]
+    (if (and x (seq ts1))
+      (let [y (first ts1)]
+        (if (= :eq y)
+          (let [[z ts2] (parse-expr (rest ts1))]
+            [['= x z] ts2])
+          [x ts1]))
+      [x nil])))
 
 (defn- parse-define [tokens]
   (let [[x y] [(first tokens) (second tokens)]]

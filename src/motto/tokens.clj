@@ -7,7 +7,8 @@
                         \+ :plus
                         \- :minus
                         \* :mul
-                        \/ :div})
+                        \/ :div
+                        \= :eq})
 
 (def ^:private oprs (keys oprs-kw))
 

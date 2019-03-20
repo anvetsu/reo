@@ -20,5 +20,6 @@
           (recur p))))))
 
 (defn global []
-  (let [bindings {'+ + '- - '* * '/ /}]
+  (let [bindings {'+ + '- - '* * '/ /
+                  '= =}]
     (make bindings)))
