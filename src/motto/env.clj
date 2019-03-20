@@ -1,4 +1,5 @@
-(ns motto.env)
+(ns motto.env
+  (:require [motto.list :as ml]))
 
 (defn make
   ([bindings]
@@ -21,5 +22,6 @@
 
 (defn global []
   (let [bindings {'+ + '- - '* * '/ /
-                  '= =}]
+                  '= =
+                  'til ml/til}]
     (make bindings)))

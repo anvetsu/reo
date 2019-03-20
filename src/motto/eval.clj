@@ -29,6 +29,7 @@
 (defn- eval-form [ident args env]
   (case ident
     :define (amend (first args) (second args) env)
+    :call (apply-fn (first args) (second args) env)
     (apply-fn ident args env)))
 
 (defn evaluate [expr env]

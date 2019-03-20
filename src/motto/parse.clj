@@ -7,6 +7,8 @@
       (string? x)
       (boolean? x)))
 
+(def maybe-fn? identifier?)
+
 (defn- ex [s]
   (throw (Exception. (str "parser: " s))))
 
@@ -22,13 +24,37 @@
           :else [x (rest tokens)]))
       [nil tokens])))
 
+(defn- parse-args [tokens]
+  (if (= (first tokens) :openp)
+    (let [[proper? args ts]
+          (loop [tokens (rest tokens), args []]
+            (if (seq tokens)
+              (if (= (first tokens) :closep)
+                [true args (rest tokens)]
+                (let [[expr tokens] (parse-expr tokens)]
+                  (recur tokens (conj args expr))))
+              [false args nil]))]
+      (when-not proper?
+        (ex (str "invalid argument list: " tokens)))
+      [args ts])
+    [nil tokens]))
+
+(defn- parse-fncall [tokens]
+  (let [[x tokens] (parse-val tokens)]
+    (if (and (maybe-fn? x) (seq tokens))
+      (let [[args ts] (parse-args tokens)]
+        (if args
+          [[:call x args] ts]
+          [x tokens]))
+      [x tokens])))
+
 (defn- parse-parenths [tokens]
   (if (= (first tokens) :openp)
     (let [[expr tokens] (parse-expr (rest tokens))]
       (when-not (= (first tokens) :closep)
         (throw (Exception. (str "missing closing parenthesis: " tokens))))
       [expr (rest tokens)])
-    (parse-val tokens)))
+    (parse-fncall tokens)))
 
 (defn- parse-arith [tokens precede opr1 opr2 f1 f2]
   (let [[x ts1] (precede tokens)]
