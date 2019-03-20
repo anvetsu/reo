@@ -1,5 +1,7 @@
  * Read & parse negative numbers.
  * Add a symbol data type.
+ * Compact syntax for boolean literals? `1b` and `0b` or even `t` and `f`.
+ * How to treat nulls, even if Motto need to have it?
  * Function literals.
  * Syntax for comments.
  * Optimize list storage.
@@ -7,3 +9,5 @@
  * Import data over JDBC.
  * Implement queries.
  * Built-in data analytics functions.
+ * Expose REST API for programming with motto.
+ * Build a sample dashboard.

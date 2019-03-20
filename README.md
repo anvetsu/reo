@@ -40,8 +40,7 @@ overridden by enclosing expressions in parenthesis:
 > (10 + 4) / 2
 7
 ```
-
-List is the fundamental compound data structure in `Motto`.
+List is the fundamental compound data structure.
 They are the building blocks for the more complex columnar tables.
 
 Unlike other dynamic languages, `Motto` optimizes for the storage of homogeneous lists.
