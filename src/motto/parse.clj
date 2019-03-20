@@ -14,15 +14,28 @@
 
 (declare parse-expr fetch-expr)
 
+(defn- parse-atom [x tokens]
+  (let [s (str x)]
+    (cond
+      (= s "true") [:true (rest tokens)]
+      (= s "false") [:false (rest tokens)]
+      :else [x (rest tokens)])))
+
+(defn- parse-list [tokens]
+  (loop [tokens tokens, xs []]
+    (if (seq tokens)
+      (if (= :close-sb (first tokens))
+        [[:list xs] (rest tokens)]
+        (let [[x tokens] (parse-expr tokens)]
+          (recur tokens (conj xs x))))
+      (ex (str "invalid list: " tokens)))))
+
 (defn- parse-val [tokens]
   (let [x (first tokens)]
-    (if (or (identifier? x) (literal? x))
-      (let [s (str x)]
-        (cond
-          (= s "true") [:true (rest tokens)]
-          (= s "false") [:false (rest tokens)]
-          :else [x (rest tokens)]))
-      [nil tokens])))
+    (cond
+      (or (identifier? x) (literal? x)) (parse-atom x tokens)
+      (= :open-sb x) (parse-list (rest tokens))
+      :else [nil tokens])))
 
 (defn- parse-args [tokens]
   (if (= (first tokens) :openp)
@@ -52,7 +65,7 @@
   (if (= (first tokens) :openp)
     (let [[expr tokens] (parse-expr (rest tokens))]
       (when-not (= (first tokens) :closep)
-        (throw (Exception. (str "missing closing parenthesis: " tokens))))
+        (ex (str "missing closing parenthesis: " tokens)))
       [expr (rest tokens)])
     (parse-fncall tokens)))
 

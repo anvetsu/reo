@@ -5,6 +5,8 @@
 
 (def ^:private oprs-kw {\( :openp
                         \) :closep
+                        \[ :open-sb
+                        \] :close-sb
                         \: :define
                         \+ :plus
                         \- :minus

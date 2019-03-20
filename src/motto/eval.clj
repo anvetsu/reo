@@ -30,6 +30,7 @@
   (case ident
     :define (amend (first args) (second args) env)
     :call (apply-fn (first args) (second args) env)
+    :list (eval-map (first args) env)
     (apply-fn ident args env)))
 
 (defn evaluate [expr env]
