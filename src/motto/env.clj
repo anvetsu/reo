@@ -1,5 +1,5 @@
 (ns motto.env
-  (:require [motto.list :as ml]))
+  (:require [motto.lib.list :as ml]))
 
 (defn make
   ([bindings]
