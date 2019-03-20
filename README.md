@@ -1,6 +1,7 @@
 # Motto
 
 A language and environment for analyzing columnar databases.
+
 Data from RDBMSs, CSVs, REST APIs and other sources can be imported and analyzed using a simple functional language.
 
 The environment exposes a command-line REPL as well as an HTTP interface.
