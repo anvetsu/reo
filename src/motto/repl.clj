@@ -5,8 +5,12 @@
 (defn repl []
   (loop [env (env/global)]
     (print "> ") (flush)
-    (let [s (read-line)
-          exprs (e/compile-string s)
-          [val env] (e/evaluate-all exprs env)]
-      (println val)
-      (recur env))))
+    (recur
+     (try
+       (let [s (read-line)
+             exprs (e/compile-string s)
+             [val env] (e/evaluate-all exprs env)]
+         (println val)
+         env)
+       (catch Exception ex
+         (println (str "ERROR: " (.getMessage ex))))))))
