@@ -1,1 +1,9 @@
- * Implement compiler for literals and amend expressions.
+ * Read & parse negative numbers.
+ * Add a symbol data type.
+ * Function literals.
+ * Syntax for comments.
+ * Optimize list storage.
+ * Compose lists into columnar tables.
+ * Import data over JDBC.
+ * Implement queries.
+ * Built-in data analytics functions.
