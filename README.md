@@ -72,6 +72,8 @@ The arithmetic operators are overloaded to work with lists:
 [10 21 32 43 54]
 ```
 
+TODO: other list operations - fold, filter etc
+
 #### Variables
 
 Variables are declared with the `:` operator.
