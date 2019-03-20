@@ -14,4 +14,5 @@
          env)
        (catch Exception ex
          (println (str "ERROR: " (.getMessage ex)))
-         (.printStackTrace ex))))))
+         (.printStackTrace ex)
+         env)))))
