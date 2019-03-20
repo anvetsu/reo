@@ -3,7 +3,9 @@
 
 (def ^:private ident-graphs #{\_ \@ \$})
 
-(def ^:private oprs-kw {\: :define
+(def ^:private oprs-kw {\( :openp
+                        \) :closep
+                        \: :define
                         \+ :plus
                         \- :minus
                         \* :mul

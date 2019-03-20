@@ -15,8 +15,20 @@
 (defn- parse-val [tokens]
   (let [x (first tokens)]
     (if (or (identifier? x) (literal? x))
-      [x (rest tokens)]
+      (let [s (str x)]
+        (cond
+          (= s "true") [:true (rest tokens)]
+          (= s "false") [:false (rest tokens)]
+          :else [x (rest tokens)]))
       [nil tokens])))
+
+(defn- parse-parenths [tokens]
+  (if (= (first tokens) :openp)
+    (let [[expr tokens] (parse-expr (rest tokens))]
+      (when-not (= (first tokens) :closep)
+        (throw (Exception. (str "missing closing parenthesis: " tokens))))
+      [expr (rest tokens)])
+    (parse-val tokens)))
 
 (defn- parse-arith [tokens precede opr1 opr2 f1 f2]
   (let [[x ts1] (precede tokens)]
@@ -29,7 +41,7 @@
       [x nil])))
 
 (defn- parse-factor [tokens]
-  (parse-arith tokens parse-val :mul :div '* '/))
+  (parse-arith tokens parse-parenths :mul :div '* '/))
 
 (defn- parse-term [tokens]
   (parse-arith tokens parse-factor :plus :minus '+ '-))
