@@ -52,10 +52,12 @@
   (symbol (su/implode cs)))
 
 (defn- number [cs]
-  (let [s (su/implode cs)
-        v (read-string s)]
+  (let [need-z? (= (first cs) \.)
+        s1 (su/implode cs)
+        s2 (if need-z? (str "0" s1) s1)
+        v (read-string s2)]
     (when-not (number? v)
-      (ex (str "invalid numeric input: " s)))
+      (ex (str "invalid numeric input: " s1)))
     v))
 
 (defn- identifier [s]
