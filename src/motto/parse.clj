@@ -12,7 +12,7 @@
 (defn- ex [s]
   (throw (Exception. (str "parser: " s))))
 
-(declare parse-expr fetch-expr)
+(declare parse-expr parse-val fetch-expr)
 
 (defn- parse-atom [x tokens]
   (let [s (str x)]
@@ -30,10 +30,18 @@
           (recur tokens (conj xs x))))
       (ex (str "invalid list: " tokens)))))
 
+(defn- parse-neg-expr [tokens]
+  (let [parser (if (= :openp (first tokens))
+                 parse-expr
+                 parse-val)
+        [expr tokens] (parser tokens)]
+    [['-neg- expr] tokens]))
+
 (defn- parse-val [tokens]
   (let [x (first tokens)]
     (cond
       (or (identifier? x) (literal? x)) (parse-atom x tokens)
+      (= :minus x) (parse-neg-expr (rest tokens))
       (= :open-sb x) (parse-list (rest tokens))
       :else [nil tokens])))
 

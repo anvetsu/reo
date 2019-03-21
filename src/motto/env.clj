@@ -24,6 +24,6 @@
 (defn global []
   (let [bindings {'+ mla/add '- mla/sub
                   '* mla/mul '/ mla/div
-                  '= =
+                  '-neg- - '= =
                   'til mll/til}]
     (make bindings)))
