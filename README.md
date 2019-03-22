@@ -114,7 +114,8 @@ t
 t
 ```
 
-TODO: other comparison and logical operators
+Other comparison operators are `<`, `>`, `<=`, `>=` and `<>`.
+The logical operators are `&` and `|` (or).
 
 #### Functions
 
