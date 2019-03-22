@@ -8,7 +8,14 @@
 
 (declare evaluate)
 
+(def ^:private reserved-names #{'t 'f})
+
+(defn- valid-ident! [var]
+  (when (some #{var} reserved-names)
+    (ex (str "reserved name: " var))))
+
 (defn- amend [var val-expr env]
+  (valid-ident! var)
   (let [[val env] (evaluate val-expr env)]
     [val (env/amend env var val)]))
 

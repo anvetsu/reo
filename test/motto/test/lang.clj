@@ -41,12 +41,14 @@
   (test-with arith-data))
 
 (def ^:private cmrp-data
-  ["1=1"        true
-   "1=1=true"   false
-   "true=(1=1)" true
-   "(1=1)=true" true
-   "1=3"        false
-   "3=1+2"      true])
+  ["1=1"     true
+   "1=1=t"   false
+   "t=(1=1)" true
+   "(1=1)=t" true
+   "(1=2)=f" true
+   "f=f"     true
+   "1=3"     false
+   "3=1+2"   true])
 
 (deftest basic-cmpr
   (test-with cmrp-data))
@@ -63,6 +65,8 @@
 
 (def ^:private vars-data
   ["a"           :ex
+   "t:100"       :ex
+   "f:200"       :ex
    "a:10"        10
    "a + b"       :ex
    "a + 2"       12

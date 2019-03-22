@@ -15,11 +15,10 @@
 (declare parse-expr parse-val fetch-expr)
 
 (defn- parse-atom [x tokens]
-  (let [s (str x)]
-    (cond
-      (= s "true") [:true (rest tokens)]
-      (= s "false") [:false (rest tokens)]
-      :else [x (rest tokens)])))
+  (cond
+    (= x 't) [:true (rest tokens)]
+    (= x 'f) [:false (rest tokens)]
+    :else [x (rest tokens)]))
 
 (defn- parse-list [tokens]
   (loop [tokens tokens, xs []]

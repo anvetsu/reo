@@ -1,6 +1,4 @@
- * Add unittests.
  * Add a symbol data type.
- * Compact syntax for boolean literals? `1b` and `0b` or even `t` and `f`.
  * How to treat nulls, even if Motto need to have it?
  * Function literals.
  * Syntax for comments.
