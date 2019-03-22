@@ -16,10 +16,11 @@
 (defn lookup [env var]
   (loop [env env]
     (let [b (:bindings env)]
-      (if-let [val (get b var)]
-        val
-        (when-let [p (:parent env)]
-          (recur p))))))
+      (let [val (get b var)]
+        (if-not (nil? val)
+          val
+          (when-let [p (:parent env)]
+            (recur p)))))))
 
 (defn not-eq [a b]
   (not (= a b)))

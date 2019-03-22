@@ -1,5 +1,4 @@
  * Sequence accessor operator `#`
- * Comparison & logical operators - <, >, <=, >=, <>, &, |
  * Nulls?
  * Function literals.
  * Compose lists into columnar tables.

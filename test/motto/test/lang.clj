@@ -53,6 +53,19 @@
 (deftest basic-cmpr
   (test-with cmrp-data))
 
+(def ^:private logical-data
+  ["1<2 & 3<4*100"  true
+   "1>2 | 3<4*100"  true
+   "a:10<20 & (1=2 | 1 < 2)" true
+   "a"              true
+   "a:10<10 & (1=2 | 1 < 2)" false
+   "a"              false
+   "(a:10)<10 & (1=2 | 1 < 2)" false
+   "a"              10])
+
+(deftest basic-logical
+  (test-with logical-data))
+
 (def ^:private lists-data
   ["[1 2 3]"       [1 2 3]
    "[\"Price: \" \"$\" 10+20]" ["Price: " "$" 30]

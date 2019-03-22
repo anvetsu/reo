@@ -58,8 +58,10 @@
     (apply-fn ident args env)))
 
 (defn- force-lookup [env expr]
-  (or (env/lookup env expr)
-      (ex (str "binding not found: " expr))))
+  (let [v (env/lookup env expr)]
+    (if (nil? v)
+      (ex (str "binding not found: " expr))
+      v)))
 
 (defn evaluate [expr env]
   (cond
