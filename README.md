@@ -89,11 +89,18 @@ Variable declaration is an expression:
 
 ```
 > b:4+a:100
-b:4+a:100
+104
 > a
 100
 > b
 104
+```
+
+Note that variable binding has lower precedence than arithmetic operators.
+To bind `b` to `4`, you will have to do:
+
+```
+(b:4)+a:100
 ```
 
 #### Comparison
