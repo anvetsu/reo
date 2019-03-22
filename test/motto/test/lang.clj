@@ -6,16 +6,24 @@
 (def ^:private env (env/global))
 
 (defn- comp-eval [s env]
-  (e/evaluate-all
-   (e/compile-string s)
-   env))
+  (try
+    (e/evaluate-all
+     (e/compile-string s)
+     env)
+    (catch Exception ex
+      [{:ex ex} env])))
 
 (defn- test-with [data]
   (loop [ad data
          env env]
     (when (seq ad)
       (let [[k v] [(first ad) (second ad)]
-            [val env] (comp-eval k env)]
+            [val env] (comp-eval k env)
+            val (if-let [ex (:ex val)]
+                  (if-not (= v :ex)
+                    (throw ex)
+                    :ex)
+                  val)]
         (is (= v val))
         (recur (rest (rest ad)) env)))))
 
@@ -54,7 +62,9 @@
   (test-with lists-data))
 
 (def ^:private vars-data
-  ["a:10"        10
+  ["a"           :ex
+   "a:10"        10
+   "a + b"       :ex
    "a + 2"       12
    "b:4+a:100"   104
    "a+b"         204

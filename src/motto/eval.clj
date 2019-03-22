@@ -33,12 +33,16 @@
     :list (eval-map (first args) env)
     (apply-fn ident args env)))
 
+(defn- force-lookup [env expr]
+  (or (env/lookup env expr)
+      (ex (str "binding not found: " expr))))
+
 (defn evaluate [expr env]
   (cond
     (= expr :true) [true env]
     (= expr :false) [false env]
     (p/literal? expr) [expr env]
-    (p/identifier? expr) [(env/lookup env expr) env]
+    (p/identifier? expr) [(force-lookup env expr) env]
     (seq expr) (eval-form (first expr) (rest expr) env)))
 
 (defn evaluate-all [exprs env]
