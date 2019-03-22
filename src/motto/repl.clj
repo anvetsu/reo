@@ -2,6 +2,12 @@
   (:require [motto.env :as env]
             [motto.eval :as e]))
 
+(defn- m-println [x]
+  (let [v  (if (boolean? x)
+             (if x 't 'f)
+             x)]
+    (println v)))
+
 (defn repl []
   (loop [env (env/global)]
     (print "> ") (flush)
@@ -10,7 +16,7 @@
        (let [s (read-line)
              exprs (e/compile-string s)
              [val env] (e/evaluate-all exprs env)]
-         (println val)
+         (m-println val)
          env)
        (catch Exception ex
          (println (str "ERROR: " (.getMessage ex)))

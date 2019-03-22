@@ -26,10 +26,10 @@ motto v0.0.1
 -37.3
 > "hello world"
 hello world
-> true
-true
-> false
-false
+> t
+t
+> f
+f
 ```
 
 The arithmetic operators obey their generally accepted precedence rules. This can be
@@ -109,9 +109,9 @@ The `=` operator compares two values for equality:
 
 ```
 > a = 100
-true
-> (1 = 1) = true
-true
+t
+> (1 = 1) = t
+t
 ```
 
 TODO: other comparison and logical operators
