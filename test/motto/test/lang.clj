@@ -42,7 +42,7 @@
 
 (def ^:private cmrp-data
   ["1=1"     true
-   "1=1=t"   false
+   "1=1=t"   :ex
    "t=(1=1)" true
    "(1=1)=t" true
    "(1=2)=f" true

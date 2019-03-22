@@ -33,11 +33,28 @@
         [(apply fnval eargs) env])
       (ex (str "function not found: " fn)))))
 
+(defn- eval-shortcircuit [exprs env check]
+  (loop [exprs exprs, last-val false, env env]
+    (if (seq exprs)
+      (let [[v env] (evaluate (first exprs) env)]
+        (if (check v)
+          [v env]
+          (recur (rest exprs) v env)))
+      [last-val env])))
+
+(defn- eval-and [exprs env]
+  (eval-shortcircuit exprs env not))
+
+(defn- eval-or [exprs env]
+  (eval-shortcircuit exprs env identity))
+
 (defn- eval-form [ident args env]
   (case ident
     :define (amend (first args) (second args) env)
     :call (apply-fn (first args) (second args) env)
     :list (eval-map (first args) env)
+    :and (eval-and args env)
+    :or (eval-or args env)
     (apply-fn ident args env)))
 
 (defn- force-lookup [env expr]

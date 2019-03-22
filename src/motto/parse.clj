@@ -92,13 +92,32 @@
 (defn- parse-term [tokens]
   (parse-arith tokens parse-factor :plus :minus '+ '-))
 
-(defn- parse-eq [tokens]
+(def ^:private cmpr-oprs-map {:eq '=
+                              :lt '<
+                              :gt '>
+                              :lteq '<=
+                              :gteq '>=
+                              :not-eq '<>})
+
+(def ^:private cmpr-opr-keys (keys cmpr-oprs-map))
+
+(defn- parse-cmpr [tokens]
   (let [[x ts1] (parse-term tokens)]
     (if (and x (seq ts1))
       (let [y (first ts1)]
-        (if (= :eq y)
+        (if (some #{y} cmpr-opr-keys)
+          (let [[z ts2] (parse-term (rest ts1))]
+            [[(get cmpr-oprs-map y) x z] ts2])
+          [x ts1]))
+      [x nil])))
+
+(defn- parse-logical [tokens]
+  (let [[x ts1] (parse-cmpr tokens)]
+    (if (and x (seq ts1))
+      (let [y (first ts1)]
+        (if (or (= :and y) (= :or y))
           (let [[z ts2] (parse-expr (rest ts1))]
-            [['= x z] ts2])
+            [[y x z] ts2])
           [x ts1]))
       [x nil])))
 
@@ -120,4 +139,4 @@
       (fetch-expr (next-parser tokens) nil))))
 
 (defn parse-expr [tokens]
-  (fetch-expr (parse-define tokens) parse-eq))
+  (fetch-expr (parse-define tokens) parse-logical))

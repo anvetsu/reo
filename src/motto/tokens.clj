@@ -12,7 +12,11 @@
                         \- :minus
                         \* :mul
                         \/ :div
-                        \= :eq})
+                        \= :eq
+                        \< :lt
+                        \> :gt
+                        \& :and
+                        \| :or})
 
 (def ^:private oprs (keys oprs-kw))
 
@@ -66,7 +70,18 @@
   (multichar-token s ident-char? ident))
 
 (defn- operator [s]
-  [(rest s) (get oprs-kw (first s))])
+  (let [c (first s)
+        multopr
+        (cond
+          (= c \>) (when (= (second s) \=)
+                     :gteq)
+          (= c \<) (let [c2 (second s)]
+                     (cond
+                       (= c2 \=) :lteq
+                       (= c2 \>) :not-eq)))]
+    (if multopr
+      [(nthrest s 2) multopr]
+      [(rest s) (get oprs-kw c)])))
 
 (defn- num-literal [s]
   (multichar-token s num-char? number))
