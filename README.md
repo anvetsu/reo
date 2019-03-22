@@ -126,7 +126,7 @@ TODO
 
 #### Comments
 
-TODO
+The sequence of characters `//` starts a comment that extends to the end of the line.
 
 ### Columnar data tables
 

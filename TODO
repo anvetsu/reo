@@ -1,11 +1,14 @@
- * Add a symbol data type.
- * How to treat nulls, even if Motto need to have it?
+ * Sequence accessor operator `#`
+ * Comparison & logical operators - <, >, <=, >=, <>, &, |
+ * Nulls?
  * Function literals.
- * Syntax for comments.
- * Optimize list storage.
  * Compose lists into columnar tables.
  * Import data over JDBC.
  * Implement queries.
+
+ * Add symbol and temporal data types.
  * Built-in data analytics functions.
  * Expose REST API for programming with motto.
+ * Optimize list storage.
+
  * Build a sample dashboard.
