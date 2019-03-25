@@ -97,15 +97,19 @@
           [x ts1]))
       [x ts1])))
 
+(declare parse-term parse-cmpr)
+
 (defn- parse-arith [tokens precede opr1 opr2 f1 f2]
   (let [[x ts1] (precede tokens)]
-    (if (and x (seq ts1))
-      (let [y (first ts1)]
-        (if (or (= opr1 y) (= opr2 y))
-          (let [[z ts2] (parse-expr (rest ts1))]
-            [[(if (= opr1 y) f1 f2) x z] ts2])
-          [x ts1]))
-      [x nil])))
+    (if x
+      (loop [ts1 ts1, exprs x]
+        (if (seq ts1)
+          (let [y (first ts1)]
+            (if (or (= opr1 y) (= opr2 y))
+              (let [[z ts2] (precede (rest ts1))]
+                (recur ts2 [(if (= opr1 y) f1 f2) exprs z]))
+              [exprs ts1]))
+          [exprs ts1])))))
 
 (defn- parse-factor [tokens]
   (parse-arith tokens parse-accessor :mul :div '* '/))
