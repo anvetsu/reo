@@ -2,10 +2,15 @@
   (:require [motto.lib.list :as mll]
             [motto.lib.arith :as mla]))
 
+(defn- ex [msg]
+  (throw (Exception. (str "env: " msg))))
+
 (defn make
-  ([bindings]
-   {:parent nil
+  ([parent bindings]
+   {:parent parent
     :bindings bindings})
+  ([bindings]
+   (make nil bindings))
   ([]
    (make {})))
 
@@ -21,6 +26,18 @@
           val
           (when-let [p (:parent env)]
             (recur p)))))))
+
+(defn extended [env vars vals]
+  (if (and (seq vars) (seq vals))
+    (let [l1 (count vars)
+          l2 (count vals)]
+      (cond
+        (> l1 l2) (ex (str "more variables than values: " vars))
+        (> l2 l1) (ex (str "more values than variables: " vals))
+        :else
+        (let [bs (into {} (map vector vars vals))]
+          (make env bs))))
+    env))
 
 (defn global []
   (let [bindings {'+ mla/add '- mla/sub

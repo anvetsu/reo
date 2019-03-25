@@ -27,12 +27,17 @@
         (recur (rest exprs) env (conj vals val)))
       [vals env])))
 
-(defn- apply-fn [fn args env]
+(defn- apply-fn [fnval args env]
+  (let [e (env/extended env (p/fnparams fnval) args)]
+    [(evaluate (p/fnbody fnval) e) env]))
+
+(defn- call-fn [fn args env]
   (let [[fnval env] (evaluate fn env)]
-    (if fnval
-      (let [[eargs env] (eval-map args env)]
-        [(apply fnval eargs) env])
-      (ex (str "function not found: " fn)))))
+    (cond
+      (p/function? fnval) (apply-fn fnval args env)
+      (fn? fnval) (let [[eargs env] (eval-map args env)]
+                    [(apply fnval eargs) env])
+      :else (ex (str "invalid function: " fn)))))
 
 (defn- eval-shortcircuit [exprs env check]
   (loop [exprs exprs, last-val false, env env]
@@ -52,11 +57,11 @@
 (defn- eval-form [ident args env]
   (case ident
     :define (amend (first args) (second args) env)
-    :call (apply-fn (first args) (second args) env)
+    :call (call-fn (first args) (second args) env)
     :list (eval-map (first args) env)
     :and (eval-and args env)
     :or (eval-or args env)
-    (apply-fn ident args env)))
+    (call-fn ident args env)))
 
 (defn- force-lookup [env expr]
   (let [v (env/lookup env expr)]
@@ -70,6 +75,7 @@
     (= expr :false) [false env]
     (p/literal? expr) [expr env]
     (p/identifier? expr) [(force-lookup env expr) env]
+    (p/function? expr) [(p/closure expr env) env]
     (seq expr) (eval-form (first expr) (rest expr) env)))
 
 (defn evaluate-all [exprs env]

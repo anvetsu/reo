@@ -9,15 +9,48 @@
 
 (def maybe-fn? identifier?)
 
+(defn function? [x]
+  (and (map? x) (:fn x)))
+
+(defn closure [f env]
+  (let [obj (:fn f)]
+    {:fn (assoc obj :env env)}))
+
+(defn fnparams [f]
+  (:params (:fn f)))
+
+(defn fnbody [f]
+  (:body (:fn f)))
+
 (defn- ex [s]
   (throw (Exception. (str "parser: " s))))
 
 (declare parse-expr parse-val fetch-expr)
 
+(defn- parse-params [tokens]
+  (if (= :openp (first tokens))
+    (loop [ts (rest tokens)
+           params []]
+      (if (seq ts)
+        (let [t (first ts)]
+          (cond
+            (identifier? t) (recur (rest ts) (conj t params))
+            (= :closep t) [params (rest ts)]
+            :else (ex (str "invalid parameter: " t))))
+        (ex "missing closing parenthesis in function definition")))
+    (ex (str "missing open parenthesis: " tokens))))
+
+(defn- parse-fn [tokens]
+  (let [[params ts1] (parse-params tokens)
+        [body ts2] (parse-expr ts1)]
+    [{:fn {:params params :body body}}
+     ts2]))
+
 (defn- parse-atom [x tokens]
   (cond
     (= x 't) [:true (rest tokens)]
     (= x 'f) [:false (rest tokens)]
+    (= x 'fn) (parse-fn tokens)
     :else [x (rest tokens)]))
 
 (defn- parse-list [tokens]
