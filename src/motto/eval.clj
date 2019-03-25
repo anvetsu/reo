@@ -35,11 +35,11 @@
     [v env]))
 
 (defn- call-fn [fn args env]
-  (let [[fnval env] (evaluate fn env)]
+  (let [[fnval env] (evaluate fn env)
+        [eargs env] (eval-map args env)]
     (cond
-      (tp/function? fnval) (apply-fn fnval args env)
-      (fn? fnval) (let [[eargs env] (eval-map args env)]
-                    [(apply fnval eargs) env])
+      (tp/function? fnval) (apply-fn fnval eargs env)
+      (fn? fnval) [(apply fnval eargs) env]
       :else (ex (str "invalid function: " fn)))))
 
 (defn- eval-shortcircuit [exprs env check]

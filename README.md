@@ -127,6 +127,15 @@ The `fn` keyword is used to create function objects.
 100
 ```
 
+Functions are first-class objects. Here is a function returning a function:
+
+```
+> a:fn(x) fn(y) x + y
+> b:a(1)
+> b(10)
+11
+```
+
 #### Conditional expressions
 
 TODO

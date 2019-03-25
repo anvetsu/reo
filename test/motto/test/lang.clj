@@ -115,7 +115,8 @@
    "a(20)"                   400
    "(a:fn(x) fn(y) x+y)1"    1
    "(b:a(10))1"              1
-   "b(20)"                   30])
+   "b(20)"                   30
+   "b(b(1))"                 21])
 
 (deftest fns
   (test-with fns-data))
