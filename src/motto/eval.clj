@@ -1,3 +1,4 @@
+;; An interpreter for motto.
 (ns motto.eval
   (:require [motto.env :as env]
             [motto.tokens :as t]

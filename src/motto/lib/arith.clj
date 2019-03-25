@@ -29,3 +29,6 @@
 (def sub (partial arith -))
 (def mul (partial arith *))
 (def div (partial arith /))
+
+(defn not-eq [a b]
+  (not (= a b)))

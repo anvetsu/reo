@@ -22,14 +22,11 @@
           (when-let [p (:parent env)]
             (recur p)))))))
 
-(defn not-eq [a b]
-  (not (= a b)))
-
 (defn global []
   (let [bindings {'+ mla/add '- mla/sub
                   '* mla/mul '/ mla/div
                   '= = '> > '< < '>= >=
-                  '<= <= '<> not-eq
+                  '<= <= '<> mla/not-eq
                   '-get- get
                   '-neg- - 'til mll/til}]
     (make bindings)))
