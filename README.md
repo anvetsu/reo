@@ -119,7 +119,13 @@ The logical operators are `&` and `|` (or).
 
 #### Functions
 
-TODO
+The `fn` keyword is used to create function objects.
+
+```
+> sq:fn(x) x*x
+> sq(10)
+100
+```
 
 #### Conditional expressions
 
