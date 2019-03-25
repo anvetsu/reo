@@ -29,8 +29,9 @@
       [vals env])))
 
 (defn- apply-fn [fnval args env]
-  (let [e (env/extended env (tp/fnparams fnval) args)
-        [v _] (evaluate (tp/fnbody fnval) e)]
+  (let [e1 (env/link (tp/fnenv fnval) env)
+        e2 (env/amend-all e1 (tp/fnparams fnval) args)
+        [v _] (evaluate (tp/fnbody fnval) e2)]
     [v env]))
 
 (defn- call-fn [fn args env]

@@ -24,3 +24,6 @@
 
 (defn fnbody [f]
   (:body (:fn f)))
+
+(defn fnenv [f]
+  (:env (:fn f)))

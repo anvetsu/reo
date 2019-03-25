@@ -108,11 +108,14 @@
 (deftest access
   (test-with access-data))
 
-(def ^:private fn-data
-  ["(fn (x) x*x)(10)" 100
+(def ^:private fns-data
+  ["(fn (x) x*x)(10)"        100
    "(fn (x y) x*2+y)(10 20)" 40
-   "(a:fn(x) x*x)100" 100
-   "a(20)"            400])
+   "(a:fn(x) x*x)100"        100
+   "a(20)"                   400
+   "(a:fn(x) fn(y) x+y)1"    1
+   "(b:a(10))1"              1
+   "b(20)"                   30])
 
-(deftest fn
-  (test-with fn-data))
+(deftest fns
+  (test-with fns-data))
