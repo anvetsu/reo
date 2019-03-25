@@ -70,13 +70,16 @@
       [args ts])
     [nil tokens]))
 
+(defn- parse-call [x tokens]
+  (let [[args ts] (parse-args tokens)]
+    (if args
+      [[:call x args] ts]
+      [x tokens])))
+
 (defn- parse-fncall [tokens]
   (let [[x tokens] (parse-val tokens)]
     (if (and (tp/maybe-fn? x) (seq tokens))
-      (let [[args ts] (parse-args tokens)]
-        (if args
-          [[:call x args] ts]
-          [x tokens]))
+      (parse-call x tokens)
       [x tokens])))
 
 (defn- parse-parenths [tokens]
@@ -159,7 +162,9 @@
 
 (defn- fetch-expr [[e tokens] next-parser]
   (if e
-    [e tokens]
+    (if (= :openp (first tokens))
+      (parse-call e tokens)
+      [e tokens])
     (when next-parser
       (fetch-expr (next-parser tokens) nil))))
 
