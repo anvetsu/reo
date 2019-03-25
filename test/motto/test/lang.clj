@@ -107,3 +107,12 @@
 
 (deftest access
   (test-with access-data))
+
+(def ^:private fn-data
+  ["(fn (x) x*x)(10)" 100
+   "(fn (x y) x*2+y)(10 20)" 40
+   "(a:fn(x) x*x)100" 100
+   "a(20)"            400])
+
+(deftest fn
+  (test-with fn-data))

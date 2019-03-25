@@ -1,6 +1,3 @@
- * Tests for function literals
- * Calls on literal functions
-
  * Nulls?
  * Compose lists into columnar tables.
  * Import data over JDBC.
