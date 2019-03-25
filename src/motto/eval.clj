@@ -2,6 +2,7 @@
 (ns motto.eval
   (:require [motto.env :as env]
             [motto.tokens :as t]
+            [motto.type :as tp]
             [motto.parse :as p]))
 
 (defn- ex [s]
@@ -28,13 +29,14 @@
       [vals env])))
 
 (defn- apply-fn [fnval args env]
-  (let [e (env/extended env (p/fnparams fnval) args)]
-    [(evaluate (p/fnbody fnval) e) env]))
+  (let [e (env/extended env (tp/fnparams fnval) args)
+        [v _] (evaluate (tp/fnbody fnval) e)]
+    [v env]))
 
 (defn- call-fn [fn args env]
   (let [[fnval env] (evaluate fn env)]
     (cond
-      (p/function? fnval) (apply-fn fnval args env)
+      (tp/function? fnval) (apply-fn fnval args env)
       (fn? fnval) (let [[eargs env] (eval-map args env)]
                     [(apply fnval eargs) env])
       :else (ex (str "invalid function: " fn)))))
@@ -73,9 +75,9 @@
   (cond
     (= expr :true) [true env]
     (= expr :false) [false env]
-    (p/literal? expr) [expr env]
-    (p/identifier? expr) [(force-lookup env expr) env]
-    (p/function? expr) [(p/closure expr env) env]
+    (tp/literal? expr) [expr env]
+    (tp/identifier? expr) [(force-lookup env expr) env]
+    (tp/function? expr) [(tp/closure expr env) env]
     (seq expr) (eval-form (first expr) (rest expr) env)))
 
 (defn evaluate-all [exprs env]

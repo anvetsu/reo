@@ -1,26 +1,5 @@
-(ns motto.parse)
-
-(def identifier? symbol?)
-
-(defn literal? [x]
-  (or (number? x)
-      (string? x)
-      (boolean? x)))
-
-(def maybe-fn? identifier?)
-
-(defn function? [x]
-  (and (map? x) (:fn x)))
-
-(defn closure [f env]
-  (let [obj (:fn f)]
-    {:fn (assoc obj :env env)}))
-
-(defn fnparams [f]
-  (:params (:fn f)))
-
-(defn fnbody [f]
-  (:body (:fn f)))
+(ns motto.parse
+  (:require [motto.type :as tp]))
 
 (defn- ex [s]
   (throw (Exception. (str "parser: " s))))
@@ -34,7 +13,7 @@
       (if (seq ts)
         (let [t (first ts)]
           (cond
-            (identifier? t) (recur (rest ts) (conj t params))
+            (tp/identifier? t) (recur (rest ts) (conj params t))
             (= :closep t) [params (rest ts)]
             :else (ex (str "invalid parameter: " t))))
         (ex "missing closing parenthesis in function definition")))
@@ -43,14 +22,13 @@
 (defn- parse-fn [tokens]
   (let [[params ts1] (parse-params tokens)
         [body ts2] (parse-expr ts1)]
-    [{:fn {:params params :body body}}
-     ts2]))
+    [(tp/make-fn params body) ts2]))
 
 (defn- parse-atom [x tokens]
   (cond
     (= x 't) [:true (rest tokens)]
     (= x 'f) [:false (rest tokens)]
-    (= x 'fn) (parse-fn tokens)
+    (= x 'fn) (parse-fn (rest tokens))
     :else [x (rest tokens)]))
 
 (defn- parse-list [tokens]
@@ -72,7 +50,7 @@
 (defn- parse-val [tokens]
   (let [x (first tokens)]
     (cond
-      (or (identifier? x) (literal? x)) (parse-atom x tokens)
+      (or (tp/identifier? x) (tp/literal? x)) (parse-atom x tokens)
       (= :minus x) (parse-neg-expr (rest tokens))
       (= :open-sb x) (parse-list (rest tokens))
       :else [nil tokens])))
@@ -94,7 +72,7 @@
 
 (defn- parse-fncall [tokens]
   (let [[x tokens] (parse-val tokens)]
-    (if (and (maybe-fn? x) (seq tokens))
+    (if (and (tp/maybe-fn? x) (seq tokens))
       (let [[args ts] (parse-args tokens)]
         (if args
           [[:call x args] ts]
@@ -166,7 +144,7 @@
 
 (defn- parse-define [tokens]
   (let [[x y] [(first tokens) (second tokens)]]
-    (if (identifier? x)
+    (if (tp/identifier? x)
       (if (= :define y)
         (let [[e ts] (parse-expr (nthrest tokens 2))]
           (when-not e
