@@ -30,5 +30,6 @@
                   '* mla/mul '/ mla/div
                   '= = '> > '< < '>= >=
                   '<= <= '<> not-eq
+                  '-get- get
                   '-neg- - 'til mll/til}]
     (make bindings)))

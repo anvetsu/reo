@@ -93,3 +93,12 @@
 
 (deftest vars
   (test-with vars-data))
+
+(def ^:private accessor-data
+  ["2#[1 2 3 4]"     3
+   "a:[10 20 30]"    [10 20 30]
+   "1#a + 100"       120
+   "1#a - 100*20"    -1980])
+
+(deftest accessor
+  (test-with accessor-data))

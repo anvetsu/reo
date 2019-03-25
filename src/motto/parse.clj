@@ -76,6 +76,16 @@
       [expr (rest tokens)])
     (parse-fncall tokens)))
 
+(defn- parse-accessor [tokens]
+  (let [[x ts1] (parse-parenths tokens)]
+    (if (and x (seq ts1))
+      (let [y (first ts1)]
+        (if (= y :hash)
+          (let [[z ts2] (parse-expr (rest ts1))]
+            [['-get- z x] ts2])
+          [x ts1]))
+      [x ts1])))
+
 (defn- parse-arith [tokens precede opr1 opr2 f1 f2]
   (let [[x ts1] (precede tokens)]
     (if (and x (seq ts1))
@@ -87,7 +97,7 @@
       [x nil])))
 
 (defn- parse-factor [tokens]
-  (parse-arith tokens parse-parenths :mul :div '* '/))
+  (parse-arith tokens parse-accessor :mul :div '* '/))
 
 (defn- parse-term [tokens]
   (parse-arith tokens parse-factor :plus :minus '+ '-))
