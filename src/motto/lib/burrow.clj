@@ -18,9 +18,11 @@
       (recur (rest y) (conj r (opr (first y) x)))
       r)))
 
+(defn- atomic? [x] (not (seqable? x)))
+
 (defn- burrow [opr x y]
   (cond
-    (and (number? x) (number? y)) (opr x y)
+    (and (atomic? x) (atomic? y)) (opr x y)
     (and (seqable? x) (seqable? y)) (seq-burrow opr x y)
     (seqable? x) (seq-x-burrow opr x y)
     :else (seq-y-burrow opr x y)))
