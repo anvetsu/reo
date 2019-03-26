@@ -120,3 +120,11 @@
 
 (deftest fns
   (test-with fns-data))
+
+(def ^:private blck-data
+  ["{1+2 3+4 5+4}"    9
+   "(pyth:fn(x y) { a:x*x b:y*y a+b })1" 1
+   "pyth(3 4)"        25])
+
+(deftest blck
+  (test-with blck-data))
