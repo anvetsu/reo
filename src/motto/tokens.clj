@@ -7,6 +7,8 @@
                         \) :closep
                         \[ :open-sb
                         \] :close-sb
+                        \{ :open-cb
+                        \} :close-cb
                         \: :define
                         \+ :plus
                         \- :minus
@@ -17,8 +19,7 @@
                         \> :gt
                         \# :hash
                         \& :and
-                        \| :or
-                        \; :semi-colon})
+                        \| :or})
 
 (def ^:private oprs (keys oprs-kw))
 

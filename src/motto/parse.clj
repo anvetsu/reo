@@ -168,21 +168,26 @@
     (when next-parser
       (fetch-expr (next-parser tokens) nil))))
 
-(defn- parse-expr [tokens]
-  (fetch-expr (parse-define tokens) parse-logical))
-
 (defn- blockify [exprs]
   (if (> (count exprs) 1)
     [:block exprs]
     (first exprs)))
 
-(defn parse [tokens]
-  (let [[expr tokens] (parse-expr tokens)]
-    (loop [tokens tokens, exprs [expr]]
-      (if (seq tokens)
-        (let [t (first tokens)]
-          (if (= :semi-colon t)
-            (let [[expr tokens] (parse-expr (rest tokens))]
-              (recur tokens (conj exprs expr)))
-            [(blockify exprs) tokens]))
-        [(blockify exprs) tokens]))))
+(defn- parse-expr [tokens]
+  (let [p (fn [tokens]
+            (fetch-expr (parse-define tokens) parse-logical))
+        block? (= :open-cb (first tokens))
+        tokens (if block? (rest tokens) tokens)
+        [expr tokens] (p tokens)]
+    (if block?
+      (loop [tokens tokens, exprs [expr]]
+        (if (seq tokens)
+          (let [t (first tokens)]
+            (if (= :close-cb t)
+              [(blockify exprs) (rest tokens)]
+              (let [[expr tokens] (p tokens)]
+                (recur tokens (conj exprs expr)))))
+          (ex "code-block not closed")))
+      [expr tokens])))
+
+(def parse parse-expr)
