@@ -57,6 +57,13 @@
 (defn- eval-or [exprs env]
   (eval-shortcircuit exprs env identity))
 
+(defn- eval-block [exprs env]
+  (loop [exprs exprs, val nil, env env]
+    (if (seq exprs)
+      (let [[v e] (evaluate (first exprs) env)]
+        (recur (rest exprs) v e))
+      [val env])))
+
 (defn- eval-form [ident args env]
   (case ident
     :define (amend (first args) (second args) env)
@@ -64,6 +71,7 @@
     :list (eval-map (first args) env)
     :and (eval-and args env)
     :or (eval-or args env)
+    :block (eval-block (first args) env)
     (call-fn ident args env)))
 
 (defn- force-lookup [env expr]
@@ -90,10 +98,10 @@
 
 (defn compile-string [s]
   (let [tokens (t/tokens s)]
-    (loop [[expr tokens] (p/parse-expr tokens)
+    (loop [[expr tokens] (p/parse tokens)
            exprs []]
       (when-not expr
         (ex (str "compilation failed: " s)))
       (if (seq tokens)
-        (recur (p/parse-expr tokens) (conj exprs expr))
+        (recur (p/parse tokens) (conj exprs expr))
         (conj exprs expr)))))

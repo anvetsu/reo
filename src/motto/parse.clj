@@ -168,5 +168,21 @@
     (when next-parser
       (fetch-expr (next-parser tokens) nil))))
 
-(defn parse-expr [tokens]
+(defn- parse-expr [tokens]
   (fetch-expr (parse-define tokens) parse-logical))
+
+(defn- blockify [exprs]
+  (if (> (count exprs) 1)
+    [:block exprs]
+    (first exprs)))
+
+(defn parse [tokens]
+  (let [[expr tokens] (parse-expr tokens)]
+    (loop [tokens tokens, exprs [expr]]
+      (if (seq tokens)
+        (let [t (first tokens)]
+          (if (= :semi-colon t)
+            (let [[expr tokens] (parse-expr (rest tokens))]
+              (recur tokens (conj exprs expr)))
+            [(blockify exprs) tokens]))
+        [(blockify exprs) tokens]))))

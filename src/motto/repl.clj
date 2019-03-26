@@ -1,24 +1,28 @@
 (ns motto.repl
-  (:require [motto.env :as env]
+  (:require [clojure.string :as str]
+            [motto.env :as env]
             [motto.eval :as e]
-            [motto.type :as tp]))
+            [motto.expr-io :as eio]))
 
-(defn- m-println [x]
-  (let [v  (cond
-             (boolean? x) (if x 't 'f)
-             (tp/function? x) '<fn>
-             :else x)]
-    (println v)))
+(defn- readln []
+  (loop [[flag s] (eio/readln)
+         ss []]
+    (case flag
+      :more (do (print "- ")
+                (flush)
+                (recur (eio/readln)
+                       (conj ss s)))
+      :done (str/join (conj ss s)))))
 
 (defn repl []
   (loop [env (env/global)]
     (print "> ") (flush)
     (recur
      (try
-       (let [s (read-line)
+       (let [s (readln)
              exprs (e/compile-string s)
              [val env] (e/evaluate-all exprs env)]
-         (m-println val)
+         (eio/writeln val)
          env)
        (catch Exception ex
          (println (str "ERROR: " (.getMessage ex)))
