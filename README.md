@@ -74,7 +74,7 @@ the first `n` integers starting at `0` (`n` itself is not included in the result
 [0 1 2 3 4]
 ```
 
-The arithmetic operators are overloaded to work with lists:
+The arithmetic operators are overloaded to work with lists and numbers:
 
 ```
 > 2 * til(5)
@@ -126,6 +126,15 @@ t
 ```
 
 Other comparison operators are `<`, `>`, `<=`, `>=` and `<>`.
+The comparison operators can also be applied to lists and atomic values, mixed together:
+
+```
+> [1 2 3] < [3 4 5]
+[true true true]
+> 100=[99 100 101]
+[false true false]
+```
+
 The logical operators are `&` and `|` (or).
 
 #### Functions

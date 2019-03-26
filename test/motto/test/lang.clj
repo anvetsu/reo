@@ -53,7 +53,9 @@
    "(1=2)=f" true
    "f=f"     true
    "1=3"     false
-   "3=1+2"   true])
+   "3=1+2"   true
+   "[1 2 3] < [3 4 5]" [true true true]
+   "100=[99 100 101]" [false true false]])
 
 (deftest basic-cmpr
   (test-with cmrp-data))
