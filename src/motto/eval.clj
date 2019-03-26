@@ -3,10 +3,11 @@
   (:require [motto.env :as env]
             [motto.tokens :as t]
             [motto.type :as tp]
-            [motto.parse :as p]))
+            [motto.parse :as p]
+            [motto.util :as u]))
 
 (defn- ex [s]
-  (throw (Exception. (str "eval: " s))))
+  (u/ex (str "eval: " s)))
 
 (declare evaluate)
 

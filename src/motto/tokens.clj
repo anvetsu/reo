@@ -1,5 +1,6 @@
 (ns motto.tokens
-  (:require [motto.str-util :as su]))
+  (:require [motto.str-util :as su]
+            [motto.util :as u]))
 
 (def ^:private ident-graphs #{\_ \@ \$})
 
@@ -26,7 +27,7 @@
 (def ^:private comment-char \/)
 
 (defn- ex [s]
-  (throw (Exception. (str "tokens: " s))))
+  (u/ex (str "tokens: " s)))
 
 (defn- ident-start-char? [ch]
   (or (Character/isAlphabetic (int ch))

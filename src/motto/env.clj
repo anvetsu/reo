@@ -1,9 +1,10 @@
 (ns motto.env
-  (:require [motto.lib.list :as mll]
+  (:require [motto.util :as u]
+            [motto.lib.list :as mll]
             [motto.lib.arith :as mla]))
 
 (defn- ex [msg]
-  (throw (Exception. (str "env: " msg))))
+  (u/ex (str "env: " msg)))
 
 (defn make
   ([parent bindings]

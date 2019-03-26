@@ -1,8 +1,9 @@
 (ns motto.parse
-  (:require [motto.type :as tp]))
+  (:require [motto.type :as tp]
+            [motto.util :as u]))
 
 (defn- ex [s]
-  (throw (Exception. (str "parser: " s))))
+  (u/ex (str "parser: " s)))
 
 (declare parse-expr parse-val fetch-expr)
 
