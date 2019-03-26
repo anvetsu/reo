@@ -1,3 +1,4 @@
+ * Comparison operators to be overloaded for lists.
  * Nulls?
  * Compose lists into columnar tables.
  * Import data over JDBC.

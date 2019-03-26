@@ -1,7 +1,7 @@
 (ns motto.env
   (:require [motto.util :as u]
             [motto.lib.list :as mll]
-            [motto.lib.arith :as mla]))
+            [motto.lib.burrow :as mlb]))
 
 (defn- ex [msg]
   (u/ex (str "env: " msg)))
@@ -44,10 +44,11 @@
             (recur p)))))))
 
 (defn global []
-  (let [bindings {'+ mla/add '- mla/sub
-                  '* mla/mul '/ mla/div
-                  '= = '> > '< < '>= >=
-                  '<= <= '<> mla/not-eq
-                  '-get- get
-                  '-neg- - 'til mll/til}]
+  (let [bindings {'+ mlb/add '- mlb/sub
+                  '* mlb/mul '/ mlb/div
+                  '= mlb/eq '> mlb/gt
+                  '< mlb/lt '>= mlb/gteq
+                  '<= mlb/lteq '<> mlb/neq
+                  '-get- get '-neg- - 'til
+                  mll/til}]
     (make bindings)))
