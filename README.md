@@ -41,6 +41,17 @@ overridden by enclosing expressions in parenthesis:
 > (10 + 4) / 2
 7
 ```
+
+If you want to split an expression into multiple lines, terminate each line with a space:
+
+```
+> 10 + 4 <space>
+- / 2
+12
+```
+
+The `-` prompt indicates that `motto` is waiting for more input.
+
 List is the fundamental compound data structure.
 They are the building blocks for the more complex columnar tables.
 
@@ -134,6 +145,16 @@ Functions are first-class objects. Here is a function returning a function:
 > b:a(1)
 > b(10)
 11
+```
+
+#### Code blocks
+
+Code blocks are delimited by opening and closing curly braces:
+
+```
+> pyth:fn(x y) { a:x*x b:y*y a+b }
+> pyth(3 4)
+25
 ```
 
 #### Conditional expressions
