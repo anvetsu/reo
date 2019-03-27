@@ -83,12 +83,26 @@
       (parse-call x tokens)
       [x tokens])))
 
+(def ^:private op-syms {:plus '+ :minus '- :mul '* :div '/
+                        :eq '= :lt '< :gt '> :lteq '<=
+                        :gteq '>= :not-eq '<>})
+(def ^:private ops (keys op-syms))
+
+(defn- parse-op [tokens]
+  (let [[x y] [(first tokens) (second tokens)]]
+    (if (and (some #{x} ops) (= y :closep))
+      [(x op-syms) (nthrest tokens 2)]
+      [nil tokens])))
+
 (defn- parse-parenths [tokens]
   (if (= (first tokens) :openp)
-    (let [[expr tokens] (parse-expr (rest tokens))]
-      (when-not (= (first tokens) :closep)
-        (ex (str "missing closing parenthesis: " tokens)))
-      [expr (rest tokens)])
+    (let [[op ts1] (parse-op (rest tokens))]
+      (if op
+        [op ts1]
+        (let [[expr tokens] (parse-expr (rest tokens))]
+          (when-not (= (first tokens) :closep)
+            (ex (str "missing closing parenthesis: " tokens)))
+          [expr (rest tokens)])))
     (parse-fncall tokens)))
 
 (defn- parse-accessor [tokens]

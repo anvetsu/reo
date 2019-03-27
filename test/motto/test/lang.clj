@@ -130,3 +130,10 @@
 
 (deftest blck
   (test-with blck-data))
+
+(def ^:private op-data
+  ["(+)(1 2)"     3
+   "(<=)(1 1)"    true])
+
+(deftest op
+  (test-with op-data))
