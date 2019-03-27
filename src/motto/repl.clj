@@ -5,27 +5,22 @@
             [motto.compile :as c]
             [motto.expr-io :as eio]))
 
-(defn- readln []
-  (loop [[flag s] (eio/readln)
-         ss []]
-    (case flag
-      :more (do (print "- ")
-                (flush)
-                (recur (eio/readln)
-                       (conj ss s)))
-      :done (str/join (conj ss s))
-      :eof (System/exit 0))))
-  
+(defn- multiln-prompt []
+  (print "- ")
+  (flush))
+
 (defn repl []
   (loop [env (env/make)]
     (print "> ") (flush)
     (recur
      (try
-       (let [s (readln)
-             exprs (c/compile-string s)
-             [val env] (e/evaluate-all exprs env)]
-         (eio/writeln val)
-         env)
+       (let [s (eio/read-multiln multiln-prompt)]
+         (if s
+           (let [exprs (c/compile-string s)
+                 [val env] (e/evaluate-all exprs env)]
+             (eio/writeln val)
+             env)
+           (System/exit 0)))
        (catch Exception ex
          (println (str "ERROR: " (.getMessage ex)))
          (.printStackTrace ex)

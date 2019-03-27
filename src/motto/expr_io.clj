@@ -31,3 +31,15 @@
           (<= c 0) [:done s]
           (pos? c) [:more s])))
     [:eof nil]))
+
+(defn read-multiln
+  ([stepper]
+   (loop [[flag s] (readln)
+          ss []]
+     (case flag
+       :more (do (when stepper (stepper))
+                 (recur (readln)
+                        (conj ss s)))
+       :done (str/join (conj ss s))
+       :eof nil)))
+  ([] (read-multiln nil)))

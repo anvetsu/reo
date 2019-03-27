@@ -23,20 +23,11 @@
 (defn compile-strings [ss]
   (map compile-string ss))
 
-(defn readln []
-  (loop [[flag s] (eio/readln)
-         ss []]
-    (case flag
-      :more (recur (eio/readln)
-                   (conj ss s))
-      :done (str/join (conj ss s))
-      :eof nil)))
-
 (defn compile-file [filename]
   (let [ss
         (binding [*in* (io/reader filename)]
           (loop [ss []]
-            (if-let [s (readln)]
+            (if-let [s (eio/readln)]
               (recur (conj ss s))
               ss)))]
     (binding [*out* (io/writer (str filename ".o"))]
