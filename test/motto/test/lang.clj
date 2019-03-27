@@ -1,14 +1,15 @@
 (ns motto.test.lang
-  (:require [motto.env :as env]
+  (:require [motto.global-env :as env]
+            [motto.compile :as c]
             [motto.eval :as e])
   (:use [clojure.test]))
 
-(def ^:private env (env/global))
+(def ^:private env (env/make))
 
 (defn- comp-eval [s env]
   (try
     (e/evaluate-all
-     (e/compile-string s)
+     (c/compile-string s)
      env)
     (catch Exception ex
       [{:ex ex} env])))

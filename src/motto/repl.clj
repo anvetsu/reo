@@ -1,7 +1,8 @@
 (ns motto.repl
   (:require [clojure.string :as str]
-            [motto.env :as env]
+            [motto.global-env :as env]
             [motto.eval :as e]
+            [motto.compile :as c]
             [motto.expr-io :as eio]))
 
 (defn- readln []
@@ -12,15 +13,16 @@
                 (flush)
                 (recur (eio/readln)
                        (conj ss s)))
-      :done (str/join (conj ss s)))))
-
+      :done (str/join (conj ss s))
+      :eof (System/exit 0))))
+  
 (defn repl []
-  (loop [env (env/global)]
+  (loop [env (env/make)]
     (print "> ") (flush)
     (recur
      (try
        (let [s (readln)
-             exprs (e/compile-string s)
+             exprs (c/compile-string s)
              [val env] (e/evaluate-all exprs env)]
          (eio/writeln val)
          env)

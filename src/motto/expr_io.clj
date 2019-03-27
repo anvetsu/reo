@@ -23,10 +23,11 @@
       (- opn cls))))
 
 (defn readln []
-  (let [s (read-line)]
+  (if-let [s (read-line)]
     (if (str/ends-with? s " ")
       [:more s]
       (let [c (match-curlies s)]
         (cond
           (<= c 0) [:done s]
-          (pos? c) [:more s])))))
+          (pos? c) [:more s])))
+    [:eof nil]))

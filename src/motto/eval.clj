@@ -1,9 +1,7 @@
 ;; An interpreter for motto.
 (ns motto.eval
   (:require [motto.env :as env]
-            [motto.tokens :as t]
             [motto.type :as tp]
-            [motto.parse :as p]
             [motto.util :as u]))
 
 (defn- ex [s]
@@ -96,13 +94,3 @@
       (let [[val env] (evaluate (first exprs) env)]
         (recur (rest exprs) [val env]))
       [val env])))
-
-(defn compile-string [s]
-  (let [tokens (t/tokens s)]
-    (loop [[expr tokens] (p/parse tokens)
-           exprs []]
-      (when-not expr
-        (ex (str "compilation failed: " s)))
-      (if (seq tokens)
-        (recur (p/parse tokens) (conj exprs expr))
-        (conj exprs expr)))))
