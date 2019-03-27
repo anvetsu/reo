@@ -49,6 +49,6 @@
                   '= mlb/eq '> mlb/gt
                   '< mlb/lt '>= mlb/gteq
                   '<= mlb/lteq '<> mlb/neq
-                  '-get- get '-neg- - 'til
-                  mll/til}]
+                  '-get- get '-neg- -
+                  'til mll/til}]
     (make bindings)))

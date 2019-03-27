@@ -5,7 +5,8 @@
 (defn writeln [x]
   (let [v  (cond
              (boolean? x) (if x 't 'f)
-             (tp/function? x) '<fn>
+             (or (tp/function? x)
+                 (fn? x)) '<fn>
              :else x)]
     (println v)))
 
