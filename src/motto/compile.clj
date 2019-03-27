@@ -23,11 +23,14 @@
 (defn compile-strings [ss]
   (map compile-string ss))
 
-(defn compile-file [filename]
-  (let [ss
+(defn compile-file [^String filename]
+  (let [filename (if (.endsWith filename ".m")
+                   filename
+                   (str filename ".m"))
+        ss
         (binding [*in* (io/reader filename)]
           (loop [ss []]
-            (if-let [s (eio/readln)]
+            (if-let [s (eio/read-multiln)]
               (recur (conj ss s))
               ss)))]
     (binding [*out* (io/writer (str filename ".o"))]
