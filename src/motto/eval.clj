@@ -1,13 +1,28 @@
 ;; An interpreter for motto.
 (ns motto.eval
   (:require [motto.env :as env]
+            [motto.compile :as c]
             [motto.type :as tp]
             [motto.util :as u]))
 
 (defn- ex [s]
   (u/ex (str "eval: " s)))
 
-(declare evaluate)
+(declare evaluate evaluate-all)
+
+(defn- ld [^String filename env]
+  (let [filename (if (.endsWith filename ".mo")
+                   filename
+                   (str filename ".mo"))]
+    (when-not (u/file-exists? filename)
+      (println "compiling")
+      (c/compile-file (u/normalize-filename filename)))
+    (let [exprss (read-string (slurp filename))]
+      (loop [exprss exprss, env env, val val]
+        (if (seq exprss)
+          (let [[val env] (evaluate-all (first exprss) env)]
+            (recur (rest exprss) env val))
+          [val env])))))
 
 (def ^:private reserved-names #{'t 'f})
 
@@ -71,6 +86,7 @@
     :and (eval-and args env)
     :or (eval-or args env)
     :block (eval-block (first args) env)
+    :load (ld (first args) env)
     (call-fn ident args env)))
 
 (defn- force-lookup [env expr]

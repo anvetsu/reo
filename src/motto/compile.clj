@@ -1,7 +1,5 @@
 (ns motto.compile
   (:require [clojure.java.io :as io]
-            [clojure.string :as str]
-            [motto.eval :as e]
             [motto.parse :as p]
             [motto.tokens :as t]
             [motto.util :as u]
@@ -24,14 +22,14 @@
   (map compile-string ss))
 
 (defn compile-file [^String filename]
-  (let [filename (if (.endsWith filename ".m")
-                   filename
-                   (str filename ".m"))
+  (let [filename (if-not (u/file-exists? filename)
+                   (str filename ".m")
+                   filename)
         ss
         (binding [*in* (io/reader filename)]
           (loop [ss []]
             (if-let [s (eio/read-multiln)]
               (recur (conj ss s))
               ss)))]
-    (binding [*out* (io/writer (str filename ".o"))]
+    (binding [*out* (io/writer (str (u/normalize-filename filename) ".mo"))]
       (println (compile-strings ss)))))

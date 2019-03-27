@@ -164,15 +164,25 @@
           [x ts1]))
       [x nil])))
 
-(defn- parse-define [tokens]
+(defn- parse-load [tokens]
+  (let [[e ts] (parse-expr tokens)]
+    (when-not e
+      (ex (str "invalid load: " tokens)))
+    [[:load e] ts]))
+
+(defn- parse-define [x tokens]
+  (let [[e ts] (parse-expr tokens)]
+    (when-not e
+      (ex (str "no value to bind: " x)))
+    [[:define x e] ts]))
+
+(defn- parse-stmt [tokens]
   (let [[x y] [(first tokens) (second tokens)]]
     (if (tp/identifier? x)
-      (if (= :define y)
-        (let [[e ts] (parse-expr (nthrest tokens 2))]
-          (when-not e
-            (ex (str "no value to bind: " x)))
-          [[:define x e] ts])
-        [nil tokens])
+      (cond
+        (= x 'ld) (parse-load (rest tokens))
+        (= :define y) (parse-define x (nthrest tokens 2))
+        :else [nil tokens])
       [nil tokens])))
 
 (defn- fetch-expr [[e tokens] next-parser]
@@ -190,7 +200,7 @@
 
 (defn- parse-expr [tokens]
   (let [p (fn [tokens]
-            (fetch-expr (parse-define tokens) parse-logical))
+            (fetch-expr (parse-stmt tokens) parse-logical))
         block? (= :open-cb (first tokens))
         tokens (if block? (rest tokens) tokens)
         [expr tokens] (p tokens)]

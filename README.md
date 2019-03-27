@@ -185,3 +185,24 @@ TODO
 #### Higher-order operations on columnar data
 
 TODO
+
+### Scripts
+
+Motto source files usually have the extension `.m`.
+Source files can be loaded into the interpreter by invoking the `ld` command.
+It is customary to call `ld` without the `.m` extension.
+
+For instance, if you have a script called "abc.m", it can be loaded as:
+
+```
+ld "abc"
+```
+
+`ld` will take care of compiling the script into object code, if the object code
+file (with extension `.mo` is not found).
+
+A script can be explicitly compiled into a `.mo` file by calling the `c` (compile) function:
+
+```
+c("abc")
+```
