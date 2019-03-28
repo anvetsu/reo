@@ -11,18 +11,15 @@
 
 (defn repl []
   (let [eval (env/make-eval)]
-    (loop [env nil]
-      (print "> ") (flush)
-      (recur
-       (try
-         (let [s (eio/read-multiln multiln-prompt)]
-           (if s
-             (let [exprs (c/compile-string s)
-                   [val env] (e/evaluate-all exprs env eval)]
-               (eio/writeln val)
-               env)
-             (System/exit 0)))
-         (catch Exception ex
-           (println (str "ERROR: " (.getMessage ex)))
-           (.printStackTrace ex)
-           env))))))
+    (loop []
+      (do (print "> ") (flush)
+          (try
+            (let [s (eio/read-multiln multiln-prompt)]
+              (if s
+                (let [exprs (c/compile-string s)
+                      val (e/evaluate-all exprs eval)]
+                  (eio/writeln val))
+                (System/exit 0)))
+            (catch Exception ex
+              (println (str "ERROR: " (.getMessage ex)))))
+          (recur)))))

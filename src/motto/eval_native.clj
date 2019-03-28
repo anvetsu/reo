@@ -4,8 +4,7 @@
             [motto.parse :as p]
             [motto.compile :as c]
             [motto.util :as u]
-            [motto.type :as tp]
-            [motto.global-env :as env]))
+            [motto.type :as tp]))
 
 (def ^:private idents (set '(+ - * / = > < >= <=)))
 
@@ -21,18 +20,18 @@
 
 (declare ->lisp evaluate-all)
 
-(defn- ld [^String filename env]
+(defn ld [^String filename eval]
   (let [filename (if (.endsWith filename ".mo")
                    filename
                    (str filename ".mo"))]
     (when-not (u/file-exists? filename)
       (c/compile-file (u/normalize-filename filename)))
     (let [exprss (read-string (slurp filename))]
-      (loop [exprss exprss, env env, val val]
+      (loop [exprss exprss, val val]
         (if (seq exprss)
-          (let [[val env] (evaluate-all (first exprss) env)]
-            (recur (rest exprss) env val))
-          [val env])))))
+          (let [val (evaluate-all (first exprss) eval)]
+            (recur (rest exprss) val))
+          val)))))
 
 (def ^:private reserved-names #{'t 'f})
 
@@ -41,44 +40,44 @@
     (ex (str "reserved name: " var)))
   var)
 
-(defn all->lisp [exprs]
-  (map ->lisp exprs))
+(defn all->lisp [exprs eval]
+  (map #(->lisp % eval) exprs))
 
-(defn- call-fn [fn args]
-  (let [fnval (->lisp fn)
-        eargs (all->lisp args)]
+(defn- call-fn [fn args eval]
+  (let [fnval (->lisp fn eval)
+        eargs (all->lisp args eval)]
     (concat (list fnval) eargs)))
 
-(defn- form->lisp [ident args]
+(defn- form->lisp [ident args eval]
   (case ident
-    :define `(do (def ~(valid-ident (first args)) ~(->lisp (second args))) ~(first args))
-    :call (call-fn (first args) (second args))
-    :list (vec (all->lisp (first args)))
-    :and `(and ~@(all->lisp args))
-    :or `(or ~@(all->lisp args))
-    :block `(do ~@(all->lisp (first args)))
-    :load `(ld ~@(first args))
-    (call-fn ident args)))
+    :define `(do (def ~(valid-ident (first args)) ~(->lisp (second args) eval)) ~(first args))
+    :call (call-fn (first args) (second args) eval)
+    :list (vec (all->lisp (first args) eval))
+    :and `(and ~@(all->lisp args eval))
+    :or `(or ~@(all->lisp args eval))
+    :block `(do ~@(all->lisp (first args) eval))
+    :load `(ld ~(first args) eval)
+    (call-fn ident args eval)))
 
 (defn- mkfn [fexpr]
   (let [f (:fn fexpr)]
-    `(fn ~(into [] (:params f)) ~(->lisp (:body f)))))
+    `(fn ~(into [] (:params f)) ~(->lisp (:body f) eval))))
 
-(defn ->lisp [expr]
+(defn ->lisp [expr eval]
   (cond
     (= expr :true) true
     (= expr :false) false
     (tp/literal? expr) expr
     (tp/identifier? expr) (translate-ident expr)
     (tp/function? expr) (mkfn expr)
-    (seq expr) (form->lisp (first expr) (rest expr))))
+    (seq expr) (form->lisp (first expr) (rest expr) eval)))
 
 (defn evaluate [expr eval]
-  (eval (->lisp expr)))
+  (eval (->lisp expr eval)))
 
-(defn evaluate-all [exprs env eval]
+(defn evaluate-all [exprs eval]
   (loop [exprs exprs, val nil]
     (if (seq exprs)
       (let [val (evaluate (first exprs) eval)]
         (recur (rest exprs) val))
-      [val env])))
+      val)))

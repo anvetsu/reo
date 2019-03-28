@@ -4,29 +4,26 @@
             [motto.eval-native :as e])
   (:use [clojure.test]))
 
-(def ^:private env nil)
-
-(defn- comp-eval [s env]
+(defn- comp-eval [s]
   (try
     (e/evaluate-all
      (c/compile-string s)
-     env (env/make-eval))
+     (env/make-eval))
     (catch Exception ex
-      [{:ex ex} env])))
+      {:ex ex})))
 
 (defn- test-with [data]
-  (loop [ad data
-         env env]
+  (loop [ad data]
     (when (seq ad)
       (let [[k v] [(first ad) (second ad)]
-            [val env] (comp-eval k env)
+            val (comp-eval k)
             val (if-let [ex (:ex val)]
                   (if-not (= v :ex)
                     (throw ex)
                     :ex)
                   val)]
         (is (= v val))
-        (recur (rest (rest ad)) env)))))
+        (recur (rest (rest ad)))))))
 
 (def ^:private arith-data
   ["1 + 2 - 3"        0
