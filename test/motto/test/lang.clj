@@ -1,16 +1,16 @@
 (ns motto.test.lang
   (:require [motto.global-env :as env]
             [motto.compile :as c]
-            [motto.eval :as e])
+            [motto.eval-native :as e])
   (:use [clojure.test]))
 
-(def ^:private env (env/make))
+(def ^:private env nil)
 
 (defn- comp-eval [s env]
   (try
     (e/evaluate-all
      (c/compile-string s)
-     env)
+     env (env/make-eval))
     (catch Exception ex
       [{:ex ex} env])))
 
@@ -85,11 +85,9 @@
   (test-with lists-data))
 
 (def ^:private vars-data
-  ["a"           :ex
-   "t:100"       :ex
+  ["t:100"       :ex
    "f:200"       :ex
    "a:10"        10
-   "a + b"       :ex
    "a + 2"       12
    "b:4+(a:100)"   104
    "a+b"           204

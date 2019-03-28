@@ -1,68 +1,84 @@
 ;; Tranlsate motto to clojure and eval.
-(ns motto.eval-bytes
+(ns motto.eval-native
   (:require [motto.tokens :as t]
             [motto.parse :as p]
-            [motto.lib.list :as mll]
-            [motto.lib.arith :as mla]))
+            [motto.compile :as c]
+            [motto.util :as u]
+            [motto.type :as tp]
+            [motto.global-env :as env]))
 
-(def + mla/add)
-(def - mla/sub)
-(def * mla/mul)
-(def / mla/div)
-(def <> mla/not-eq)
-(def -get- get)
-(def -neg- -)
-(def til mll/til)
+(def ^:private idents (set '(+ - * / = > < >= <=)))
+
+(defn- translate-ident [s]
+  (if (= s '/)
+    '-div-
+    (if (some #{s} idents)
+      (symbol (str "-" s "-"))
+      s)))
 
 (defn- ex [s]
-  (throw (Exception. (str "eval-bytes: " s))))
+  (u/ex (str "eval-native: " s)))
 
-(declare evaluate)
+(declare ->lisp evaluate-all)
+
+(defn- ld [^String filename env]
+  (let [filename (if (.endsWith filename ".mo")
+                   filename
+                   (str filename ".mo"))]
+    (when-not (u/file-exists? filename)
+      (c/compile-file (u/normalize-filename filename)))
+    (let [exprss (read-string (slurp filename))]
+      (loop [exprss exprss, env env, val val]
+        (if (seq exprss)
+          (let [[val env] (evaluate-all (first exprss) env)]
+            (recur (rest exprss) env val))
+          [val env])))))
 
 (def ^:private reserved-names #{'t 'f})
 
-(defn- valid-ident! [var]
+(defn- valid-ident [var]
   (when (some #{var} reserved-names)
-    (ex (str "reserved name: " var))))
+    (ex (str "reserved name: " var)))
+  var)
 
-(defn- amend [var val-expr]
-  (valid-ident! var)
-  `(def ~var ~(evaluate val-expr)))
+(defn all->lisp [exprs]
+  (map ->lisp exprs))
 
-(defn- eval-form [ident args]
+(defn- call-fn [fn args]
+  (let [fnval (->lisp fn)
+        eargs (all->lisp args)]
+    (concat (list fnval) eargs)))
+
+(defn- form->lisp [ident args]
   (case ident
-    :define (amend (first args) (second args))
-    :call `(~(first args) ~@(second args))
-    :list (first args)
-    :and `(and ~@args)
-    :or `(or ~@args)
-    `(~ident ~@args)))
+    :define `(do (def ~(valid-ident (first args)) ~(->lisp (second args))) ~(first args))
+    :call (call-fn (first args) (second args))
+    :list (vec (all->lisp (first args)))
+    :and `(and ~@(all->lisp args))
+    :or `(or ~@(all->lisp args))
+    :block `(do ~@(all->lisp (first args)))
+    :load `(ld ~@(first args))
+    (call-fn ident args)))
 
-(defn expr->clj [expr]
+(defn- mkfn [fexpr]
+  (let [f (:fn fexpr)]
+    `(fn ~(into [] (:params f)) ~(->lisp (:body f)))))
+
+(defn ->lisp [expr]
   (cond
-    (= expr :true) 'true
-    (= expr :false) 'false
-    (or (p/literal? expr)
-        (p/identifier? expr)) expr
-    (seq expr) (eval-form (first expr) (rest expr))))
+    (= expr :true) true
+    (= expr :false) false
+    (tp/literal? expr) expr
+    (tp/identifier? expr) (translate-ident expr)
+    (tp/function? expr) (mkfn expr)
+    (seq expr) (form->lisp (first expr) (rest expr))))
 
-(defn evaluate [expr]
-  (let [e (expr->clj expr)]
-    (eval e)))
+(defn evaluate [expr eval]
+  (eval (->lisp expr)))
 
-(defn evaluate-all [exprs env]
+(defn evaluate-all [exprs env eval]
   (loop [exprs exprs, val nil]
     (if (seq exprs)
-      (let [val (evaluate (first exprs))]
+      (let [val (evaluate (first exprs) eval)]
         (recur (rest exprs) val))
       [val env])))
-
-(defn compile-string [s]
-  (let [tokens (t/tokens s)]
-    (loop [[expr tokens] (p/parse-expr tokens)
-           exprs []]
-      (when-not expr
-        (ex (str "compilation failed: " s)))
-      (if (seq tokens)
-        (recur (p/parse-expr tokens) (conj exprs expr))
-        (conj exprs expr)))))
