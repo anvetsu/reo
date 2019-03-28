@@ -172,7 +172,19 @@ TODO
 
 #### Comments
 
-The sequence of characters `//` starts a comment that extends to the end of the line.
+The character `!` starts a comment that will extend to the end of the line.
+A comment can be embedded between expressions by enclosing it in two `!`s.
+
+```
+> 1+2 !this is a comment! 3+4
+7
+```
+
+An exclamation mark can be included in a comment by typing it twice:
+
+```
+!hi!!
+```
 
 ### Columnar data tables
 

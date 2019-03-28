@@ -24,7 +24,7 @@
 
 (def ^:private oprs (keys oprs-kw))
 
-(def ^:private comment-char \/)
+(def ^:private comment-char \!)
 
 (defn- ex [s]
   (u/ex (str "tokens: " s)))
@@ -109,16 +109,22 @@
     (str-start-char? ch) str-literal
     :else (ex (str "invalid character in input: " ch))))
 
-(defn- comment? [c1 c2]
-  (and (= c1 comment-char)
-       (= c2 comment-char)))
+(defn- consume-comment [s]
+  (loop [s s]
+    (when (seq s)
+      (let [c (first s)]
+        (cond
+          (= c comment-char) (if (= (second s) comment-char)
+                               (recur (nthrest s 2))
+                               (rest s))
+          :else (recur (rest s)))))))
 
 (defn tokens [s]
   (loop [s s, ts []]
     (if (seq s)
       (let [c (first s)]
-        (if (comment? c (second s))
-          ts
+        (if (= c comment-char)
+          (recur (consume-comment (rest s)) ts)
           (if (Character/isWhitespace (int c))
             (recur (rest s) ts)
             (let [tf (tokenizer c)
