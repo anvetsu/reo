@@ -130,9 +130,9 @@ The comparison operators can also be applied to lists and atomic values, mixed t
 
 ```
 > [1 2 3] < [3 4 5]
-[true true true]
+[t t t]
 > 100=[99 100 101]
-[false true false]
+[f t f]
 ```
 
 The logical operators are `&` and `|` (or).
@@ -199,7 +199,7 @@ ld "abc"
 ```
 
 `ld` will take care of compiling the script into object code, if the object code
-file (with extension `.mo` is not found).
+file (with extension `.mo`) is not found.
 
 A script can be explicitly compiled into a `.mo` file by calling the `c` (compile) function:
 
@@ -207,5 +207,4 @@ A script can be explicitly compiled into a `.mo` file by calling the `c` (compil
 c("abc")
 ```
 
-The `.mo` file is an intermediary between `motto` and Java byte code.
-This intermediary representation is compiled on-the-fly JVM byte code via the Clojure compiler.
+The object code is compiled on-the-fly to JVM byte code.
