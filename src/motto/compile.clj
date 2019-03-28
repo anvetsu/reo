@@ -1,9 +1,11 @@
 (ns motto.compile
   (:require [clojure.java.io :as io]
+            [taoensso.nippy :as nippy]
             [motto.parse :as p]
             [motto.tokens :as t]
             [motto.util :as u]
-            [motto.expr-io :as eio]))
+            [motto.expr-io :as eio])
+  (:import [java.io DataInputStream DataOutputStream]))
 
 (defn- ex [s]
   (u/ex (str "compile: " s)))
@@ -21,15 +23,19 @@
 (defn compile-strings [ss]
   (map compile-string ss))
 
-(defn compile-file [^String filename]
-  (let [filename (if-not (u/file-exists? filename)
-                   (str filename ".m")
-                   filename)
+(defn compile-file [^String file-path]
+  (let [file-path (if-not (u/file-exists? file-path)
+                   (str file-path ".m")
+                   file-path)
         ss
-        (binding [*in* (io/reader filename)]
+        (binding [*in* (io/reader file-path)]
           (loop [ss []]
             (if-let [s (eio/read-multiln)]
               (recur (conj ss s))
               ss)))]
-    (binding [*out* (io/writer (str (u/normalize-filename filename) ".mo"))]
-      (println (compile-strings ss)))))
+    (with-open [w (io/output-stream (str (u/normalize-file-path file-path) ".mo"))]
+      (nippy/freeze-to-out! (DataOutputStream. w) (compile-strings ss)))))
+
+(defn slurp-o [^String file-path]
+  (with-open [r (io/input-stream file-path)]
+    (nippy/thaw-from-in! (DataInputStream. r))))

@@ -20,13 +20,13 @@
 
 (declare ->lisp evaluate-all)
 
-(defn ld [^String filename eval]
-  (let [filename (if (.endsWith filename ".mo")
-                   filename
-                   (str filename ".mo"))]
-    (when-not (u/file-exists? filename)
-      (c/compile-file (u/normalize-filename filename)))
-    (let [exprss (read-string (slurp filename))]
+(defn ld [^String file-path eval]
+  (let [file-path (if (.endsWith file-path ".mo")
+                   file-path
+                   (str file-path ".mo"))]
+    (when-not (u/file-exists? file-path)
+      (c/compile-file (u/normalize-file-path file-path)))
+    (let [exprss (c/slurp-o file-path)]
       (loop [exprss exprss, val val]
         (if (seq exprss)
           (let [val (evaluate-all (first exprss) eval)]

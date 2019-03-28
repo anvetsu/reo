@@ -4,9 +4,9 @@
 (defn ex [s]
   (throw (Exception. s)))
 
-(defn file-exists? [filename]
-  (.exists (File. filename)))
+(defn file-exists? [file-path]
+  (.exists (File. file-path)))
 
-(defn normalize-filename [^String filename]
-  (let [i (.lastIndexOf filename ".")]
-    (.substring filename 0 i)))
+(defn normalize-file-path [^String file-path]
+  (let [i (.lastIndexOf file-path ".")]
+    (.substring file-path 0 i)))
