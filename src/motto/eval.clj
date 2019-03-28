@@ -15,7 +15,6 @@
                    filename
                    (str filename ".mo"))]
     (when-not (u/file-exists? filename)
-      (println "compiling")
       (c/compile-file (u/normalize-filename filename)))
     (let [exprss (read-string (slurp filename))]
       (loop [exprss exprss, env env, val val]
