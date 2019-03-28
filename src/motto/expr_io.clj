@@ -16,18 +16,19 @@
     (print "]")))
 
 (defn write [x]
-  (let [v  (cond
-             (boolean? x) (if x 't 'f)
-             (or (tp/function? x)
-                 (fn? x)) '<fn>
-             :else x)]
-    (cond
-      (vector? v) (write-vec v)
-      (= v :void) nil
-      :else (print v))))
+  (when x
+    (let [v  (cond
+               (boolean? x) (if x 't 'f)
+               (or (tp/function? x)
+                   (fn? x)) '<fn>
+               :else x)]
+      (cond
+        (vector? v) (write-vec v)
+        (= v :void) nil
+        :else (print v)))))
 
 (defn writeln [x]
-  (when-not (= x :void)
+  (when-not (or x (= x :void))
     (write x)
     (println)))
 

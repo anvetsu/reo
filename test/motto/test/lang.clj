@@ -138,8 +138,7 @@
   ["1+2 !this is a comment" 3
    "1+2 !hi there! 3+4"     7
    "1+2 !hi!! there"        3
-   "1+2 !hi!! there! 3+4"   7
-   "!done bye"              :void])
+   "1+2 !hi!! there! 3+4"   7])
 
 (deftest comments
   (test-with comments-data))

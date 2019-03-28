@@ -10,6 +10,11 @@
 (defn- ex [s]
   (u/ex (str "compile: " s)))
 
+(defn- conj-expr [exprs expr]
+   (if (= expr :void)
+     exprs
+     (conj exprs expr)))
+
 (defn compile-string [s]
   (let [tokens (t/tokens s)]
     (loop [[expr tokens] (p/parse tokens)
@@ -17,11 +22,11 @@
       (when-not expr
         (ex (str "compilation failed: " s)))
       (if (seq tokens)
-        (recur (p/parse tokens) (conj exprs expr))
-        (conj exprs expr)))))
+        (recur (p/parse tokens) (conj-expr exprs expr))
+        (conj-expr exprs expr)))))
 
 (defn compile-strings [ss]
-  (map compile-string ss))
+  (filter seq (map compile-string ss)))
 
 (defn compile-file [^String file-path]
   (let [file-path (if-not (u/file-exists? file-path)
