@@ -2,13 +2,32 @@
   (:require [clojure.string :as str]
             [motto.type :as tp]))
 
-(defn writeln [x]
+(declare write)
+
+(defn write-vec [v]
+  (print "[")
+  (when (seq v)
+    (loop [v v]
+      (write (first v))
+      (let [r (rest v)]
+        (when (seq r)
+          (do (print " ")
+              (recur r)))))
+    (print "]")))
+
+(defn write [x]
   (let [v  (cond
              (boolean? x) (if x 't 'f)
              (or (tp/function? x)
                  (fn? x)) '<fn>
              :else x)]
-    (println v)))
+    (if (vector? v)
+      (write-vec v)
+      (print v))))
+
+(defn writeln [x]
+  (write x)
+  (println))
 
 (defn- match-curlies [s]
   (loop [ss (seq s), opn 0, cls 0]
