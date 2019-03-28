@@ -1,6 +1,6 @@
 # Motto
 
-A language and environment for analyzing columnar databases.
+A programming environment for creating and analyzing columnar databases.
 
 Data from RDBMSs, CSVs, REST APIs and other sources can be imported and analyzed using a simple functional language.
 
@@ -186,7 +186,7 @@ TODO
 
 TODO
 
-## Scripts & Compilation
+### Scripts & Compilation
 
 Motto source files usually have the extension `.m`.
 Source files can be loaded into the interpreter by invoking the `ld` command.
