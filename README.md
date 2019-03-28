@@ -186,7 +186,7 @@ TODO
 
 TODO
 
-### Scripts
+## Scripts & Compilation
 
 Motto source files usually have the extension `.m`.
 Source files can be loaded into the interpreter by invoking the `ld` command.
@@ -206,3 +206,6 @@ A script can be explicitly compiled into a `.mo` file by calling the `c` (compil
 ```
 c("abc")
 ```
+
+The `.mo` file is an intermediary between `motto` and Java byte code.
+This intermediary representation is compiled on-the-fly JVM byte code via the Clojure compiler.
