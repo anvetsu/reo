@@ -119,6 +119,10 @@
                                (rest s))
           :else (recur (rest s)))))))
 
+(defn- normalize [tokens]
+  (or (seq tokens)
+      [:void]))
+
 (defn tokens [s]
   (loop [s s, ts []]
     (if (seq s)
@@ -130,4 +134,4 @@
             (let [tf (tokenizer c)
                   [s t] (tf s)]
               (recur s (conj ts t))))))
-      ts)))
+      (normalize ts))))

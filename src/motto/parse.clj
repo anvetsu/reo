@@ -215,4 +215,7 @@
           (ex "code-block not closed")))
       [expr tokens])))
 
-(def parse parse-expr)
+(defn parse [tokens]
+  (if (= tokens [:void])
+    tokens
+    (parse-expr tokens)))

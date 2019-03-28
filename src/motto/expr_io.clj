@@ -21,13 +21,15 @@
              (or (tp/function? x)
                  (fn? x)) '<fn>
              :else x)]
-    (if (vector? v)
-      (write-vec v)
-      (print v))))
+    (cond
+      (vector? v) (write-vec v)
+      (= v :void) nil
+      :else (print v))))
 
 (defn writeln [x]
-  (write x)
-  (println))
+  (when-not (= x :void)
+    (write x)
+    (println)))
 
 (defn- match-curlies [s]
   (loop [ss (seq s), opn 0, cls 0]
