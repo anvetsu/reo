@@ -23,6 +23,7 @@
       (def -conj- motto.lib.list/-conj-)
       (def -fold- motto.lib.list/-fold-)
       (def -map- motto.lib.list/-map-)
+      (def -fold-incr- motto.lib.list/-fold-incr-)
       (def til motto.lib.list/til)
 
       (fn [expr] (eval expr)))))

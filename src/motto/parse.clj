@@ -117,8 +117,14 @@
     (if (and x (seq ts1))
       (let [y (first ts1)]
         (if (some #{y} accessor-oprs)
-          (let [[z ts2] (parse-expr (rest ts1))]
-            [[(y accessors) z x] ts2])
+          (let [nt (first (rest ts1))
+                nt-at? (and (= y :at) (= nt :tilde))
+                [z ts2] (parse-expr (if nt-at?
+                                      (nthrest ts1 2)
+                                      (rest ts1)))]
+            (if nt-at?
+              [['-fold-incr- z x] ts2]
+              [[(y accessors) z x] ts2]))
           [x ts1]))
       [x ts1])))
 

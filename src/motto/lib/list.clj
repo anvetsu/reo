@@ -22,3 +22,10 @@
     (if (seq xs)
       (recur (rest xs) (conj rs (f (first xs))))
       rs)))
+
+(defn -fold-incr- [ys f]
+  (loop [xs (rest ys), lv (first ys), r [lv]]
+    (if (seq xs)
+      (let [cv (f lv (first xs))]
+        (recur (rest xs) cv (conj r cv)))
+      r)))

@@ -18,6 +18,13 @@
 (deftest foldtest
   (test-with fold-data))
 
+(def ^:private fold-incr-data
+  ["(+)@~ [1 2 3 4 5]" [1 3 6 10 15]
+   "(+)@~ 10;til(6)" [10 10 11 13 16 20 25]])
+
+(deftest fold-incr
+  (test-with fold-incr-data))
+
 (def ^:private map-data
   ["(sq:fn(x) x*x) 10" 10
    "sq~ til(3)"        [0 1 4]])
