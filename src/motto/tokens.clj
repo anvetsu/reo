@@ -20,7 +20,8 @@
                         \> :gt
                         \# :hash
                         \& :and
-                        \| :or})
+                        \| :or
+                        \; :semicolon})
 
 (def ^:private oprs (keys oprs-kw))
 

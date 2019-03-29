@@ -23,7 +23,7 @@
                    (fn? x)) '<fn>
                :else x)]
       (cond
-        (vector? v) (write-vec v)
+        (seqable? v) (write-vec v)
         :else (print v)))))
 
 (defn writeln [x]

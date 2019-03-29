@@ -1,4 +1,5 @@
 
+ * Implement fold (@)
  * Nulls?
  * Compose lists into columnar tables.
  * Import data over JDBC.

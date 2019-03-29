@@ -20,6 +20,7 @@
       (def -get- get)
       (def -neg- -)
       (def c motto.compile/compile-file)
+      (def -conj- motto.lib.list/-conj-)
       (def til motto.lib.list/til)
 
       (fn [expr] (eval expr)))))
