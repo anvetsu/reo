@@ -83,7 +83,25 @@ The arithmetic operators are overloaded to work with lists and numbers:
 [10 21 32 43 54]
 ```
 
-TODO: other list operations - fold, filter etc
+Adding single values to the front and rear of a list:
+
+```
+> 1;[2 3 4]
+[1 2 3 4]
+> [1 2 3];4
+[1 2 3 4]
+```
+
+Folding and mapping over lists:
+
+```
+> (+)@ [1 2 3 4 5]
+15
+> (fn(x) x*x)~ [1 2 3 4 5]
+[1 4 9 16 25]
+> (+)@~ [1 2 3 4 5]
+[1 3 6 10 15]
+```
 
 #### Variables
 
