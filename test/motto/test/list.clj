@@ -10,3 +10,17 @@
 
 (deftest constest
   (test-with cons-data))
+
+(def ^:private fold-data
+  ["(+)@ [1 2 3 4 5]" 15
+   "(+)@ 10;til(6)" 25])
+
+(deftest foldtest
+  (test-with fold-data))
+
+(def ^:private map-data
+  ["(sq:fn(x) x*x) 10" 10
+   "sq~ til(3)"        [0 1 4]])
+
+(deftest maptest
+  (test-with map-data))

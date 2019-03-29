@@ -2,8 +2,6 @@
   (:require [motto.str-util :as su]
             [motto.util :as u]))
 
-(def ^:private ident-graphs #{\_ \@ \$})
-
 (def ^:private oprs-kw {\( :openp
                         \) :closep
                         \[ :open-sb
@@ -34,7 +32,7 @@
 
 (defn- ident-start-char? [ch]
   (or (Character/isAlphabetic (int ch))
-      (some #{ch} ident-graphs)))
+      (= ch \_)))
 
 (defn- opr-char? [ch]
   (some #{ch} oprs))

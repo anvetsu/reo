@@ -21,6 +21,8 @@
       (def -neg- -)
       (def c motto.compile/compile-file)
       (def -conj- motto.lib.list/-conj-)
+      (def -fold- motto.lib.list/-fold-)
+      (def -map- motto.lib.list/-map-)
       (def til motto.lib.list/til)
 
       (fn [expr] (eval expr)))))
