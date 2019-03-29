@@ -16,7 +16,7 @@
     (print "]")))
 
 (defn write [x]
-  (when x
+  (when-not (or (nil? x) (= x :void))
     (let [v  (cond
                (boolean? x) (if x 't 'f)
                (or (tp/function? x)
@@ -24,13 +24,11 @@
                :else x)]
       (cond
         (vector? v) (write-vec v)
-        (= v :void) nil
         :else (print v)))))
 
 (defn writeln [x]
-  (when-not (or x (= x :void))
-    (write x)
-    (println)))
+  (write x)
+  (println))
 
 (defn- match-curlies [s]
   (loop [ss (seq s), opn 0, cls 0]
