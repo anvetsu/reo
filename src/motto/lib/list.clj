@@ -7,6 +7,6 @@
           [])))
 
 (defn -conj- [x y]
-  (if (seqable? x)
-    (conj x y)
-    (cons x y)))
+  (if (seqable? y)
+    (conj y x)
+    (cons y x)))

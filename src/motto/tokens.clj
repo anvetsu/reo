@@ -21,7 +21,9 @@
                         \# :hash
                         \& :and
                         \| :or
-                        \; :semicolon})
+                        \; :semicolon
+                        \@ :at
+                        \~ :tilde})
 
 (def ^:private oprs (keys oprs-kw))
 

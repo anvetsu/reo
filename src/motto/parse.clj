@@ -105,7 +105,12 @@
           [expr (rest tokens)])))
     (parse-fncall tokens)))
 
-(def ^:private accessor-oprs #{:hash :semicolon})
+(def ^:private accessors {:hash '-get-
+                          :semicolon '-conj-
+                          :at '-fold-
+                          :tilde '-map-})
+
+(def ^:private accessor-oprs (keys accessors))
 
 (defn- parse-accessor [tokens]
   (let [[x ts1] (parse-parenths tokens)]
@@ -113,9 +118,7 @@
       (let [y (first ts1)]
         (if (some #{y} accessor-oprs)
           (let [[z ts2] (parse-expr (rest ts1))]
-            (if (= y :hash)
-              [['-get- z x] ts2]
-              [['-conj- x z] ts2]))
+            [[(y accessors) z x] ts2])
           [x ts1]))
       [x ts1])))
 
