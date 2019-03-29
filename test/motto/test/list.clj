@@ -13,7 +13,8 @@
 
 (def ^:private fold-data
   ["(+)@ [1 2 3 4 5]" 15
-   "(+)@ 10;til(6)" 25])
+   "(+)@ 10;til(6)" 25
+   "(*)@ 1+til(10)" 3628800])
 
 (deftest foldtest
   (test-with fold-data))

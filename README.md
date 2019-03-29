@@ -92,17 +92,6 @@ Adding single values to the front and rear of a list:
 [1 2 3 4]
 ```
 
-Folding and mapping over lists:
-
-```
-> (+)@ [1 2 3 4 5]
-15
-> (fn(x) x*x)~ [1 2 3 4 5]
-[1 4 9 16 25]
-> (+)@~ [1 2 3 4 5]
-[1 3 6 10 15]
-```
-
 #### Variables
 
 Variables are declared with the `:` operator.
@@ -172,6 +161,21 @@ Functions are first-class objects. Here is a function returning a function:
 > b:a(1)
 > b(10)
 11
+```
+
+Folding and mapping over lists with higher-order functions:
+
+```
+> (+)@ [1 2 3 4 5]
+15
+> (fn(x) x*x)~ [1 2 3 4 5]
+[1 4 9 16 25]
+> (+)@~ [1 2 3 4 5]
+[1 3 6 10 15]
+
+> factorial:fn(x) (*)@ 1+til(x)
+> factorial(10)
+3628800
 ```
 
 #### Code blocks
