@@ -2,14 +2,21 @@
 
 A programming environment for creating and analyzing columnar databases.
 
-Data from RDBMSs, CSVs, REST APIs and other sources can be imported and analyzed using a simple functional language.
+Data from relational databases, document stores, CSV files and other sources can be imported and analyzed using a simple functional language.
 
 The environment exposes a command-line REPL as well as an HTTP interface.
 This makes it scale from simple desktop data analytics to serving as the compute infrastructure for
 distributed analytics dashboards and tools.
 
-`Motto` is in the early stages of development. Make sure you have JDK 10+ and Leiningen (https://leiningen.org/) installed.
-Execute `lein run` from this folder to start the REPL.
+`Motto` is in the early stages of development. Make sure you have JDK 10 or later installed.
+You can build and run `motto` with the following commands:
+
+```
+$ make
+$ java -jar target/motto-0.1.0-SNAPSHOT-standalone.jar
+```
+
+This will land you in the REPL, where you can play with the language.
 
 ### The Language
 
@@ -42,10 +49,10 @@ overridden by enclosing expressions in parenthesis:
 7
 ```
 
-If you want to split an expression into multiple lines, terminate each line with a space:
+If you want to split an expression into multiple lines, terminate each line with two or more spaces:
 
 ```
-> 10 + 4 <space>
+> 10 + 4 <space><space>
 - / 2
 12
 ```
