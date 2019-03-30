@@ -49,16 +49,6 @@ overridden by enclosing expressions in parenthesis:
 7
 ```
 
-If you want to split an expression into multiple lines, terminate each line with two or more spaces:
-
-```
-> 10 + 4 <space><space>
-- / 2
-12
-```
-
-The `-` prompt indicates that `motto` is waiting for more input.
-
 List is the fundamental compound data structure.
 They are the building blocks for the more complex columnar tables.
 
@@ -98,6 +88,8 @@ Adding single values to the front and rear of a list:
 > [1 2 3];4
 [1 2 3 4]
 ```
+
+TODO: other types - symbols, datetime etc
 
 #### Variables
 
@@ -194,6 +186,18 @@ Code blocks are delimited by opening and closing curly braces:
 > pyth(3 4)
 25
 ```
+
+#### Multi-line expressions
+
+If you want to split an expression into multiple lines, terminate each line with two or more spaces:
+
+```
+> 10 + 4 <space><space>
+- / 2
+12
+```
+
+The `-` prompt indicates that `motto` is waiting for more input.
 
 #### Conditional expressions
 
