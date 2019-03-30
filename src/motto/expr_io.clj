@@ -44,7 +44,7 @@
 
 (defn readln []
   (if-let [s (read-line)]
-    (if (str/ends-with? s " ")
+    (if (str/ends-with? s "  ")
       [:more s]
       (let [c (match-curlies s)]
         (cond
