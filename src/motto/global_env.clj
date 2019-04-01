@@ -35,6 +35,12 @@
       (def qt motto.lib.list/-quot-)
       (def mx motto.lib.list/-max-)
       (def mn motto.lib.list/-min-)
+      (def sums motto.lib.list/sums)
+      (def difs motto.lib.list/diffs)
+      (def prds motto.lib.list/prds)
+      (def qts motto.lib.list/quots)
+      (def mxs motto.lib.list/maxs)
+      (def mns motto.lib.list/mins)
       (def til motto.lib.list/til)
 
       (fn [expr] (eval expr)))))

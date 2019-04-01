@@ -60,3 +60,21 @@
 
 (defn -min- [ys]
   (-fold- ys n/small))
+
+(defn sums [ys]
+  (fold-incr ys b/add))
+
+(defn diffs [ys]
+  (fold-incr ys b/sub))
+
+(defn prds [ys]
+  (fold-incr ys b/mul))
+
+(defn quots [ys]
+  (fold-incr ys b/div))
+
+(defn maxs [ys]
+  (fold-incr ys n/big))
+
+(defn mins [ys]
+  (fold-incr ys n/small))
