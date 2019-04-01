@@ -7,6 +7,9 @@
 (defn make-eval []
   (eval
    '(do
+      (def -neg- -)
+      (def p partial)
+
       (def -+- motto.lib.burrow/add)
       (def --- motto.lib.burrow/sub)
       (def -*- motto.lib.burrow/mul)
@@ -19,8 +22,6 @@
       (def <> motto.lib.burrow/neq)
       (def big motto.lib.burrow/big)
       (def sml motto.lib.burrow/small)
-
-      (def -neg- -)
 
       (def c motto.compile/compile-file)
 
