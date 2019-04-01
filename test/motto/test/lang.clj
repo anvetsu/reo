@@ -74,15 +74,6 @@
 (deftest vars
   (test-with vars-data))
 
-(def ^:private access-data
-  ["2#[1 2 3 4]"     3
-   "a:[10 20 30]"    [10 20 30]
-   "1#a + 100"       120
-   "1#a - 100*20"    -1980])
-
-(deftest access
-  (test-with access-data))
-
 (def ^:private fns-data
   ["(fn (x) x*x)(10)"        100
    "(fn (x y) x*2+y)(10 20)" 40

@@ -105,7 +105,7 @@
           [expr (rest tokens)])))
     (parse-fncall tokens)))
 
-(def ^:private accessors {:hash '-get-
+(def ^:private accessors {:hash '-take-
                           :semicolon '-conj-
                           :at '-fold-
                           :tilde '-map-})

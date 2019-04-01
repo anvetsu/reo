@@ -18,12 +18,13 @@
       (def -<=- motto.lib.burrow/lteq)
       (def <> motto.lib.burrow/neq)
 
-      (def -get- get)
       (def -neg- -)
       (def big motto.lib.num/big)
       (def sml motto.lib.num/small)
 
       (def c motto.compile/compile-file)
+
+      (def -take- motto.lib.list/-take-)
       (def -conj- motto.lib.list/-conj-)
       (def -fold- motto.lib.list/-fold-)
       (def -map- motto.lib.list/-map-)

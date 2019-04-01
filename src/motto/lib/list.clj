@@ -8,6 +8,17 @@
           (range 0 x)
           [])))
 
+(defn- n-of [x n]
+  (loop [n n, xs []]
+    (if (<= n 0)
+      xs
+      (recur (dec n) (conj xs x)))))
+
+(defn -take- [x n]
+  (if (seqable? x)
+    (get x n)
+    (n-of x n)))
+
 (defn -conj- [x y]
   (if (seqable? y)
     (conj y x)

@@ -2,13 +2,24 @@
   (:use [clojure.test]
         [motto.test.util]))
 
+(def ^:private take-data
+  ["2#[1 2 3 4]"     3
+   "a:[10 20 30]"    [10 20 30]
+   "1#a + 100"       120
+   "1#a - 100*20"    -1980
+   "2#\"hello\""     \l
+   "5#1"             [1 1 1 1 1]])
+
+(deftest take-test
+  (test-with take-data))
+
 (def ^:private cons-data
   ["1;[2 3]"     [1 2 3]
    "[2 3];1"     [2 3 1]
    "1 + 10;[2 3]" [11 3 4]
    "1 + 10;til(3)" [11 1 2 3]])
 
-(deftest constest
+(deftest cons-test
   (test-with cons-data))
 
 (def ^:private fold-data
@@ -24,7 +35,7 @@
    "mx([20 40 10 5])" 40
    "mn([20 40 10 5])" 5])
 
-(deftest foldtest
+(deftest fold-test
   (test-with fold-data))
 
 (def ^:private fold-incr-data
