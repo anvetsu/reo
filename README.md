@@ -6,7 +6,7 @@ Data from relational databases, document stores, CSV files, HTTP APIs and even o
 can be imported and analyzed using a simple functional language.
 
 The environment exposes a command-line REPL, so `Motto` can be used as a simple desktop tool for data analysis.
-There is also a HTTP API that enable `Motto` to serve as the distributed compute infrastructure
+There is also a REST HTTP API enabling `Motto` to serve as the distributed compute infrastructure
 for complex, high-scale analytics.
 
 `Motto` is in the early stages of development. Make sure you have JDK 10 or later installed.
