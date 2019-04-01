@@ -16,7 +16,10 @@
 
 (defn -take- [x n]
   (if (seqable? x)
-    (get x n)
+    (let [[f n] (if (neg? n)
+                  [take-last (- n)]
+                  [take n])]
+      (f n x))
     (n-of x n)))
 
 (defn -conj- [x y]
