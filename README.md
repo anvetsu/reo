@@ -9,6 +9,8 @@ The environment exposes a command-line REPL, so `Motto` can be used as a simple 
 There is also a REST HTTP API enabling `Motto` to serve as the distributed compute infrastructure
 for complex, high-scale analytics.
 
+### Getting Started
+
 `Motto` is in the early stages of development. Make sure you have JDK 10 or later installed.
 You can build and run `Motto` with the following commands:
 
