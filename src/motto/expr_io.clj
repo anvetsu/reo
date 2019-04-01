@@ -12,8 +12,8 @@
       (let [r (rest v)]
         (when (seq r)
           (do (print " ")
-              (recur r)))))
-    (print "]")))
+              (recur r))))))
+  (print "]"))
 
 (defn write [x]
   (when-not (or (nil? x) (= x :void))
