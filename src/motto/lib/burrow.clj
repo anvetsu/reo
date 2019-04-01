@@ -1,4 +1,5 @@
-(ns motto.lib.burrow)
+(ns motto.lib.burrow
+  (:require [motto.lib.num :as num]))
 
 (defn- seq-burrow [opr x y]
   (loop [x x, y y, r []]
@@ -40,3 +41,5 @@
 (def gt  (partial burrow >))
 (def lteq (partial burrow <=))
 (def gteq (partial burrow >=))
+(def big (partial burrow num/big))
+(def small (partial burrow num/small))

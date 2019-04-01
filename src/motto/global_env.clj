@@ -17,10 +17,10 @@
       (def ->=- motto.lib.burrow/gteq)
       (def -<=- motto.lib.burrow/lteq)
       (def <> motto.lib.burrow/neq)
+      (def big motto.lib.burrow/big)
+      (def sml motto.lib.burrow/small)
 
       (def -neg- -)
-      (def big motto.lib.num/big)
-      (def sml motto.lib.num/small)
 
       (def c motto.compile/compile-file)
 
