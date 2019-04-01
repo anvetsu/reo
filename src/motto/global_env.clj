@@ -44,5 +44,6 @@
       (def mxs motto.lib.list/maxs)
       (def mns motto.lib.list/mins)
       (def til motto.lib.list/til)
+      (def twins motto.lib.list/twins)
 
       (fn [expr] (eval expr)))))

@@ -87,3 +87,11 @@
 
 (defn mins [ys]
   (fold-incr ys n/small))
+
+(defn twins [f xs]
+  (loop [xs xs, rs [(first xs)]]
+    (let [ys (rest xs)]
+      (if (seq ys)
+        (recur ys
+               (conj rs (f (second xs) (first xs))))
+        rs))))
