@@ -46,6 +46,12 @@
         (recur (rest xs) cv (conj r cv)))
       r)))
 
+(defn fold-times [x n f]
+  (loop [n n, r x]
+    (if (<= n 0)
+      r
+      (recur (dec n) (f r)))))
+
 (defn sum [ys]
   (-fold- ys b/add))
 

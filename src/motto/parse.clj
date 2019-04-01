@@ -109,8 +109,8 @@
                           :semicolon '-conj-
                           :at '-fold-
                           :tilde '-map-
-                          :fold-incr '-fold-incr-
-                          :fold-times '-fold-times-})
+                          :fold-incr 'fold-incr
+                          :fold-times 'fold-times})
 
 (def ^:private infix-fn-names (keys infix-fns))
 
@@ -120,7 +120,10 @@
       (let [y (first ts1)]
         (if (some #{y} infix-fn-names)
           (let [[z ts2] (parse-expr (rest ts1))]
-            [[(y infix-fns) z x] ts2])
+            (if (= y :fold-times)
+              (let [[w ts3] (parse-expr ts2)]
+                [[(y infix-fns) w z x] ts3])
+              [[(y infix-fns) z x] ts2]))
           [x ts1]))
       [x ts1])))
 
