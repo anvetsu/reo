@@ -11,8 +11,7 @@ for complex, high-scale analytics.
 
 ### Getting Started
 
-`Motto` is in the early stages of development. Make sure you have JDK 10 or later installed.
-You can build and run `Motto` with the following commands:
+Make sure you have JDK 10 or later installed. You can build and run `Motto` with the following commands:
 
 ```
 $ make
