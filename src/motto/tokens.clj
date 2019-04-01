@@ -76,14 +76,17 @@
 
 (defn- operator [s]
   (let [c (first s)
+        c2 (second s)
         multopr
         (cond
-          (= c \>) (when (= (second s) \=)
+          (= c \>) (when (= c2 \=)
                      :gteq)
-          (= c \<) (let [c2 (second s)]
-                     (cond
-                       (= c2 \=) :lteq
-                       (= c2 \>) :not-eq)))]
+          (= c \<) (cond
+                     (= c2 \=) :lteq
+                     (= c2 \>) :not-eq)
+          (= c \@) (cond
+                     (= c2 \~) :fold-incr
+                     (= c2 \>) :fold-times))]
     (if multopr
       [(nthrest s 2) multopr]
       [(rest s) (get oprs-kw c)])))

@@ -105,26 +105,22 @@
           [expr (rest tokens)])))
     (parse-fncall tokens)))
 
-(def ^:private accessors {:hash '-take-
+(def ^:private infix-fns {:hash '-take-
                           :semicolon '-conj-
                           :at '-fold-
-                          :tilde '-map-})
+                          :tilde '-map-
+                          :fold-incr '-fold-incr-
+                          :fold-times '-fold-times-})
 
-(def ^:private accessor-oprs (keys accessors))
+(def ^:private infix-fn-names (keys infix-fns))
 
-(defn- parse-accessor [tokens]
+(defn- parse-infix-fn [tokens]
   (let [[x ts1] (parse-parenths tokens)]
     (if (and x (seq ts1))
       (let [y (first ts1)]
-        (if (some #{y} accessor-oprs)
-          (let [nt (first (rest ts1))
-                nt-at? (and (= y :at) (= nt :tilde))
-                [z ts2] (parse-expr (if nt-at?
-                                      (nthrest ts1 2)
-                                      (rest ts1)))]
-            (if nt-at?
-              [['-fold-incr- z x] ts2]
-              [[(y accessors) z x] ts2]))
+        (if (some #{y} infix-fn-names)
+          (let [[z ts2] (parse-expr (rest ts1))]
+            [[(y infix-fns) z x] ts2])
           [x ts1]))
       [x ts1])))
 
@@ -143,7 +139,7 @@
           [exprs ts1])))))
 
 (defn- parse-factor [tokens]
-  (parse-arith tokens parse-accessor :mul :div '* '/))
+  (parse-arith tokens parse-infix-fn :mul :div '* '/))
 
 (defn- parse-term [tokens]
   (parse-arith tokens parse-factor :plus :minus '+ '-))
