@@ -8,10 +8,11 @@
   (print "[")
   (when (seq v)
     (loop [v v]
-      (write (first v))
-      (let [r (rest v)]
+      (let [x (first v)
+            r (rest v)]
+        (write x)
         (when (seq r)
-          (do (print " ")
+          (do (when (first r) (print " "))
               (recur r))))))
   (print "]"))
 

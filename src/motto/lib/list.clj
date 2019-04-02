@@ -95,3 +95,13 @@
         (recur ys
                (conj rs (f (second xs) (first xs))))
         rs))))
+
+(defn -get- [xs x]
+  (if (= 1 (count x))
+    (clojure.core/get xs (first x))
+    (loop [x x, rs []]
+      (if (seq x)
+        (if-let [v (get xs (first x))]
+          (recur (rest x) (conj rs v))
+          (recur (rest x) rs))
+        rs))))

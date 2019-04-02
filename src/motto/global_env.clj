@@ -45,5 +45,6 @@
       (def mns motto.lib.list/mins)
       (def til motto.lib.list/til)
       (def twins motto.lib.list/twins)
+      (def -get- motto.lib.list/-get-)
 
       (fn [expr] (eval expr)))))

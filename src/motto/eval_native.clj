@@ -55,7 +55,7 @@
                  ~(first args))
     :call (call-fn (first args) (second args) eval)
     :list (vec (all->lisp (first args) eval))
-    :get `(get ~(->lisp (first args) eval) ~(->lisp (second args) eval))
+    :get `(~'-get- ~(->lisp (first args) eval) ~(->lisp (second args) eval))
     :and `(and ~@(all->lisp args eval))
     :or `(or ~@(all->lisp args eval))
     :block `(do ~@(all->lisp (first args) eval))
