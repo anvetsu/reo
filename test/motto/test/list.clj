@@ -2,6 +2,15 @@
   (:use [clojure.test]
         [motto.test.util]))
 
+(def ^:private get-data
+  ["[1 2 3 4 5][2]" 3
+   "[[1 2 3] [3 4]][1][0]" 3
+   "(g:fn(x) [x x x])t" true
+   "g(10)[1]" 10])
+
+(deftest get-test
+  (test-with get-data))
+
 (def ^:private take-data
   ["2#[1 2 3 4]"     [1 2]
    "a:[10 20 30]"    [10 20 30]
