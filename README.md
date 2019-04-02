@@ -41,6 +41,13 @@ t
 f
 ```
 
+Character literals are prefixed by a `\`:
+
+```
+> \a
+a
+```
+
 The arithmetic operators obey their generally accepted precedence rules. This can be
 overridden by enclosing expressions in parenthesis:
 
