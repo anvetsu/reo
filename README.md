@@ -100,6 +100,13 @@ Take `n` elements from the front or rear of a list:
 [4 5]
 ```
 
+List elements can be accessed by index starting at `0`, with the `get` function:
+
+```
+> get([10 20 30 40] 2)
+30
+```
+
 TODO: other types - symbols, datetime etc
 
 #### Variables

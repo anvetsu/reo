@@ -231,17 +231,7 @@
           (ex "code-block not closed")))
       [expr tokens])))
 
-(defn- parse-accessor [[e tokens]]
-  (loop [e e, tokens tokens]
-    (cond
-      (= :open-sb (first tokens))
-      (let [[x tokens] (parse-expr (rest tokens))]
-        (when-not (= :close-sb (first tokens))
-          (ex (str "missing ]:" tokens)))
-        (recur [:get e x] (rest tokens)))
-      :else [e tokens])))
-
 (defn parse [tokens]
   (if (= tokens [:void])
     tokens
-    (parse-accessor (parse-expr tokens))))
+    (parse-expr tokens)))
