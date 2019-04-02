@@ -2,11 +2,16 @@
 
 (def identifier? symbol?)
 
+(defn quoted? [x]
+  (and (seqable? x)
+       (= 'quote (first x))))
+
 (defn literal? [x]
   (or (number? x)
       (string? x)
       (boolean? x)
-      (char? x)))
+      (char? x)
+      (quoted? x)))
 
 (def maybe-fn? identifier?)
 

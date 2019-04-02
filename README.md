@@ -48,6 +48,13 @@ Character literals are prefixed by a `\`:
 a
 ```
 
+Symbolic literals are prefixed by a single-quote:
+
+```
+> 'hello
+hello
+```
+
 The arithmetic operators obey their generally accepted precedence rules. This can be
 overridden by enclosing expressions in parenthesis:
 

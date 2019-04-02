@@ -105,7 +105,7 @@
           (recur (rest s) ch (conj cs ch))))
       (ex (str "string not terminated: " (su/implode cs))))))
 
-(defn char-literal [s]
+(defn- char-literal [s]
   (let [[s cs]
         (loop [s s, cs []]
           (if (seq s)
@@ -123,6 +123,7 @@
     (num-char? ch) num-literal
     (str-start-char? ch) str-literal
     (= ch \\) char-literal
+    (= ch \') char-literal
     :else (ex (str "invalid character in input: " ch))))
 
 (defn- consume-comment [s]
