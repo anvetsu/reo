@@ -20,10 +20,12 @@
   (when-not (or (nil? x) (= x :void))
     (let [v  (cond
                (boolean? x) (if x 't 'f)
+               (char? x) (str "\\" x)
                (or (tp/function? x)
                    (fn? x)) '<fn>
                :else x)]
       (cond
+        (or (string? v) (char? v)) (print v)
         (seqable? v) (write-vec v)
         :else (print v)))))
 

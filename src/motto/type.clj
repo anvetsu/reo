@@ -5,7 +5,8 @@
 (defn literal? [x]
   (or (number? x)
       (string? x)
-      (boolean? x)))
+      (boolean? x)
+      (char? x)))
 
 (def maybe-fn? identifier?)
 

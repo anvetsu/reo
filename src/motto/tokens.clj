@@ -105,12 +105,24 @@
           (recur (rest s) ch (conj cs ch))))
       (ex (str "string not terminated: " (su/implode cs))))))
 
+(defn char-literal [s]
+  (let [[s cs]
+        (loop [s s, cs []]
+          (if (seq s)
+            (let [c (first s)]
+              (if (Character/isWhitespace (int c))
+                [s cs]
+                (recur (rest s) (conj cs c))))
+            [s cs]))]
+    [s (read-string (su/implode cs))]))
+
 (defn- tokenizer [ch]
   (cond
     (ident-start-char? ch) identifier
     (opr-char? ch) operator
     (num-char? ch) num-literal
     (str-start-char? ch) str-literal
+    (= ch \\) char-literal
     :else (ex (str "invalid character in input: " ch))))
 
 (defn- consume-comment [s]

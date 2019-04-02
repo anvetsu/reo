@@ -100,10 +100,10 @@ Take `n` elements from the front or rear of a list:
 [4 5]
 ```
 
-List elements can be accessed by index starting at `0`, with the `get` function:
+List elements can be accessed by index starting at `0`, using function call syntax:
 
 ```
-> get([10 20 30 40] 2)
+> [10 20 30 40](2)
 30
 ```
 
