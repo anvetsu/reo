@@ -235,8 +235,10 @@
   (loop [e e, tokens tokens]
     (cond
       (= :open-sb (first tokens))
-      (let [[x tokens] (parse-list (rest tokens))]
-        (recur [:get e x] tokens))
+      (let [[x tokens] (parse-expr (rest tokens))]
+        (when-not (= :close-sb (first tokens))
+          (ex (str "missing ]:" tokens)))
+        (recur [:get e x] (rest tokens)))
       :else [e tokens])))
 
 (defn parse [tokens]
