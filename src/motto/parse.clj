@@ -199,9 +199,11 @@
 
 (defn- fetch-expr [[e tokens] next-parser]
   (if e
-    (if (= :openp (first tokens))
-      (parse-call e tokens)
-      [e tokens])
+    (loop [e e, tokens tokens]
+      (if (= :openp (first tokens))
+        (let [[e tokens] (parse-call e tokens)]
+          (recur e tokens))
+        [e tokens]))
     (when next-parser
       (fetch-expr (next-parser tokens) nil))))
 

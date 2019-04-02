@@ -90,7 +90,11 @@
    "(a:fn(x) fn(y) x+y)1"    1
    "(b:a(10))1"              1
    "b(20)"                   30
-   "b(b(1))"                 21])
+   "b(b(1))"                 21
+   "(g:fn(x) fn(y) x + y)t"  true
+   "g(10)(20)"               30
+   "(g:fn(x) fn(y) fn (z) x + y + z)t" true
+   "g(10)(20)(30)"           60])
 
 (deftest fns
   (test-with fns-data))
