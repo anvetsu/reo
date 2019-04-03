@@ -12,7 +12,7 @@
             r (rest v)]
         (write x)
         (when (seq r)
-          (do (when (first r) (print " "))
+          (do (when-not (nil? (first r)) (print " "))
               (recur r))))))
   (print "]"))
 
