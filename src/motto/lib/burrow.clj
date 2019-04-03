@@ -1,5 +1,6 @@
 (ns motto.lib.burrow
-  (:require [motto.lib.num :as num]))
+  (:require [motto.util :as u]
+            [motto.lib.num :as num]))
 
 (defn- seq-burrow [opr x y]
   (loop [x x, y y, r []]
@@ -19,11 +20,11 @@
       (recur (rest y) (conj r (opr (first y) x)))
       r)))
 
-(defn- atomic? [x] (not (seqable? x)))
-
 (defn- burrow [opr x y]
+  (when (or (nil? x) (nil? y))
+    (throw (Exception. "invalid argument to operator")))
   (cond
-    (and (atomic? x) (atomic? y)) (opr x y)
+    (and (u/atomic? x) (u/atomic? y)) (opr x y)
     (and (seqable? x) (seqable? y)) (seq-burrow opr x y)
     (seqable? x) (seq-x-burrow opr x y)
     :else (seq-y-burrow opr x y)))

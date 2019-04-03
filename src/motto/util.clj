@@ -10,3 +10,5 @@
 (defn normalize-file-path [^String file-path]
   (let [i (.lastIndexOf file-path ".")]
     (.substring file-path 0 i)))
+
+(defn atomic? [x] (not (seqable? x)))
