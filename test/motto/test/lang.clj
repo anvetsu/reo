@@ -101,8 +101,13 @@
 
 (def ^:private blck-data
   ["{1+2 3+4 5+4}"    9
+   "a:10"             10
    "(pyth:fn(x y) { a:x*x b:y*y a+b })1" 1
-   "pyth(3 4)"        25])
+   "pyth(3 4)"        25
+   "a"                10
+   "{a:100 b:200 a+b}" 300
+   "a"                10
+   "{a:100 b:200 a+b c:3}" :ex])
 
 (deftest blck
   (test-with blck-data))

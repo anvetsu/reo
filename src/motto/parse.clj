@@ -7,6 +7,31 @@
 
 (declare parse-expr parse-val fetch-expr)
 
+(defn- assert-defs! [exprs]
+  (loop [exprs exprs, defs-over? false]
+    (when (seq exprs)
+      (let [e (first exprs)]
+        (if (and (seqable? e) (= :define (first e)))
+          (if defs-over?
+            (ex (str "misplaced definition: " e))
+            (recur (rest exprs) false))
+          (recur (rest exprs) true))))))
+
+(defn- local-defs [exprs]
+  (loop [exprs exprs, bindings []]
+    (if (seq exprs)
+      (let [e (first exprs)]
+        (if (and (seqable? e) (= :define (first e)))
+          (let [[_ var val] e]
+            (recur (rest exprs) (conj bindings var val)))
+          [bindings exprs]))
+      [bindings exprs])))
+
+(defn- vars->let [exprs]
+  (assert-defs! exprs)
+  (let [[bindings body] (local-defs exprs)]
+    [:let bindings body]))
+
 (defn- parse-params [tokens]
   (if (= :openp (first tokens))
     (loop [ts (rest tokens)
@@ -211,7 +236,7 @@
 
 (defn- blockify [exprs]
   (if (> (count exprs) 1)
-    [:block exprs]
+    [:block [(vars->let exprs)]]
     (first exprs)))
 
 (defn- parse-expr [tokens]

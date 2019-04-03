@@ -48,6 +48,13 @@
         eargs (all->lisp args eval)]
     (concat (list fnval) eargs)))
 
+(defn- form->let [bindings body eval]
+  (let [body-expr (->lisp body eval)]
+    (if (seq bindings)
+      `(let ~(into [] (->lisp bindings eval))
+         ~@body-expr)
+      `(do ~@body-expr))))
+
 (defn- form->lisp [ident args eval]
   (case ident
     :define `(do (def ~(valid-ident (first args))
@@ -58,6 +65,7 @@
     :and `(and ~@(all->lisp args eval))
     :or `(or ~@(all->lisp args eval))
     :block `(do ~@(all->lisp (first args) eval))
+    :let (form->let (first args) (second args) eval)
     :load `(ld ~(first args) eval)
     (call-fn ident args eval)))
 
