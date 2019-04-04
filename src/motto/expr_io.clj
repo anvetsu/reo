@@ -4,6 +4,9 @@
 
 (declare write)
 
+(defn- writable? [x]
+  (not (or (nil? x) (= x :void))))
+
 (defn write-vec [v]
   (print "[")
   (when (seq v)
@@ -17,7 +20,7 @@
   (print "]"))
 
 (defn write [x]
-  (when-not (or (nil? x) (= x :void))
+  (when (writable? x)
     (let [v  (cond
                (boolean? x) (if x 't 'f)
                (or (tp/function? x)
@@ -29,8 +32,9 @@
         :else (print v)))))
 
 (defn writeln [x]
-  (write x)
-  (println))
+  (when (writable? x)
+    (write x)
+    (println)))
 
 (defn- match-curlies [s]
   (loop [ss (seq s), opn 0, cls 0]

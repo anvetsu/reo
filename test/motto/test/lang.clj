@@ -46,11 +46,12 @@
 (def ^:private logical-data
   ["1<2 & 3<4*100"  true
    "1>2 | 3<4*100"  true
-   "a:10<20 & (1=2 | 1 < 2)" true
+   "a:10<20 & (1=2 | 1 < 2)" :void
    "a"              true
-   "a:10<10 & (1=2 | 1 < 2)" false
+   "a:(10<10 & (1=2 | 1 < 2))" :void
    "a"              false
-   "(a:10)<10 & (1=2 | 1 < 2)" false
+   "a:10"           :void
+   "a<10 & (1=2 | 1 < 2)" false
    "a"              10])
 
 (deftest basic-logical
@@ -69,12 +70,13 @@
 (def ^:private vars-data
   ["t:100"       :ex
    "f:200"       :ex
-   "a:10"        10
+   "a:10"        :void
    "a + 2"       12
-   "b:4+(a:100)"   104
-   "a+b"           204
-   "(b:4)+(a:100)" 104
-   "a-b"         96
+   "{a:100 b:4+a b}"   104
+   "a+b"         :ex
+   "b:4"         :void
+   "a+b"         14
+   "a-b"         6
    "a=b"         false
    "b=4"         true
    "(b=4)=(4=b)" true])
@@ -85,15 +87,15 @@
 (def ^:private fns-data
   ["(fn (x) x*x)(10)"        100
    "(fn (x y) x*2+y)(10 20)" 40
-   "(a:fn(x) x*x)100"        100
+   "a:fn(x) x*x"             :void
    "a(20)"                   400
-   "(a:fn(x) fn(y) x+y)1"    1
-   "(b:a(10))1"              1
+   "a:fn(x) fn(y) x+y"       :void
+   "b:a(10)"                 :void
    "b(20)"                   30
    "b(b(1))"                 21
-   "(g:fn(x) fn(y) x + y)t"  true
+   "g:fn(x) fn(y) x + y"     :void
    "g(10)(20)"               30
-   "(g:fn(x) fn(y) fn (z) x + y + z)t" true
+   "g:fn(x) fn(y) fn (z) x + y + z" :void
    "g(10)(20)(30)"           60])
 
 (deftest fns
@@ -101,8 +103,8 @@
 
 (def ^:private blck-data
   ["{1+2 3+4 5+4}"    9
-   "a:10"             10
-   "(pyth:fn(x y) { a:x*x b:y*y a+b })1" 1
+   "a:10"             :void
+   "pyth:fn(x y) { a:x*x b:y*y a+b }" :void
    "pyth(3 4)"        25
    "a"                10
    "{a:100 b:200 a+b}" 300

@@ -59,7 +59,7 @@
   (case ident
     :define `(do (def ~(valid-ident (first args))
                    ~(->lisp (second args) eval))
-                 ~(first args))
+                 :void)
     :call (call-fn (first args) (second args) eval)
     :list (vec (all->lisp (first args) eval))
     :and `(and ~@(all->lisp args eval))

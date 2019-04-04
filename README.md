@@ -129,28 +129,15 @@ Variables are declared with the `:` operator.
 
 ```
 > a:10
-10
 > a + 2
 12
-```
-
-Variable declaration is an expression:
-
-```
-> b:4+a:100
-104
-> a
-100
+> b:4+a
 > b
-104
+14
 ```
 
-Note that variable binding has lower precedence than arithmetic operators.
-To bind `b` to `4`, you will have to do:
-
-```
-(b:4)+a:100
-```
+Note that variable declaration is also an expression, which always return the singleton instance of type `void`.
+This value has not printable representation.
 
 #### Comparison
 
