@@ -207,12 +207,23 @@ Apply a function `n` times:
 
 #### Code blocks
 
-Code blocks are delimited by opening and closing curly braces:
+Code blocks are delimited by opening and closing curly braces.
 
 ```
 > pyth:fn(x y) { a:x*x b:y*y a+b }
 > pyth(3 4)
 25
+```
+
+A code block will introduce a new scope. Variables bound in a code block wil shadow
+those with the same name in the outer scope.
+
+```
+> a:100
+> {a:20 a+10}
+30
+> a
+100
 ```
 
 #### Multi-line expressions

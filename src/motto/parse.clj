@@ -235,9 +235,7 @@
       (fetch-expr (next-parser tokens) nil))))
 
 (defn- blockify [exprs]
-  (if (> (count exprs) 1)
-    [:block [(vars->let exprs)]]
-    (first exprs)))
+  [:block [(vars->let exprs)]])
 
 (defn- parse-expr [tokens]
   (let [p (fn [tokens]
