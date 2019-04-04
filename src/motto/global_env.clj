@@ -2,7 +2,8 @@
   (:require [motto.compile]
             [motto.lib.burrow]
             [motto.lib.num]
-            [motto.lib.list]))
+            [motto.lib.list]
+            [motto.lib.tab]))
 
 (defn make-eval []
   (eval
@@ -45,5 +46,7 @@
       (def mns motto.lib.list/mins)
       (def til motto.lib.list/til)
       (def twins motto.lib.list/twins)
+
+      (def tab motto.lib.tab/tab)
 
       (fn [expr] (eval expr)))))

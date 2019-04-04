@@ -19,6 +19,19 @@
               (recur r))))))
   (print "]"))
 
+(defn- write-tab [[col-names data]]
+  (loop [cs col-names]
+    (when (seq cs)
+      (let [k (first cs)
+            v (get data k)
+            r (rest cs)]
+        (write k)
+        (print ": ")
+        (write v)
+        (when (seq r)
+          (println))
+        (recur r)))))
+
 (defn write [x]
   (when (writable? x)
     (let [v  (cond
@@ -26,10 +39,12 @@
                (or (tp/function? x)
                    (fn? x)) '<fn>
                :else x)]
-      (cond
-        (string? v) (print v)
-        (seqable? v) (write-vec v)
-        :else (print v)))))
+      (if-let [tab (tp/tab-data x)]
+        (write-tab tab)
+        (cond
+          (string? v) (print v)
+          (seqable? v) (write-vec v)
+          :else (print v))))))
 
 (defn writeln [x]
   (when (writable? x)

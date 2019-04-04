@@ -1,13 +1,11 @@
 
- * Implement fold (@)
  * Nulls?
- * Compose lists into columnar tables.
- * Import data over JDBC.
+ * JDBC data import.
  * Implement queries.
 
- * Add symbol and temporal data types.
+ * Add temporal data types.
  * Built-in data analytics functions.
  * Expose REST API for programming with motto.
- * Optimize list storage.
+ * Represent homogeneous lists optimally.
 
  * Build a sample dashboard.

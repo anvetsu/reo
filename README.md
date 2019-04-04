@@ -254,7 +254,17 @@ String literals can serve the purpose of comments in code:
 
 ### Columnar data tables
 
-TODO
+Lists are composed into tables using the `tab` function. The first argument to this function is
+the list of column names and the second argument is the data for each column.
+
+```
+> a:tab(['a 'b 'c] [10 20 30])
+> a('a)
+10
+> a:tab(['a 'b 'c] [[10 20 30] [100 200 300] [40 50 60 70]])
+> a('b)(2)"
+300
+```
 
 #### The query sub-language
 

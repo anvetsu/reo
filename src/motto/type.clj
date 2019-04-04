@@ -33,3 +33,14 @@
 
 (defn fnenv [f]
   (:env (:fn f)))
+
+(defn tabify [col-names table]
+  (let [tab (into {} table)]
+    (assoc tab :tab true :col-names col-names)))
+
+(defn tab? [x]
+  (:tab x))
+
+(defn tab-data [tab]
+  (when (tab? tab)
+    [(:col-names tab) (dissoc tab :col-names)]))
