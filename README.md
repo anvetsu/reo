@@ -233,18 +233,12 @@ TODO
 
 #### Comments
 
-The character `!` starts a comment that will extend to the end of the line.
-A comment can be embedded between expressions by enclosing it in two `!`s.
+There are no special comment markers in `Motto`.
+String literals can serve the purpose of comments in code:
 
 ```
-> 1+2 !this is a comment! 3+4
-7
-```
-
-An exclamation mark can be included in a comment by typing it twice:
-
-```
-!hi!!
+> a:100 "comment: some description of `a`" 3+4+a
+107
 ```
 
 ### Columnar data tables
