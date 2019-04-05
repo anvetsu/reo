@@ -12,3 +12,8 @@
     (.substring file-path 0 i)))
 
 (defn atomic? [x] (not (seqable? x)))
+
+(defn for-data [data fnmap]
+  (doseq [k (keys fnmap)]
+    (when-let [v (get data k)]
+      ((get fnmap k) v))))

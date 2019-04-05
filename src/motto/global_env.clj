@@ -1,5 +1,6 @@
 (ns motto.global-env
   (:require [motto.compile]
+            [motto.dbconn]
             [motto.lib.burrow]
             [motto.lib.num]
             [motto.lib.list]
@@ -48,5 +49,10 @@
       (def twins motto.lib.list/twins)
 
       (def tab motto.lib.tab/tab)
+
+      (def data_source motto.dbconn/data-source)
+      (def open motto.dbconn/open)
+      (def close motto.dbconn/close)
+      (def conn motto.dbconn/conn)
 
       (fn [expr] (eval expr)))))
