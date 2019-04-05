@@ -87,14 +87,15 @@
   (.getString rs i))
 
 (defn- col-type [^ResultSetMetaData rmd i]
-  (case (.getColumnType rmd i)
-    Types/BIT get-int
-    Types/BOOLEAN get-boolean
-    Types/INTEGER get-int
-    Types/FLOAT get-float
-    Types/DOUBLE get-double
-    Types/DECIMAL get-decimal
-    get-string))
+  (let [t (.getColumnType rmd i)]
+    (cond
+      (= t Types/BIT) get-int
+      (= t Types/BOOLEAN) get-boolean
+      (= t Types/INTEGER) get-int
+      (= t Types/FLOAT) get-float
+      (= t Types/DOUBLE) get-double
+      (= t Types/DECIMAL) get-decimal
+      :else get-string)))
 
 (defn- column-infos [^ResultSetMetaData rmd]
   (let [c (.getColumnCount rmd)]
@@ -107,7 +108,7 @@
   (map (fn [[i _ f]] (f rs i)) col-types))
 
 (defn- column-names [col-infos]
-  (into [] (map second col-infos)))
+  (into [] (map #(symbol (.toLowerCase (second %))) col-infos)))
 
 (defn- set-params! [^PreparedStatement stmt params]
   (loop [i 1, params params]

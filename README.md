@@ -266,9 +266,43 @@ the list of column names and the second argument is the data for each column.
 300
 ```
 
-#### The query sub-language
+Create tables in the persistent store using SQL:
 
-TODO
+```
+> cmd("create table employee(id int primary key, name varchar(80), age int, salary float)")
+> cmd("insert into employee values(1, 'joe', 42, 1200.45)")
+> cmd("insert into employee values(2, 'sally', 51, 2300.77)")
+> cmd("insert into employee values(3, 'mat', 32, 1310)")
+```
+
+A query will return data in columnar format, making it easy to do analytics using higher-order list
+processing functions:
+
+```
+> sals:qry("select salary from employee")('salary)
+> sum(sals)/count(sals)
+1603.74
+```
+
+You may also use prepared statements:
+
+```
+> conn:open(data_source())
+> s:stmt(conn "select * from employee where salary > ?")
+> qry(s [1500])
+id: [2]
+name: [sally]
+age: [51]
+salary: [2300.77]
+
+> qry(s [1000])
+id: [1 2 3]
+name: [joe sally mat]
+age: [42 51 32]
+salary: [1200.45 2300.77 1310.0]
+
+> close(conn)
+```
 
 #### Higher-order operations on columnar data
 
