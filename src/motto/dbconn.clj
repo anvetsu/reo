@@ -110,3 +110,6 @@
       (if (.next rs)
         (recur (u/spread rows (fetch-row rs col-types)))
         rows))))
+
+(defn command [^Statement stmt]
+  (.executeUpdate stmt))
