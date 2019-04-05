@@ -39,8 +39,19 @@
     (assoc tab :tab true :col-names col-names)))
 
 (defn tab? [x]
-  (:tab x))
+  (and (:tab x)
+       true))
 
 (defn tab-data [tab]
   (when (tab? tab)
     [(:col-names tab) (dissoc tab :col-names)]))
+
+(defn err [x]
+  {:error x})
+
+(defn err? [x]
+  (and (:error x)
+       true))
+
+(defn err-data [x]
+  (:error x))

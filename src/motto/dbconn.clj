@@ -55,3 +55,6 @@
                                     :user "SA"
                                     :password ""})]
             (open ds)))
+
+(defn stmt [conn sql]
+  (.prepareStatement conn sql))

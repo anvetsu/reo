@@ -1,6 +1,7 @@
 ;; Tranlsate motto to clojure and eval.
 (ns motto.eval-native
-  (:require [motto.tokens :as t]
+  (:require [clojure.tools.logging :as log]
+            [motto.tokens :as t]
             [motto.parse :as p]
             [motto.compile :as c]
             [motto.util :as u]
@@ -84,7 +85,11 @@
     (seq expr) (form->lisp (first expr) (rest expr) eval)))
 
 (defn evaluate [expr eval]
-  (eval (->lisp expr eval)))
+  (try
+    (eval (->lisp expr eval))
+    (catch Exception ex
+      (log/error ex)
+      (tp/err (.getMessage ex)))))
 
 (defn evaluate-all [exprs eval]
   (loop [exprs exprs, val nil]
