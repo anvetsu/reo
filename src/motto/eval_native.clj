@@ -89,6 +89,7 @@
     (eval (->lisp expr eval))
     (catch Exception ex
       (log/error ex)
+      (.printStackTrace ex)
       (tp/err (.getMessage ex)))))
 
 (defn evaluate-all [exprs eval]

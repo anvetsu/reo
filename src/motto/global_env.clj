@@ -54,8 +54,8 @@
       (def data_source motto.dbconn/data-source)
       (def open motto.dbconn/open)
       (def close motto.dbconn/close)
-      (def conn motto.dbconn/conn)
-      (def qry motto.dbconn/query)
-      (def cmd motto.dbconn/command)
+      (def stmt motto.dbconn/stmt)
+      (def qry motto.dbconn/qry)
+      (def cmd motto.dbconn/cmd)
 
       (fn [expr] (eval expr)))))

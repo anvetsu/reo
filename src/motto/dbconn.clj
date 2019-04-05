@@ -1,7 +1,8 @@
 (ns motto.dbconn
-  (:require [motto.util :as u])
+  (:require [motto.util :as u]
+            [motto.lib.tab :as t])
   (:import [java.sql Connection ResultSet ResultSetMetaData
-            Statement Types]
+            PreparedStatement Statement Types]
            [javax.sql DataSource]
            [com.mchange.v2.c3p0 ComboPooledDataSource
             PooledDataSource DataSources]))
@@ -32,8 +33,17 @@
       (cache-ds! ds config)
       ds)))
 
-(defn data-source [config]
-  (into {} (map (fn [[k v]] [(keyword k) v])) config))
+(def ^:private default-ds-config {:jdbc-url "jdbc:hsqldb:file:db/mottodb"
+                                  :user "SA"
+                                  :password ""})
+(def ^:private ds (mk-data-source default-ds-config))
+
+(defn data-source
+  ([config]
+   (if (seq config)
+     (into {} (map (fn [[k v]] [(keyword k) v])) config)
+     ds))
+  ([] ds))
 
 (defn cleanup []
   (doseq [^PooledDataSource ds (vals @data-sources)]
@@ -52,34 +62,29 @@
 (defn close [^Connection conn]
   (.close conn))
 
-(def conn (let [ds (mk-data-source {:jdbc-url "jdbc:hsqldb:file:db/mottodb"
-                                    :user "SA"
-                                    :password ""})]
-            (open ds)))
-
 (defn stmt [^Connection conn ^String sql]
   (.prepareStatement conn sql))
 
-(defn- get-int [^ResultSet rs]
-  (.getInt rs))
+(defn- get-int [^ResultSet rs ^Integer i]
+  (.getInt rs i))
 
-(defn- get-boolean [^ResultSet rs]
-  (.getBoolean rs))
+(defn- get-boolean [^ResultSet rs ^Integer i]
+  (.getBoolean rs i))
 
-(defn- get-int [^ResultSet rs]
-  (.getInt rs))
+(defn- get-int [^ResultSet rs ^Integer i]
+  (.getInt rs i))
 
-(defn- get-float [^ResultSet rs]
-  (.getFloat rs))
+(defn- get-float [^ResultSet rs ^Integer i]
+  (.getFloat rs i))
 
-(defn- get-double [^ResultSet rs]
-  (.getDouble rs))
+(defn- get-double [^ResultSet rs ^Integer i]
+  (.getDouble rs i))
 
-(defn- get-decimal [^ResultSet rs]
-  (.getDecimal rs))
+(defn- get-decimal [^ResultSet rs ^Integer i]
+  (.getDecimal rs i))
 
-(defn- get-string [^ResultSet rs]
-  (.getString rs))
+(defn- get-string [^ResultSet rs ^Integer i]
+  (.getString rs i))
 
 (defn- col-type [^ResultSetMetaData rmd i]
   (case (.getColumnType rmd i)
@@ -91,25 +96,81 @@
     Types/DECIMAL get-decimal
     get-string))
 
-(defn- column-types [^ResultSetMetaData rmd]
+(defn- column-infos [^ResultSetMetaData rmd]
   (let [c (.getColumnCount rmd)]
     (loop [i 1, tps []]
       (if (<= i c)
-        (recur (inc i) (conj tps [i (col-type rmd i)]))
+        (recur (inc i) (conj tps [i (.getColumnName rmd i) (col-type rmd i)]))
         tps))))
 
 (defn- fetch-row [^ResultSet rs col-types]
-  (map (fn [[_ f]] (f rs)) col-types))
+  (map (fn [[i _ f]] (f rs i)) col-types))
 
-(defn query [^Statement stmt]
-  (let [^ResultSet rs (.executeQuery stmt)
-        ^ResultSetMetaData rmd (.getMetaData rs)
-        col-cnt (.getColumnCount rmd)
-        col-types (column-types rmd)]
-    (loop [rows (repeat col-cnt [])]
-      (if (.next rs)
-        (recur (u/spread rows (fetch-row rs col-types)))
-        rows))))
+(defn- column-names [col-infos]
+  (into [] (map second col-infos)))
 
-(defn command [^Statement stmt]
-  (.executeUpdate stmt))
+(defn- set-params! [^PreparedStatement stmt params]
+  (loop [i 1, params params]
+    (when (seq params)
+      (let [v (first params)]
+        (cond
+          (int? v) (.setInt stmt i v)
+          (integer? v) (.setLong stmt i v)
+          (float? v) (.setFloat stmt i v)
+          (double? v) (.setDouble stmt i v)
+          (boolean? v) (.setBoolean stmt i v)
+          (string? v) (.setString stmt i v)
+          (symbol? v) (.setString stmt i (name v))
+          :else (u/ex (str "dbconn: invalid value: " v))))
+      (recur (inc i) (rest params)))))
+
+(defn query
+  ([^Statement stmt params]
+   (when (seq params)
+     (set-params! stmt params))
+   (let [^ResultSet rs (.executeQuery stmt)
+         ^ResultSetMetaData rmd (.getMetaData rs)
+         col-cnt (.getColumnCount rmd)
+         col-infos (column-infos rmd)
+         data
+         (loop [rows (into [] (repeat col-cnt []))]
+           (if (.next rs)
+             (recur (u/spread rows (fetch-row rs col-infos)))
+             rows))]
+     (t/tab (column-names col-infos) data)))
+  ([^Statement stmt]
+   (query stmt nil)))
+
+(defn command
+  ([^Statement stmt params]
+   (when (seq params)
+     (set-params! stmt params))
+   (.executeUpdate stmt))
+  ([^Statement stmt]
+   (command stmt nil)))
+
+(defn- qry-cmd
+  [s params f]
+  (let [mkstmt? (string? s)
+        conn (when mkstmt?
+               (open ds))]
+    (try
+      (let [^Statement stmt (if mkstmt?
+                              (stmt conn s)
+                              s)]
+        (f stmt params))
+      (finally
+        (when conn
+          (close conn))))))
+
+(defn qry
+  ([s params]
+   (qry-cmd s params query))
+  ([s]
+   (qry-cmd s nil query)))
+
+(defn cmd
+  ([s params]
+   (qry-cmd s params command))
+  ([s]
+   (qry-cmd s nil command)))
