@@ -32,6 +32,19 @@
           (println))
         (recur r)))))
 
+(defn- write-dict [m]
+  (print "[")
+  (loop [m m]
+      (when (seq m)
+        (let [[k v] (first m)]
+          (write k)
+          (print ":")
+          (write v)
+          (when (seq (rest m))
+            (print " "))
+          (recur (rest m)))))
+  (print "]"))
+
 (defn write [x]
   (when (writable? x)
     (let [v  (cond
@@ -43,6 +56,7 @@
         (write-tab tab)
         (cond
           (string? v) (print v)
+          (map? v) (write-dict v)
           (seqable? v) (write-vec v)
           :else (print v))))))
 

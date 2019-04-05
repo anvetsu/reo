@@ -11,6 +11,7 @@
    '(do
       (def -neg- -)
       (def p partial)
+      (def dict hash-map)
 
       (def -+- motto.lib.burrow/add)
       (def --- motto.lib.burrow/sub)

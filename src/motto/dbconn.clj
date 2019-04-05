@@ -15,7 +15,7 @@
   (let [k (:jdbc-url config)]
     (swap! data-sources assoc k ds)))
 
-(defn data-source [config]
+(defn- mk-data-source [config]
   (if-let [ds (cached-ds config)]
     ds
     (let [^ComboPooledDataSource ds (ComboPooledDataSource.)]
@@ -30,6 +30,9 @@
                           :acquire-increment #(.setAcquireIncrement ds %)})
       (cache-ds! ds config)
       ds)))
+
+(defn data-source [config]
+  (into {} (map (fn [[k v]] [(keyword k) v])) config))
 
 (defn cleanup []
   (doseq [^PooledDataSource ds (vals @data-sources)]
@@ -48,7 +51,7 @@
 (defn close [^Connection conn]
   (.close conn))
 
-(def conn (let [ds (data-source {:jdbc-url "jdbc:hsqldb:file:db/mottodb"
-                                 :user "SA"
-                                 :password ""})]
+(def conn (let [ds (mk-data-source {:jdbc-url "jdbc:hsqldb:file:db/mottodb"
+                                    :user "SA"
+                                    :password ""})]
             (open ds)))
