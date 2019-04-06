@@ -268,6 +268,19 @@ The last expression must be a single expression, which will be evaluated if all 
 4
 ```
 
+#### Looping
+
+Iteration is achieved with the help of `iterative` functions.
+
+```
+> w:fn^(x) if {x <= 0 t {println(x) ^(x-1)}}
+> w(3)
+3
+2
+1
+t
+```
+
 #### Comments
 
 There are no special comment markers in `Motto`.
