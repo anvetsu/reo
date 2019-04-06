@@ -1,9 +1,12 @@
 
- * Nulls?
+ * if-else, in the form of `cond`.
+ * recur with ^ operator.
 
- * Add temporal data types.
- * Built-in data analytics functions.
- * Expose REST API for programming with motto.
- * Represent homogeneous lists optimally.
+ * sample data analytics scripts.
 
- * Build a sample dashboard.
+ * temporal data types.
+ * more data analytics functions.
+ * REST API for programming with motto.
+ * represent homogeneous lists optimally.
+
+ * sample dashboard.
