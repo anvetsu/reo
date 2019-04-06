@@ -21,6 +21,5 @@
                   (eio/writeln val))
                 (System/exit 0)))
             (catch Exception ex
-              (.printStackTrace ex)
               (println (str "ERROR: " (.getMessage ex)))))
           (recur)))))

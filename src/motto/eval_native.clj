@@ -34,13 +34,6 @@
             (recur (rest exprss) val))
           val)))))
 
-(def ^:private reserved-names #{'t 'f})
-
-(defn- valid-ident [var]
-  (when (some #{var} reserved-names)
-    (ex (str "reserved name: " var)))
-  var)
-
 (defn all->lisp [exprs eval]
   (map #(->lisp % eval) exprs))
 
@@ -58,7 +51,7 @@
 
 (defn- form->lisp [ident args eval]
   (case ident
-    :define `(do (def ~(valid-ident (first args))
+    :define `(do (def ~(first args)
                    ~(->lisp (second args) eval))
                  :void)
     :call (call-fn (first args) (second args) eval)
@@ -89,7 +82,6 @@
     (eval (->lisp expr eval))
     (catch Exception ex
       (log/error ex)
-      (.printStackTrace ex)
       (tp/err (.getMessage ex)))))
 
 (defn evaluate-all [exprs eval]

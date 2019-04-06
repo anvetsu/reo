@@ -207,11 +207,18 @@
       (ex (str "invalid load: " tokens)))
     [[:load e] ts]))
 
+(def ^:private reserved-names #{'t 'f 'fn 'if})
+
+(defn- valid-ident [var]
+  (when (some #{var} reserved-names)
+    (ex (str "reserved name: " var)))
+  var)
+
 (defn- parse-define [x tokens]
   (let [[e ts] (parse-expr tokens)]
     (when-not e
       (ex (str "no value to bind: " x)))
-    [[:define x e] ts]))
+    [[:define (valid-ident x) e] ts]))
 
 (defn- parse-stmt [tokens]
   (let [[x y] [(first tokens) (second tokens)]]
