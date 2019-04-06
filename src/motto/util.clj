@@ -26,3 +26,10 @@
                (assoc xs i (conj x (first xss)))
                (rest xss)))
       xs)))
+
+(defn dupl [xs]
+  (loop [xs xs, rs []]
+    (if (seq xs)
+      (let [x (first xs)]
+        (recur (rest xs) (conj rs x x)))
+      rs)))

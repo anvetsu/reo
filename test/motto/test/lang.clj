@@ -96,7 +96,8 @@
    "g:fn(x) fn(y) x + y"     :void
    "g(10)(20)"               30
    "g:fn(x) fn(y) fn (z) x + y + z" :void
-   "g(10)(20)(30)"           60])
+   "g(10)(20)(30)"           60
+   "(fn^(x) if {x<=0 0 ^(x-1)})(100000)" 0])
 
 (deftest fns
   (test-with fns-data))

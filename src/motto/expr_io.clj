@@ -69,8 +69,8 @@
     (write x)
     (println)))
 
-(defn- match-curlies [s]
-  (loop [ss (seq s), opn 0, cls 0]
+(defn- match-curlies [s opn]
+  (loop [ss (seq s), opn opn, cls 0]
     (if (seq ss)
       (let [c (first ss)
             [opn cls]
@@ -81,23 +81,25 @@
         (recur (rest ss) opn cls))
       (- opn cls))))
 
-(defn readln []
-  (if-let [s (read-line)]
-    (if (str/ends-with? s "  ")
-      [:more s]
-      (let [c (match-curlies s)]
-        (cond
-          (<= c 0) [:done s]
-          (pos? c) [:more s])))
-    [:eof nil]))
+(defn readln
+  ([opn-curlies]
+   (if-let [s (read-line)]
+     (if (str/ends-with? s "  ")
+       [:more s 0]
+       (let [c (match-curlies s opn-curlies)]
+         (cond
+           (<= c 0) [:done s 0]
+           (pos? c) [:more (str s " ") c])))
+     [:eof nil 0]))
+  ([] (readln 0)))
 
 (defn read-multiln
   ([stepper]
-   (loop [[flag s] (readln)
+   (loop [[flag s c] (readln)
           ss []]
      (case flag
        :more (do (when stepper (stepper))
-                 (recur (readln)
+                 (recur (readln c)
                         (conj ss s)))
        :done (str/join (conj ss s))
        :eof nil)))

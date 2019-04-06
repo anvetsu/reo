@@ -240,7 +240,33 @@ The `-` prompt indicates that `motto` is waiting for more input.
 
 #### Conditional expressions
 
-TODO
+Execution flow is controlled with the `if` construct.
+
+```
+> if 1 < 2 "ok"
+"ok"
+> if 2 < 1 "ok"
+f
+```
+
+Multiple conditions can be expressed by enclosing them in a code-block as condition-consequence pairs.
+The last expression must be a single expression, which will be evaluated if all conditions return false:
+
+```
+> a:90
+> g:fn() if { a < 10 1
+              a < 50 2
+              a < 100 3
+              4 }
+> g()
+3
+> a:40
+> g()
+2
+> a:200
+> g()
+4
+```
 
 #### Comments
 
