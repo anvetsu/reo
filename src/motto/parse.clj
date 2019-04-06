@@ -50,11 +50,37 @@
         [body ts2] (parse-expr ts1)]
     [(tp/make-fn params body) ts2]))
 
+(defn- parse-cond [tokens]
+  (let [[conds ts]
+        (loop [ts tokens, conds []]
+          (if (seq ts)
+            (let [[c ts1] (parse-expr ts)]
+              (if (= :close-cb (first ts1))
+                [(conj conds c) ts1]
+                (let [[b ts2] (parse-expr ts1)]
+                  (recur ts2 (conj conds [c b])))))
+            [conds nil]))]
+    [[:cond conds] ts]))
+
+(defn- parse-if [tokens]
+  (cond
+    (= :open-cb (first tokens))
+    (let [[expr ts] (parse-cond (rest tokens))]
+      (when-not (= :close-cb (first ts))
+        (ex (str "`if` condition not terminated: " tokens)))
+      [expr (rest ts)])
+
+    :else
+    (let [[c ts1] (parse-expr tokens)
+          [b ts2] (parse-expr ts1)]
+      [[:when c b] ts2])))
+
 (defn- parse-atom [x tokens]
   (cond
     (= x 't) [:true (rest tokens)]
     (= x 'f) [:false (rest tokens)]
     (= x 'fn) (parse-fn (rest tokens))
+    (= x 'if) (parse-if (rest tokens))
     :else [x (rest tokens)]))
 
 (defn- parse-list [tokens]

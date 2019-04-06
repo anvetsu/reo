@@ -120,3 +120,17 @@
 
 (deftest op
   (test-with op-data))
+
+(def ^:private cond-data
+  ["if 1 > 2 200+300" false
+   "if {1 > 2 200+300 \"ok\"}" "ok"
+   "if {1 < 2 200+300 400}" 500
+   "a:100" :void
+   "if {a < 50 1 a < 90 2 a < 100 3 4}" 4
+   "a:10" :void
+   "if {a < 50 1 a < 90 2 a < 100 3 4}" 1
+   "a:60" :void
+   "if {a < 50 1 a < 90 2 a < 100 3 4}" 2])
+
+(deftest condtest
+  (test-with cond-data))

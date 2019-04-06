@@ -34,40 +34,54 @@
             (recur (rest exprss) val))
           val)))))
 
-(defn all->lisp [exprs eval]
-  (map #(->lisp % eval) exprs))
+(defn all->lisp [exprs lsp]
+  (map #(lsp %) exprs))
 
-(defn- call-fn [fn args eval]
-  (let [fnval (->lisp fn eval)
-        eargs (all->lisp args eval)]
+(defn- call-fn [fn args lsp]
+  (let [fnval (lsp fn)
+        eargs (all->lisp args lsp)]
     (concat (list fnval) eargs)))
 
-(defn- form->let [bindings body eval]
-  (let [body-expr (->lisp body eval)]
+(defn- form->let [bindings body lsp]
+  (let [body-expr (lsp body)]
     (if (seq bindings)
-      `(let ~(into [] (->lisp bindings eval))
+      `(let ~(into [] (lsp bindings))
          ~@body-expr)
       `(do ~@body-expr))))
 
+(defn- condbody->lisp [exprs lsp]
+  (loop [exprs exprs, s-exprs []]
+    (if (seq exprs)
+      (if (seq (rest exprs))
+        (let [[c b] (first exprs)]
+          (recur (rest exprs)
+                 (conj s-exprs (lsp c) (lsp b))))
+        (recur (rest exprs)
+               (conj s-exprs :else (lsp (first exprs)))))
+      s-exprs)))
+
 (defn- form->lisp [ident args eval]
-  (case ident
-    :define `(do (def ~(first args)
-                   ~(->lisp (second args) eval))
-                 :void)
-    :call (call-fn (first args) (second args) eval)
-    :list (vec (all->lisp (first args) eval))
-    :and `(and ~@(all->lisp args eval))
-    :or `(or ~@(all->lisp args eval))
-    :block `(do ~@(all->lisp (first args) eval))
-    :let (form->let (first args) (second args) eval)
-    :load `(ld ~(first args) eval)
-    (call-fn ident args eval)))
+  (let [lsp (partial ->lisp eval)]
+    (case ident
+      :define `(do (def ~(first args)
+                     ~(lsp (second args)))
+                   :void)
+      :call (call-fn (first args) (second args) lsp)
+      :list (vec (all->lisp (first args) lsp))
+      :and `(and ~@(all->lisp args lsp))
+      :or `(or ~@(all->lisp args lsp))
+      :block `(do ~@(all->lisp (first args) lsp))
+      :when `(if ~(lsp (first args)) ~(lsp (second args)) false)
+      :cond `(cond ~@(condbody->lisp (first args) lsp))
+      :let (form->let (first args) (second args) lsp)
+      :load `(ld ~(first args) eval)
+      (call-fn ident args lsp))))
 
 (defn- mkfn [fexpr]
   (let [f (:fn fexpr)]
-    `(fn ~(into [] (:params f)) ~(->lisp (:body f) eval))))
+    `(fn ~(into [] (:params f)) ~(->lisp eval (:body f)))))
 
-(defn ->lisp [expr eval]
+(defn ->lisp [eval expr]
   (cond
     (= expr :true) true
     (= expr :false) false
@@ -79,7 +93,7 @@
 
 (defn evaluate [expr eval]
   (try
-    (eval (->lisp expr eval))
+    (eval (->lisp eval expr))
     (catch Exception ex
       (log/error ex)
       (tp/err (.getMessage ex)))))
