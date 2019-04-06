@@ -69,37 +69,43 @@
     (write x)
     (println)))
 
-(defn- match-curlies [s opn]
-  (loop [ss (seq s), opn opn, cls 0]
+(defn- match-braces [s opns]
+  (loop [ss (seq s), opns opns, clss [0 0 0]]
     (if (seq ss)
       (let [c (first ss)
-            [opn cls]
+            [pc bc cc] opns
+            [pcc bcc ccc] clss
+            [n-opns n-clss]
             (cond
-              (= \{ c) [(inc opn) cls]
-              (= \} c) [opn (inc cls)]
-              :else [opn cls])]
-        (recur (rest ss) opn cls))
-      (- opn cls))))
+              (= \{ c) [[pc bc (inc cc)] clss]
+              (= \} c) [opns [pcc bcc (inc ccc)]]
+              (= \( c) [[(inc pc) bc cc] clss]
+              (= \) c) [opns [(inc pcc) bcc ccc]]
+              (= \[ c) [[pc (inc bc) cc] clss]
+              (= \] c) [opns [pcc (inc bcc) ccc]]
+              :else [opns clss])]
+        (recur (rest ss) n-opns n-clss))
+      (map - opns clss))))
 
 (defn readln
-  ([opn-curlies]
+  ([brace-counts]
    (if-let [s (read-line)]
      (if (str/ends-with? s "  ")
-       [:more s 0]
-       (let [c (match-curlies s opn-curlies)]
+       [:more s]
+       (let [c (match-braces s brace-counts)]
          (cond
-           (<= c 0) [:done s 0]
-           (pos? c) [:more (str s " ") c])))
-     [:eof nil 0]))
-  ([] (readln 0)))
+           (every? #(<= % 0) c) [:done s]
+           (some pos? c) [:more (str s " ") c])))
+     [:eof nil]))
+  ([] (readln [0 0 0])))
 
 (defn read-multiln
   ([stepper]
-   (loop [[flag s c] (readln)
+   (loop [[flag s counts] (readln)
           ss []]
      (case flag
        :more (do (when stepper (stepper))
-                 (recur (readln c)
+                 (recur (readln counts)
                         (conj ss s)))
        :done (str/join (conj ss s))
        :eof nil)))

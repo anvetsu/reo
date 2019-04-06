@@ -1,6 +1,5 @@
 
  * sample data analytics scripts.
- * expr_id/readln - split line on matching `()` and `[]`.
 
  * temporal data types.
  * more data analytics functions.
