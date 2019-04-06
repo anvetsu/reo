@@ -84,7 +84,20 @@
   (.getDecimal rs i))
 
 (defn- get-string [^ResultSet rs ^Integer i]
-  (.getString rs i))
+  (or (.getString rs i) ""))
+
+(def ^:private date-null (java.sql.Date. 0))
+(def ^:private time-null (java.sql.Time. 0))
+(def ^:private timestamp-null (java.sql.Timestamp. 0))
+
+(defn- get-date [^ResultSet rs ^Integer i]
+  (or (.getDate rs i) date-null))
+
+(defn- get-time [^ResultSet rs ^Integer i]
+  (or (.getTime rs i) time-null))
+
+(defn- get-timestamp [^ResultSet rs ^Integer i]
+  (or (.getTimeStamp rs i) timestamp-null))
 
 (defn- col-type [^ResultSetMetaData rmd i]
   (let [t (.getColumnType rmd i)]
@@ -95,6 +108,9 @@
       (= t Types/FLOAT) get-float
       (= t Types/DOUBLE) get-double
       (= t Types/DECIMAL) get-decimal
+      (= t Types/TIME) get-time
+      (= t Types/DATE) get-date
+      (= t Types/TIMESTAMP) get-timestamp
       :else get-string)))
 
 (defn- column-infos [^ResultSetMetaData rmd]
