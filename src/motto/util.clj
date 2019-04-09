@@ -33,3 +33,7 @@
       (let [x (first xs)]
         (recur (rest xs) (conj rs x x)))
       rs)))
+
+(defn keyword-keys [m]
+  (let [xs (map (fn [[k v]] [(keyword k) v]) m)]
+    (into {} xs)))

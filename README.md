@@ -344,6 +344,13 @@ salary: [1200.45 2300.77 1310.0]
 > close(conn)
 ```
 
+##### CSV files
+
+```
+> p:csv_ahdr(csv_delim(csv_parser() \tab))
+> csv_rd("db/calendar.txt" p dict('numcols 27))
+```
+
 #### Higher-order operations on columnar data
 
 TODO

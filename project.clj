@@ -6,6 +6,7 @@
                  [com.mchange/c3p0 "0.9.5.4"]
                  [com.taoensso/nippy "2.14.0"]
                  [org.clojure/tools.logging "0.4.1"]
+                 [org.apache.commons/commons-csv "1.6"]
                  [org.slf4j/slf4j-log4j12 "1.7.9"]
                  [log4j/log4j "1.2.17"
                   :exclusions [javax.mail/mail
