@@ -14,6 +14,8 @@
       (def p partial)
       (def dict hash-map)
 
+      (def parse read-string)
+
       (def -+- motto.lib.burrow/add)
       (def --- motto.lib.burrow/sub)
       (def -*- motto.lib.burrow/mul)
