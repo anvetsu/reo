@@ -51,6 +51,7 @@
       (def twins motto.lib.list/twins)
 
       (def tab motto.lib.tab/tab)
+      (def cols motto.lib.tab/cols)
 
       (def data_source motto.dbconn/data-source)
       (def open motto.dbconn/open)
@@ -59,7 +60,7 @@
       (def qry motto.dbconn/qry)
       (def cmd motto.dbconn/cmd)
 
-      (def csv_parser motto.csv/parser)
+      (def csv_fmt motto.csv/fmt)
       (def csv_ahdr motto.csv/with-auto-header)
       (def csv_hdr motto.csv/with-header)
       (def csv_delim motto.csv/with-delim)

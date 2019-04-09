@@ -15,3 +15,6 @@
       (u/ex "tab: not enough columns")
 
       :else (t/tabify col-names table))))
+
+(defn cols [tab]
+  (t/tab-cols tab))

@@ -346,9 +346,19 @@ salary: [1200.45 2300.77 1310.0]
 
 ##### CSV files
 
+Create a columnar table from a RFC-4180 encoded CSV file.
+Use custom column names (headers).
+
 ```
-> p:csv_ahdr(csv_delim(csv_parser() \tab))
-> csv_rd("db/calendar.txt" p dict('numcols 27))
+> csv_rd("data.csv" csv_fmt() dict('headers ["name" "age" "sal"]))
+```
+
+Load data from a CSV file that uses tabs as delimiter.
+Also, automatically create headers from the first row.
+
+```
+> p:csv_ahdr(csv_delim(csv_fmt() \tab))
+> csv_rd("data.csv" p)
 ```
 
 #### Higher-order operations on columnar data
