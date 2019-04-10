@@ -205,6 +205,13 @@ Apply a function `n` times:
 [1 1 2 3 5 8 13 21 34 55 89 144]
 ```
 
+The comma character may be used to separate function parameters, arguments and list elements.
+
+```
+> map(fn(x, y) x * y, [1,2, 3], [10, 20, 30])
+[10 40 90]
+```
+
 #### Code blocks
 
 Code blocks are delimited by opening and closing curly braces.

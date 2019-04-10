@@ -7,6 +7,11 @@
 
 (declare parse-expr parse-val fetch-expr)
 
+(defn- ignore-comma [tokens]
+  (if (= :comma (first tokens))
+    (rest tokens)
+    tokens))
+
 (defn- assert-defs! [exprs]
   (loop [exprs exprs, defs-over? false]
     (when (seq exprs)
@@ -39,7 +44,7 @@
       (if (seq ts)
         (let [t (first ts)]
           (cond
-            (tp/identifier? t) (recur (rest ts) (conj params t))
+            (tp/identifier? t) (recur (ignore-comma (rest ts)) (conj params t))
             (= :closep t) [params (rest ts)]
             :else (ex (str "invalid parameter: " t))))
         (ex "missing closing parenthesis in function definition")))
@@ -95,7 +100,7 @@
       (if (= :close-sb (first tokens))
         [[:list xs] (rest tokens)]
         (let [[x tokens] (parse-expr tokens)]
-          (recur tokens (conj xs x))))
+          (recur (ignore-comma tokens) (conj xs x))))
       (ex (str "invalid list: " tokens)))))
 
 (defn- parse-neg-expr [tokens]
@@ -121,7 +126,7 @@
               (if (= (first tokens) :closep)
                 [true args (rest tokens)]
                 (let [[expr tokens] (parse-expr tokens)]
-                  (recur tokens (conj args expr))))
+                  (recur (ignore-comma tokens) (conj args expr))))
               [false args nil]))]
       (when-not proper?
         (ex (str "invalid argument list: " tokens)))

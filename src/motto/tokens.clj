@@ -8,6 +8,7 @@
                         \] :close-sb
                         \{ :open-cb
                         \} :close-cb
+                        \, :comma
                         \: :define
                         \+ :plus
                         \- :minus
