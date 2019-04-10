@@ -11,10 +11,10 @@
   (if (string? t)
     (.parse (SimpleDateFormat. t) v)
     (case t
-      :int (Integer/parseInt v)
-      :float (Float/parseFloat v)
-      :double (Double/parseDouble v)
-      :number (read-string v)
+      :i (Integer/parseInt v)
+      :f (Float/parseFloat v)
+      :d (Double/parseDouble v)
+      :n (read-string v)
       v)))
 
 (defn- cols [records ^Integer n types]

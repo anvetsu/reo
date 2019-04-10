@@ -95,3 +95,11 @@
         (recur ys
                (conj rs (f (second xs) (first xs))))
         rs))))
+
+(defn group [xs f default]
+  (loop [xs xs, rs {}]
+    (if (seq xs)
+      (let [x (first xs)
+            v (f (get rs x default))]
+        (recur (rest xs) (assoc rs x v)))
+      (into {} rs))))

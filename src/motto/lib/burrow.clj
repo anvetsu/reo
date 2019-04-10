@@ -24,6 +24,7 @@
   (when (or (nil? x) (nil? y))
     (throw (Exception. "invalid argument to operator")))
   (cond
+    (and (string? x) (string? y)) (opr x y)
     (and (u/atomic? x) (u/atomic? y)) (opr x y)
     (and (seqable? x) (seqable? y)) (seq-burrow opr x y)
     (seqable? x) (seq-x-burrow opr x y)
@@ -32,15 +33,29 @@
 (defn- not-eq [a b]
   (not (= a b)))
 
+(defn- c< [x y]
+  (< (compare x y) 0))
+
+(defn- c> [x y]
+  (> (compare x y) 0))
+
+(defn- c>= [x y]
+  (let [x (compare x y)]
+    (or (> x 0) (= x 0))))
+
+(defn- c<= [x y]
+  (let [x (compare x y)]
+    (or (< x 0) (= x 0))))
+
 (def add (partial burrow +))
 (def sub (partial burrow -))
 (def mul (partial burrow *))
 (def div (partial burrow /))
 (def eq  (partial burrow =))
 (def neq (partial burrow not-eq))
-(def lt  (partial burrow <))
-(def gt  (partial burrow >))
-(def lteq (partial burrow <=))
-(def gteq (partial burrow >=))
+(def lt  (partial burrow c<))
+(def gt  (partial burrow c>))
+(def lteq (partial burrow c<=))
+(def gteq (partial burrow c>=))
 (def big (partial burrow num/big))
 (def small (partial burrow num/small))

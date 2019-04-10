@@ -51,6 +51,7 @@
       (def mns motto.lib.list/mins)
       (def til motto.lib.list/til)
       (def twins motto.lib.list/twins)
+      (def grp motto.lib.list/group)
 
       (def tab motto.lib.tab/tab)
       (def cols motto.lib.tab/cols)
