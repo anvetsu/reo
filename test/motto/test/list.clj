@@ -61,3 +61,10 @@
 
 (deftest maptest
   (test-with map-data))
+
+(def ^:private filter-data
+  ["x:fn(x) x < 10" :void
+   "x! [100 20 3 90 4 1]" [3 4 1]])
+
+(deftest filtertest
+  (test-with filter-data))

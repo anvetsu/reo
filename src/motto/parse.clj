@@ -170,6 +170,7 @@
 (def ^:private infix-fns {:hash '-take-
                           :semicolon '-conj-
                           :at '-fold-
+                          :bang '-filter-
                           :tilde '-map-
                           :fold-incr 'fold-incr
                           :fold-times 'fold-times})

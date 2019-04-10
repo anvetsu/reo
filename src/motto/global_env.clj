@@ -40,6 +40,7 @@
       (def -conj- motto.lib.list/-conj-)
       (def -fold- motto.lib.list/-fold-)
       (def -map- motto.lib.list/-map-)
+      (def -filter- motto.lib.list/-filter-)
       (def fold-incr motto.lib.list/fold-incr)
       (def fold-times motto.lib.list/fold-times)
       (def sum motto.lib.list/sum)

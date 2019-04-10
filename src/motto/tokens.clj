@@ -23,6 +23,7 @@
                         \; :semicolon
                         \@ :at
                         \~ :tilde
+                        \! :bang
                         \^ :caret})
 
 (def ^:private oprs (keys oprs-kw))

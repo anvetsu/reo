@@ -39,6 +39,9 @@
       (recur (rest xs) (conj rs (f (first xs))))
       rs)))
 
+(defn -filter- [xs f]
+  (filter f xs))
+
 (defn fold-incr [ys f]
   (loop [xs (rest ys), lv (first ys), r [lv]]
     (if (seq xs)
