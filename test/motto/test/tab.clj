@@ -10,3 +10,15 @@
 
 (deftest basic
   (test-with basic-data))
+
+(def ^:private csv-data
+  ["emp:csv(\"test/data/emp.csv\")" :void
+   "count(cols(emp))" 3
+   "emp('Name)(0)" "Tom. G"
+   "sum(map(parse, emp('Salary)))" 12623.76
+   "emp:csv(\"test/data/emp2.csv\", dict('headers ['n 'd 's], 'delim \\:))" :void
+   "cols(emp)" ['n 'd 's]
+   "emp('d)(2)" "3"])
+
+(deftest csv
+  (test-with csv-data))
