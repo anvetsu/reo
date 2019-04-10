@@ -16,9 +16,14 @@
    "count(cols(emp))" 3
    "emp('Name)(0)" "Tom. G"
    "sum(map(parse, emp('Salary)))" 12623.76
-   "emp:csv(\"test/data/emp2.csv\", dict('headers ['n 'd 's], 'delim \\:))" :void
+   "cfg:dict('types ['string 'int 'double])" :void
+   "emp:csv(\"test/data/emp.csv\" cfg)" :void
+   "emp('Dept)(1)" 2
+   "sum(emp('Salary))" 12623.76
+   "cfg:dict('headers ['n 'd 's], 'delim \\:)" :void
+   "emp:csv(\"test/data/emp2.csv\", cfg)" :void
    "cols(emp)" ['n 'd 's]
-   "emp('d)(2)" "3"])
+   "first((emp('d)(2)) = \"3\")" true])
 
-(deftest csv
+(deftest csvtests
   (test-with csv-data))

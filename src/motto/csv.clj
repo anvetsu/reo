@@ -3,18 +3,28 @@
             [motto.lib.tab :as tab])
   (:import [java.io File]
            [java.nio.charset Charset]
+           [java.text SimpleDateFormat]
            [org.apache.commons.csv CSVFormat
             CSVParser CSVRecord]))
 
-(defn- cols-by-headers [records headers]
-  (let [f (fn [^CSVRecord r]
-            (map (fn [^String h] (.get r h)) headers))]
-    (map f records)))
+(defn- conv [v t]
+  (if (string? t)
+    (.parse (SimpleDateFormat. t) v)
+    (case t
+      :int (Integer/parseInt v)
+      :float (Float/parseFloat v)
+      :double (Double/parseDouble v)
+      :number (read-string v)
+      v)))
 
-(defn- cols [records ^Integer n]
+(defn- cols [records ^Integer n types]
   (let [indices (range n)
         f (fn [^CSVRecord r]
-            (map (fn [^Integer i] (.get r i)) indices))]
+            (map (fn [^Integer i]
+                   (let [v (.get r i)
+                         t (types i)]
+                     (if t (conv v t) v)))
+                 indices))]
     (map f records)))
 
 (defn fmt []
@@ -39,6 +49,20 @@
       (recur (rest data) (u/spread rows (first data)))
       rows)))
 
+(defn- process-types [types coln]
+  (if (seq types)
+    (loop [types types, rs []]
+      (if (seq types)
+        (let [t (first types)]
+          (recur
+           (rest types)
+           (conj rs
+                 (if (string? t)
+                   t
+                   (keyword t)))))
+        rs))
+    (into [] (repeat coln nil))))
+
 (defn rd
   ([csv-file ^CSVFormat fmt config]
    (let [config (u/keyword-keys config)
@@ -48,8 +72,9 @@
            ^CSVParser parser (CSVParser/parse in charset fmt)
            records (.getRecords parser)
            hdr (map symbol (or (seq headers) (keys (.getHeaderMap parser))))
-           coln (or (:numcols config) (count hdr))]
-       [hdr (cols records coln)])))
+           coln (or (:numcols config) (count hdr))
+           types (process-types (:types config) coln)]
+       [hdr (cols records coln types)])))
   ([csv-file ^CSVFormat fmt]
    (rd csv-file fmt nil))
   ([csv-file]
