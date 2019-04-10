@@ -35,5 +35,7 @@
       rs)))
 
 (defn keyword-keys [m]
-  (let [xs (map (fn [[k v]] [(keyword k) v]) m)]
-    (into {} xs)))
+  (if (keyword? (first (keys m)))
+    m
+    (let [xs (map (fn [[k v]] [(keyword k) v]) m)]
+      (into {} xs))))

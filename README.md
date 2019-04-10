@@ -350,15 +350,14 @@ Create a columnar table from a RFC-4180 encoded CSV file.
 Use custom column names (headers).
 
 ```
-> csv_rd("data.csv" csv_fmt() dict('headers ["name" "age" "sal"]))
+> csv("data.csv" dict('headers ["name" "age" "sal"]))
 ```
 
-Load data from a CSV file that uses tabs as delimiter.
+Load data from a CSV file that use the tab character as delimiter.
 Also, automatically create headers from the first row.
 
 ```
-> p:csv_ahdr(csv_delim(csv_fmt() \tab))
-> csv_rd("data.csv" p)
+> csv("data.csv" dict('delim \tab))
 ```
 
 #### Higher-order operations on columnar data

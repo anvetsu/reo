@@ -62,6 +62,7 @@
       (def qry motto.dbconn/qry)
       (def cmd motto.dbconn/cmd)
 
+      (def csv motto.csv/csv)
       (def csv_fmt motto.csv/fmt)
       (def csv_ahdr motto.csv/with-auto-header)
       (def csv_hdr motto.csv/with-header)
