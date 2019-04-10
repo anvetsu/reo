@@ -4,6 +4,7 @@
             [motto.csv]
             [motto.lib.burrow]
             [motto.lib.num]
+            [motto.lib.dt]
             [motto.lib.list]
             [motto.lib.tab]))
 
@@ -28,6 +29,10 @@
       (def <> motto.lib.burrow/neq)
       (def big motto.lib.burrow/big)
       (def sml motto.lib.burrow/small)
+
+      (def dt motto.lib.dt/dt)
+      (def sdt motto.lib.dt/sdt)
+      (def now motto.lib.dt/now)
 
       (def c motto.compile/compile-file)
 

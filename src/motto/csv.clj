@@ -1,15 +1,15 @@
 (ns motto.csv
   (:require [motto.util :as u]
+            [motto.lib.dt :as dt]
             [motto.lib.tab :as tab])
   (:import [java.io File]
            [java.nio.charset Charset]
-           [java.text SimpleDateFormat]
            [org.apache.commons.csv CSVFormat
             CSVParser CSVRecord]))
 
 (defn- conv [v t]
   (if (string? t)
-    (.parse (SimpleDateFormat. t) v)
+    (dt/dt v t)
     (case t
       :i (Integer/parseInt v)
       :f (Float/parseFloat v)

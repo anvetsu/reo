@@ -1,4 +1,4 @@
-types:['i 'i 'i "YYYY-MM-DD 00:00:00" 's 's 's 's 'f 'f 'i]
+types:['i 'i 'i "yyyy-MM-dd 00:00:00" 's 's 's 's 'f 'f 'i]
 orders:csv("db/orders.txt" dict('delim \tab 'types types))
 pts:grp(orders('paymenttype) inc 0)
 sort(fn(x y) x(0) < y(0), pts)

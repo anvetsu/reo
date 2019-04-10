@@ -1,6 +1,7 @@
 (ns motto.expr-io
   (:require [clojure.string :as str]
-            [motto.type :as tp]))
+            [motto.type :as tp]
+            [motto.lib.dt :as dt]))
 
 (declare write)
 
@@ -49,6 +50,9 @@
 (defn write-err [e]
   (print (str "ERROR: " (tp/err-data e))))
 
+(defn write-dt [dt]
+  (print (str "dt(\"" (dt/sdt dt) "\")")))
+
 (defn write [x]
   (when (writable? x)
     (let [v  (cond
@@ -61,6 +65,7 @@
         (tp/err? x) (write-err x)
         (string? v) (print v)
         (map? v) (write-dict v)
+        (instance? java.util.Calendar v) (write-dt v)
         (seqable? v) (write-vec v)
         :else (print v)))))
 
