@@ -2,6 +2,10 @@
   :main motto.core
   :aot [motto.core]
   :dependencies [[org.clojure/clojure "1.9.0"]
+                 [org.clojure/tools.cli "0.4.2"]
+                 [http-kit "2.3.0"]
+                 [compojure "1.6.1"]
+                 [cheshire "5.8.1"]
                  [org.hsqldb/hsqldb "2.4.1"]
                  [com.mchange/c3p0 "0.9.5.4"]
                  [com.taoensso/nippy "2.14.0"]
