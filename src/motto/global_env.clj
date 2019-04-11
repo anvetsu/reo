@@ -33,6 +33,8 @@
       (def dt motto.lib.dt/dt)
       (def sdt motto.lib.dt/sdt)
       (def now motto.lib.dt/now)
+      (def dt_add motto.lib.dt/add)
+      (def dt_get motto.lib.dt/getf)
 
       (def c motto.compile/compile-file)
 

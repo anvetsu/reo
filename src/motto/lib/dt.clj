@@ -24,3 +24,25 @@
   ([d] (sdt d nil)))
 
 (defn now [] (GregorianCalendar.))
+
+(defn- field->int [field]
+  (case (keyword field)
+    :y Calendar/YEAR
+    :M Calendar/MONTH
+    :d Calendar/DAY_OF_MONTH
+    :D Calendar/DAY_OF_YEAR
+    :H Calendar/HOUR_OF_DAY
+    :m Calendar/MINUTE
+    :s Calendar/SECOND
+    Calendar/DAY_OF_YEAR))
+
+(defn add [^Calendar dt field amount]
+  (let [f (field->int field)
+        dt2 (.clone dt)]
+    (.add dt2 f amount)
+    dt2))
+
+(defn getf [^Calendar dt field]
+  (let [f (field->int field)
+        v (.get dt f)]
+    (if (= f Calendar/MONTH) (+ v 1) v)))
