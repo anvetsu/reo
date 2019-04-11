@@ -1,6 +1,6 @@
 (ns motto.httpd
   (:use [compojure.route :only [files not-found]]
-        [compojure.core :only [routes POST context]]
+        [compojure.core :only [routes POST]]
         ring.middleware.params
         org.httpkit.server)
   (:require [clojure.string :as str]
@@ -12,7 +12,7 @@
 (defn- evaluate [s]
   (let [eval (env/make-eval)
         exprs (c/compile-string s)]
-    (e/evaluate-all exprs eval)))    
+    (e/evaluate-all exprs eval)))
 
 (defn- request-obj [req]
   (json/parse-string (String. (.bytes (:body req))) true))
@@ -25,8 +25,9 @@
         :body (json/generate-string {:value val})}))
 
 (defn- mkendpoints []
-  (let [res "/eval"]
-    [(POST res [] handle-eval)]))
+  [(POST "/eval" [] handle-eval)
+   (files "/static/")
+   (not-found "<p>Resource not found.</p>")])
 
 (defn- make-routes []
   (apply routes (mkendpoints)))
