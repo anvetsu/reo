@@ -1,25 +1,21 @@
-var sampleLabels = ['AE', 'DB', 'MC', 'OC', 'V1'];
-var sampleDataSets = [{
-    label: 'Order by PaymentTypes',
-    data: [12, 19, 3, 5, 2],
-    backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',	
-        'rgba(153, 102, 255, 0.2)'
-    ],
-    borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(75, 192, 192, 1)',	
-        'rgba(153, 102, 255, 1)'
-    ],
-    borderWidth: 1
-}];
+function randInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+
+function randColor() {
+    return randInt(256);
+}
+
+function randomColors(n, alpha1, alpha2) {
+    var bg = [];
+    var brdr = [];
+    for (var i=0; i<n; i++) {
+	var [r, g, b] = [randColor(), randColor(), randColor()]
+	bg.push('rgba(' + r + ',' + g + ',' + b + ',' + alpha1 + ')')
+	brdr.push('rgba(' + r + ',' + g + ',' + b + ',' + alpha2 + ')')
+    }
+    return [bg, brdr];
+}
 
 function makeBarChart(labels, datasets) {
     var ctx = document.getElementById('chart').getContext('2d');
@@ -58,7 +54,6 @@ function evalHandler(result) {
 }
 
 function evalMotto(code) {
-    console.log(code);
     $.ajax({
 	type: 'POST',
 	url: '/eval',
@@ -109,9 +104,20 @@ function initUi() {
 	name: 'chartCommand',
 	bindKey: {win: 'Ctrl-K',  mac: 'Command-K'},
 	exec: function(editor) {
-	    v = mottoResult.value;
-	    sampleDataSets.data = Object.values(v);
-	    makeBarChart(Object.keys(v), sampleDataSets);
+	    var r = mottoResult.value;
+	    var label = r[0];
+	    var v = r[1];
+	    var data = Object.values(v);
+	    console.log(label);
+	    console.log(data);
+	    var ds = {}
+	    ds.label = label;
+	    ds.borderWidth = 1;
+	    ds.data = data;
+	    var [bg, brdr] = randomColors(data.length, 0.2, 1);
+	    ds.backgroundColor = bg;
+	    ds.borderColor = brdr;
+	    makeBarChart(Object.keys(v), [ds]);
 	},
 	readOnly: true
     });    
