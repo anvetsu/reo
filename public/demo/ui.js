@@ -44,7 +44,7 @@ function makeBarChart(labels, datasets) {
 var initTablesCode =
     `types:['i 'i 'i "yyyy-MM-dd 00:00:00" 's 's 's 's 'f 'f 'i]
      orders:csv("db/orders.txt" dict('delim \\tab 'types types))`
-var ptsCode = `grp(orders('paymenttype) inc 0)`
+var ptsCode = ''
 
 var mottoResult = {"value": "void"}
 
@@ -84,11 +84,23 @@ function initUi() {
     editor.session.setMode("ace/mode/clojure");
     editor.setFontSize(18);
     editor.setValue(ptsCode);
+
     editor.commands.addCommand({
-	name: 'evalCommand',
-	bindKey: {win: 'Ctrl-E',  mac: 'Command-E'},
+	name: 'evalScript',
+	bindKey: {win: "Ctrl-.",  mac: "Command-."},
 	exec: function(editor) {
             evalMotto(editor.getValue());
+	},
+	readOnly: true
+    });
+
+    editor.commands.addCommand({
+	name: 'evalLine',
+	bindKey: {win: 'Ctrl-;',  mac: 'Command-;'},
+	exec: function(editor) {
+	    var pos = editor.getCursorPosition();
+	    var row = pos.row;
+            evalMotto(editor.session.getLine(row));
 	},
 	readOnly: true
     });

@@ -1,8 +1,8 @@
 types:['i 'i 'i "yyyy-MM-dd 00:00:00" 's 's 's 's 'f 'f 'i]
 orders:csv("db/orders.txt" dict('delim \tab 'types types))
-pts:grp(orders('paymenttype) inc 0)
+
+pts:grp(inc 0 orders('paymenttype))
+ords_by_code:fn(c) cnteq(c orders('paymenttype))
 
 sort(fn(x y) x(0) < y(0), pts)
 sort(fn(x y) x(1) < y(1), pts)
-
-pyt_in_range:fn(

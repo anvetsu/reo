@@ -14,6 +14,7 @@
       (def -neg- -)
       (def p partial)
       (def dict hash-map)
+      (def cnt count)
 
       (def parse read-string)
 
@@ -60,6 +61,8 @@
       (def til motto.lib.list/til)
       (def twins motto.lib.list/twins)
       (def grp motto.lib.list/group)
+      (def cntf motto.lib.list/count-for)
+      (def cnteq motto.lib.list/count-eq)
 
       (def tab motto.lib.tab/tab)
       (def cols motto.lib.tab/cols)

@@ -46,11 +46,11 @@
 (def ^:private logical-data
   ["1<2 & 3<4*100"  true
    "1>2 | 3<4*100"  true
-   "a:10<20 & (1=2 | 1 < 2)" :void
+   "a:10<20 & (1=2 | 1 < 2)" 'a
    "a"              true
-   "a:(10<10 & (1=2 | 1 < 2))" :void
+   "a:(10<10 & (1=2 | 1 < 2))" 'a
    "a"              false
-   "a:10"           :void
+   "a:10"           'a
    "a<10 & (1=2 | 1 < 2)" false
    "a"              10])
 
@@ -70,11 +70,11 @@
 (def ^:private vars-data
   ["t:100"       :ex
    "f:200"       :ex
-   "a:10"        :void
+   "a:10"        'a
    "a + 2"       12
    "{a:100 b:4+a b}"   104
    "a+b"         :ex
-   "b:4"         :void
+   "b:4"         'b
    "a+b"         14
    "a-b"         6
    "a=b"         false
@@ -87,15 +87,15 @@
 (def ^:private fns-data
   ["(fn (x) x*x)(10)"        100
    "(fn (x y) x*2+y)(10 20)" 40
-   "a:fn(x) x*x"             :void
+   "a:fn(x) x*x"             'a
    "a(20)"                   400
-   "a:fn(x) fn(y) x+y"       :void
-   "b:a(10)"                 :void
+   "a:fn(x) fn(y) x+y"       'a
+   "b:a(10)"                 'b
    "b(20)"                   30
    "b(b(1))"                 21
-   "g:fn(x) fn(y) x + y"     :void
+   "g:fn(x) fn(y) x + y"     'g
    "g(10)(20)"               30
-   "g:fn(x) fn(y) fn (z) x + y + z" :void
+   "g:fn(x) fn(y) fn (z) x + y + z" 'g
    "g(10)(20)(30)"           60
    "(fn^(x) if {x<=0 0 ^(x-1)})(100000)" 0])
 
@@ -104,8 +104,8 @@
 
 (def ^:private blck-data
   ["{1+2 3+4 5+4}"    9
-   "a:10"             :void
-   "pyth:fn(x y) { a:x*x b:y*y a+b }" :void
+   "a:10"             'a
+   "pyth:fn(x y) { a:x*x b:y*y a+b }" 'pyth
    "pyth(3 4)"        25
    "a"                10
    "{a:100 b:200 a+b}" 300
@@ -126,11 +126,11 @@
   ["if 1 > 2 200+300" false
    "if {1 > 2 200+300 \"ok\"}" "ok"
    "if {1 < 2 200+300 400}" 500
-   "a:100" :void
+   "a:100" 'a
    "if {a < 50 1 a < 90 2 a < 100 3 4}" 4
-   "a:10" :void
+   "a:10" 'a
    "if {a < 50 1 a < 90 2 a < 100 3 4}" 1
-   "a:60" :void
+   "a:60" 'a
    "if {a < 50 1 a < 90 2 a < 100 3 4}" 2])
 
 (deftest condtest

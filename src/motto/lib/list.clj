@@ -99,10 +99,21 @@
                (conj rs (f (second xs) (first xs))))
         rs))))
 
-(defn group [xs f default]
+(defn group [f default xs]
   (loop [xs xs, rs {}]
     (if (seq xs)
       (let [x (first xs)
             v (f (get rs x default))]
         (recur (rest xs) (assoc rs x v)))
       (into {} rs))))
+
+(defn count-for [f xs]
+  (loop [xs xs, n 0]
+    (if (seq xs)
+      (if (f (first xs))
+        (recur (rest xs) (inc n))
+        (recur (rest xs) n))
+      n)))
+
+(defn count-eq [x xs]
+  (count-for #(= x %) xs))
