@@ -44,7 +44,7 @@
 
 (defn tab-data [tab]
   (when (tab? tab)
-    [(:col-names tab) (dissoc tab :col-names)]))
+    [(:col-names tab) (dissoc tab :col-names :tab)]))
 
 (defn tab-cols [tab]
   (when (tab? tab)

@@ -4,12 +4,14 @@
         ring.middleware.params
         org.httpkit.server)
   (:require [clojure.string :as str]
+            [clojure.walk :as w]
             [cheshire.core :as json]
             [clojure.tools.logging :as log]
             [motto.flag :as flag]
             [motto.global-env :as env]
             [motto.eval-native :as e]
-            [motto.compile :as c]))
+            [motto.compile :as c]
+            [motto.lib.dt :as dt]))
 
 (defn- evaluate [s]
   (let [eval (env/make-eval)
@@ -19,10 +21,18 @@
 (defn- request-obj [req]
   (json/parse-string (String. (.bytes (:body req))) true))
 
+(defn- sanitize-obj [x]
+  (if (instance? java.util.Calendar x)
+    (dt/sdt x)
+    x))
+
+(defn- sanitize [form]
+  (w/prewalk sanitize-obj form))
+
 (defn- resp-obj [obj]
   {:status 200
    :headers {"Content-Type" "application/json"}
-   :body (json/generate-string {:value obj})})
+   :body (json/generate-string {:value (sanitize obj)})})
 
 (defn- handle-eval [req]
   (try
