@@ -50,7 +50,7 @@ function evalHandler(result) {
     if (s == "\"void\"")
 	s = "ready";
     var result = ace.edit("result");
-    result.setValue(s);
+    result.setValue(s, -1);
 }
 
 function evalMotto(code) {
@@ -76,7 +76,7 @@ function initUi() {
 
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/terminal");
-    editor.session.setMode("ace/mode/clojure");
+    editor.session.setMode("ace/mode/rust");
     editor.setFontSize(18);
     editor.setValue(ptsCode);
 
