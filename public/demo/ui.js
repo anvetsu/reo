@@ -50,9 +50,9 @@ var mottoResult = {"value": "void"}
 
 function evalHandler(result) {
     mottoResult = result;
-    s = JSON.stringify(result.value);
+    s = JSON.stringify(result.value, null, 2);
     if (s == "\"void\"")
-	s = "<void>";
+	s = "ready";
     var result = ace.edit("result");
     result.setValue(s);
 }
