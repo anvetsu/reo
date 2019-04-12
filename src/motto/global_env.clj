@@ -64,8 +64,9 @@
       (def cntf motto.lib.list/count-for)
       (def cnteq motto.lib.list/count-eq)
 
-      (def tab motto.lib.tab/tab)
+      (def tab motto.lib.tab/mktab)
       (def cols motto.lib.tab/cols)
+      (def top motto.lib.tab/top)
 
       (def data_source motto.dbconn/data-source)
       (def open motto.dbconn/open)

@@ -1,5 +1,6 @@
 (ns motto.repl
   (:require [clojure.string :as str]
+            [motto.flag :as flag]
             [motto.global-env :as env]
             [motto.eval-native :as e]
             [motto.compile :as c]
@@ -21,5 +22,7 @@
                   (eio/writeln val))
                 (System/exit 0)))
             (catch Exception ex
-              (println (str "ERROR: " (.getMessage ex)))))
+              (println (str "ERROR: " (.getMessage ex)))
+              (when (flag/verbose?)
+                (.printStackTrace ex))))
           (recur)))))

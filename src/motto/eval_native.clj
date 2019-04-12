@@ -1,6 +1,7 @@
 ;; Tranlsate motto to clojure and eval.
 (ns motto.eval-native
   (:require [clojure.tools.logging :as log]
+            [motto.flag :as flag]
             [motto.tokens :as t]
             [motto.parse :as p]
             [motto.compile :as c]
@@ -96,6 +97,8 @@
   (try
     (eval (->lisp eval expr))
     (catch Exception ex
+      (when (flag/verbose?)
+        (.printStackTrace ex))
       (log/error ex)
       (tp/err (.getMessage ex)))))
 

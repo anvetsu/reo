@@ -93,6 +93,6 @@
                 (with-delim fmt2 delim)
                 fmt2)
          [hdr data] (rd filename fmt3 config)]
-     (tab/tab hdr (spread (count hdr) data))))
+     (tab/mktab hdr (spread (count hdr) data))))
   ([filename]
    (csv filename nil)))

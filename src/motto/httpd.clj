@@ -5,6 +5,8 @@
         org.httpkit.server)
   (:require [clojure.string :as str]
             [cheshire.core :as json]
+            [clojure.tools.logging :as log]
+            [motto.flag :as flag]
             [motto.global-env :as env]
             [motto.eval-native :as e]
             [motto.compile :as c]))
@@ -17,12 +19,21 @@
 (defn- request-obj [req]
   (json/parse-string (String. (.bytes (:body req))) true))
 
+(defn- resp-obj [obj]
+  {:status 200
+   :headers {"Content-Type" "application/json"}
+   :body (json/generate-string {:value obj})})
+
 (defn- handle-eval [req]
-  (let [expr-str (:expr (request-obj req))
-        val (evaluate expr-str)]
-       {:status 200
-        :headers {"Content-Type" "application/json"}
-        :body (json/generate-string {:value val})}))
+  (try
+    (let [expr-str (:expr (request-obj req))
+          val (evaluate expr-str)]
+      (resp-obj val))
+    (catch Exception ex
+      (when (flag/verbose?)
+        (.printStackTrace ex))
+      (log/error ex)
+      (resp-obj {:error (.getMessage ex)}))))
 
 (defn- mkendpoints []
   [(POST "/eval" [] handle-eval)
