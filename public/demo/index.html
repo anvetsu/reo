@@ -3,17 +3,47 @@
     <title>Motto Demo</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.3/ace.js"></script>
     <script src="demo/ui.js"></script>
+
+    <style type="text/css" media="screen">
+      #editor {
+      position: fixed;
+      top: 50;
+      width: 720;
+      height: 500;
+      left: 200;
+      }
+    </style>
+
+    <style type="text/css" media="screen">
+      #result {
+      position: relative;
+      top: 560;
+      left: 200;
+      width: 720;
+      height: 200;
+      }
+    </style>
+
+    <style type="text/css" media="screen">
+      #chartPanel {
+      position: relative;
+      top: -100;
+      left: 1000;
+      width: 650;
+      height: 600;
+      }
+    </style>
   </head>
-  <body>
-    <b>Motto Demo</b>
-    <textarea id="code"></textarea>
-    <button id="btnEval" type="submit" value="eval"></button>
-    <button id="btnChart" type="submit" value="chart"></button>
-    <span id="result"></span>
+  <body bgcolor="black" text="white">
+    <div id="editor"></div>
+    <div id="result"></div>
+    <div id="chartPanel">
+      <canvas id="chart"></canvas>
+    </div>
     <script>
       initUi();
     </script>
-    <canvas id="chart"></canvas>
   </body>
 </html>

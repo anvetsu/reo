@@ -50,7 +50,11 @@ var mottoResult = {"value": "void"}
 
 function evalHandler(result) {
     mottoResult = result;
-    $('#result').html(JSON.stringify(result.value));
+    s = JSON.stringify(result.value);
+    if (s == "\"void\"")
+	s = "<void>";
+    var result = ace.edit("result");
+    result.setValue(s);
 }
 
 function evalMotto(code) {
@@ -67,16 +71,40 @@ function evalMotto(code) {
 
 function initUi() {
     evalMotto(initTablesCode);
-    $('#code').value = ptsCode;
+
+    var result = ace.edit("result");
+    result.setTheme("ace/theme/terminal");
+    result.session.setMode("ace/mode/javascript");
+    result.setFontSize(18);
+    result.renderer.setShowGutter(false);
+    result.setValue("");
+
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/terminal");
+    editor.session.setMode("ace/mode/clojure");
+    editor.setFontSize(18);
+    editor.setValue(ptsCode);
+    editor.commands.addCommand({
+	name: 'evalCommand',
+	bindKey: {win: 'Ctrl-E',  mac: 'Command-E'},
+	exec: function(editor) {
+            evalMotto(editor.getValue());
+	},
+	readOnly: true
+    });
+
+    editor.commands.addCommand({
+	name: 'chartCommand',
+	bindKey: {win: 'Ctrl-K',  mac: 'Command-K'},
+	exec: function(editor) {
+	    v = mottoResult.value;
+	    sampleDataSets.data = Object.values(v);
+	    makeBarChart(Object.keys(v), sampleDataSets);
+	},
+	readOnly: true
+    });    
+
 }
 
 $(document).ready(function() {
-    $('#btnEval').click(function() {
-	evalMotto($('#code')[0].value);
-    });
-    $('#btnChart').click(function() {
-	v = mottoResult.value;
-	sampleDataSets.data = Object.values(v);
-	makeBarChart(Object.keys(v), sampleDataSets);
-    });    
 });
