@@ -57,5 +57,5 @@
 (def gt  (partial burrow c>))
 (def lteq (partial burrow c<=))
 (def gteq (partial burrow c>=))
-(def big (partial burrow num/big))
-(def small (partial burrow num/small))
+(def big (partial burrow max))
+(def small (partial burrow min))

@@ -68,10 +68,10 @@
   (-fold- ys b/div))
 
 (defn -max- [ys]
-  (-fold- ys n/big))
+  (apply max ys))
 
 (defn -min- [ys]
-  (-fold- ys n/small))
+  (apply min ys))
 
 (defn sums [ys]
   (fold-incr ys b/add))
@@ -86,10 +86,10 @@
   (fold-incr ys b/div))
 
 (defn maxs [ys]
-  (fold-incr ys n/big))
+  (fold-incr ys max))
 
 (defn mins [ys]
-  (fold-incr ys n/small))
+  (fold-incr ys min))
 
 (defn twins [f xs]
   (loop [xs xs, rs [(first xs)]]
