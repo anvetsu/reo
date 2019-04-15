@@ -1,6 +1,5 @@
 (ns motto.lib.burrow
-  (:require [motto.util :as u]
-            [motto.lib.num :as num]))
+  (:require [motto.util :as u]))
 
 (defn- seq-burrow [opr x y]
   (loop [x x, y y, r []]

@@ -1,6 +1,5 @@
 (ns motto.lib.list
-  (:require [motto.lib.burrow :as b]
-            [motto.lib.num :as n]))
+  (:require [motto.lib.burrow :as b]))
 
 (defn til [x]
   (into []

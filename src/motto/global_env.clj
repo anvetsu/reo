@@ -3,7 +3,6 @@
             [motto.dbconn]
             [motto.csv]
             [motto.lib.burrow]
-            [motto.lib.num]
             [motto.lib.dt]
             [motto.lib.list]
             [motto.lib.tab]))
