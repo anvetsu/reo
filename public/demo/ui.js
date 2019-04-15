@@ -76,6 +76,8 @@ function initUi() {
     result.session.setMode("ace/mode/javascript");
     result.setFontSize(18);
     result.renderer.setShowGutter(false);
+    result.setAutoScrollEditorIntoView(true);
+    result.setReadOnly(true);
     result.setValue("");
 
     var editor = ace.edit("editor");
@@ -127,5 +129,5 @@ function initUi() {
 }
 
 $(document).ready(function() {
-    $('#result_table').DataTable();
+    //$('#result_table').DataTable();
 });
