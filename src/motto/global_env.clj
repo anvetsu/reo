@@ -12,9 +12,7 @@
   (eval
    '(do
       (def -neg- -)
-      (def p partial)
       (def dict hash-map)
-      (def cnt count)
 
       (def parse read-string)
 
@@ -37,7 +35,7 @@
       (def dt_add motto.lib.dt/add)
       (def dt_get motto.lib.dt/getf)
 
-      (def c motto.compile/compile-file)
+      (def cf motto.compile/compile-file)
 
       (def -take- motto.lib.list/-take-)
       (def -conj- motto.lib.list/-conj-)
@@ -61,8 +59,8 @@
       (def til motto.lib.list/til)
       (def twins motto.lib.list/twins)
       (def grp motto.lib.list/group)
-      (def cntf motto.lib.list/count-for)
-      (def cnteq motto.lib.list/count-eq)
+      (def count_f motto.lib.list/count-for)
+      (def count_eq motto.lib.list/count-eq)
 
       (def tab motto.lib.tab/mktab)
       (def cols motto.lib.tab/cols)

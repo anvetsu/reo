@@ -386,10 +386,10 @@ ld "abc"
 `ld` will take care of compiling the script into object code, if the object code
 file (with extension `.mo`) is not found.
 
-A script can be explicitly compiled into a `.mo` file by calling the `c` (compile) function:
+A script can be explicitly compiled into a `.mo` file by calling the `cf` (compile-file) function:
 
 ```
-c("abc")
+cf("abc")
 ```
 
 The object code is compiled on-the-fly to JVM byte code.
