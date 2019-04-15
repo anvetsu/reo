@@ -46,11 +46,15 @@ var mottoResult = {"value": "void"}
 
 function evalHandler(result) {
     mottoResult = result;
+    if (typeof result === 'object' && typeof result.value["-meta-"] === 'object') {
+	var value = result.value;
+	delete value["-meta-"];
+    }
     s = JSON.stringify(result.value, null, 2);
     if (s == "\"void\"")
 	s = "ready";
-    var result = ace.edit("result");
-    result.setValue(s, -1);
+    var r = ace.edit("result");
+    r.setValue(s, -1);
 }
 
 function evalMotto(code) {
@@ -68,14 +72,14 @@ function initUi() {
     evalMotto(initTablesCode);
 
     var result = ace.edit("result");
-    result.setTheme("ace/theme/terminal");
+    result.setTheme("ace/theme/iplastic");
     result.session.setMode("ace/mode/javascript");
     result.setFontSize(18);
     result.renderer.setShowGutter(false);
     result.setValue("");
 
     var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/terminal");
+    editor.setTheme("ace/theme/textmate");
     editor.session.setMode("ace/mode/rust");
     editor.setFontSize(18);
     editor.setValue(ptsCode);
@@ -108,8 +112,6 @@ function initUi() {
 	    var label = r[0];
 	    var v = r[1];
 	    var data = Object.values(v);
-	    console.log(label);
-	    console.log(data);
 	    var ds = {}
 	    ds.label = label;
 	    ds.borderWidth = 1;
@@ -125,4 +127,5 @@ function initUi() {
 }
 
 $(document).ready(function() {
+    $('#result_table').DataTable();
 });

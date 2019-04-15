@@ -36,19 +36,22 @@
 
 (defn tabify [col-names table]
   (let [tab (into {} table)]
-    (assoc tab :tab true :col-names col-names)))
+    (assoc tab :-meta-
+           {:table true
+            :columns col-names})))
 
 (defn tab? [x]
-  (and (:tab x)
+  (and (:table (:-meta- x))
        true))
 
 (defn tab-data [tab]
   (when (tab? tab)
-    [(:col-names tab) (dissoc tab :col-names :tab)]))
+    (let [meta (:-meta- tab)]
+      [(:columns meta) (dissoc tab :-meta-)])))
 
 (defn tab-cols [tab]
   (when (tab? tab)
-    (:col-names tab)))
+    (:columns (:-meta- tab))))
 
 (defn err [x]
   {:error x})
