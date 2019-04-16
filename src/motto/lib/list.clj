@@ -106,6 +106,15 @@
         (recur (rest xs) (assoc rs x v)))
       (into {} rs))))
 
+(defn collect-once [f xs]
+  (loop [xs xs, rs {}]
+    (if (seq xs)
+      (let [x (first xs)]
+        (if-let [v (get rs x)]
+          (recur (rest xs) rs)
+          (recur (rest xs) (assoc rs x (f x)))))
+      (into {} rs))))
+
 (defn count-for [f xs]
   (loop [xs xs, n 0]
     (if (seq xs)

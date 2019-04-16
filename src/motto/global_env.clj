@@ -58,6 +58,7 @@
       (def til motto.lib.list/til)
       (def twins motto.lib.list/twins)
       (def collect motto.lib.list/collect)
+      (def collect_once motto.lib.list/collect-once)
       (def count_f motto.lib.list/count-for)
       (def count_eq motto.lib.list/count-eq)
       (def counts motto.lib.list/counts)

@@ -23,7 +23,7 @@ var mottofns = ["parse", "big", "sml",
 		"cols", "top", "group", "data_source",
 		"open", "close", "stmt", "qry", "cmd",
 		"csv", "csv_fmt", "csv_ahdr", "csv_hdr",
-		"csv_delim", "csv_rd"];
+		"csv_delim", "csv_rd", "collect_once"];
 
 function randInt(max) {
     return Math.floor(Math.random() * Math.floor(max));

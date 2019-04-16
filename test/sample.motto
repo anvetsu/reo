@@ -21,3 +21,5 @@ numprods:count_group(orderlines('orderlineid), orderlines('productid))
 numords:fn(prodcount) {prods:filter(fn(x) x(1) = prodcount, op)
                        pids:keys(prods)
 		       [count(pids) mn(pids) mx(pids)]}
+ords:collect_once(fn(i) numords(i), vals(op))
+sort(fn(x y) x(0) < y(0), ords)
