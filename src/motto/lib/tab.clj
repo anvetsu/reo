@@ -27,3 +27,13 @@
               v (get data k)]
           (recur (rest cs) (conj rs (take n v))))
         (mktab colnames rs)))))
+
+(defn group [f default col by]
+  (loop [xs col, ys by, rs {}]
+    (if (seq ys)
+      (let [y (first ys)
+            r1 (get rs y default)
+            r2 (f (first xs) r1)]
+        (recur (rest xs) (rest ys)
+               (assoc rs y r2)))
+      (into {} rs))))

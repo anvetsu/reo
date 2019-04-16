@@ -98,7 +98,7 @@
                (conj rs (f (second xs) (first xs))))
         rs))))
 
-(defn group [f default xs]
+(defn collect [f default xs]
   (loop [xs xs, rs {}]
     (if (seq xs)
       (let [x (first xs)

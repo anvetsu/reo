@@ -1,11 +1,16 @@
 types:['i 'i 'i "yyyy-MM-dd 00:00:00" 's 's 's 's 'f 'f 'i]
 orders:csv("db/orders.txt" dict('delim \tab 'types types))
 
-pts:grp(inc 0 orders('paymenttype))
+pts:collect(inc 0 orders('paymenttype))
 ["Order by PaymentTypes", pts]
 
-ords_by_code:fn(c) cnteq(c orders('paymenttype))
-tp_in_range:fn(a b) cntf(fn(tp) a <= tp & tp < b, orders('totalprice))
+ords_by_code:fn(c) count_eq(c orders('paymenttype))
+tp_in_range:fn(a b) count_f(fn(tp) a <= tp & tp < b, orders('totalprice))
+
+tpgrp:fn(a b) group(fn(tp c) if {a <= tp & tp < b c+1 c}, 0 orders('totalprice), orders('paymenttype))
+[["0-10" tpgrp(0 10)] ["10-100" tpgrp(10 100)] ["100-1000" tpgrp(100 1000)]]
+
+zipords:group(fn(nord, _) nord+1, 0, orders('numorders), orders('zipcode))
 
 sort(fn(x y) x(0) < y(0), pts)
 sort(fn(x y) x(1) < y(1), pts)

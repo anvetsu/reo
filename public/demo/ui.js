@@ -3,7 +3,11 @@ function randInt(max) {
 }
 
 function randColor() {
-    return randInt(256);
+    var x = randInt(256);
+    if (x < 50) {
+	x = x+100;
+    }
+    return x;
 }
 
 function randomColors(n, alpha1, alpha2) {
@@ -17,17 +21,24 @@ function randomColors(n, alpha1, alpha2) {
     return [bg, brdr];
 }
 
-function makeBarChart(labels, datasets) {
+function makeBarChart(data, stacked) {
+    var labels = data[0];
+    var datasets = data[1];
     var ctx = document.getElementById('chart').getContext('2d');
     var barChart = new Chart(ctx, {
 	type: 'bar',
+	backgroundColor: "#757575",
 	data: {
             labels: labels,
             datasets: datasets
 	},
 	options: {
             scales: {
+		xAxes: [{
+		    stacked: stacked
+		}],
 		yAxes: [{
+		    stacked: stacked,
                     ticks: {
 			beginAtZero: true
                     }
@@ -68,6 +79,59 @@ function evalMotto(code) {
     });
 }
 
+function makeDs(data, label) {
+    var ds = {};
+    ds.label = label;
+    ds.borderWidth = 1;
+    ds.data = data;
+    var [bg, brdr] = randomColors(data.length, 0.2, 1);
+    ds.backgroundColor = bg;
+    ds.borderColor = brdr;
+    return ds;
+}
+
+function makeDataSet(r) {
+    var v = r[1];
+    var data = Object.values(v);
+    var ds = makeDs(data, r[0]);
+    return [Object.keys(v), [ds]];
+}
+
+function makeStakedDataSet(rs) {
+    var dss = [];
+    var v = null;
+    for (i in rs) {
+	var r = rs[i];
+	v = r[1];
+	var data = Object.values(v);
+	var ds = makeDs(data, r[0]);
+	dss.push(ds);
+    }
+    return [Object.keys(v), dss];
+}
+
+var mottofns = ["parse", "big", "sml",
+		"dt", "sdt", "now",
+		"dt_add", "dt_get", "cf",
+		"take", "drop", "conj", "fold",
+		"map", "filter", "sum", "dif",
+		"prd", "qt", "mx", "mn", "max", "min",
+		"sums", "difs", "prds", "qts", "mxs", "mns",
+		"til", "twins", "collect", "count",
+		"count_f", "count_eq", "tab", "cols",
+		"top", "group", "data_source",
+		"open", "close", "stmt", "qry", "cmd",
+		"csv", "csv_fmt", "csv_ahdr", "csv_hdr",
+		"csv_delim", "csv_rd"];
+
+function mkautocompletes() {
+    var autocs = [];
+    for (i in mottofns) {
+	autocs.push({value: mottofns[i], score: 1000, meta: "motto-lib"});
+    }
+    return autocs;
+}
+
 function initUi() {
     evalMotto(initTablesCode);
 
@@ -80,7 +144,16 @@ function initUi() {
     result.setReadOnly(true);
     result.setValue("");
 
+    ace.require("ace/ext/language_tools");
     var editor = ace.edit("editor");
+    editor.setOptions({
+	enableBasicAutocompletion: true
+    });
+    editor.completers.push({
+	getCompletions: function(editor, session, pos, prefix, callback) {
+	    callback(null, mkautocompletes())
+	}
+    });
     editor.setTheme("ace/theme/textmate");
     editor.session.setMode("ace/mode/rust");
     editor.setFontSize(18);
@@ -111,17 +184,14 @@ function initUi() {
 	bindKey: {win: 'Ctrl-K',  mac: 'Command-K'},
 	exec: function(editor) {
 	    var r = mottoResult.value;
-	    var label = r[0];
-	    var v = r[1];
-	    var data = Object.values(v);
-	    var ds = {}
-	    ds.label = label;
-	    ds.borderWidth = 1;
-	    ds.data = data;
-	    var [bg, brdr] = randomColors(data.length, 0.2, 1);
-	    ds.backgroundColor = bg;
-	    ds.borderColor = brdr;
-	    makeBarChart(Object.keys(v), [ds]);
+	    var ds = null;
+	    var stacked = false;
+	    if (r[0] instanceof Object) {
+		ds = makeStakedDataSet(r);
+		stacked = true;
+	    }else
+		ds = makeDataSet(r);
+	    makeBarChart(ds, stacked);
 	},
 	readOnly: true
     });    

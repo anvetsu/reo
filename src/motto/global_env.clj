@@ -57,13 +57,14 @@
       (def mns motto.lib.list/mins)
       (def til motto.lib.list/til)
       (def twins motto.lib.list/twins)
-      (def grp motto.lib.list/group)
+      (def collect motto.lib.list/collect)
       (def count_f motto.lib.list/count-for)
       (def count_eq motto.lib.list/count-eq)
 
       (def tab motto.lib.tab/mktab)
       (def cols motto.lib.tab/cols)
       (def top motto.lib.tab/top)
+      (def group motto.lib.tab/group)
 
       (def data_source motto.dbconn/data-source)
       (def open motto.dbconn/open)
