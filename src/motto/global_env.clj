@@ -60,11 +60,13 @@
       (def collect motto.lib.list/collect)
       (def count_f motto.lib.list/count-for)
       (def count_eq motto.lib.list/count-eq)
+      (def counts motto.lib.list/counts)
 
       (def tab motto.lib.tab/mktab)
       (def cols motto.lib.tab/cols)
       (def top motto.lib.tab/top)
       (def group motto.lib.tab/group)
+      (def count_group motto.lib.tab/count-grp)
 
       (def data_source motto.dbconn/data-source)
       (def open motto.dbconn/open)

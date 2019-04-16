@@ -116,3 +116,6 @@
 
 (defn count-eq [x xs]
   (count-for #(= x %) xs))
+
+(defn counts [xs]
+  (collect inc 0 xs))

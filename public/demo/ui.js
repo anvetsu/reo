@@ -18,9 +18,9 @@ var mottofns = ["parse", "big", "sml",
 		"map", "filter", "sum", "dif",
 		"prd", "qt", "mx", "mn", "max", "min",
 		"sums", "difs", "prds", "qts", "mxs", "mns",
-		"til", "twins", "collect", "count",
-		"count_f", "count_eq", "tab", "cols",
-		"top", "group", "data_source",
+		"til", "twins", "collect", "count", "counts",
+		"count_group", "count_f", "count_eq", "tab",
+		"cols", "top", "group", "data_source",
 		"open", "close", "stmt", "qry", "cmd",
 		"csv", "csv_fmt", "csv_ahdr", "csv_hdr",
 		"csv_delim", "csv_rd"];
@@ -48,9 +48,15 @@ function randomColors(n, alpha1, alpha2) {
     return [bg, brdr];
 }
 
+function resetChartCanvas() {
+    $('#chart').remove();
+    $('#chartPanel').append('<canvas id="chart"><canvas>');
+}
+
 function makeBarChart(data, stacked) {
     var labels = data[0];
     var datasets = data[1];
+    resetChartCanvas();
     var ctx = document.getElementById('chart').getContext('2d');
     var barChart = new Chart(ctx, {
 	type: 'bar',

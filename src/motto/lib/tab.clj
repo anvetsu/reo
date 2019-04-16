@@ -37,3 +37,9 @@
         (recur (rest xs) (rest ys)
                (assoc rs y r2)))
       (into {} rs))))
+
+(defn- count-grp-inc [_ c]
+  (+ c 1))
+
+(defn count-grp [col by]
+  (group count-grp-inc 0 col by))
