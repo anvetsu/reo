@@ -92,15 +92,20 @@ function evalHandler(result) {
 	s = "ready";
     var r = ace.edit("result");
     r.setValue(s, -1);
-    if (inited == false) {
+    var editor = ace.edit("editor");
+    editor.setReadOnly(false);
+    editor.focus();
+    if (inited == false)
 	inited = true;
-	var editor = ace.edit("editor");
-	editor.setReadOnly(false);
-	editor.focus();
-    }
 }
 
 function evalMotto(code) {
+    var editor = ace.edit("editor");
+    editor.setReadOnly(true);
+    if (inited) {
+	var result = ace.edit("result");
+	result.setValue("fetching result...");
+    }
     $.ajax({
 	type: 'POST',
 	url: '/eval',
@@ -129,7 +134,7 @@ function makeDataSet(r) {
     return [Object.keys(v), [ds]];
 }
 
-function makeStakedDataSet(rs) {
+function makeStackedDataSet(rs) {
     var dss = [];
     var v = null;
     for (i in rs) {
@@ -206,7 +211,7 @@ function initUi() {
 	    var ds = null;
 	    var stacked = false;
 	    if (r[0] instanceof Object) {
-		ds = makeStakedDataSet(r);
+		ds = makeStackedDataSet(r);
 		stacked = true;
 	    }else
 		ds = makeDataSet(r);

@@ -18,4 +18,6 @@ op:counts(orderlines('productid))
 ["Products" op]
 
 numprods:count_group(orderlines('orderlineid), orderlines('productid))
-numords:fn(prodcount) count(filter(fn(x) x(1) = prodcount, op))
+numords:fn(prodcount) {prods:filter(fn(x) x(1) = prodcount, op)
+                       pids:keys(prods)
+		       [count(pids) mn(pids) mx(pids)]}
