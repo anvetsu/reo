@@ -39,3 +39,26 @@
     m
     (let [xs (map (fn [[k v]] [(keyword k) v]) m)]
       (into {} xs))))
+
+(defn safe-parse-int [s]
+  (if (seq s)
+    (try
+      (Integer/parseInt s)
+      (catch Exception _ 0))
+    0))
+
+(def ^:private f0 (float 0.0))
+
+(defn safe-parse-float [s]
+  (if (seq s)
+    (try
+      (Float/parseFloat s)
+      (catch Exception _ f0))
+    f0))
+
+(defn safe-parse-double [s]
+  (if (seq s)
+    (try
+      (Double/parseDouble s)
+      (catch Exception _ 0.0))
+    0.0))

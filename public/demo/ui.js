@@ -1,3 +1,30 @@
+var initTablesCode =
+`types:['i 'i 'i "yyyy-MM-dd 00:00:00" 's 's 's 's 'f 'f 'i]
+csvopts:dict('delim \\tab 'types types)
+orders:csv("db/orders.txt" csvopts)
+types:['i 'i 'i "yyyy-MM-dd 00:00:00" "yyyy-MM-dd 00:00:00" 'f 'i 'f]
+csvopts:assoc(csvopts 'types types)
+orderlines:csv("db/orderlines.txt" csvopts)
+['tables ['orders, 'orderlines]]`
+
+var inited = false;
+
+var mottoResult = {"value": "void"}
+
+var mottofns = ["parse", "big", "sml",
+		"dt", "sdt", "now",
+		"dt_add", "dt_get", "cf",
+		"take", "drop", "conj", "fold",
+		"map", "filter", "sum", "dif",
+		"prd", "qt", "mx", "mn", "max", "min",
+		"sums", "difs", "prds", "qts", "mxs", "mns",
+		"til", "twins", "collect", "count",
+		"count_f", "count_eq", "tab", "cols",
+		"top", "group", "data_source",
+		"open", "close", "stmt", "qry", "cmd",
+		"csv", "csv_fmt", "csv_ahdr", "csv_hdr",
+		"csv_delim", "csv_rd"];
+
 function randInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
@@ -48,13 +75,6 @@ function makeBarChart(data, stacked) {
     });
 }
 
-var initTablesCode =
-    `types:['i 'i 'i "yyyy-MM-dd 00:00:00" 's 's 's 's 'f 'f 'i]
-     orders:csv("db/orders.txt" dict('delim \\tab 'types types))`
-var ptsCode = ''
-
-var mottoResult = {"value": "void"}
-
 function evalHandler(result) {
     mottoResult = result;
     if (typeof result === 'object' && typeof result.value["-meta-"] === 'object') {
@@ -66,6 +86,12 @@ function evalHandler(result) {
 	s = "ready";
     var r = ace.edit("result");
     r.setValue(s, -1);
+    if (inited == false) {
+	inited = true;
+	var editor = ace.edit("editor");
+	editor.setReadOnly(false);
+	editor.focus();
+    }
 }
 
 function evalMotto(code) {
@@ -110,20 +136,6 @@ function makeStakedDataSet(rs) {
     return [Object.keys(v), dss];
 }
 
-var mottofns = ["parse", "big", "sml",
-		"dt", "sdt", "now",
-		"dt_add", "dt_get", "cf",
-		"take", "drop", "conj", "fold",
-		"map", "filter", "sum", "dif",
-		"prd", "qt", "mx", "mn", "max", "min",
-		"sums", "difs", "prds", "qts", "mxs", "mns",
-		"til", "twins", "collect", "count",
-		"count_f", "count_eq", "tab", "cols",
-		"top", "group", "data_source",
-		"open", "close", "stmt", "qry", "cmd",
-		"csv", "csv_fmt", "csv_ahdr", "csv_hdr",
-		"csv_delim", "csv_rd"];
-
 function mkautocompletes() {
     var autocs = [];
     for (i in mottofns) {
@@ -133,8 +145,6 @@ function mkautocompletes() {
 }
 
 function initUi() {
-    evalMotto(initTablesCode);
-
     var result = ace.edit("result");
     result.setTheme("ace/theme/iplastic");
     result.session.setMode("ace/mode/javascript");
@@ -142,7 +152,7 @@ function initUi() {
     result.renderer.setShowGutter(false);
     result.setAutoScrollEditorIntoView(true);
     result.setReadOnly(true);
-    result.setValue("");
+    result.setValue(`loading datasets, please wait...`);
 
     ace.require("ace/ext/language_tools");
     var editor = ace.edit("editor");
@@ -157,7 +167,10 @@ function initUi() {
     editor.setTheme("ace/theme/textmate");
     editor.session.setMode("ace/mode/rust");
     editor.setFontSize(18);
-    editor.setValue(ptsCode);
+    editor.setReadOnly(true);
+    editor.setValue('');
+
+    evalMotto(initTablesCode);
 
     editor.commands.addCommand({
 	name: 'evalScript',

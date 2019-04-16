@@ -11,9 +11,9 @@
   (if (string? t)
     (dt/dt v t)
     (case t
-      :i (Integer/parseInt v)
-      :f (Float/parseFloat v)
-      :d (Double/parseDouble v)
+      :i (u/safe-parse-int v)
+      :f (u/safe-parse-float v)
+      :d (u/safe-parse-double v)
       :n (read-string v)
       v)))
 

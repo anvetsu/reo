@@ -1,5 +1,9 @@
 types:['i 'i 'i "yyyy-MM-dd 00:00:00" 's 's 's 's 'f 'f 'i]
-orders:csv("db/orders.txt" dict('delim \tab 'types types))
+csvopts:dict('delim \tab 'types types)
+orders:csv("db/orders.txt" csvopts)
+types:['i 'i 'i "yyyy-MM-dd 00:00:00" "yyyy-MM-dd 00:00:00" 'f 'i 'f]
+csvopts:assoc(csvopts 'types types)
+orderlines:csv("db/orderlines.txt" csvopts)
 
 pts:collect(inc 0 orders('paymenttype))
 ["Order by PaymentTypes", pts]
