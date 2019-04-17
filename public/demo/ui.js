@@ -1,14 +1,3 @@
-var initTablesCode =
-`types:['i 'i 'i "yyyy-MM-dd 00:00:00" 's 's 's 's 'f 'f 'i]
-csvopts:dict('delim \\tab 'types types)
-orders:csv("db/orders.txt" csvopts)
-types:['i 'i 'i "yyyy-MM-dd 00:00:00" "yyyy-MM-dd 00:00:00" 'f 'i 'f]
-csvopts:assoc(csvopts 'types types)
-orderlines:csv("db/orderlines.txt" csvopts)
-['tables ['orders, 'orderlines]]`
-
-var inited = false;
-
 var mottoResult = {"value": "void"}
 
 var mottofns = ["parse", "big", "sml",
@@ -23,7 +12,8 @@ var mottofns = ["parse", "big", "sml",
 		"cols", "top", "group", "data_source",
 		"open", "close", "stmt", "qry", "cmd",
 		"csv", "csv_fmt", "csv_ahdr", "csv_hdr",
-		"csv_delim", "csv_rd", "collect_once"];
+		"csv_delim", "csv_rd", "collect_once"
+		"zip", "pairs"];
 
 function randInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
@@ -95,17 +85,14 @@ function evalHandler(result) {
     var editor = ace.edit("editor");
     editor.setReadOnly(false);
     editor.focus();
-    if (inited == false)
-	inited = true;
 }
 
 function evalMotto(code) {
     var editor = ace.edit("editor");
     editor.setReadOnly(true);
-    if (inited) {
-	var result = ace.edit("result");
-	result.setValue("fetching result...");
-    }
+    var result = ace.edit("result");
+    result.setValue("fetching result...");
+
     $.ajax({
 	type: 'POST',
 	url: '/eval',
@@ -157,13 +144,14 @@ function mkautocompletes() {
 
 function initUi() {
     var result = ace.edit("result");
-    result.setTheme("ace/theme/iplastic");
+    result.setTheme("ace/theme/idle_fingers");
     result.session.setMode("ace/mode/javascript");
     result.setFontSize(18);
     result.renderer.setShowGutter(false);
     result.setAutoScrollEditorIntoView(true);
     result.setReadOnly(true);
-    result.setValue(`loading datasets, please wait...`);
+    result.renderer.$cursorLayer.element.style.display = "none"
+    result.setValue('');
 
     ace.require("ace/ext/language_tools");
     var editor = ace.edit("editor");
@@ -178,10 +166,7 @@ function initUi() {
     editor.setTheme("ace/theme/textmate");
     editor.session.setMode("ace/mode/rust");
     editor.setFontSize(18);
-    editor.setReadOnly(true);
     editor.setValue('');
-
-    evalMotto(initTablesCode);
 
     editor.commands.addCommand({
 	name: 'evalScript',
