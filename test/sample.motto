@@ -7,7 +7,8 @@ orderlines:csv("db/orderlines.txt" csvopts)
 ['tables ['orders, 'orderlines]]
 
 pts:counts(orders('paymenttype))
-["Order by PaymentTypes", pts]
+["Order by PaymentTypes", pts] "Chart"
+
 ords_by_code:fn(c) count_eq(c orders('paymenttype))
 
 tpgrp:fn(a b) group(fn(tp c) if {a <= tp & tp < b c+1 c}, 0 orders('totalprice), orders('paymenttype))
@@ -24,3 +25,13 @@ numords:fn(prodcount) {prods:filter(fn(x) x(1) = prodcount, op)
 		       [count(pids) mn(pids) mx(pids)]}
 ords:collect_once(fn(i) numords(i), vals(op))
 sort(fn(x y) x(0) < y(0), ords)
+
+"Simple examples"
+types:['i 's 'i]
+csvopts:dict('types types 'headers ['id 'name 'days])
+tenures:csv("test/data/tenure.csv" csvopts)
+top(5 tenures)
+
+dtom:fn(d) d / 12.0
+d:pairs(tenures('name) dtom~tenures('days))
+["Presidents" d] "Chart"
