@@ -1,5 +1,6 @@
 
- * sample dashboard.
+ * parallel fn calls and combined results.
+ * functions to filter columns.
  * more data analytics functions.
 
  * represent homogeneous lists optimally.
