@@ -13,6 +13,12 @@
       xs
       (recur (dec n) (conj xs x)))))
 
+(defn listf [f n]
+  (loop [n n, i 0, rs []]
+    (if (<= n 0)
+      rs
+      (recur (dec n) (inc i) (conj rs (f i))))))
+
 (defn -take- [x n]
   (if (seqable? x)
     (let [[f n] (if (neg? n)

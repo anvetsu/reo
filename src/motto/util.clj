@@ -62,3 +62,12 @@
       (Double/parseDouble s)
       (catch Exception _ 0.0))
     0.0))
+
+(defn keys->type [m s->t]
+  (into {} (map (fn [[k v]] [(s->t (name k)) v]) m)))
+
+(defn keys->syms [m]
+  (keys->type m symbol))
+
+(defn keys->kws [m]
+  (keys->type m keyword))

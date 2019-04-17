@@ -13,7 +13,8 @@ var mottofns = ["parse", "big", "sml",
 		"open", "close", "stmt", "qry", "cmd",
 		"csv", "csv_fmt", "csv_ahdr", "csv_hdr",
 		"csv_delim", "csv_rd", "collect_once",
-		"zip", "pairs"];
+		"zip", "pairs", "http_get", "http_res",
+		"json", "json_parse"];
 
 function randInt(max) {
     return Math.floor(Math.random() * Math.floor(max));

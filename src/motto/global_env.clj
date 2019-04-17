@@ -5,14 +5,16 @@
             [motto.lib.burrow]
             [motto.lib.dt]
             [motto.lib.list]
-            [motto.lib.tab]))
+            [motto.lib.tab]
+            [motto.lib.json]
+            [motto.lib.http]))
 
 (defn make-eval []
   (eval
    '(do
       (def -neg- -)
       (def dict hash-map)
-
+      (def randi rand-int)
       (def parse read-string)
 
       (def -+- motto.lib.burrow/add)
@@ -64,6 +66,7 @@
       (def counts motto.lib.list/counts)
       (def zip motto.lib.list/zip)
       (def pairs motto.lib.list/pairs)
+      (def listf motto.lib.list/listf)
 
       (def tab motto.lib.tab/mktab)
       (def cols motto.lib.tab/cols)
@@ -84,5 +87,11 @@
       (def csv_hdr motto.csv/with-header)
       (def csv_delim motto.csv/with-delim)
       (def csv_rd motto.csv/rd)
+
+      (def http_get motto.lib.http/http-get)
+      (def http_res motto.lib.http/http-res)
+
+      (def json motto.lib.json/json-str)
+      (def json_parse motto.lib.json/parse)
 
       (fn [expr] (eval expr)))))
