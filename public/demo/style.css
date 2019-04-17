@@ -1,0 +1,23 @@
+#editor {
+    position: fixed;
+    top: 50;
+    width: 720;
+    height: 300;
+    left: 200;
+}
+
+#result {
+    position: relative;
+    top: 350;
+    left: 192;
+    width: 720;
+    height: 400;
+}
+
+#chartPanel {
+    position: relative;
+    top: -200;
+    left: 1000;
+    width: 650;
+    height: 600;
+}
