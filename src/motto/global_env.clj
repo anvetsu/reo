@@ -1,7 +1,7 @@
 (ns motto.global-env
   (:require [motto.compile]
             [motto.dbconn]
-            [motto.csv]
+            [motto.lib.csv]
             [motto.lib.burrow]
             [motto.lib.dt]
             [motto.lib.list]
@@ -81,12 +81,12 @@
       (def qry motto.dbconn/qry)
       (def cmd motto.dbconn/cmd)
 
-      (def csv motto.csv/csv)
-      (def csv_fmt motto.csv/fmt)
-      (def csv_ahdr motto.csv/with-auto-header)
-      (def csv_hdr motto.csv/with-header)
-      (def csv_delim motto.csv/with-delim)
-      (def csv_rd motto.csv/rd)
+      (def csv motto.lib.csv/csv)
+      (def csv_fmt motto.lib.csv/fmt)
+      (def csv_ahdr motto.lib.csv/with-auto-header)
+      (def csv_hdr motto.lib.csv/with-header)
+      (def csv_delim motto.lib.csv/with-delim)
+      (def csv_rd motto.lib.csv/rd)
 
       (def http_get motto.lib.http/http-get)
       (def http_res motto.lib.http/http-res)
