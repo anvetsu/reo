@@ -4,6 +4,7 @@ orders:csv("db/orders.txt" csvopts)
 types:['i 'i 'i "yyyy-MM-dd 00:00:00" "yyyy-MM-dd 00:00:00" 'f 'i 'f]
 csvopts:assoc(csvopts 'types types)
 orderlines:csv("db/orderlines.txt" csvopts)
+['tables ['orders, 'orderlines]]
 
 pts:counts(orders('paymenttype))
 ["Order by PaymentTypes", pts]

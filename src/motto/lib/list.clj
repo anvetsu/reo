@@ -128,3 +128,9 @@
 
 (defn counts [xs]
   (collect inc 0 xs))
+
+(defn zip [xs ys]
+  (map vector xs ys))
+
+(defn pairs [xs ys]
+  (into {} (apply concat (zip xs ys))))

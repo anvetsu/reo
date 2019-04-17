@@ -62,6 +62,8 @@
       (def count_f motto.lib.list/count-for)
       (def count_eq motto.lib.list/count-eq)
       (def counts motto.lib.list/counts)
+      (def zip motto.lib.list/zip)
+      (def pairs motto.lib.list/pairs)
 
       (def tab motto.lib.tab/mktab)
       (def cols motto.lib.tab/cols)
