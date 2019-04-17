@@ -2,19 +2,33 @@
   (:require [motto.util :as u]
             [motto.type :as t]))
 
-(defn mktab [col-names col-vals]
-  (loop [ns col-names, vs col-vals, table []]
-    (cond
-      (and (seq ns) (seq vs))
-      (recur (rest ns) (rest vs) (conj table [(first ns) (first vs)]))
+(declare mktab)
 
-      (seq ns)
-      (u/ex "tab: not enough values")
+(defn- dicts->tab [dicts]
+  (let [colnames (keys (first dicts))]
+    (loop [ds dicts
+           cols (into [] (repeat (count colnames) []))]
+      (if (seq ds)
+        (let [cs (map #(get (first ds) %) colnames)]
+          (recur (rest ds) (u/spread cols cs)))
+        (mktab (map symbol colnames) cols)))))
 
-      (seq vs)
-      (u/ex "tab: not enough columns")
+(defn mktab
+  ([col-names col-vals]
+   (loop [ns col-names, vs col-vals, table []]
+     (cond
+       (and (seq ns) (seq vs))
+       (recur (rest ns) (rest vs) (conj table [(first ns) (first vs)]))
 
-      :else (t/tabify col-names table))))
+       (seq ns)
+       (u/ex "tab: not enough values")
+
+       (seq vs)
+       (u/ex "tab: not enough columns")
+
+       :else (t/tabify col-names table))))
+  ([dicts]
+   (dicts->tab dicts)))
 
 (defn cols [tab]
   (t/tab-cols tab))

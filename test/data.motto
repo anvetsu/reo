@@ -1,2 +1,5 @@
 key:"<key>"
 r:http_get(str("http://api.nytimes.com/svc/search/v2/articlesearch.json?q=New+York+Fashion+Week&begin_date=20090101&end_date=20091231&page=0&api-key=" key))
+g:http_res(r)
+b:json_parse(g('body))
+docs:tab(b("response")("docs"))

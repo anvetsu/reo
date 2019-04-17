@@ -6,7 +6,9 @@
   ["a:tab(['a 'b 'c] [10 20 30])" 'a
    "a('a)" 10
    "a:tab(['a 'b 'c] [[10 20 30] [100 200 300] [40 50 60 70]])" 'a
-   "a('b)(2)" 300])
+   "a('b)(2)" 300
+   "a:tab([dict('a 10 'b 20 'c 30) dict('a 100 'b 200 'c 300)])" 'a
+   "a('a)(1)" 100])
 
 (deftest basic
   (test-with basic-data))
