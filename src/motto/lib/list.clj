@@ -133,4 +133,4 @@
   (map vector xs ys))
 
 (defn pairs [xs ys]
-  (into {} (apply concat (zip xs ys))))
+  (apply hash-map (apply concat (zip xs ys))))
