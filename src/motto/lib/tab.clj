@@ -13,22 +13,28 @@
           (recur (rest ds) (u/spread cols cs)))
         (mktab (map symbol colnames) cols)))))
 
+(defn- seqs->table [col-names col-vals]
+  (loop [ns col-names, vs col-vals, table []]
+    (cond
+      (and (seq ns) (seq vs))
+      (recur (rest ns) (rest vs) (conj table [(first ns) (first vs)]))
+
+      (seq ns)
+      (u/ex "tab: not enough values")
+
+      (seq vs)
+      (u/ex "tab: not enough columns")
+
+      :else table)))
+
 (defn mktab
   ([col-names col-vals]
-   (loop [ns col-names, vs col-vals, table []]
-     (cond
-       (and (seq ns) (seq vs))
-       (recur (rest ns) (rest vs) (conj table [(first ns) (first vs)]))
-
-       (seq ns)
-       (u/ex "tab: not enough values")
-
-       (seq vs)
-       (u/ex "tab: not enough columns")
-
-       :else (t/tabify col-names table))))
+   (let [t (seqs->table col-names col-vals)]
+     (t/tabify col-names t)))
   ([dicts]
    (dicts->tab dicts)))
+
+(def tab-merge t/tab-merge)
 
 (defn cols [tab]
   (t/tab-cols tab))

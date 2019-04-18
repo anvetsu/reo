@@ -1,4 +1,5 @@
-(ns motto.type)
+(ns motto.type
+  (:require [clojure.set :as set]))
 
 (def identifier? symbol?)
 
@@ -38,20 +39,33 @@
   (let [tab (into {} table)]
     (assoc tab :-meta-
            {:table true
-            :columns col-names})))
+            :columns (set col-names)})))
+
+(defn- tab-table [tab]
+  (dissoc tab :-meta-))
+
+(defn- tab-meta [tab]
+  (:-meta- tab))
 
 (defn tab? [x]
-  (and (:table (:-meta- x))
+  (and (:table (tab-meta x))
        true))
 
 (defn tab-data [tab]
   (when (tab? tab)
-    (let [meta (:-meta- tab)]
-      [(:columns meta) (dissoc tab :-meta-)])))
+    (let [meta (tab-meta tab)]
+      [(:columns meta) (tab-table tab)])))
 
 (defn tab-cols [tab]
   (when (tab? tab)
-    (:columns (:-meta- tab))))
+    (:columns (tab-meta tab))))
+
+(defn tab-merge [tab1 tab2]
+  (let [cols1 (:columns (tab-meta tab1))
+        cols2 (:columns (tab-meta tab2))
+        newcols (set/union cols1 cols2)
+        newtable (merge (tab-table tab1) (tab-table tab2))]
+    (tabify newcols newtable)))
 
 (defn err [x]
   {:error x})

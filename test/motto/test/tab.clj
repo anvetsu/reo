@@ -13,6 +13,23 @@
 (deftest basic
   (test-with basic-data))
 
+(def ^:private club-data
+  ["a:tab(['a 'b] [[10 20] [30 40]])" 'a
+   "b:tab(['a 'c] [[100 200] [300 400]])" 'b
+   "c:club(a, b)" 'c
+   "cols(c)" #{'a 'b 'c}
+   "c('a)" [100 200]
+   "c('c)" [300 400]
+   "c('b)" [30 40]
+   "c:club(b a)" 'c
+   "cols(c)" #{'a 'b 'c}
+   "c('a)" [10 20]
+   "c('c)" [300 400]
+   "c('b)" [30 40]])
+
+(deftest club-test
+  (test-with club-data))
+
 (def ^:private csv-data
   ["emp:csv(\"test/data/emp.csv\")" 'emp
    "count(cols(emp))" 3
@@ -24,7 +41,7 @@
    "sum(emp('Salary))" 12623.76
    "cfg:dict('headers ['n 'd 's], 'delim \\:)" 'cfg
    "emp:csv(\"test/data/emp2.csv\", cfg)" 'emp
-   "cols(emp)" ['n 'd 's]
+   "cols(emp)" #{'n 'd 's}
    "emp('d)(2)" "3"])
 
 (deftest csvtests

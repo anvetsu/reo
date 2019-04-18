@@ -1,7 +1,7 @@
 var mottoResult = {"value": "void"}
 
 var mottofns = ["parse", "big", "sml", "first", "fst",
-		"second", "snd", "nth", "pos",
+		"second", "snd", "nth", "pos", "merge",
 		"dt", "sdt", "now", "dt_add", "dt_get", "cf",
 		"take", "drop", "conj", "fold",
 		"map", "filter", "sum", "dif",
@@ -9,7 +9,7 @@ var mottofns = ["parse", "big", "sml", "first", "fst",
 		"sums", "difs", "prds", "qts", "mxs", "mns",
 		"til", "twins", "collect", "count", "counts",
 		"count_group", "count_f", "count_eq", "tab",
-		"cols", "top", "group", "data_source",
+		"club", "cols", "top", "group", "data_source",
 		"open", "close", "stmt", "qry", "cmd",
 		"csv", "csv_fmt", "csv_ahdr", "csv_hdr",
 		"csv_delim", "csv_rd", "collect_once",

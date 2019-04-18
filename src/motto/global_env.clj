@@ -76,6 +76,7 @@
       (def top motto.lib.tab/top)
       (def group motto.lib.tab/group)
       (def count_group motto.lib.tab/count-grp)
+      (def club motto.lib.tab/tab-merge)
 
       (def data_source motto.dbconn/data-source)
       (def open motto.dbconn/open)
