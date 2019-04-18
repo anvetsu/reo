@@ -19,6 +19,13 @@
       (def fst first)
       (def snd second)
 
+      (def setu clojure.set/union)
+      (def seti clojure.set/intersection)
+      (def setd clojure.set/difference)
+      (def setp clojure.set/project)
+      (def setj clojure.set/join)
+      (def sets clojure.set/select)
+
       (def -+- motto.lib.burrow/add)
       (def --- motto.lib.burrow/sub)
       (def -*- motto.lib.burrow/mul)
