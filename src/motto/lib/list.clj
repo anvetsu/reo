@@ -143,3 +143,6 @@
 
 (defn index-of [xs x]
   (.indexOf xs x))
+
+(defn truths [xs]
+  (filter identity xs))

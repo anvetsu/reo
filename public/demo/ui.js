@@ -3,7 +3,7 @@ var mottoResult = {"value": "void"}
 var mottofns = ["parse", "big", "sml", "first", "fst",
 		"second", "snd", "nth", "pos", "merge",
 		"dt", "sdt", "now", "dt_add", "dt_get", "cf",
-		"take", "drop", "conj", "fold",
+		"take", "drop", "conj", "fold", "truths",
 		"map", "filter", "sum", "dif",
 		"setu", "seti", "setd", "setj", "setp", "sets",
 		"prd", "qt", "mx", "mn", "max", "min",

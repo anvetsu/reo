@@ -77,6 +77,7 @@
       (def pairs motto.lib.list/pairs)
       (def listf motto.lib.list/listf)
       (def pos motto.lib.list/index-of)
+      (def truths motto.lib.list/truths)
 
       (def tab motto.lib.tab/mktab)
       (def cols motto.lib.tab/cols)
