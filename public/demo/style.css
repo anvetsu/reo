@@ -2,13 +2,13 @@
     position: fixed;
     top: 50;
     width: 720;
-    height: 200;
+    height: 400;
     left: 200;
 }
 
 #result {
     position: relative;
-    top: 250;
+    top: 450;
     left: 192;
     width: 720;
     height: 400;

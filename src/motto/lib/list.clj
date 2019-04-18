@@ -140,3 +140,6 @@
 
 (defn pairs [xs ys]
   (apply hash-map (apply concat (zip xs ys))))
+
+(defn index-of [xs x]
+  (.indexOf xs x))

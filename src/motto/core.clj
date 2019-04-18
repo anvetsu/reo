@@ -20,7 +20,7 @@
 
 (def cli-opts [["-s" "--server" "HTTP server mode"]
                ["-p" "--port PORT" "HTTP server port"
-                 :default 3030
+                :default 3030
                 :parse-fn #(Integer/parseInt %)
                 :validate [#(< 0 % 0x10000) "Must be a number between 0 and 65536"]]
                ["-r" "--repl FLAG" "start the repl. FLAG must be either true or false"

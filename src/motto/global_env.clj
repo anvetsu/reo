@@ -16,6 +16,8 @@
       (def dict hash-map)
       (def randi rand-int)
       (def parse read-string)
+      (def fst first)
+      (def snd second)
 
       (def -+- motto.lib.burrow/add)
       (def --- motto.lib.burrow/sub)
@@ -67,6 +69,7 @@
       (def zip motto.lib.list/zip)
       (def pairs motto.lib.list/pairs)
       (def listf motto.lib.list/listf)
+      (def pos motto.lib.list/index-of)
 
       (def tab motto.lib.tab/mktab)
       (def cols motto.lib.tab/cols)
