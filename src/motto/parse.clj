@@ -65,11 +65,13 @@
   (let [[conds ts]
         (loop [ts tokens, conds []]
           (if (seq ts)
-            (let [[c ts1] (parse-expr ts)]
-              (if (= :close-cb (first ts1))
-                [(conj conds c) ts1]
-                (let [[b ts2] (parse-expr ts1)]
-                  (recur ts2 (conj conds [c b])))))
+            (if (= :close-cb (first ts))
+              [(conj conds :false) ts]
+              (let [[c ts1] (parse-expr ts)]
+                (if (= :close-cb (first ts1))
+                  [(conj conds c) ts1]
+                  (let [[b ts2] (parse-expr ts1)]
+                    (recur ts2 (conj conds [c b]))))))
             [conds nil]))]
     [[:cond conds] ts]))
 
