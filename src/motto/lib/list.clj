@@ -146,3 +146,19 @@
 
 (defn truths [xs]
   (filter identity xs))
+
+(defn dim [xs]
+  (let [cols (count xs)]
+    (if (and (> cols 0)
+             (= (type xs) (type (first xs))))
+      [cols (dim (first xs))]
+      cols)))
+
+(defn sel [xs ys]
+  (loop [xs xs, ys ys, rs []]
+    (if (and (seq xs) (seq ys))
+      (if (first xs)
+        (recur (rest xs) (rest ys)
+               (conj rs (first ys)))
+        (recur (rest xs) (rest ys) rs))
+      rs)))

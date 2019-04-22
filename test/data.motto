@@ -19,3 +19,17 @@ cntfrnds:fn(user) { i:pos(names user) count(nth(uwf('friends) i)) }
                                                  til(count(names)), uwf('friends))
 sorted_uconns:sort(fn(x y) snd(x) > snd(y), uconns)
 
+salaries:[4225 1619 3706 2240 2076 1389 3916 3918 4939 2735]
+categories:dec~[3 1 3 2 2 1 3 3 3 2]
+rates:[8 5 2]/100.0
+cost_for_co:sum(salaries * rates~categories)
+"people in category 2 whose salary is less than 4000"
+categories = 2 & salaries < 4000
+"all salaries in category 2"
+sel(categories = 2, salaries)
+
+vs:[22 37 41 19 54 11 34]
+vs~sel((vs > 35), til(dim(vs))) "37 41 54"
+
+phrase:"Panama is a canal between Atlantic and Pacific"
+sel(phrase = \a til(dim(phrase))) "[1 3 5 10 13 15 29 35 40]"
