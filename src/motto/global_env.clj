@@ -3,6 +3,7 @@
             [motto.dbconn]
             [motto.lib.csv]
             [motto.lib.burrow]
+            [motto.lib.str]
             [motto.lib.math]
             [motto.lib.dt]
             [motto.lib.list]
@@ -21,6 +22,9 @@
       (def snd second)
 
       (def pow motto.lib.math/pow)
+
+      (def str_join motto.lib.str/join)
+      (def str_split motto.lib.str/split)
 
       (def setu clojure.set/union)
       (def seti clojure.set/intersection)
@@ -81,6 +85,8 @@
       (def listf motto.lib.list/listf)
       (def pos motto.lib.list/index-of)
       (def truths motto.lib.list/truths)
+      (def dim motto.lib.list/dim)
+      (def sel motto.lib.list/sel)
 
       (def tab motto.lib.tab/mktab)
       (def cols motto.lib.tab/cols)
