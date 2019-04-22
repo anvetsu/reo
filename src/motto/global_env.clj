@@ -3,6 +3,7 @@
             [motto.dbconn]
             [motto.lib.csv]
             [motto.lib.burrow]
+            [motto.lib.math]
             [motto.lib.dt]
             [motto.lib.list]
             [motto.lib.tab]
@@ -18,6 +19,8 @@
       (def parse read-string)
       (def fst first)
       (def snd second)
+
+      (def pow motto.lib.math/pow)
 
       (def setu clojure.set/union)
       (def seti clojure.set/intersection)
