@@ -135,3 +135,11 @@
 
 (deftest condtest
   (test-with cond-data))
+
+(def ^:private burrow-data
+  ["a:[[1 2 3] [4 5 6]]" 'a
+   "b:[[10 100 100] [1 2 3]]" 'b
+   "a*b" [[10 200 300] [4 10 18]]])
+
+(deftest burrow-test
+  (test-with burrow-data))

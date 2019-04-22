@@ -1,10 +1,13 @@
 (ns motto.lib.burrow
   (:require [motto.util :as u]))
 
+(declare burrow)
+
 (defn- seq-burrow [opr x y]
   (loop [x x, y y, r []]
     (if (and (seq x) (seq y))
-      (recur (rest x) (rest y) (conj r (opr (first x) (first y))))
+      (recur (rest x) (rest y)
+             (conj r (burrow opr (first x) (first y))))
       r)))
 
 (defn- seq-x-burrow [opr x y]
