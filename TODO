@@ -1,4 +1,6 @@
 
+ * fix the lib.list/elem? function.
+
  * parallel fn calls and combined results.
  * functions to filter columns.
  * more data analytics functions.

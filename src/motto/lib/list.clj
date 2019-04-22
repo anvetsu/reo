@@ -1,5 +1,6 @@
 (ns motto.lib.list
-  (:require [motto.lib.burrow :as b]))
+  (:require [motto.util :as u]
+            [motto.lib.burrow :as b]))
 
 (defn til [x]
   (into []
@@ -162,3 +163,24 @@
                (conj rs (first ys)))
         (recur (rest xs) (rest ys) rs))
       rs)))
+
+(declare elem?)
+
+(defn- elem-1 [x xs]
+  (map #(= x %) xs))
+
+(defn- elem-2 [xs ys]
+  (loop [xs xs, rs []]
+    (if (seq xs)
+      (let [x (first xs)]
+        (if (seqable? x)
+          (recur (rest xs) (conj rs (elem? x ys)))
+          (recur (rest xs) (conj rs (if (some #{x} ys)
+                                      true
+                                      false)))))
+      rs)))
+
+(defn elem? [xs ys]
+  (if (u/atomic? xs)
+    (elem-1 xs ys)
+    (elem-2 xs ys)))
