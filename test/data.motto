@@ -47,3 +47,13 @@ posp:fn(xs x) {i:pos(xs x) if {i = -1 count(xs)
                                i }}
 u:fn(c) alph_upper(posp(alph_lower c))
 str_join(u~tale)
+
+
+"turn over in millions" tome:[56 59 67 64 60 61 68 73 78 75 81 84]
+growth:fn(xs) 100 * ((dip(1 tome) / dip(-1 tome))-1.0)
+growth(tome)
+
+xs:[5 4 10 3]
+ys:[8 5 15 9 11 40]
+outer_product:fn(opr xs ys) (fn(x) (fn(y) opr(x y))~ys)~xs
+outer_product((*) xs ys)
