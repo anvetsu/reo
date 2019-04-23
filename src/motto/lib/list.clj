@@ -163,3 +163,8 @@
                (conj rs (first ys)))
         (recur (rest xs) (rest ys) rs))
       rs)))
+
+(defn in? [xs x]
+  (if (some #{x} xs)
+    true
+    false))

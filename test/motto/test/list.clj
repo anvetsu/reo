@@ -68,3 +68,11 @@
 
 (deftest filtertest
   (test-with filter-data))
+
+(def ^:private search-data
+  ["xs:[15 40 63 18 27 40 33 29 40 88]" 'xs
+   "where:[29 63 40 33 50]" 'where
+   "(fn(i) pos(xs i))~where" [7 2 1 6 -1]])
+
+(deftest search-test
+  (test-with search-data))
