@@ -13,6 +13,9 @@
 
 (defn atomic? [x] (not (seqable? x)))
 
+(defn str-atomic? [x]
+  (or (string? x) (atomic? x)))
+
 (defn for-data [data fnmap]
   (doseq [k (keys fnmap)]
     (when-let [v (get data k)]

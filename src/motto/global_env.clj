@@ -87,7 +87,6 @@
       (def truths motto.lib.list/truths)
       (def dim motto.lib.list/dim)
       (def sel motto.lib.list/sel)
-      (def mem motto.lib.list/elem?)
 
       (def tab motto.lib.tab/mktab)
       (def cols motto.lib.tab/cols)
