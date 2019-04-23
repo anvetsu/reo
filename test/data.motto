@@ -34,4 +34,16 @@ vs~sel((vs > 35), til(dim(vs))) "37 41 54"
 phrase:"Panama is a canal between Atlantic and Pacific"
 sel(phrase = \a til(dim(phrase))) "[1 3 5 10 13 15 29 35 40]"
 sel(mem(phrase "aeiouy"), til(count(phrase))) "[1 3 5 7 10 13 15 19 22 23 29 32 35 40 42 44]"
-towns:["Canberra" "Paris" "Washington" "Moscow" "Martigues" "Mexico"]
+
+area:[17 50 59 84 89]
+discount:[9 8 6 5 4 2]
+disc:fn(d) discount(pos(area d))
+disc(84) "5"
+
+alph_lower:str_split("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+alph_upper:str_split("ABCDEFGHIJKLMNOPQRSTUVWXYZ ABCDEFGHIJKLMNOPQRSTUVWXYZ*")
+tale:str_split("Le Petit Chaperon-Rouge a bouffé le Loup")
+posp:fn(xs x) {i:pos(xs x) if {i = -1 count(xs)
+                               i }}
+u:fn(c) alph_upper(posp(alph_lower c))
+str_join(u~tale)
