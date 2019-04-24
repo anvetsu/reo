@@ -1,5 +1,6 @@
 (ns motto.tokens
   (:require [motto.str-util :as su]
+            [motto.const :as c]
             [motto.util :as u]))
 
 (def ^:private oprs-kw {\( :openp
@@ -95,7 +96,11 @@
           [(rest s) (get oprs-kw c)])))))
 
 (defn- num-literal [s]
-  (multichar-token s num-char? number))
+  (let [[n b] [(first s) (second s)]]
+    (if (and (or (= n \1) (= \0))
+             (= b \b))
+      [(nthrest s 2) (if (= n \1) c/t c/f)]
+      (multichar-token s num-char? number))))
 
 (defn- str-literal [s]
   (loop [s (rest s), prev-ch \space, cs []]

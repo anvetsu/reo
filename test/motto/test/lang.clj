@@ -22,11 +22,11 @@
 
 (def ^:private cmrp-data
   ["1=1"     true
-   "1=1=t"   :ex
-   "t=(1=1)" true
-   "(1=1)=t" true
-   "(1=2)=f" true
-   "f=f"     true
+   "1=1=1b"   :ex
+   "1b=(1=1)" true
+   "(1=1)=1b" true
+   "(1=2)=0b" true
+   "0b=0b"     true
    "1=3"     false
    "3=1+2"   true
    "[1 2 3] < [3 4 5]" [true true true]
@@ -68,8 +68,8 @@
   (test-with lists-data))
 
 (def ^:private vars-data
-  ["t:100"       :ex
-   "f:200"       :ex
+  ["fn:100"       :ex
+   "if:200"       :ex
    "a:10"        'a
    "a + 2"       12
    "{a:100 b:4+a b}"   104

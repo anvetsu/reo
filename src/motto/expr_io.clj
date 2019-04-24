@@ -56,7 +56,7 @@
 (defn write [x]
   (when (writable? x)
     (let [v  (cond
-               (boolean? x) (if x 't 'f)
+               (boolean? x) (if x (symbol "1b") (symbol "0b"))
                (or (tp/function? x)
                    (fn? x)) '<fn>
                :else x)]

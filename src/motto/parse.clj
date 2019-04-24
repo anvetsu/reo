@@ -1,5 +1,6 @@
 (ns motto.parse
   (:require [motto.type :as tp]
+            [motto.const :as c]
             [motto.util :as u]))
 
 (defn- ex [s]
@@ -90,8 +91,8 @@
 
 (defn- parse-atom [x tokens]
   (cond
-    (= x 't) [:true (rest tokens)]
-    (= x 'f) [:false (rest tokens)]
+    (= x c/t) [:true (rest tokens)]
+    (= x c/f) [:false (rest tokens)]
     (= x 'fn) (parse-fn (rest tokens))
     (= x 'if) (parse-if (rest tokens))
     :else [x (rest tokens)]))
@@ -247,7 +248,7 @@
       (ex (str "invalid load: " tokens)))
     [[:load e] ts]))
 
-(def ^:private reserved-names #{'t 'f 'fn 'if})
+(def ^:private reserved-names #{'fn 'if})
 
 (defn- valid-ident [var]
   (when (some #{var} reserved-names)
