@@ -8,8 +8,8 @@
 
 (defn- shutdown []
   (httpd/stop)
-  (when (dbconn/cleanup)
-    (println "db cleanup - OK")))
+  (when-not (dbconn/cleanup)
+    (println "ERROR: db cleanup failed")))
 
 (defn- setup-sig-handler! []
   (.addShutdownHook

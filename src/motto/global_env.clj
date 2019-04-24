@@ -1,6 +1,7 @@
 (ns motto.global-env
   (:require [motto.compile]
             [motto.dbconn]
+            [motto.bitvec]
             [motto.lib.csv]
             [motto.lib.burrow]
             [motto.lib.str]
@@ -25,6 +26,19 @@
 
       (def str_join motto.lib.str/join)
       (def str_split motto.lib.str/split)
+
+      (def bits motto.bitvec/from-seq)
+      (def bools motto.bitvec/to-seq)
+      (def count_bits motto.bitvec/length)
+      (def bit_on motto.bitvec/on?)
+      (def bit_off motto.bitvec/off?)
+      (def bits_and motto.bitvec/land)
+      (def bits_or motto.bitvec/lor)
+      (def bits_and_not motto.bitvec/and-not)
+      (def bits_xor motto.bitvec/xor)
+      (def bits_intersects motto.bitvec/intersects?)
+      (def bit_flip motto.bitvec/flip)
+      (def bits_iter motto.bitvec/for-each)
 
       (def setu clojure.set/union)
       (def seti clojure.set/intersection)

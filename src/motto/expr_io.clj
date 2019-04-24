@@ -1,6 +1,7 @@
 (ns motto.expr-io
   (:require [clojure.string :as str]
             [motto.type :as tp]
+            [motto.bitvec :as bv]
             [motto.lib.dt :as dt]))
 
 (declare write)
@@ -19,6 +20,15 @@
           (do (when-not (nil? (first r)) (print " "))
               (recur r))))))
   (print "]"))
+
+(defn- print-bval [b]
+  (if b
+    (print "1")
+    (print "0")))
+
+(defn write-bitvec [bv]
+  (bv/for-each print-bval bv)
+  (print "b"))
 
 (defn- write-tab [tab]
   (let [[col-names data] (tp/tab-data tab)]
@@ -64,6 +74,7 @@
         (tp/tab? x) (write-tab x)
         (tp/err? x) (write-err x)
         (string? v) (print v)
+        (bv/bitvec? x) (write-bitvec x)
         (map? v) (write-dict v)
         (instance? java.util.Calendar v) (write-dt v)
         (seqable? v) (write-vec v)
