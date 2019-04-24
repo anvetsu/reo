@@ -1,3 +1,7 @@
+ * implement bitset support, comparison and logical operations to return bitsets.
+ * bitset -> seq conversion.
+ * seq -> bitset conversion.
+
  * parallel fn calls and combined results.
  * functions to filter columns.
  * more data analytics functions.
