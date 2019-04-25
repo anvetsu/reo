@@ -73,6 +73,7 @@
       (def -fold- motto.lib.list/-fold-)
       (def -map- motto.lib.list/-map-)
       (def -filter- motto.lib.list/-filter-)
+      (def take_repeat motto.lib.list/-take-repeat-)
       (def lift motto.lib.list/lift)
       (def dip motto.lib.list/dip)
       (def fold-incr motto.lib.list/fold-incr)
@@ -104,6 +105,7 @@
       (def dim motto.lib.list/dim)
       (def sel motto.lib.list/sel)
       (def in motto.lib.list/in?)
+      (def inf motto.lib.list/inf)
 
       (def tab motto.lib.tab/mktab)
       (def cols motto.lib.tab/cols)

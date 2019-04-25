@@ -1,6 +1,7 @@
 (ns motto.lib.tab
   (:require [motto.util :as u]
-            [motto.type :as t]))
+            [motto.type :as t]
+            [motto.lib.list :as ls]))
 
 (declare mktab)
 
@@ -27,10 +28,28 @@
 
       :else table)))
 
+(defn- tk [n ys nextn]
+  (let [nextn (or nextn 1)]
+    (loop [xs ys, i 0, rs []]
+      (if (and nextn (>= i nextn))
+        rs
+        (if (seq xs)
+          (let [[ts xs] (ls/take-repeat n xs ys)]
+            (recur xs (inc i) (conj rs ts)))
+          rs)))))
+
+(defn- reshape [dim vals]
+  (loop [is (reverse dim), rs vals]
+    (if (seq is)
+      (recur (rest is) (tk (first is) rs (second is)))
+      rs)))
+
 (defn mktab
   ([col-names col-vals]
-   (let [t (seqs->table col-names col-vals)]
-     (t/tabify col-names t)))
+   (if (int? (first col-names))
+     (reshape col-names col-vals)
+     (let [t (seqs->table col-names col-vals)]
+       (t/tabify col-names t))))
   ([dicts]
    (dicts->tab dicts)))
 
