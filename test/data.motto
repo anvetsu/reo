@@ -55,5 +55,11 @@ growth(tome)
 
 xs:[5 4 10 3]
 ys:[8 5 15 9 11 40]
-outer_product:fn(opr xs ys) (fn(x) (fn(y) opr(x y))~ys)~xs
-outer_product((*) xs ys)
+"outer_product" op:fn(opr xs ys) (fn(x) (fn(y) opr(x y))~ys)~xs
+op((*) xs ys)
+
+ages:[32 19 50 33 23 65 46 26 31 58 51 23 51 36 28 42 34]
+category:[0 25 30 35 45 50 55 65]
+rs:op((<) category ages)
+cum:count~(truths~rs)
+cum-dip(1 cum);0 "[3 2 4 2 2 2 2 0]"
