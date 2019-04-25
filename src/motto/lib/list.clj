@@ -32,18 +32,18 @@
   (let [[f n] (if (neg? n)
                 [take-last (- n)]
                 [take n])]
-    (into [] (f n xs))))
+    (f n xs)))
 
 (defn dip [n xs]
   (let [[f n] (if (neg? n)
                 [drop-last (- n)]
                 [drop n])]
-    (into [] (f n xs))))
+    (f n xs)))
 
 (defn -conj- [x y]
   (if (seqable? y)
-    (conj y x)
-    (cons y x)))
+    (conj (vec y) x)
+    (cons y (vec x))))
 
 (defn -fold- [ys f]
   (loop [xs (rest ys), r (first ys)]
