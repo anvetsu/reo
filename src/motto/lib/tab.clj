@@ -29,19 +29,24 @@
       :else table)))
 
 (defn- tk [n ys nextn]
-  (let [nextn (or nextn 1)]
-    (loop [xs ys, i 0, rs []]
-      (if (and nextn (>= i nextn))
-        rs
-        (if (seq xs)
-          (let [[ts xs] (ls/take-repeat n xs ys)]
-            (recur xs (inc i) (conj rs ts)))
-          rs)))))
+  (loop [xs ys, i 0, rs []]
+    (if (and nextn (>= i nextn))
+      rs
+      (if (seq xs)
+        (let [[ts xs] (ls/take-repeat n xs ys)]
+          (recur xs (inc i) (conj rs ts)))
+        rs))))
 
 (defn- reshape [dim vals]
   (loop [is (reverse dim), rs vals]
     (if (seq is)
-      (recur (rest is) (tk (first is) rs (second is)))
+      (let [s (second is)
+            t (get (vec is) 2)]
+        (recur (rest is) (tk (first is) rs
+                             (cond
+                               (and s t) nil
+                               s s
+                               :else 1))))
       rs)))
 
 (defn mktab
