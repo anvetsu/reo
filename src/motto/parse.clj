@@ -255,18 +255,31 @@
     (ex (str "reserved name: " var)))
   var)
 
+(defn- multi-define [ns vs]
+  (let [bs (map (fn [n v] [:define (valid-ident n) v]) ns vs)]
+    [:block bs]))
+
 (defn- parse-define [x tokens]
   (let [[e ts] (parse-expr tokens)]
     (when-not e
       (ex (str "no value to bind: " x)))
-    [[:define (valid-ident x) e] ts]))
+    (if (and (seqable? x) (= :list (first x)))
+      [(multi-define (first (rest x)) (first (rest e))) ts]
+      [[:define (valid-ident x) e] ts])))
+
+(defn- parse-defs [tokens]
+  (let [x (first tokens)]
+    (cond
+      (tp/identifier? x) [x (rest tokens)]
+      (= :open-sb x) (parse-list (rest tokens))
+      :else [nil tokens])))
 
 (defn- parse-stmt [tokens]
-  (let [[x y] [(first tokens) (second tokens)]]
-    (if (tp/identifier? x)
+  (let [[x ts] (parse-defs tokens)]
+    (if x
       (cond
-        (= x 'ld) (parse-load (rest tokens))
-        (= :define y) (parse-define x (nthrest tokens 2))
+        (= x 'ld) (parse-load (rest ts))
+        (= :define (first ts)) (parse-define x (rest ts))
         :else [nil tokens])
       [nil tokens])))
 
