@@ -1,3 +1,5 @@
+ * support multiple bindings in `:`.
+
  * parallel fn calls and combined results.
  * functions to filter columns.
  * more data analytics functions.
