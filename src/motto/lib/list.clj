@@ -32,13 +32,13 @@
   (let [[f n] (if (neg? n)
                 [take-last (- n)]
                 [take n])]
-    (f n xs)))
+    (into [] (f n xs))))
 
 (defn dip [n xs]
   (let [[f n] (if (neg? n)
                 [drop-last (- n)]
                 [drop n])]
-    (f n xs)))
+    (into [] (f n xs))))
 
 (defn -conj- [x y]
   (if (seqable? y)
