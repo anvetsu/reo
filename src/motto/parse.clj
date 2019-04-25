@@ -256,7 +256,8 @@
   var)
 
 (defn- multi-define [ns vs]
-  (let [bs (map (fn [n v] [:define (valid-ident n) v]) ns vs)]
+  (let [bs (map (fn [n i] [:define (valid-ident n) [:call vs [i]]])
+                ns (range (count ns)))]
     [:block bs]))
 
 (defn- parse-define [x tokens]
@@ -264,7 +265,7 @@
     (when-not e
       (ex (str "no value to bind: " x)))
     (if (and (seqable? x) (= :list (first x)))
-      [(multi-define (first (rest x)) (first (rest e))) ts]
+      [(multi-define (first (rest x)) e) ts]
       [[:define (valid-ident x) e] ts])))
 
 (defn- parse-defs [tokens]

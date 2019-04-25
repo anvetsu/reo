@@ -82,7 +82,10 @@
    "b=4"         true
    "(b=4)=(4=b)" true
    "[a b c]:[10 20 a*b]" 'c
-   "[a b c]" [10 20 200]])
+   "[a b c]" [10 20 200]
+   "xs:[1 2 3]" 'xs
+   "[a b c]:xs" 'c
+   "a+b+c" 6])
 
 (deftest vars
   (test-with vars-data))
