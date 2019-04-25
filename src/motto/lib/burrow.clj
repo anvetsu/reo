@@ -1,6 +1,5 @@
 (ns motto.lib.burrow
-  (:require [motto.util :as u]
-            [motto.bitvec :as bv]))
+  (:require [motto.util :as u]))
 
 (declare burrow)
 
@@ -33,12 +32,6 @@
     (seqable? x) (seq-x-burrow opr x y)
     :else (seq-y-burrow opr x y)))
 
-(defn- burrow->bitvec [opr x y]
-  (let [r (burrow opr x y)]
-    (if (seqable? r)
-      (bv/from-seq r)
-      r)))
-
 (defn- not-eq [a b]
   (not (= a b)))
 
@@ -60,11 +53,11 @@
 (def sub   (partial burrow -))
 (def mul   (partial burrow *))
 (def div   (partial burrow /))
-(def eq    (partial burrow->bitvec =))
-(def neq   (partial burrow->bitvec not-eq))
-(def lt    (partial burrow->bitvec c<))
-(def gt    (partial burrow->bitvec c>))
-(def lteq  (partial burrow->bitvec c<=))
-(def gteq  (partial burrow->bitvec c>=))
+(def eq    (partial burrow =))
+(def neq   (partial burrow not-eq))
+(def lt    (partial burrow c<))
+(def gt    (partial burrow c>))
+(def lteq  (partial burrow c<=))
+(def gteq  (partial burrow c>=))
 (def big   (partial burrow max))
 (def small (partial burrow min))

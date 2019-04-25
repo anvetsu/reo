@@ -29,8 +29,9 @@
    "0b=0b"     true
    "1=3"     false
    "3=1+2"   true
-   "bools([1 2 3] < [3 4 5])" [true true true]
-   "bools(100=[99 100 101] 3)" [false true false]
+   "[1 2 3] < [3 4 5]" [true true true]
+   "100=[99 100 101]" [false true false]
+   "bools(bits(100=[99 100 101]) 3)" [false true false]
    "big(2 [1 2 3 4])" [2 2 3 4]
    "sml(2 [1 2 3 4])" [1 2 2 2]
    "big(20 10)"       20
