@@ -16,6 +16,8 @@
       (let [x (first v)
             r (rest v)]
         (write x)
+        (when (and (seqable? x) (seq r))
+          (println))
         (when (seq r)
           (do (when-not (nil? (first r)) (print " "))
               (recur r))))))
@@ -63,10 +65,13 @@
 (defn write-dt [dt]
   (print (str "dt(\"" (dt/sdt dt) "\")")))
 
+(def ^:private t (symbol "1"))
+(def ^:private f (symbol "0"))
+
 (defn write [x]
   (when (writable? x)
     (let [v  (cond
-               (boolean? x) (if x (symbol "1b") (symbol "0b"))
+               (boolean? x) (if x t f)
                (or (tp/function? x)
                    (fn? x)) '<fn>
                :else x)]
