@@ -47,7 +47,7 @@
                                (and s t) nil
                                s s
                                :else 1))))
-      rs)))
+        (first rs))))
 
 (defn mktab
   ([col-names col-vals]

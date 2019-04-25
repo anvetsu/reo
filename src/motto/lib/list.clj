@@ -163,8 +163,11 @@
 (defn dim [xs]
   (let [cols (count xs)]
     (if (and (> cols 0)
-             (= (type xs) (type (first xs))))
-      [cols (dim (first xs))]
+             (seqable? (first xs)))
+      (let [d (dim (first xs))]
+        (if (int? d)
+          (conj [cols] d)
+          (concat [cols] d)))
       cols)))
 
 (defn sel [xs ys]
