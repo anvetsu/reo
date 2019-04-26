@@ -10,6 +10,18 @@
   (print "- ")
   (flush))
 
+(defn- fmt-errmsg [^String s]
+  (let [^String p "class "
+        s (if (.startsWith s p)
+            (.substring s (.length p))
+            s)]
+    (str/replace s #"java." "")))
+
+(defn- force-err-msg [ex]
+  (fmt-errmsg
+   (or (.getMessage ex)
+       (str (type ex)))))
+
 (defn repl []
   (let [eval (env/make-eval)]
     (loop []
@@ -22,7 +34,7 @@
                   (eio/writeln val))
                 (System/exit 0)))
             (catch Exception ex
-              (println (str "ERROR: " (.getMessage ex)))
+              (println (str "ERROR: " (force-err-msg ex)))
               (when (flag/verbose?)
                 (.printStackTrace ex))))
           (recur)))))
