@@ -189,13 +189,20 @@
 (defn inf [x]
   (lazy-seq (cons x (inf x))))
 
-(defn take-repeat [n xs orig-xs]
-  (loop [ys xs, n n, rs []]
-    (let [ts (take n ys)
-          c (count ts)]
-      (if (< c n)
-        (recur orig-xs (- n c) (conj rs ts))
-        [(apply concat (conj rs ts)) (nthrest ys n)]))))
+(defn take-repeat
+  ([n xs orig-xs into-vec?]
+   (loop [ys xs, n n, rs []]
+     (let [ts (take n ys)
+           c (count ts)]
+       (if (< c n)
+         (recur orig-xs (- n c) (conj rs ts))
+         [(let [xx (apply concat (conj rs ts))]
+            (if into-vec?
+              (into [] xx)
+              xx))
+          (nthrest ys n)]))))
+  ([n xs orig-xs]
+   (take-repeat n xs orig-xs true)))
 
 (defn -take-repeat- [n xs]
   (first (take-repeat n xs xs)))
