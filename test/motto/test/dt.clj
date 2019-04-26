@@ -2,7 +2,7 @@
   (:use [clojure.test]
         [motto.test.util]))
 
-(def ^:private basic-data
+(deftest-with basic-test
   ["n:dt(\"2019-03-09T12:30:44\")" 'n
    "dt_get(n 'M)" 3
    "dt_get(dt_add(n 's 10) 's)" 54
@@ -15,6 +15,3 @@
    "n2:dt(\"2020-03-09T12:30:44\")" 'n2
    "n < n2" true
    "dt_add(n 'y 1) = n2" true])
-
-(deftest basic
-  (test-with basic-data))

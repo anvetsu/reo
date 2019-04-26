@@ -2,7 +2,7 @@
   (:use [clojure.test]
         [motto.test.util]))
 
-(def ^:private arith-data
+(deftest-with arith-test
   ["1 + 2 - 3"        0
    "10 -3*100"        -290
    "(10-3) * 100"     700
@@ -17,10 +17,7 @@
    "10+100/20+4"      19
    "10+100+20/4"      115])
 
-(deftest basic-arith
-  (test-with arith-data))
-
-(def ^:private cmrp-data
+(deftest-with cmrp-test
   ["1=1"     true
    "1=1=1b"   :ex
    "1b=(1=1)" true
@@ -41,10 +38,7 @@
    "big([20 9 30] [10 20 30])" [20 20 30]
    "sml([20 9 30] [10 20 30])" [10 9 30]])
 
-(deftest basic-cmpr
-  (test-with cmrp-data))
-
-(def ^:private logical-data
+(deftest-with logical-test
   ["1<2 & 3<4*100"  true
    "1>2 | 3<4*100"  true
    "a:10<20 & (1=2 | 1 < 2)" 'a
@@ -55,10 +49,7 @@
    "a<10 & (1=2 | 1 < 2)" false
    "a"              10])
 
-(deftest basic-logical
-  (test-with logical-data))
-
-(def ^:private lists-data
+(deftest-with lists-test
   ["[1 2 3]"       [1 2 3]
    "[\"Price: \" \"$\" 10+20]" ["Price: " "$" 30]
    "til(5)"        [0 1 2 3 4]
@@ -68,10 +59,7 @@
    "dim(102030)" []
    "dim(dim(102030))" [0]])
 
-(deftest lists
-  (test-with lists-data))
-
-(def ^:private vars-data
+(deftest-with vars-test
   ["fn:100"       :ex
    "if:200"       :ex
    "a:10"        'a
@@ -90,10 +78,7 @@
    "[a b c]:xs" 'c
    "a+b+c" 6])
 
-(deftest vars
-  (test-with vars-data))
-
-(def ^:private fns-data
+(deftest-with fns-test
   ["(fn (x) x*x)(10)"        100
    "(fn (x y) x*2+y)(10 20)" 40
    "a:fn(x) x*x"             'a
@@ -108,10 +93,7 @@
    "g(10)(20)(30)"           60
    "(fn^(x) if {x<=0 0 ^(x-1)})(100000)" 0])
 
-(deftest fns
-  (test-with fns-data))
-
-(def ^:private blck-data
+(deftest-with blck-test
   ["{1+2 3+4 5+4}"    9
    "a:10"             'a
    "pyth:fn(x y) { a:x*x b:y*y a+b }" 'pyth
@@ -121,17 +103,11 @@
    "a"                10
    "{a:100 b:200 a+b c:3}" :ex])
 
-(deftest blck
-  (test-with blck-data))
-
-(def ^:private op-data
+(deftest-with op-test
   ["(+)(1 2)"     3
    "(<=)(1 1)"    true])
 
-(deftest op
-  (test-with op-data))
-
-(def ^:private cond-data
+(deftest-with cond-test
   ["if 1 > 2 200+300" false
    "if {1 > 2 200+300 \"ok\"}" "ok"
    "if {1 < 2 200+300 400}" 500
@@ -142,10 +118,7 @@
    "a:60" 'a
    "if {a < 50 1 a < 90 2 a < 100 3 4}" 2])
 
-(deftest condtest
-  (test-with cond-data))
-
-(def ^:private burrow-data
+(deftest-with burrow-test
   ["a:[[1 2 3] [4 5 6]]" 'a
    "b:[[10 100 100] [1 2 3]]" 'b
    "a*b" [[10 200 300] [4 10 18]]
@@ -158,6 +131,3 @@
    "forecast:[[150 200 100 80 80 80][300 330 360 400 500 520][100 250 350 380 400 450][ 50 120 220 300 320 350]]" 'forecast
    "actual:[[141 188 111 87 82 74][321 306 352 403 497 507][118 283 397 424 411 409][ 43  91 187 306 318 363]]" 'actual
    "actual - forecast" [[-9 -12 11 7 2 -6] [21 -24 -8 3 -3 -13] [18 33 47 44 11 -41] [-7 -29 -33 6 -2 13]]])
-
-(deftest burrow-test
-  (test-with burrow-data))

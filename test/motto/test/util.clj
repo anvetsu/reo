@@ -31,3 +31,7 @@
                     val)]
           (is (= v val))
           (recur (rest (rest ad))))))))
+
+(defmacro deftest-with [name data]
+  `(deftest ~name
+     (test-with ~data)))
