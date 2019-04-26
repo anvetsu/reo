@@ -207,15 +207,23 @@
 (defn -take-repeat- [n xs]
   (first (take-repeat n xs xs)))
 
-(defn dig [xs dims]
-  (loop [xs xs, first? true, dims dims]
+(defn- dig-thru [xs dims]
+  (loop [xs xs, dims dims]
     (if (seq dims)
-      (let [f (first dims)
-            is (if (seqable? f)
-                 f
-                 [f])]
-        (let [rs (if first?
-                   (map xs is)
-                   (map #(vec (map % is)) xs))]
-          (recur (vec rs) false (rest dims))))
+      (recur (get xs (first dims))
+             (rest dims))
       xs)))
+
+(defn dig [xs dims]
+  (if (every? int? dims)
+    (dig-thru xs dims)
+    (let [fdim (first dims)
+          rdims (seq (rest dims))]
+      (loop [fdim fdim, rs []]
+        (if (seq fdim)
+          (let [ys (get xs (first fdim))]
+            (recur (rest fdim)
+                   (if rdims
+                     (concat rs [(dig ys rdims)])
+                     (conj rs ys))))
+          rs)))))
