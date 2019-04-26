@@ -106,6 +106,7 @@
       (def sel motto.lib.list/sel)
       (def in motto.lib.list/in?)
       (def inf motto.lib.list/inf)
+      (def dig motto.lib.list/dig)
 
       (def tab motto.lib.tab/mktab)
       (def cols motto.lib.tab/cols)

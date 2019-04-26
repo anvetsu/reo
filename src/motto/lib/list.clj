@@ -206,3 +206,16 @@
 
 (defn -take-repeat- [n xs]
   (first (take-repeat n xs xs)))
+
+(defn dig [xs dims]
+  (loop [xs xs, first? true, dims dims]
+    (if (seq dims)
+      (let [f (first dims)
+            is (if (seqable? f)
+                 f
+                 [f])]
+        (let [rs (if first?
+                   (map xs is)
+                   (map #(vec (map % is)) xs))]
+          (recur (vec rs) false (rest dims))))
+      xs)))

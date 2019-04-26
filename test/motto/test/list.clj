@@ -78,3 +78,12 @@
 
 (deftest search-test
   (test-with search-data))
+
+(def ^:product dig-data
+  ["xs:[[41 26 38] [14 87 42] [30 28 19] [65 40 55] [19 31 64] [45 82 74]]" 'xs
+   "dig(xs [3 2])" [[55]]
+   "dig(xs [[0 4 5] [0 2]])" [[41 38] [19 64] [45 74]]
+   "dig(xs [[0 1 4 5] [0]])" [[41] [14] [19] [45]]])
+
+(deftest dig-test
+  (test-with dig-data))
