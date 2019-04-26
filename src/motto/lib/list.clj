@@ -161,7 +161,7 @@
   (filter identity xs))
 
 (defn dim [xs]
-  (when (seqable? xs)
+  (if (seqable? xs)
     (let [cols (count xs)]
       (if (and (> cols 0)
                (seqable? (first xs)))
@@ -169,7 +169,8 @@
           (if (int? d)
             (conj [cols] d)
             (concat [cols] d)))
-        cols))))
+        [cols]))
+    []))
 
 (defn sel [xs ys]
   (loop [xs xs, ys ys, rs []]
