@@ -25,8 +25,8 @@
 
 (defn- print-bval [b]
   (if b
-    (print "1b")
-    (print "0b")))
+    (print "1")
+    (print "0")))
 
 (defn write-bitvec [bv]
   (bv/for-each print-bval bv)
@@ -65,8 +65,8 @@
 (defn write-dt [dt]
   (print (str "dt(\"" (dt/sdt dt) "\")")))
 
-(def ^:private t (symbol "1"))
-(def ^:private f (symbol "0"))
+(def ^:private t (symbol "1b"))
+(def ^:private f (symbol "0b"))
 
 (defn write [x]
   (when (writable? x)
