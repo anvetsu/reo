@@ -37,6 +37,7 @@
       (def bintersects motto.bitvec/intersects?)
       (def bflip motto.bitvec/flip)
       (def biter motto.bitvec/for-each)
+      (def bnot motto.bitvec/flip-all)
 
       (def setu clojure.set/union)
       (def seti clojure.set/intersection)

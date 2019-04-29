@@ -73,3 +73,7 @@
       (when (< i len)
         (f (.get bv i))
         (recur (inc i))))))
+
+(defn flip-all [^BitSet bv]
+  (.flip bv 0 (.length bv))
+  bv)

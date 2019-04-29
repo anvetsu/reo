@@ -163,4 +163,5 @@
 (deftest-with bits-test
   ["bools(band(0101b 0011b))" [false false false true]
    "bools(bor(0101b 0011b))" [false true true true]
-   "bools(bxor(0101b 0011b))" [false true true]])
+   "bools(bxor(0101b 0011b))" [false true true]
+   "bools(bnot(01101b))" [true false false true]])
