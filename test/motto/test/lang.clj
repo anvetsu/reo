@@ -150,7 +150,14 @@
    "actual - forecast" [[-9 -12 11 7 2 -6] [21 -24 -8 3 -3 -13] [18 33 47 44 11 -41] [-7 -29 -33 6 -2 13]]
    "2 * forecast" [[300 400 200 160 160 160][600 660 720 800 1000 1040][200 500 700 760 800 900][100 240 440 600 640 700]]
    "forecast*2" [[300 400 200 160 160 160][600 660 720 800 1000 1040][200 500 700 760 800 900][100 240 440 600 640 700]]
-   "sml(forecast 450)" [[150 200 100 80 80 80][300 330 360 400 450 450][100 250 350 380 400 450][50 120 220 300 320 350]]])
+   "sml(forecast 450)" [[150 200 100 80 80 80][300 330 360 400 450 450][100 250 350 380 400 450][50 120 220 300 320 350]]
+   "allbits:fn(bbs) bits~bbs" 'allbits
+   "allbools:fn(bbs) (fn(bs) bools(bs 6))~bbs" 'allbools
+   "allbools(band(allbits(forecast>350) allbits(actual>forecast)))"
+   [[false false false false false false]
+    [false false false true false false]
+    [false false false true true false]
+    [false false false false false false]]])
 
 (deftest-with num-test
   ["-016_ff" -255

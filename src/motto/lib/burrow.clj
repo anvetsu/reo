@@ -1,5 +1,6 @@
 (ns motto.lib.burrow
   (:require [motto.util :as u]
+            [motto.bitvec :as bv]
             [motto.lib.math :as math]))
 
 (declare burrow)
@@ -64,3 +65,8 @@
 (def gteq  (partial burrow c>=))
 (def big   (partial burrow max))
 (def small (partial burrow min))
+
+(def band (partial burrow bv/land))
+(def bor (partial burrow bv/lor))
+(def bxor (partial burrow bv/xor))
+(def band-not (partial burrow bv/and-not))
