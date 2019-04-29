@@ -15,6 +15,7 @@
                         \- :minus
                         \* :mul
                         \/ :div
+                        \% :mod
                         \= :eq
                         \< :lt
                         \> :gt

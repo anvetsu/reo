@@ -153,7 +153,7 @@
       (parse-call x tokens)
       [x tokens])))
 
-(def ^:private op-syms {:plus '+ :minus '- :mul '* :div '/
+(def ^:private op-syms {:plus '+ :minus '- :mul '* :div '/ :mod '%
                         :eq '= :lt '< :gt '> :lteq '<=
                         :gteq '>= :not-eq '<>})
 (def ^:private ops (keys op-syms))
@@ -200,23 +200,23 @@
 
 (declare parse-term parse-cmpr)
 
-(defn- parse-arith [tokens precede opr1 opr2 f1 f2]
+(defn- parse-arith [tokens precede opr-fns]
   (let [[x ts1] (precede tokens)]
     (if x
       (loop [ts1 ts1, exprs x]
         (if (seq ts1)
           (let [y (first ts1)]
-            (if (or (= opr1 y) (= opr2 y))
+            (if (contains? opr-fns y)
               (let [[z ts2] (precede (rest ts1))]
-                (recur ts2 [(if (= opr1 y) f1 f2) exprs z]))
+                (recur ts2 [(y opr-fns) exprs z]))
               [exprs ts1]))
           [exprs ts1])))))
 
 (defn- parse-factor [tokens]
-  (parse-arith tokens parse-infix-fn :mul :div '* '/))
+  (parse-arith tokens parse-infix-fn {:mul '* :div '/ :mod '%}))
 
 (defn- parse-term [tokens]
-  (parse-arith tokens parse-factor :plus :minus '+ '-))
+  (parse-arith tokens parse-factor {:plus '+ :minus '-}))
 
 (def ^:private cmpr-oprs-map {:eq '=
                               :lt '<

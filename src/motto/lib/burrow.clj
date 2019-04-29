@@ -54,6 +54,7 @@
 (def sub   (partial burrow -))
 (def mul   (partial burrow *))
 (def div   (partial burrow /))
+(def residue (partial burrow mod))
 (def pow   (partial burrow math/pow))
 (def eq    (partial burrow =))
 (def neq   (partial burrow not-eq))

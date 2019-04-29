@@ -7,7 +7,7 @@
             [motto.util :as u]
             [motto.type :as tp]))
 
-(def ^:private idents (set '(+ - * / = > < >= <=)))
+(def ^:private idents (set '(+ - * / % = > < >= <=)))
 
 (defn- translate-ident [s]
   (if (= s '/)

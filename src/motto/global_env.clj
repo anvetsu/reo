@@ -49,6 +49,7 @@
       (def --- motto.lib.burrow/sub)
       (def -*- motto.lib.burrow/mul)
       (def -div- motto.lib.burrow/div)
+      (def -%- motto.lib.burrow/residue)
       (def -=- motto.lib.burrow/eq)
       (def ->- motto.lib.burrow/gt)
       (def -<- motto.lib.burrow/lt)
