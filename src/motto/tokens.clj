@@ -1,5 +1,6 @@
 (ns motto.tokens
-  (:require [motto.str-util :as su]
+  (:require [clojure.string :as s]
+            [motto.str-util :as su]
             [motto.const :as c]
             [motto.util :as u]))
 
@@ -42,7 +43,8 @@
 
 (defn- num-char? [ch]
   (or (Character/isDigit (int ch))
-      (= ch \.)))
+      (= ch \.)
+      (= ch \_)))
 
 (defn- str-start-char? [ch]
   (= ch \"))
@@ -65,11 +67,30 @@
 (defn- ident [cs]
   (symbol (su/implode cs)))
 
+(def ^:private uscore-p #"_")
+
+(defn- norm-num [s]
+  (s/replace s uscore-p ""))
+
+(defn- based-num-char? [ch]
+  (let [i (int ch)]
+    (or (Character/isDigit i)
+        (= ch \_)
+        (Character/isAlphabetic i))))
+
+(defn- based-number [cs]
+  (let [^String ss (s/join cs)
+        i (.indexOf ss "_")
+        bs (.substring ss 0 i)
+        ns (.substring ss (inc i))
+        radix (Integer/parseInt bs)]
+    (Integer/parseInt (norm-num ns) radix)))
+
 (defn- number [cs]
   (let [need-z? (= (first cs) \.)
         s1 (su/implode cs)
         s2 (if need-z? (str "0" s1) s1)
-        v (read-string s2)]
+        v (read-string (norm-num s2))]
     (when-not (number? v)
       (ex (str "invalid numeric input: " s1)))
     v))
@@ -98,9 +119,15 @@
 
 (defn- num-literal [s]
   (let [[n b] [(first s) (second s)]]
-    (if (and (or (= n \1) (= \0))
-             (= b \b))
+    (cond
+      (and (or (= n \1) (= \0))
+           (= b \b))
       [(nthrest s 2) (if (= n \1) c/t c/f)]
+
+      (and (= n \0) (Character/isDigit (int b)))
+      (multichar-token s based-num-char? based-number)
+
+      :else
       (multichar-token s num-char? number))))
 
 (defn- str-literal [s]
