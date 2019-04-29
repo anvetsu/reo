@@ -80,3 +80,6 @@
 
 (defn err-data [x]
   (:error x))
+
+(defn copy [^Cloneable obj]
+  (.clone obj))

@@ -1,6 +1,7 @@
 (ns motto.global-env
   (:require [motto.compile]
             [motto.dbconn]
+            [motto.type]
             [motto.bitvec]
             [motto.lib.csv]
             [motto.lib.burrow]
@@ -38,6 +39,8 @@
       (def bflip motto.bitvec/flip)
       (def biter motto.bitvec/for-each)
       (def bnot motto.bitvec/flip-all)
+
+      (def copy motto.type/copy)
 
       (def setu clojure.set/union)
       (def seti clojure.set/intersection)

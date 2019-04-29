@@ -171,4 +171,11 @@
   ["bools(band(0101b 0011b))" [false false false true]
    "bools(bor(0101b 0011b))" [false true true true]
    "bools(bxor(0101b 0011b))" [false true true]
-   "bools(bnot(01101b))" [true false false true]])
+   "bools(bnot(01101b))" [true false false true]
+   "a:11001b" 'a
+   "bools(band(a 10101b))" [true false false false true]
+   "bools(a)" [true false false false true]
+   "a:11001b" 'a
+   "b:copy(a)" 'b
+   "bools(band(b 10101b))" [true false false false true]
+   "bools(a)" [true true false false true]])
