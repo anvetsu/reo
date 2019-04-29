@@ -13,13 +13,13 @@
 (defn- seq-x-burrow [opr x y]
   (loop [x x, r []]
     (if (seq x)
-      (recur (rest x) (conj r (opr (first x) y)))
+      (recur (rest x) (conj r (burrow opr (first x) y)))
       r)))
 
 (defn seq-y-burrow [opr x y]
   (loop [y y, r []]
     (if (seq y)
-      (recur (rest y) (conj r (opr (first y) x)))
+      (recur (rest y) (conj r (burrow opr (first y) x)))
       r)))
 
 (defn- burrow [opr x y]
