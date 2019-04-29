@@ -42,22 +42,27 @@
 (def off? (comp on?))
 
 (defn land [^BitSet bv1 ^BitSet bv2]
-  (.and bv1 bv2))
+  (.and bv1 bv2)
+  bv1)
 
 (defn and-not [^BitSet bv1 ^BitSet bv2]
-  (.andNot bv1 bv2))
+  (.andNot bv1 bv2)
+  bv1)
 
 (defn flip [^BitSet bv i]
-  (.flip bv i))
+  (.flip bv i)
+  bv)
 
 (defn intersects? [^BitSet bv1 ^BitSet bv2]
   (.intersects bv1 bv2))
 
 (defn lor [^BitSet bv1 ^BitSet bv2]
-  (.or bv1 bv2))
+  (.or bv1 bv2)
+  bv1)
 
 (defn xor [^BitSet bv1 ^BitSet bv2]
-  (.xor bv1 bv2))
+  (.xor bv1 bv2)
+  bv1)
 
 (defn for-each [f ^BitSet bv]
   (let [len (.length bv)]
