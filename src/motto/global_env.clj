@@ -22,8 +22,6 @@
       (def fst first)
       (def snd second)
 
-      (def pow motto.lib.math/pow)
-
       (def str_join motto.lib.str/join)
       (def str_split motto.lib.str/split)
 
@@ -59,6 +57,7 @@
       (def <> motto.lib.burrow/neq)
       (def big motto.lib.burrow/big)
       (def sml motto.lib.burrow/small)
+      (def pow motto.lib.burrow/pow)
 
       (def dt motto.lib.dt/dt)
       (def sdt motto.lib.dt/sdt)

@@ -1,5 +1,6 @@
 (ns motto.lib.burrow
-  (:require [motto.util :as u]))
+  (:require [motto.util :as u]
+            [motto.lib.math :as math]))
 
 (declare burrow)
 
@@ -19,7 +20,7 @@
 (defn seq-y-burrow [opr x y]
   (loop [y y, r []]
     (if (seq y)
-      (recur (rest y) (conj r (burrow opr (first y) x)))
+      (recur (rest y) (conj r (burrow opr x (first y))))
       r)))
 
 (defn- burrow [opr x y]
@@ -53,6 +54,7 @@
 (def sub   (partial burrow -))
 (def mul   (partial burrow *))
 (def div   (partial burrow /))
+(def pow   (partial burrow math/pow))
 (def eq    (partial burrow =))
 (def neq   (partial burrow not-eq))
 (def lt    (partial burrow c<))
