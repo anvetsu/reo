@@ -43,11 +43,16 @@
     (loop [ts (rest tokens)
            params []]
       (if (seq ts)
-        (let [t (first ts)]
-          (cond
-            (tp/identifier? t) (recur (ignore-comma (rest ts)) (conj params t))
-            (= :closep t) [params (rest ts)]
-            :else (ex (str "invalid parameter: " t))))
+        (let [t (first ts)
+              [done? nt]
+              (cond
+                (tp/identifier? t) [false t]
+                (= :and t) [false '&]
+                (= :closep t) [true [params (rest ts)]]
+                :else (ex (str "invalid parameter: " t)))]
+          (if done?
+            nt
+            (recur (ignore-comma (rest ts)) (conj params nt))))
         (ex "missing closing parenthesis in function definition")))
     (ex (str "missing open parenthesis: " tokens))))
 
