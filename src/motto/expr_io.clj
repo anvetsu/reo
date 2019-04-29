@@ -25,8 +25,8 @@
 
 (defn- print-bval [b]
   (if b
-    (print "1")
-    (print "0")))
+    (print "1b")
+    (print "0b")))
 
 (defn write-bitvec [bv]
   (bv/for-each print-bval bv)
