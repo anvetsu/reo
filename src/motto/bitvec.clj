@@ -27,6 +27,9 @@
            rs))
        bs))))
 
+(defn from-str [s]
+  (from-seq (map #(if (= % \0) false true) s)))
+
 (defn bitvec? [obj]
   (instance? BitSet obj))
 

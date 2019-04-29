@@ -90,6 +90,7 @@
     (tp/literal? expr) expr
     (tp/identifier? expr) (translate-ident expr)
     (tp/function? expr) (mkfn expr)
+    (tp/bitvec-lit? expr) `(motto.bitvec/from-str ~(second expr))
     (seq expr) (form->lisp (first expr) (rest expr) eval)))
 
 (defn evaluate [expr eval]

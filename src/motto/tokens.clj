@@ -41,10 +41,14 @@
 (defn- opr-char? [ch]
   (some #{ch} oprs))
 
-(defn- num-char? [ch]
+(defn- num-char-beg? [ch]
   (or (Character/isDigit (int ch))
-      (= ch \.)
-      (= ch \_)))
+      (= ch \.)))
+
+(defn- num-char? [ch]
+  (or (num-char-beg? ch)
+      (= ch \_)
+      (= ch \b)))
 
 (defn- str-start-char? [ch]
   (= ch \"))
@@ -78,22 +82,32 @@
         (= ch \_)
         (Character/isAlphabetic i))))
 
+(defn- as-bitvec [^String s]
+  [:bits (.substring s 0 (dec (.length s)))])
+
+(declare number)
+
 (defn- based-number [cs]
   (let [^String ss (s/join cs)
-        i (.indexOf ss "_")
-        bs (.substring ss 0 i)
-        ns (.substring ss (inc i))
-        radix (Integer/parseInt bs)]
-    (Integer/parseInt (norm-num ns) radix)))
+        i (.indexOf ss "_")]
+    (if (> i 0)
+      (let [bs (.substring ss 0 i)
+            ns (.substring ss (inc i))
+            radix (Integer/parseInt bs)]
+        (Integer/parseInt (norm-num ns) radix))
+      (number cs))))
 
 (defn- number [cs]
   (let [need-z? (= (first cs) \.)
         s1 (su/implode cs)
         s2 (if need-z? (str "0" s1) s1)
-        v (read-string (norm-num s2))]
-    (when-not (number? v)
-      (ex (str "invalid numeric input: " s1)))
-    v))
+        ^String s3 (norm-num s2)]
+    (if (.endsWith s3 "b")
+      (as-bitvec s3)
+      (let [v (read-string s3)]
+        (when-not (number? v)
+          (ex (str "invalid numeric input: " s1)))
+        v))))
 
 (defn- identifier [s]
   (multichar-token s ident-char? ident))
@@ -169,7 +183,7 @@
   (cond
     (ident-start-char? ch) identifier
     (opr-char? ch) operator
-    (num-char? ch) num-literal
+    (num-char-beg? ch) num-literal
     (str-start-char? ch) str-literal
     (= ch \\) char-literal
     (= ch \') sym-literal

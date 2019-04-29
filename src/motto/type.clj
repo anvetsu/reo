@@ -7,6 +7,10 @@
   (and (seqable? x)
        (= 'quote (first x))))
 
+(defn bitvec-lit? [x]
+  (and (seqable? x)
+       (= (first x) :bits)))
+
 (defn literal? [x]
   (or (number? x)
       (string? x)

@@ -124,6 +124,7 @@
       (or (tp/identifier? x) (tp/literal? x)) (parse-atom x tokens)
       (= :minus x) (parse-neg-expr (rest tokens))
       (= :open-sb x) (parse-list (rest tokens))
+      (tp/bitvec-lit? x) [x (rest tokens)]
       :else [nil tokens])))
 
 (defn- parse-args [tokens]
