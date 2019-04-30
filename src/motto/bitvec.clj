@@ -44,13 +44,21 @@
 
 (def off? (comp on?))
 
-(defn land [^BitSet bv1 ^BitSet bv2]
-  (.and bv1 bv2)
-  bv1)
+(defn land
+  ([^BitSet bv1 ^BitSet bv2 clone?]
+   (let [bv (if clone? (.clone bv1) bv1)]
+     (.and bv bv2)
+     bv))
+  ([^BitSet bv1 ^BitSet bv2]
+   (land bv1 bv2 true)))
 
-(defn and-not [^BitSet bv1 ^BitSet bv2]
-  (.andNot bv1 bv2)
-  bv1)
+(defn and-not
+  ([^BitSet bv1 ^BitSet bv2 clone?]
+   (let [bv (if clone? (.clone bv1) bv1)]
+     (.andNot bv bv2)
+     bv))
+  ([^BitSet bv1 ^BitSet bv2]
+   (and-not bv1 bv2 true)))
 
 (defn flip [^BitSet bv i]
   (.flip bv i)
@@ -59,13 +67,21 @@
 (defn intersects? [^BitSet bv1 ^BitSet bv2]
   (.intersects bv1 bv2))
 
-(defn lor [^BitSet bv1 ^BitSet bv2]
-  (.or bv1 bv2)
-  bv1)
+(defn lor
+  ([^BitSet bv1 ^BitSet bv2 clone?]
+   (let [bv (if clone? (.clone bv1) bv1)]
+     (.or bv bv2)
+     bv))
+  ([^BitSet bv1 ^BitSet bv2]
+   (lor bv1 bv2 true)))
 
-(defn xor [^BitSet bv1 ^BitSet bv2]
-  (.xor bv1 bv2)
-  bv1)
+(defn xor
+  ([^BitSet bv1 ^BitSet bv2 clone?]
+   (let [bv (if clone? (.clone bv1) bv1)]
+     (.xor bv bv2)
+     bv))
+  ([^BitSet bv1 ^BitSet bv2]
+   (xor bv1 bv2 true)))
 
 (defn for-each [f ^BitSet bv]
   (let [len (.length bv)]
@@ -77,3 +93,15 @@
 (defn flip-all [^BitSet bv]
   (.flip bv 0 (.length bv))
   bv)
+
+(defn _band [a b]
+  (land a b false))
+
+(defn _bor [a b]
+  (lor a b false))
+
+(defn _bxor [a b]
+  (xor a b false))
+
+(defn _band-not [a b]
+  (and-not a b false))

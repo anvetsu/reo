@@ -174,8 +174,7 @@
    "bools(bnot(01101b))" [true false false true]
    "a:11001b" 'a
    "bools(band(a 10101b))" [true false false false true]
-   "bools(a)" [true false false false true]
+   "bools(a)" [true true false false true]
    "a:11001b" 'a
-   "b:copy(a)" 'b
-   "bools(band(b 10101b))" [true false false false true]
-   "bools(a)" [true true false false true]])
+   "bools(_band(a 10101b))" [true false false false true]
+   "bools(a)" [true false false false true]])
