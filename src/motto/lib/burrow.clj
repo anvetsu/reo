@@ -24,7 +24,7 @@
       (recur (rest y) (conj r (burrow opr x (first y))))
       r)))
 
-(defn- burrow [opr x y]
+(defn burrow [opr x y]
   (when (or (nil? x) (nil? y))
     (throw (Exception. "invalid argument to operator")))
   (cond

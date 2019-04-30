@@ -227,3 +227,17 @@
                      (concat rs [(dig ys rdims)])
                      (conj rs ys))))
           rs)))))
+
+(defn without-iter [xs ys]
+  (loop [xs xs, rs ys]
+    (if (seq xs)
+      (recur (rest xs)
+             (filter #(not (= (first xs) %)) rs))
+      rs)))
+
+(defn without [x xs]
+  (let [d (seq (dim x))]
+    (cond
+      (not d) (filter #(not (= x %)) xs)
+      (= (count d) 1) (without-iter x xs)
+      :else (without-iter (flatten x) xs))))
