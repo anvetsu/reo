@@ -186,6 +186,7 @@
                           :at '-fold-
                           :bang '-filter-
                           :tilde '-map-
+                          :dollar '-tab-
                           :fold-incr 'fold-incr
                           :fold-times 'fold-times})
 

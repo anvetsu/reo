@@ -27,6 +27,7 @@
                         \@ :at
                         \~ :tilde
                         \! :bang
+                        \$ :dollar
                         \^ :caret})
 
 (def ^:private oprs (keys oprs-kw))

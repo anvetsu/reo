@@ -23,6 +23,9 @@
       (def fst first)
       (def snd second)
 
+      (def ceil motto.lib.math/ceil)
+      (def floor motto.lib.math/floor)
+
       (def str_join motto.lib.str/join)
       (def str_split motto.lib.str/split)
 
@@ -115,6 +118,7 @@
       (def dig motto.lib.list/dig)
       (def without motto.lib.list/without)
 
+      (def -tab- motto.lib.tab/-tab-)
       (def tab motto.lib.tab/mktab)
       (def cols motto.lib.tab/cols)
       (def top motto.lib.tab/top)

@@ -58,6 +58,8 @@
   ([dicts]
    (dicts->tab dicts)))
 
+(defn -tab- [x y] (mktab y x))
+
 (def tab-merge t/tab-merge)
 
 (defn cols [tab]

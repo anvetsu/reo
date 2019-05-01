@@ -6,3 +6,13 @@
     (if (seq rs)
       (conj rs r)
       r)))
+
+(defn ceil [x]
+  (if (seqable? x)
+    (map #(Math/ceil %) x)
+    (Math/ceil x)))
+
+(defn floor [x]
+  (if (seqable? x)
+    (map #(Math/floor %) x)
+    (Math/floor x)))
