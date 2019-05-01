@@ -162,7 +162,7 @@
            (= b \b))
       [(nthrest s 2) (if (= n \1) c/t c/f)]
 
-      (and (= n \0) (Character/isDigit (int b)))
+      (and (= n \0) b (Character/isDigit (int b)))
       (multichar-token s based-num-char? based-number)
 
       :else
