@@ -1,13 +1,16 @@
 (ns motto.bitvec
   (:import [java.util BitSet]))
 
+(defn bitvec? [obj]
+  (instance? BitSet obj))
+
 (defn from-seq [xs]
   (let [bv (BitSet.)]
     (loop [xs xs, i 0]
       (when (seq xs)
         (.set bv i (first xs))
         (recur (rest xs) (inc i))))
-    bv))
+      bv))
 
 (defn to-seq
   ([^BitSet bv]

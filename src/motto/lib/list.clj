@@ -1,5 +1,6 @@
 (ns motto.lib.list
   (:require [motto.util :as u]
+            [motto.bitvec :as bv]
             [motto.lib.burrow :as b]))
 
 (defn til [x]
@@ -164,8 +165,13 @@
         [cols]))
     []))
 
+(defn- bitvec->seq [obj]
+  (if (bv/bitvec? obj)
+    (bv/to-seq obj)
+    obj))
+
 (defn sel [xs ys]
-  (loop [xs xs, ys ys, rs []]
+  (loop [xs (bitvec->seq xs), ys ys, rs []]
     (if (and (seq xs) (seq ys))
       (if (first xs)
         (recur (rest xs) (rest ys)
