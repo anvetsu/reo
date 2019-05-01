@@ -75,13 +75,14 @@
   (let [[conds ts]
         (loop [ts tokens, conds []]
           (if (seq ts)
-            (if (= :close-cb (first ts))
-              [(conj conds :false) ts]
-              (let [[c ts1] (parse-expr ts)]
-                (if (= :close-cb (first ts1))
-                  [(conj conds c) ts1]
-                  (let [[b ts2] (parse-expr ts1)]
-                    (recur ts2 (conj conds [c b]))))))
+            (let [ts (ignore-comma ts)]
+              (if (= :close-cb (first ts))
+                [(conj conds :false) ts]
+                (let [[c ts1] (parse-expr ts)]
+                  (if (= :close-cb (first ts1))
+                    [(conj conds c) ts1]
+                    (let [[b ts2] (parse-expr ts1)]
+                      (recur ts2 (conj conds [c b])))))))
             [conds nil]))]
     [[:cond conds] ts]))
 
@@ -318,7 +319,8 @@
     (if block?
       (loop [tokens tokens, exprs [expr]]
         (if (seq tokens)
-          (let [t (first tokens)]
+          (let [tokens (ignore-comma tokens)
+                t (first tokens)]
             (if (= :close-cb t)
               [(blockify exprs) (rest tokens)]
               (let [[expr tokens] (p tokens)]
