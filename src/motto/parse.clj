@@ -180,7 +180,7 @@
           [expr (rest tokens)])))
     (parse-fncall tokens)))
 
-(def ^:private infix-fns {:hash '-take-
+(def ^:private infix-fns {:hash '-concat-
                           :semicolon '-conj-
                           :at '-fold-
                           :bang '-filter-

@@ -20,14 +20,6 @@
       rs
       (recur (dec n) (inc i) (conj rs (f i))))))
 
-(defn -take- [x n]
-  (if (seqable? x)
-    (let [[f n] (if (neg? n)
-                  [take-last (- n)]
-                  [take n])]
-      (f n x))
-    (n-of x n)))
-
 (defn lift [n xs]
   (let [[f n] (if (neg? n)
                 [take-last (- n)]
@@ -205,7 +197,8 @@
    (take-repeat n xs orig-xs true)))
 
 (defn -take-repeat- [n xs]
-  (first (take-repeat n xs xs)))
+  (let [xs (if (seqable? xs) xs [xs])]
+    (first (take-repeat n xs xs))))
 
 (defn- dig-thru [xs dims]
   (loop [xs xs, dims dims]
@@ -241,3 +234,8 @@
       (not d) (filter #(not (= x %)) xs)
       (= (count d) 1) (without-iter x xs)
       :else (without-iter (flatten x) xs))))
+
+(defn -concat- [a b]
+  (if (string? b)
+    (str b a)
+    (concat b a)))
