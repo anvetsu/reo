@@ -2,7 +2,7 @@
   (:use [clojure.test]
         [motto.test.util]))
 
-(deftest-with arith-test
+(deft arith-test
   ["1 + 2 - 3"        0
    "10 -3*100"        -290
    "(10-3) * 100"     700
@@ -28,7 +28,7 @@
    "[54 84 119 19.6] % [7 4 11 4.3]" [5 0 9 2.400000000000002]
    "[29 43, -14, -14]%[3, -5 6, -3]" [2 -2 4 -2]])
 
-(deftest-with cmrp-test
+(deft cmrp-test
   ["1=1"     true
    "1=1=1b"   :ex
    "1b=(1=1)" true
@@ -52,7 +52,7 @@
    "[3 8 7] >= [5 8 0]" [false true true]
    "6 > tab([2 3] [7 2 9 3 6 4])" [[false true false] [true false true]]])
 
-(deftest-with logical-test
+(deft logical-test
   ["1<2 & 3<4*100"  true
    "1>2 | 3<4*100"  true
    "a:10<20 & (1=2 | 1 < 2)" 'a
@@ -63,7 +63,7 @@
    "a<10 & (1=2 | 1 < 2)" false
    "a"              10])
 
-(deftest-with lists-test
+(deft lists-test
   ["[1 2 3]"       [1 2 3]
    "[\"Price: \" \"$\" 10+20]" ["Price: " "$" 30]
    "til(5)"        [0 1 2 3 4]
@@ -73,7 +73,7 @@
    "dim(102030)" []
    "dim(dim(102030))" [0]])
 
-(deftest-with vars-test
+(deft vars-test
   ["fn:100"       :ex
    "if:200"       :ex
    "a:10"        'a
@@ -92,7 +92,7 @@
    "[a b c]:xs" 'c
    "a+b+c" 6])
 
-(deftest-with fns-test
+(deft fns-test
   ["(fn (x) x*x)(10)"        100
    "(fn (x y) x*2+y)(10 20)" 40
    "a:fn(x) x*x"             'a
@@ -110,7 +110,7 @@
    "g(10 2)" [20]
    "g(10 2 3 4)" [20 30 40]])
 
-(deftest-with blck-test
+(deft blck-test
   ["{1+2 3+4 5+4}"    9
    "a:10"             'a
    "pyth:fn(x y) { a:x*x b:y*y a+b }" 'pyth
@@ -120,11 +120,11 @@
    "a"                10
    "{a:100 b:200 a+b c:3}" :ex])
 
-(deftest-with op-test
+(deft op-test
   ["(+)(1 2)"     3
    "(<=)(1 1)"    true])
 
-(deftest-with cond-test
+(deft cond-test
   ["if 1 > 2 200+300" false
    "if {1 > 2 200+300 \"ok\"}" "ok"
    "if {1 < 2 200+300 400}" 500
@@ -135,7 +135,7 @@
    "a:60" 'a
    "if {a < 50 1 a < 90 2 a < 100 3 4}" 2])
 
-(deftest-with burrow-test
+(deft burrow-test
   ["a:[[1 2 3] [4 5 6]]" 'a
    "b:[[10 100 100] [1 2 3]]" 'b
    "a*b" [[10 200 300] [4 10 18]]
@@ -159,7 +159,7 @@
     [false false false true true false]
     [false false false false false false]]])
 
-(deftest-with num-test
+(deft num-test
   ["-016_ff" -255
    "02_1100110" 102
    "2_147_48_36_47" 2147483647
@@ -167,7 +167,7 @@
    "08_99" :ex
    "027_Kona" 411787])
 
-(deftest-with bits-test
+(deft bits-test
   ["bools(band(0101b 0011b))" [false false false true]
    "bools(bor(0101b 0011b))" [false true true true]
    "bools(bxor(0101b 0011b))" [false true true]

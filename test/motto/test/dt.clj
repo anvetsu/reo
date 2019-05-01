@@ -2,7 +2,7 @@
   (:use [clojure.test]
         [motto.test.util]))
 
-(deftest-with basic-test
+(deft basic-test
   ["n:dt(\"2019-03-09T12:30:44\")" 'n
    "dt_get(n 'M)" 3
    "dt_get(dt_add(n 's 10) 's)" 54
