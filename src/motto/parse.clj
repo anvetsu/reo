@@ -1,5 +1,6 @@
 (ns motto.parse
   (:require [motto.type :as tp]
+            [motto.tokens :as tk]
             [motto.const :as c]
             [motto.util :as u]))
 
@@ -7,6 +8,9 @@
   (u/ex (str "parser: " s)))
 
 (declare parse-expr parse-val fetch-expr)
+
+(defn- tokens->str [tokens]
+  (str "`" (tk/tokens->str tokens 6) "...`"))
 
 (defn- ignore-comma [tokens]
   (if (= :comma (first tokens))
@@ -54,7 +58,7 @@
             nt
             (recur (ignore-comma (rest ts)) (conj params nt))))
         (ex "missing closing parenthesis in function definition")))
-    (ex (str "missing open parenthesis: " tokens))))
+    (ex (str "missing open parenthesis: " (tokens->str tokens)))))
 
 (defn- fn-iter [body params]
   [:loop (into [] (u/dupl params)) body])
@@ -86,7 +90,7 @@
     (= :open-cb (first tokens))
     (let [[expr ts] (parse-cond (rest tokens))]
       (when-not (= :close-cb (first ts))
-        (ex (str "`if` condition not terminated: " tokens)))
+        (ex (str "`if` condition not terminated: " (tokens->str tokens))))
       [expr (rest ts)])
 
     :else
@@ -109,7 +113,7 @@
         [[:list xs] (rest tokens)]
         (let [[x tokens] (parse-expr tokens)]
           (recur (ignore-comma tokens) (conj xs x))))
-      (ex (str "invalid list: " tokens)))))
+      (ex (str "invalid list: " (tokens->str tokens))))))
 
 (defn- parse-neg-expr [tokens]
   (let [parser (if (= :openp (first tokens))
@@ -138,7 +142,7 @@
                   (recur (ignore-comma tokens) (conj args expr))))
               [false args nil]))]
       (when-not proper?
-        (ex (str "invalid argument list: " tokens)))
+        (ex (str "invalid argument list: " (tokens->str tokens))))
       [args ts])
     [nil tokens]))
 
@@ -172,7 +176,7 @@
         [op ts1]
         (let [[expr tokens] (parse-expr (rest tokens))]
           (when-not (= (first tokens) :closep)
-            (ex (str "missing closing parenthesis: " tokens)))
+            (ex (str "missing closing parenthesis: " (tokens->str tokens))))
           [expr (rest tokens)])))
     (parse-fncall tokens)))
 
@@ -251,7 +255,7 @@
 (defn- parse-load [tokens]
   (let [[e ts] (parse-expr tokens)]
     (when-not e
-      (ex (str "invalid load: " tokens)))
+      (ex (str "invalid load: " (tokens->str tokens))))
     [[:load e] ts]))
 
 (def ^:private reserved-names #{'fn 'if})

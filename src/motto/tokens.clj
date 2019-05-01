@@ -31,6 +31,30 @@
 
 (def ^:private oprs (keys oprs-kw))
 
+(defn- opr->char [opr]
+  (when (keyword? opr)
+    (loop [oks oprs-kw]
+      (when (seq oks)
+        (let [[c o] (first oks)]
+          (if (= o opr)
+            c
+            (recur (rest oks))))))))
+
+(defn tokens->str
+  ([tokens n]
+   (loop [tokens tokens, c 0, s ""]
+     (if (and (seq tokens)
+              (and (pos? n) (< c n)))
+       (let [t (first tokens)
+             opr (opr->char t)
+             s1 (str s (or opr t))
+             s2 (if (and (not opr) (not (keyword? (second tokens))))
+                  (str s1 " ") s1)]
+         (recur (rest tokens) (inc c) s2))
+       s)))
+  ([tokens]
+   (tokens->str tokens -1)))
+
 (defn- ex [s]
   (u/ex (str "tokens: " s)))
 
