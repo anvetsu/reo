@@ -3,6 +3,7 @@
             [motto.dbconn]
             [motto.type]
             [motto.bitvec]
+            [motto.lib.obj]
             [motto.lib.csv]
             [motto.lib.burrow]
             [motto.lib.str]
@@ -22,6 +23,18 @@
       (def parse read-string)
       (def fst first)
       (def snd second)
+
+      (def num_eq =)
+      (def num_lt <)
+      (def num_gt >)
+      (def num_lteq <=)
+      (def num_gteq >=)
+
+      (def eq motto.lib.obj/eq)
+      (def lt motto.lib.obj/lt)
+      (def lteq motto.lib.obj/lteq)
+      (def gt motto.lib.obj/gt)
+      (def gteq motto.lib.obj/gteq)
 
       (def ceil motto.lib.math/ceil)
       (def floor motto.lib.math/floor)

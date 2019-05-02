@@ -54,7 +54,23 @@
    "big([20 9 30] [10 20 30])" [20 20 30]
    "sml([20 9 30] [10 20 30])" [10 9 30]
    "[3 8 7] >= [5 8 0]" [false true true]
-   "6 > tab([2 3] [7 2 9 3 6 4])" [[false true false] [true false true]]])
+   "6 > tab([2 3] [7 2 9 3 6 4])" [[false true false] [true false true]]
+   "gt([1 2 3] [0 1 2])" true
+   "lt([1 2 3] [0 1 2])" false
+   "lteq([1 2 3] [1 2 3])" true
+   "lt([1 2 3] [1 2 3])" false
+   "eq([1 2 3] [1 2 3])" true
+   "\"abc\" > \"xyz\"" [false false false]
+   "gt(\"abc\" \"xyz\")" false
+   "lt(\"abc\" \"xyz\")" true
+   "lt(\"abc\" \"hijk\" \"qr\")" true
+   "lt(\"abc\" \"hijk\" \"qr\" \"xyz\")" true
+   "gt(\"abc\" \"hijk\" \"qr\" \"xyz\")" false
+   "num_eq(100 100)" true
+   "num_lt(100 100)" false
+   "num_lteq(100 100)" true
+   "num_gt(200 100 50)" true
+   "num_gteq(200 200 200 200)" true])
 
 (deft logical-test
   ["1<2 & 3<4*100"  true
