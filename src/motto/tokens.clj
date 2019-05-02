@@ -139,22 +139,20 @@
 
 (defn- operator [s]
   (let [c (first s)]
-    (if (= c \^)
-      [(rest s) 'recur]
-      (let [c2 (second s)
-            multopr
-            (cond
-              (= c \>) (when (= c2 \=)
-                         :gteq)
-              (= c \<) (cond
-                         (= c2 \=) :lteq
-                         (= c2 \>) :not-eq)
-              (= c \@) (cond
-                         (= c2 \~) :fold-incr
-                         (= c2 \>) :fold-times))]
-        (if multopr
-          [(nthrest s 2) multopr]
-          [(rest s) (get oprs-kw c)])))))
+    (let [c2 (second s)
+          multopr
+          (cond
+            (= c \>) (when (= c2 \=)
+                       :gteq)
+            (= c \<) (cond
+                       (= c2 \=) :lteq
+                       (= c2 \>) :not-eq)
+            (= c \@) (cond
+                       (= c2 \~) :fold-incr
+                       (= c2 \>) :fold-times))]
+      (if multopr
+        [(nthrest s 2) multopr]
+        [(rest s) (get oprs-kw c)]))))
 
 (defn- num-literal [s]
   (let [[n b] [(first s) (second s)]]

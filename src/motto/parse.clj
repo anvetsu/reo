@@ -87,15 +87,9 @@
         (ex "missing closing parenthesis in function definition")))
     (ex (str "missing open parenthesis: " (tokens->str tokens)))))
 
-(defn- fn-iter [body params]
-  [:loop (into [] (u/dupl params)) body])
-
 (defn- parse-fn [tokens]
-  (let [iter? (= 'recur (first tokens))
-        tokens (if iter? (rest tokens) tokens)
-        [params ts1] (parse-params tokens)
-        [body ts2] (parse-expr ts1)
-        body (if iter? (fn-iter body params) body)]
+  (let [[params ts1] (parse-params tokens)
+        [body ts2] (parse-expr ts1)]
     [(tp/make-fn params body) ts2]))
 
 (defn- parse-cond [tokens]

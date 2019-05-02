@@ -74,7 +74,6 @@
       :when `(if ~(lsp (first args)) ~(lsp (second args)) false)
       :cond `(cond ~@(condbody->lisp (first args) lsp))
       :let (form->let (first args) (second args) lsp)
-      :loop `(loop ~(first args) ~(lsp (second args)))
       :load `(ld ~(first args) eval)
       (call-fn ident args lsp))))
 
