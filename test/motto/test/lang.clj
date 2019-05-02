@@ -201,3 +201,15 @@
    "a:11001b" 'a
    "bools(_band(a 10101b))" [true false false false true]
    "bools(a)" [true false false false true]])
+
+(deft short-fn-test
+  ["frac:^{tot:float(sum(_1)) d:^_1/tot d~_1}" 'frac
+   "data:[3 1 4]" 'data
+   "frac(data)" [0.375 0.125 0.5]
+   "percent:^100 * frac(_1)" 'percent
+   "percent(data)" [37.5 12.5 50.0]
+   "round:^floor(_1 + 0.5)" 'round
+   "compute:comp(round percent)" 'compute
+   "compute(data)" [38.0 13.0 50.0]
+   "show:^zip(_1 compute(_1))" 'show
+   "show(data)" [[3 38.0] [1 13.0] [4 50.0]]])

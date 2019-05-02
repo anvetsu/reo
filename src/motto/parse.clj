@@ -1,5 +1,6 @@
 (ns motto.parse
-  (:require [motto.type :as tp]
+  (:require [clojure.walk :as walk]
+            [motto.type :as tp]
             [motto.tokens :as tk]
             [motto.const :as c]
             [motto.util :as u]))
@@ -92,6 +93,26 @@
         [body ts2] (parse-expr ts1)]
     [(tp/make-fn params body) ts2]))
 
+(defn- param-ref [x]
+  (when (symbol? x)
+    (let [n (name x)]
+      (when (.startsWith n "_")
+        (try
+          (let [i (dec (Integer/parseInt (.substring n 1)))]
+            (when-not (neg? i) i))
+          (catch Exception _ nil))))))
+
+(defn- param-access [expr]
+  (walk/walk
+   #(if-let [i (param-ref %)]
+      [:call 'nth ['-x- i]]
+      (param-access %))
+   identity expr))
+
+(defn- parse-short-fn [tokens]
+  (let [[body ts] (parse-expr tokens)]
+    [(tp/make-fn (vec '(& -x-)) (param-access body)) ts]))
+
 (defn- parse-cond [tokens]
   (let [[conds ts]
         (loop [ts tokens, conds []]
@@ -160,6 +181,7 @@
       (or (tp/identifier? x) (tp/literal? x)) (parse-atom x tokens)
       (= :minus x) (parse-neg-expr (rest tokens))
       (= :open-sb x) (parse-list (rest tokens))
+      (= :caret x) (parse-short-fn (rest tokens))
       (tp/bitvec-lit? x) [x (rest tokens)]
       :else [nil tokens])))
 
