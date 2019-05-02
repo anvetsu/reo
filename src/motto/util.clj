@@ -74,3 +74,8 @@
 
 (defn keys->kws [m]
   (keys->type m keyword))
+
+(defn in-seq [x]
+  (if (seqable? x)
+    x
+    [x]))

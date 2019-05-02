@@ -58,7 +58,7 @@
   ([dicts]
    (dicts->tab dicts)))
 
-(defn -tab- [x y] (mktab y x))
+(defn -tab- [x y] (mktab (u/in-seq y) (u/in-seq x)))
 
 (def tab-merge t/tab-merge)
 
