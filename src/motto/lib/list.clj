@@ -244,4 +244,4 @@
 (defn -concat- [a b]
   (if (string? b)
     (str b a)
-    (concat b a)))
+    (concat (u/in-seq b) (u/in-seq a))))

@@ -18,14 +18,17 @@
     (or (= 0 i) (pos? i))))
 
 (defn- cmpr [predic x y & ys]
-  (if (predic x y)
-    (loop [ys (conj ys y)]
-      (if (and (seq ys) (seq (rest ys)))
-        (if (predic (first ys) (second ys))
-          (recur (rest ys))
-          false)
-        true))
-    false))
+  (try
+    (if (predic x y)
+      (loop [ys (conj ys y)]
+        (if (and (seq ys) (seq (rest ys)))
+          (if (predic (first ys) (second ys))
+            (recur (rest ys))
+            false)
+          true))
+      false)
+    (catch ClassCastException _
+      false)))
 
 (def eq (partial cmpr =?))
 (def lt (partial cmpr <?))

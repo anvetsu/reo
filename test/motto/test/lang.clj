@@ -66,6 +66,9 @@
    "lt(\"abc\" \"hijk\" \"qr\")" true
    "lt(\"abc\" \"hijk\" \"qr\" \"xyz\")" true
    "gt(\"abc\" \"hijk\" \"qr\" \"xyz\")" false
+   "eq(\"abc\" [1 2 3 4])" false
+   "lteq(\"abc\" [1 2 3 4])" false
+   "eq(\"abc\" \"abc\" [1 2 3 4])" false
    "num_eq(100 100)" true
    "num_lt(100 100)" false
    "num_lteq(100 100)" true
