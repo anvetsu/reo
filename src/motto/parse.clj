@@ -4,6 +4,33 @@
             [motto.const :as c]
             [motto.util :as u]))
 
+(def ^:private reserved-names #{'fn 'if})
+
+(def ^:private infix-fns {:hash '-concat-
+                          :semicolon '-conj-
+                          :at '-fold-
+                          :bang '-filter-
+                          :tilde '-map-
+                          :dollar '-tab-
+                          :fold-incr 'fold-incr
+                          :fold-times 'fold-times})
+
+(def ^:private infix-fn-names (keys infix-fns))
+
+(def ^:private op-syms {:plus '+ :minus '- :mul '* :div '/ :mod '%
+                        :eq '= :lt '< :gt '> :lteq '<=
+                        :gteq '>= :not-eq '<>})
+(def ^:private ops (keys op-syms))
+
+(def ^:private cmpr-oprs-map {:eq '=
+                              :lt '<
+                              :gt '>
+                              :lteq '<=
+                              :gteq '>=
+                              :not-eq '<>})
+
+(def ^:private cmpr-opr-keys (keys cmpr-oprs-map))
+
 (defn- ex [s]
   (u/ex (str "parser: " s)))
 
@@ -99,12 +126,22 @@
           [b ts2] (parse-expr ts1)]
       [[:when c b] ts2])))
 
+(defn- parse-op [tokens]
+  (let [[x y] [(first tokens) (second tokens)]]
+    (cond
+      (some #{x} ops)
+      [(x op-syms) (rest tokens)]
+      (some #{x} infix-fn-names)
+      [(x infix-fns) (rest tokens)]
+      :else (ex (str "invalid use of `op`: " (tokens->str tokens))))))
+
 (defn- parse-atom [x tokens]
   (cond
     (= x c/t) [:true (rest tokens)]
     (= x c/f) [:false (rest tokens)]
     (= x 'fn) (parse-fn (rest tokens))
     (= x 'if) (parse-if (rest tokens))
+    (= x 'op) (parse-op (rest tokens))
     :else [x (rest tokens)]))
 
 (defn- parse-list [tokens]
@@ -159,38 +196,13 @@
       (parse-call x tokens)
       [x tokens])))
 
-(def ^:private op-syms {:plus '+ :minus '- :mul '* :div '/ :mod '%
-                        :eq '= :lt '< :gt '> :lteq '<=
-                        :gteq '>= :not-eq '<>})
-(def ^:private ops (keys op-syms))
-
-(defn- parse-op [tokens]
-  (let [[x y] [(first tokens) (second tokens)]]
-    (if (and (some #{x} ops) (= y :closep))
-      [(x op-syms) (nthrest tokens 2)]
-      [nil tokens])))
-
 (defn- parse-parenths [tokens]
   (if (= (first tokens) :openp)
-    (let [[op ts1] (parse-op (rest tokens))]
-      (if op
-        [op ts1]
-        (let [[expr tokens] (parse-expr (rest tokens))]
-          (when-not (= (first tokens) :closep)
-            (ex (str "missing closing parenthesis: " (tokens->str tokens))))
-          [expr (rest tokens)])))
+    (let [[expr tokens] (parse-expr (rest tokens))]
+      (when-not (= (first tokens) :closep)
+        (ex (str "missing closing parenthesis: " (tokens->str tokens))))
+      [expr (rest tokens)])
     (parse-fncall tokens)))
-
-(def ^:private infix-fns {:hash '-concat-
-                          :semicolon '-conj-
-                          :at '-fold-
-                          :bang '-filter-
-                          :tilde '-map-
-                          :dollar '-tab-
-                          :fold-incr 'fold-incr
-                          :fold-times 'fold-times})
-
-(def ^:private infix-fn-names (keys infix-fns))
 
 (defn- parse-infix-fn [tokens]
   (let [[x ts1] (parse-parenths tokens)]
@@ -225,15 +237,6 @@
 (defn- parse-term [tokens]
   (parse-arith tokens parse-factor {:plus '+ :minus '-}))
 
-(def ^:private cmpr-oprs-map {:eq '=
-                              :lt '<
-                              :gt '>
-                              :lteq '<=
-                              :gteq '>=
-                              :not-eq '<>})
-
-(def ^:private cmpr-opr-keys (keys cmpr-oprs-map))
-
 (defn- parse-cmpr [tokens]
   (let [[x ts1] (parse-term tokens)]
     (if (and x (seq ts1))
@@ -259,8 +262,6 @@
     (when-not e
       (ex (str "invalid load: " (tokens->str tokens))))
     [[:load e] ts]))
-
-(def ^:private reserved-names #{'fn 'if})
 
 (defn- valid-ident [var]
   (when (some #{var} reserved-names)

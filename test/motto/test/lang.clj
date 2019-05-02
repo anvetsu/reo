@@ -144,8 +144,8 @@
    "{a:100 b:200 a+b c:3}" :ex])
 
 (deft op-test
-  ["(+)(1 2)"     3
-   "(<=)(1 1)"    true])
+  ["op+(1 2)"     3
+   "op<=(1 1)"    true])
 
 (deft cond-test
   ["if 1 > 2 200+300" false
