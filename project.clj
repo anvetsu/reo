@@ -3,6 +3,7 @@
   :aot [motto.core]
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/tools.cli "0.4.2"]
+                 [org.clojure/math.combinatorics "0.1.5"]
                  [http-kit "2.3.0"]
                  [compojure "1.6.1"]
                  [cheshire "5.8.1"]

@@ -1,5 +1,6 @@
 (ns motto.global-env
-  (:require [motto.compile]
+  (:require [clojure.math.combinatorics]
+            [motto.compile]
             [motto.dbconn]
             [motto.type]
             [motto.bitvec]
@@ -158,5 +159,15 @@
 
       (def json motto.lib.json/json-str)
       (def json_parse motto.lib.json/parse)
+
+      (def permutations clojure.math.combinatorics/permutations)
+      (def count_permutations clojure.math.combinatorics/count-permutations)
+      (def combinations clojure.math.combinatorics/combinations)
+      (def count_combinations clojure.math.combinatorics/count-combinations)
+      (def subsets clojure.math.combinatorics/subsets)
+      (def count_subsets clojure.math.combinatorics/count-subsets)
+      (def cartesian_product clojure.math.combinatorics/cartesian-product)
+      (def selections clojure.math.combinatorics/selections)
+      (def partitions clojure.math.combinatorics/partitions)
 
       (fn [expr] (eval expr)))))
