@@ -1,3 +1,6 @@
+
+ * handle incanter datasets in tab functions.
+ 
  * parallel fn calls and combined results.
  * functions to filter columns.
  * more data analytics functions.

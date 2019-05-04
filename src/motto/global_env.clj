@@ -12,6 +12,7 @@
             [motto.lib.dt]
             [motto.lib.list]
             [motto.lib.tab]
+            [motto.lib.xls]
             [motto.lib.json]
             [motto.lib.http]))
 
@@ -169,5 +170,7 @@
       (def cartesian_product clojure.math.combinatorics/cartesian-product)
       (def selections clojure.math.combinatorics/selections)
       (def partitions clojure.math.combinatorics/partitions)
+
+      (def xls motto.lib.xls/load-data)
 
       (fn [expr] (eval expr)))))
