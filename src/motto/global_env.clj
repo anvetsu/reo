@@ -13,6 +13,7 @@
             [motto.lib.list]
             [motto.lib.tab]
             [motto.lib.xls]
+            [motto.lib.charts]
             [motto.lib.json]
             [motto.lib.http]))
 
@@ -25,6 +26,8 @@
       (def parse read-string)
       (def fst first)
       (def snd second)
+      (def is_odd odd?)
+      (def is_even even?)
 
       (def num_eq =)
       (def num_lt <)
@@ -40,6 +43,7 @@
 
       (def ceil motto.lib.math/ceil)
       (def floor motto.lib.math/floor)
+      (def sqrt motto.lib.math/sqrt)
 
       (def str_join motto.lib.str/join)
       (def str_split motto.lib.str/split)
@@ -172,5 +176,7 @@
       (def partitions clojure.math.combinatorics/partitions)
 
       (def xls motto.lib.xls/load-data)
+
+      (def histogram motto.lib.charts/histogram)
 
       (fn [expr] (eval expr)))))

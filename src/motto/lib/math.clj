@@ -16,3 +16,6 @@
   (if (seqable? x)
     (map #(Math/floor %) x)
     (Math/floor x)))
+
+(defn sqrt [x]
+  (Math/sqrt x))

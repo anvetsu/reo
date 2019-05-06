@@ -35,3 +35,19 @@ top(5 tenures)
 dtom:fn(d) d / 12.0
 d:pairs(tenures('name) dtom~tenures('days))
 ["Presidents" d] "Chart"
+
+"stat"
+mean:^sum(_1)/float(count(_1))
+median:^{n:count(_1)
+         mid:int(n/2)
+         ss:sort(_1)
+         if {is_odd(n) nth(ss mid)
+             mean(take(2 drop(dec(mid) ss)))}}
+
+sq:^_1*_1
+
+variance:^{m:mean(_1)
+           n:count(_1)
+           sqdev:^sq(_1 - m)
+           mean(sqdev~_1)}
+stddev:^sqrt(variance(_1))
