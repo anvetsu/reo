@@ -40,6 +40,9 @@
 (defn- tokens->str [tokens]
   (str "`" (tk/tokens->str tokens 6) "...`"))
 
+(defn- ex-tokens [msg tokens]
+  (ex (str msg ": " (tokens->str tokens))))
+
 (defn- ignore-comma [tokens]
   (if (= :comma (first tokens))
     (rest tokens)
@@ -86,7 +89,7 @@
             nt
             (recur (ignore-comma (rest ts)) (conj params nt))))
         (ex "missing closing parenthesis in function definition")))
-    (ex (str "missing open parenthesis: " (tokens->str tokens)))))
+    (ex-tokens "missing open parenthesis" tokens)))
 
 (defn- parse-fn [tokens]
   (let [[params ts1] (parse-params tokens)
@@ -133,7 +136,7 @@
     (= :open-cb (first tokens))
     (let [[expr ts] (parse-cond (rest tokens))]
       (when-not (= :close-cb (first ts))
-        (ex (str "`if` condition not terminated: " (tokens->str tokens))))
+        (ex-tokens "`if` condition not terminated" tokens))
       [expr (rest ts)])
 
     :else
@@ -148,7 +151,7 @@
       [(x op-syms) (rest tokens)]
       (some #{x} infix-fn-names)
       [(x infix-fns) (rest tokens)]
-      :else (ex (str "invalid use of `op`: " (tokens->str tokens))))))
+      :else (ex-tokens "invalid use of `op`" tokens))))
 
 (defn- parse-atom [x tokens]
   (cond
@@ -159,14 +162,29 @@
     (= x 'op) (parse-op (rest tokens))
     :else [x (rest tokens)]))
 
+(defn- parse-dict [k v tokens]
+  (loop [tokens tokens, rs {k v}]
+    (if (seq tokens)
+      (if (= :close-sb (first tokens))
+        [[:dict rs] (rest tokens)]
+        (let [[k tokens] (parse-expr tokens)]
+          (when-not (= :define (first tokens))
+            (ex-tokens "expected key-value pair" tokens))
+          (let [[v tokens] (parse-expr (rest tokens))]
+            (recur tokens (assoc rs k v)))))
+      (ex-tokens "invalid dictionary" tokens))))
+
 (defn- parse-list [tokens]
-  (loop [tokens tokens, xs []]
+  (loop [tokens tokens, first? true xs []]
     (if (seq tokens)
       (if (= :close-sb (first tokens))
         [[:list xs] (rest tokens)]
         (let [[x tokens] (parse-expr tokens)]
-          (recur (ignore-comma tokens) (conj xs x))))
-      (ex (str "invalid list: " (tokens->str tokens))))))
+          (if (and first? (= :define (first tokens)))
+            (let [[v tokens] (parse-expr (rest tokens))]
+              (parse-dict x v tokens))
+            (recur (ignore-comma tokens) false (conj xs x)))))
+      (ex-tokens "invalid list" tokens))))
 
 (defn- parse-neg-expr [tokens]
   (let [parser (if (= :openp (first tokens))
@@ -196,7 +214,7 @@
                   (recur (ignore-comma tokens) (conj args expr))))
               [false args nil]))]
       (when-not proper?
-        (ex (str "invalid argument list: " (tokens->str tokens))))
+        (ex-tokens "invalid argument list" tokens))
       [args ts])
     [nil tokens]))
 
@@ -216,7 +234,7 @@
   (if (= (first tokens) :openp)
     (let [[expr tokens] (parse-expr (rest tokens))]
       (when-not (= (first tokens) :closep)
-        (ex (str "missing closing parenthesis: " (tokens->str tokens))))
+        (ex-tokens "missing closing parenthesis" tokens))
       [expr (rest tokens)])
     (parse-fncall tokens)))
 
@@ -276,7 +294,7 @@
 (defn- parse-load [tokens]
   (let [[e ts] (parse-expr tokens)]
     (when-not e
-      (ex (str "invalid load: " (tokens->str tokens))))
+      (ex-tokens "invalid load" tokens))
     [[:load e] ts]))
 
 (defn- valid-ident [var]

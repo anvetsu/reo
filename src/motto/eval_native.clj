@@ -37,6 +37,12 @@
 (defn all->lisp [exprs lsp]
   (map #(lsp %) exprs))
 
+(defn- dict->lisp [d lsp]
+  (let [r (map (fn [[k v]]
+                 [(lsp k) (lsp v)])
+               d)]
+    (into {} r)))
+
 (defn- call-fn [fn args lsp]
   (let [fnval (lsp fn)
         eargs (all->lisp args lsp)]
@@ -68,6 +74,7 @@
                    '~(first args))
       :call (call-fn (first args) (second args) lsp)
       :list (vec (all->lisp (first args) lsp))
+      :dict (dict->lisp (first args) lsp)
       :and `(and ~@(all->lisp args lsp))
       :or `(or ~@(all->lisp args lsp))
       :block `(do ~@(all->lisp (first args) lsp))
