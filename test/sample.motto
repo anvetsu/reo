@@ -51,3 +51,18 @@ variance:^{m:mean(_1)
            sqdev:^sq(_1 - m)
            mean(sqdev~_1)}
 stddev:^sqrt(variance(_1))
+
+honest_baker:fn(mean sd) repeatedly(^draw(gauss(mean sd)))
+hbs:lift(10000 honest_baker(1000 30))
+c1:histogram(hbs ['x_label:"Honest baker" 'nbins:25 'visible:0b])
+
+dishonest_baker:fn(mean sd) (partial(apply max))~(partition(13 repeatedly(^draw(gauss(mean sd)))))
+dbs:lift(10000 dishonest_baker(950 30))
+c2:histogram(dbs ['x_label:"Dishonest baker" 'nbins:25 'visible:0b])
+
+skew1:qq_plot(hbs ['visible:0b])
+skew2:qq_plot(dbs ['visible:0b])
+
+bp:box_plot(hbs ['legend:1b 'y_label:"Loaf weight (g)" 'series_label:"Honest baker" 'visible:0b])
+add_box_plot(bp dbs ['series_label:"Dishonest baker"])
+

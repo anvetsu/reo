@@ -1,6 +1,7 @@
 (ns motto.global-env
   (:require [clojure.math.combinatorics]
             [incanter.distributions]
+            [incanter.stats]
             [motto.compile]
             [motto.dbconn]
             [motto.type]
@@ -15,6 +16,7 @@
             [motto.lib.list]
             [motto.lib.xls]
             [motto.lib.charts]
+            [motto.lib.stats]
             [motto.lib.json]
             [motto.lib.http]))
 
@@ -179,8 +181,38 @@
       (def xls motto.lib.xls/load-data)
 
       (def histogram motto.lib.charts/histogram)
+      (def qq_plot motto.lib.charts/qq-plot)
+      (def scatter_plot motto.lib.charts/scatter-plot)
+      (def box_plot motto.lib.charts/box-plot)
+      (def add_box_plot motto.lib.charts/add-box-plot)
+      (def xy_plot motto.lib.charts/xy-plot)
+      (def add_points motto.lib.charts/add-points)
+      (def add_lines motto.lib.charts/add-lines)
       (def view motto.lib.charts/view)
 
+      (def median incanter.stats/median)
+      (def mean incanter.stats/mean)
+      (def sd incanter.stats/sd)
+      (def variance incanter.stats/variance)
+      (def cdf_beta motto.lib.stats/cdf-beta)
+      (def cdf_binomial motto.lib.stats/cdf-binomial)
+      (def cdf_chisq motto.lib.stats/cdf-chisq)
+      (def cdf_empirical incanter.stats/cdf-empirical)
+      (def cdf_exp motto.lib.stats/cdf-exp)
+      (def cdf_f incanter.stats/cdf-f)
+      (def cdf_gamma incanter.stats/cdf-gamma)
+      (def cdf_neg_binomial incanter.stats/cdf-neg-binomial)
+      (def cdf_normal incanter.stats/cdf-normal)
+      (def cdf_poisson incanter.stats/cdf-poisson)
+      (def cdf_t incanter.stats/cdf-t)
+      (def cdf_uniform incanter.stats/cdf-uniform)
+      (def cdf_weibull incanter.stats/cdf-weibull)
+      (def chebyshev_distance incanter.stats/chebyshev-distance)
+      (def chisq_test incanter.stats/chisq-test)
+      (def skewness incanter.stats/skewness)
+      (def quantile incanter.stats/quantile)
+      (def sample_normal incanter.stats/sample-normal)
       (def gauss incanter.distributions/normal-distribution)
+      (def draw incanter.distributions/draw)
 
       (fn [expr] (eval expr)))))
