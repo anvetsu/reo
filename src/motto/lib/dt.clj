@@ -31,6 +31,8 @@
     :M Calendar/MONTH
     :d Calendar/DAY_OF_MONTH
     :D Calendar/DAY_OF_YEAR
+    :dW Calendar/DAY_OF_WEEK
+    :dM Calendar/DAY_OF_WEEK_IN_MONTH
     :H Calendar/HOUR_OF_DAY
     :m Calendar/MINUTE
     :s Calendar/SECOND
@@ -42,7 +44,20 @@
     (.add dt2 f amount)
     dt2))
 
+(def ^:private monnames ['JANUARY 'FEBRUARY
+                         'MARCH 'APRIL 'MAY
+                         'JUNE 'JULY 'AUGUST
+                         'SEPTEMBER 'OCTOBER
+                         'NOVEMBER 'DECEMBER])
+
+(def ^:private daynames ['SUNDAY 'MONDAY 'TUESDAY
+                         'WEDNESDAY 'THURSDAY 'FRIDAY
+                         'SATURDAY])
+
 (defn getf [^Calendar dt field]
   (let [f (field->int field)
         v (.get dt f)]
-    (if (= f Calendar/MONTH) (+ v 1) v)))
+    (cond
+      (= f Calendar/MONTH) (nth monnames v)
+      (= f Calendar/DAY_OF_WEEK) (nth daynames (dec v))
+      :else v)))
