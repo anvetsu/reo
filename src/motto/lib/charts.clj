@@ -13,11 +13,13 @@
          y-label (get options 'y_label "Frequencies")
          legend (get options 'legend false)
          series-label (get options 'series_label ss)
+         visible? (get options 'visible true)
          hg (charts/histogram xs :nbins nbins :density density
                               :title title :x-label x-label
                               :y-label y-label :legend legend
                               :series-label series-label)]
-     (ic/view hg)
+     (when visible?
+       (ic/view hg))
      hg))
   ([xs]
    (histogram xs nil)))

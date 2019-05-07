@@ -34,7 +34,7 @@
   (print "b"))
 
 (defn- write-tab [tab]
-  (let [[col-names data] (tab/tab-data tab)]
+  (let [[col-names data] [(tab/tab-cols tab) (tab/tab-data tab)]]
     (loop [cs col-names]
       (when (seq cs)
         (let [k (first cs)

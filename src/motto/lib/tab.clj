@@ -7,12 +7,14 @@
 (declare mktab)
 
 (defn tabify [col-names table]
+  (when-not (= (count col-names) (count (set col-names)))
+    (u/ex (str "tab: duplicate columns: " col-names)))
   (let [tab (into {} table)]
     (assoc tab :-meta-
            {:table true
-            :columns (set col-names)})))
+            :columns col-names})))
 
-(defn- tab-table [tab]
+(defn tab-data [tab]
   (dissoc tab :-meta-))
 
 (defn- tab-meta [tab]
@@ -22,11 +24,6 @@
   (and (:table (tab-meta x))
        true))
 
-(defn tab-data [tab]
-  (when (tab? tab)
-    (let [meta (tab-meta tab)]
-      [(:columns meta) (tab-table tab)])))
-
 (defn tab-cols [tab]
   (when (tab? tab)
     (:columns (tab-meta tab))))
@@ -35,7 +32,7 @@
   (let [cols1 (:columns (tab-meta tab1))
         cols2 (:columns (tab-meta tab2))
         newcols (set/union cols1 cols2)
-        newtable (merge (tab-table tab1) (tab-table tab2))]
+        newtable (merge (tab-data tab1) (tab-data tab2))]
     (tabify newcols newtable)))
 
 (defn- dicts->tab [dicts]
@@ -67,8 +64,8 @@
     (mktab colnames cols)))
 
 (defn tab->dset [tab]
-  (let [colnames (tab-cols tab)
-        cols (map #(get tab %) colnames)]
+  (let [colnames (vec (tab-cols tab))
+        cols (tab-data tab)]
     (ic/dataset colnames cols)))
 
 (defn- tk [n ys nextn]
@@ -104,7 +101,7 @@
 (defn -tab- [x y] (mktab (u/in-seq y) (u/in-seq x)))
 
 (defn top [n tab]
-  (let [[colnames data] (tab-data tab)]
+  (let [[colnames data] [(tab-cols tab) (tab-data tab)]]
     (loop [cs colnames, rs []]
       (if (seq cs)
         (let [k (first cs)
