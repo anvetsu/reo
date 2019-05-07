@@ -1,6 +1,6 @@
 (ns motto.dbconn
   (:require [motto.util :as u]
-            [motto.lib.tab :as t])
+            [motto.tab :as tab])
   (:import [java.sql Connection ResultSet ResultSetMetaData
             PreparedStatement Statement Types]
            [javax.sql DataSource]
@@ -154,7 +154,7 @@
            (if (.next rs)
              (recur (u/spread rows (fetch-row rs col-infos)))
              rows))]
-     (t/mktab (column-names col-infos) data)))
+     (tab/mktab (column-names col-infos) data)))
   ([^Statement stmt]
    (query stmt nil)))
 

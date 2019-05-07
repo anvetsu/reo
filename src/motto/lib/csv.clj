@@ -1,7 +1,7 @@
 (ns motto.lib.csv
   (:require [motto.util :as u]
             [motto.lib.dt :as dt]
-            [motto.lib.tab :as tab])
+            [motto.tab :as tab])
   (:import [java.io File]
            [java.nio.charset Charset]
            [org.apache.commons.csv CSVFormat

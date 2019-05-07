@@ -48,12 +48,12 @@
   ["a:tab(['a 'b] [[10 20] [30 40]])" 'a
    "b:tab(['a 'c] [[100 200] [300 400]])" 'b
    "c:club(a, b)" 'c
-   "cols(c)" #{'a 'b 'c}
+   "cols(c)" ['a 'b 'c]
    "c('a)" [100 200]
    "c('c)" [300 400]
    "c('b)" [30 40]
    "c:club(b a)" 'c
-   "cols(c)" #{'a 'b 'c}
+   "cols(c)" ['a 'c 'b]
    "c('a)" [10 20]
    "c('c)" [300 400]
    "c('b)" [30 40]])
@@ -69,7 +69,7 @@
    "sum(emp('Salary))" 12623.76
    "cfg:dict('headers ['n 'd 's], 'delim \\:)" 'cfg
    "emp:csv(\"test/data/emp2.csv\", cfg)" 'emp
-   "cols(emp)" #{'n 'd 's}
+   "cols(emp)" ['n 'd 's]
    "emp('d)(2)" "3"])
 
 (deft tabopr-test

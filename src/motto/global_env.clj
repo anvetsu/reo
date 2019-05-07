@@ -4,6 +4,7 @@
             [motto.dbconn]
             [motto.type]
             [motto.bitvec]
+            [motto.tab]
             [motto.lib.obj]
             [motto.lib.csv]
             [motto.lib.burrow]
@@ -11,7 +12,6 @@
             [motto.lib.math]
             [motto.lib.dt]
             [motto.lib.list]
-            [motto.lib.tab]
             [motto.lib.xls]
             [motto.lib.charts]
             [motto.lib.json]
@@ -137,13 +137,13 @@
       (def dig motto.lib.list/dig)
       (def without motto.lib.list/without)
 
-      (def -tab- motto.lib.tab/-tab-)
-      (def tab motto.lib.tab/mktab)
-      (def cols motto.lib.tab/tab-cols)
-      (def top motto.lib.tab/top)
-      (def group motto.lib.tab/group)
-      (def count_group motto.lib.tab/count-grp)
-      (def club motto.lib.tab/tab-merge)
+      (def -tab- motto.tab/-tab-)
+      (def tab motto.tab/mktab)
+      (def cols motto.tab/tab-cols)
+      (def top motto.tab/top)
+      (def group motto.tab/group)
+      (def count_group motto.tab/count-grp)
+      (def club motto.tab/tab-merge)
 
       (def data_source motto.dbconn/data-source)
       (def open motto.dbconn/open)

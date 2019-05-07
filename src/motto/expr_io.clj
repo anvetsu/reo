@@ -2,7 +2,7 @@
   (:require [clojure.string :as str]
             [motto.type :as tp]
             [motto.bitvec :as bv]
-            [motto.lib.tab :as tab]
+            [motto.tab :as tab]
             [motto.lib.dt :as dt]))
 
 (declare write)

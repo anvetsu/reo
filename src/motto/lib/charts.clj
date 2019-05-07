@@ -1,7 +1,7 @@
 (ns motto.lib.charts
   (:require [incanter.core :as ic]
             [incanter.charts :as charts]
-            [motto.lib.tab :as tab]))
+            [motto.tab :as tab]))
 
 (defn histogram
   ([xs options]

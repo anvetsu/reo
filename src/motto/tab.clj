@@ -1,6 +1,5 @@
-(ns motto.lib.tab
-  (:require [clojure.set :as set]
-            [incanter.core :as ic]
+(ns motto.tab
+  (:require [incanter.core :as ic]
             [motto.util :as u]
             [motto.lib.list :as ls]))
 
@@ -28,10 +27,19 @@
   (when (tab? tab)
     (:columns (tab-meta tab))))
 
+(defn- merge-cols [cols1 cols2]
+  (loop [cs cols2, cols cols1]
+    (if (seq cs)
+      (let [c (first cs)]
+        (if (some #{c} cols)
+          (recur (rest cs) cols)
+          (recur (rest cs) (conj cols c))))
+      cols)))
+
 (defn tab-merge [tab1 tab2]
   (let [cols1 (:columns (tab-meta tab1))
         cols2 (:columns (tab-meta tab2))
-        newcols (set/union cols1 cols2)
+        newcols (merge-cols cols1 cols2)
         newtable (merge (tab-data tab1) (tab-data tab2))]
     (tabify newcols newtable)))
 
