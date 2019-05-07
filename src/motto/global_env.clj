@@ -1,5 +1,6 @@
 (ns motto.global-env
   (:require [clojure.math.combinatorics]
+            [incanter.distributions]
             [motto.compile]
             [motto.dbconn]
             [motto.type]
@@ -179,5 +180,7 @@
 
       (def histogram motto.lib.charts/histogram)
       (def view motto.lib.charts/view)
+
+      (def gauss incanter.distributions/normal-distribution)
 
       (fn [expr] (eval expr)))))

@@ -45,10 +45,7 @@
       r)))
 
 (defn -map- [xs f]
-  (loop [xs xs, rs []]
-    (if (seq xs)
-      (recur (rest xs) (conj rs (f (first xs))))
-      rs)))
+  (map f xs))
 
 (defn -filter- [xs f]
   (filter f xs))
