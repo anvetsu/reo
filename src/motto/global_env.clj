@@ -139,7 +139,7 @@
 
       (def -tab- motto.lib.tab/-tab-)
       (def tab motto.lib.tab/mktab)
-      (def cols motto.lib.tab/cols)
+      (def cols motto.lib.tab/tab-cols)
       (def top motto.lib.tab/top)
       (def group motto.lib.tab/group)
       (def count_group motto.lib.tab/count-grp)
@@ -178,5 +178,6 @@
       (def xls motto.lib.xls/load-data)
 
       (def histogram motto.lib.charts/histogram)
+      (def view motto.lib.charts/view)
 
       (fn [expr] (eval expr)))))

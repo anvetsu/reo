@@ -1,9 +1,42 @@
 (ns motto.lib.tab
-  (:require [motto.util :as u]
-            [motto.type :as t]
+  (:require [clojure.set :as set]
+            [incanter.core :as ic]
+            [motto.util :as u]
             [motto.lib.list :as ls]))
 
 (declare mktab)
+
+(defn tabify [col-names table]
+  (let [tab (into {} table)]
+    (assoc tab :-meta-
+           {:table true
+            :columns (set col-names)})))
+
+(defn- tab-table [tab]
+  (dissoc tab :-meta-))
+
+(defn- tab-meta [tab]
+  (:-meta- tab))
+
+(defn tab? [x]
+  (and (:table (tab-meta x))
+       true))
+
+(defn tab-data [tab]
+  (when (tab? tab)
+    (let [meta (tab-meta tab)]
+      [(:columns meta) (tab-table tab)])))
+
+(defn tab-cols [tab]
+  (when (tab? tab)
+    (:columns (tab-meta tab))))
+
+(defn tab-merge [tab1 tab2]
+  (let [cols1 (:columns (tab-meta tab1))
+        cols2 (:columns (tab-meta tab2))
+        newcols (set/union cols1 cols2)
+        newtable (merge (tab-table tab1) (tab-table tab2))]
+    (tabify newcols newtable)))
 
 (defn- dicts->tab [dicts]
   (let [colnames (keys (first dicts))]
@@ -27,6 +60,16 @@
       (u/ex "tab: not enough columns")
 
       :else table)))
+
+(defn dset->tab [dset]
+  (let [colnames (map symbol (:column-names dset))
+        cols (:columns dset)]
+    (mktab colnames cols)))
+
+(defn tab->dset [tab]
+  (let [colnames (tab-cols tab)
+        cols (map #(get tab %) colnames)]
+    (ic/dataset colnames cols)))
 
 (defn- tk [n ys nextn]
   (loop [xs ys, i 0, rs []]
@@ -54,19 +97,14 @@
    (if (int? (first col-names))
      (reshape col-names col-vals)
      (let [t (seqs->table col-names col-vals)]
-       (t/tabify col-names t))))
+       (tabify col-names t))))
   ([dicts]
    (dicts->tab dicts)))
 
 (defn -tab- [x y] (mktab (u/in-seq y) (u/in-seq x)))
 
-(def tab-merge t/tab-merge)
-
-(defn cols [tab]
-  (t/tab-cols tab))
-
 (defn top [n tab]
-  (let [[colnames data] (t/tab-data tab)]
+  (let [[colnames data] (tab-data tab)]
     (loop [cs colnames, rs []]
       (if (seq cs)
         (let [k (first cs)

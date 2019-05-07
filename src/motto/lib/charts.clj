@@ -1,6 +1,7 @@
 (ns motto.lib.charts
   (:require [incanter.core :as ic]
-            [incanter.charts :as charts]))
+            [incanter.charts :as charts]
+            [motto.lib.tab :as tab]))
 
 (defn histogram
   ([xs options]
@@ -20,3 +21,9 @@
      hg))
   ([xs]
    (histogram xs nil)))
+
+(defn view [x]
+  (if (tab/tab? x)
+    (ic/view (tab/tab->dset x))
+    (ic/view x))
+  nil)

@@ -2,6 +2,7 @@
   (:require [clojure.string :as str]
             [motto.type :as tp]
             [motto.bitvec :as bv]
+            [motto.lib.tab :as tab]
             [motto.lib.dt :as dt]))
 
 (declare write)
@@ -33,7 +34,7 @@
   (print "b"))
 
 (defn- write-tab [tab]
-  (let [[col-names data] (tp/tab-data tab)]
+  (let [[col-names data] (tab/tab-data tab)]
     (loop [cs col-names]
       (when (seq cs)
         (let [k (first cs)
@@ -76,7 +77,7 @@
                    (fn? x)) '<fn>
                :else x)]
       (cond
-        (tp/tab? x) (write-tab x)
+        (tab/tab? x) (write-tab x)
         (tp/err? x) (write-err x)
         (string? v) (print v)
         (bv/bitvec? x) (write-bitvec x)
