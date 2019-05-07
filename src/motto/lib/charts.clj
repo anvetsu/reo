@@ -7,9 +7,9 @@
   ([xs options]
    (let [nbins (get options 'nbins 10)
          density (get options 'density false)
-         title (get options 'title "Histogram")
+         title (get options 'title)
          x-label (get options 'x_label)
-         y-label (get options 'y_label "Frequencies")
+         y-label (get options 'y_label)
          legend (get options 'legend false)
          series-label (get options 'series_label)
          visible? (get options 'visible true)
@@ -37,9 +37,9 @@
   ([x y options]
    (let [nbins (get options 'nbins 10)
          density (get options 'density false)
-         title (get options 'title "")
+         title (get options 'title)
          x-label (get options 'x_label)
-         y-label (get options 'y_label "Frequency")
+         y-label (get options 'y_label)
          legend (get options 'legend false)
          series-label (get options 'series_label)
          visible? (get options 'visible true)
@@ -58,9 +58,9 @@
 
 (defn box-plot
   ([x options]
-   (let [title (get options 'title "")
+   (let [title (get options 'title)
          x-label (get options 'x_label)
-         y-label (get options 'y_label "Frequency")
+         y-label (get options 'y_label)
          legend (get options 'legend false)
          series-label (get options 'series_label)
          visible? (get options 'visible true)
@@ -84,9 +84,9 @@
 (defn xy-plot
   ([x y options]
    (let [data (get options 'data)
-         title (get options 'title "")
+         title (get options 'title)
          x-label (get options 'x_label)
-         y-label (get options 'y_label "Frequency")
+         y-label (get options 'y_label)
          legend (get options 'legend false)
          series-label (get options 'series_label)
          visible? (get options 'visible true)
@@ -120,8 +120,105 @@
                        :points points :auto-sort auto-sort)))
   ([chart x y] (charts/add-lines chart x y)))
 
+(defn area-chart
+  ([categories values options]
+   (let [title (get options 'title)
+         x-label (get options 'x_label)
+         y-label (get options 'y_label)
+         legend (get options 'legend false)
+         series-label (get options 'series_label)
+         visible? (get options 'visible true)
+         vertical (get options 'vertical true)
+         group-by (get options 'group_by)
+         ac (charts/area-chart categories values
+                               :title title :x-label x-label
+                               :y-label y-label :legend legend
+                               :series-label series-label
+                               :vertical vertical :group-by group-by)]
+     (when visible?
+       (ic/view ac))
+     ac))
+  ([c v]
+   (area-chart c v nil)))
+
+(defn bar-chart
+  ([categories values options]
+   (let [title (get options 'title)
+         x-label (get options 'x_label)
+         y-label (get options 'y_label)
+         series-label (get options 'series_label)
+         visible? (get options 'visible true)
+         bc (charts/bar-chart categories values
+                              :title title :x-label x-label
+                              :y-label y-label
+                              :series-label series-label)]
+     (when visible?
+       (ic/view bc))
+     bc))
+  ([c v]
+   (bar-chart c v nil)))
+
+(defn line-chart
+  ([categories values options]
+   (let [title (get options 'title)
+         x-label (get options 'x_label)
+         y-label (get options 'y_label)
+         legend (get options 'legend false)
+         series-label (get options 'series_label)
+         visible? (get options 'visible true)
+         gradient (get options 'gradient false)
+         group-by (get options 'group_by)
+         lc (charts/line-chart categories values
+                               :title title :x-label x-label
+                               :y-label y-label :legend legend
+                               :series-label series-label
+                               :gradient gradient :group-by group-by)]
+     (when visible?
+       (ic/view lc))
+     lc))
+  ([c v]
+   (line-chart c v nil)))
+
+(defn pie-chart
+  ([categories values options]
+   (let [title (get options 'title)
+         legend (get options 'legend false)
+         visible? (get options 'visible true)
+         pc (charts/pie-chart categories values
+                              :title title :legend legend)]
+     (when visible?
+       (ic/view pc))
+     pc))
+  ([c v]
+   (pie-chart c v nil)))
+
 (defn view [x]
   (if (tab/tab? x)
     (ic/view (tab/tab->dset x))
     (ic/view x))
   nil)
+
+(defn set-point-size
+  ([chart point-sz options]
+   (let [series (get options 'series)
+         tab (get options 'table)]
+     (charts/set-point-size chart point-sz
+                            :series series
+                            :dataset (when tab
+                                       (tab/tab->dset tab)))))
+  ([chart point-sz]
+   (set-point-size chart point-sz nil)))
+
+(defn log-axis
+  ([options]
+   (let [base (get options 'base)
+         label (get options 'label)
+         int-ticks? (get options 'int_ticks)
+         smallest-value (get options 'smallest_value)]
+     (charts/log-axis :base base :label label
+                      :int-ticks? int-ticks?
+                      :smallest-value smallest-value)))
+  ([] (log-axis nil)))
+
+(defn set-axis [chart dim axis]
+  (charts/set-axis chart (keyword dim) axis))

@@ -2,6 +2,7 @@
   (:require [clojure.math.combinatorics]
             [incanter.distributions]
             [incanter.stats]
+            [incanter.charts]
             [motto.compile]
             [motto.dbconn]
             [motto.type]
@@ -188,7 +189,22 @@
       (def xy_plot motto.lib.charts/xy-plot)
       (def add_points motto.lib.charts/add-points)
       (def add_lines motto.lib.charts/add-lines)
+      (def area_chart motto.lib.charts/area-chart)
+      (def bar_chart motto.lib.charts/bar-chart)
+      (def line_chart motto.lib.charts/line-chart)
+      (def pie_chart motto.lib.charts/pie-chart)
       (def view motto.lib.charts/view)
+      (def chart_set_alpha incanter.charts/set-alpha)
+      (def chart_set_bgalpha incanter.charts/set-background-alpha)
+      (def chart_set_bgdefault incanter.charts/set-background-default)
+      (def chart_set_point_size motto.lib.charts/set-point-size)
+      (def chart_set_title incanter.charts/set-title)
+      (def chart_set_x_label incanter.charts/set-x-label)
+      (def chart_set_x_range incanter.charts/set-x-range)
+      (def chart_set_y_label incanter.charts/set-y-label)
+      (def chart_set_y_range incanter.charts/set-y-range)
+      (def chart_set_axis motto.lib.charts/set-axis)
+      (def log_axis motto.lib.charts/log-axis)
 
       (def median incanter.stats/median)
       (def mean incanter.stats/mean)

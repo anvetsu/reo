@@ -37,21 +37,6 @@ d:pairs(tenures('name) dtom~tenures('days))
 ["Presidents" d] "Chart"
 
 "stat"
-mean:^sum(_1)/float(count(_1))
-median:^{n:count(_1)
-         mid:int(n/2)
-         ss:sort(_1)
-         if {is_odd(n) nth(ss mid)
-             mean(take(2 drop(dec(mid) ss)))}}
-
-sq:^_1*_1
-
-variance:^{m:mean(_1)
-           n:count(_1)
-           sqdev:^sq(_1 - m)
-           mean(sqdev~_1)}
-stddev:^sqrt(variance(_1))
-
 honest_baker:fn(mean sd) repeatedly(^draw(gauss(mean sd)))
 hbs:lift(10000 honest_baker(1000 30))
 c1:histogram(hbs ['x_label:"Honest baker" 'nbins:25 'visible:0b])
@@ -66,3 +51,13 @@ skew2:qq_plot(dbs ['visible:0b])
 bp:box_plot(hbs ['legend:1b 'y_label:"Loaf weight (g)" 'series_label:"Honest baker" 'visible:0b])
 add_box_plot(bp dbs ['series_label:"Dishonest baker"])
 
+ecdf_h:cdf_empirical(hbs)
+ecdf_dh:cdf_empirical(dbs)
+xyp:xy_plot(hbs ecdf_h~hbs ['x_label:"Loaf weight" 'y_label:"Probability"
+			    'legend:1b 'series_label:"Honest baker" 'visible:0b])
+add_lines(xyp dbs ecdf_dh~dbs ['series_label:"Dishonest baker"])
+
+dfmt:"yyyy-MM-dd'T'HH:mm:ss'Z'"
+data:csv("/home/vijay/Downloads/ch2-inference/data/dwell-times.tsv" ['delim:\tab 'headers:['date 'dwell_time] 'types:[dfmt 'i]])
+h:histogram(data('dwell_time) ['x_label:"Dwell time (s)" 'nbins:20 'visible:0b])
+chart_set_axis(h 'y log_axis(['label:"Log frequency"]))
