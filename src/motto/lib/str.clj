@@ -5,6 +5,8 @@
 
 (defn split
   ([s pat]
-   (s/split s pat))
+   (s/split s (if (string? pat)
+                (re-pattern pat)
+                pat)))
   ([s]
    (split s #"")))

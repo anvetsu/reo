@@ -52,6 +52,12 @@
       (def str_join motto.lib.str/join)
       (def str_split motto.lib.str/split)
 
+      (def regex re-pattern)
+      (def re_seq re-seq)
+      (def re_find re-find)
+      (def re_matches re-matches)
+      (def re_matcher re-matcher)
+
       (def bits motto.bitvec/from-seq)
       (def bools motto.bitvec/to-seq)
       (def count_bits motto.bitvec/length)

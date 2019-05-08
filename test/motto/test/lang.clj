@@ -223,3 +223,7 @@
    "compute(data)" [38.0 13.0 50.0]
    "show:^zip(_1 compute(_1))" 'show
    "show(data)" [[3 38.0] [1 13.0] [4 50.0]]])
+
+(deft pat-test
+  ["str_split(\"abcXdef\" \"X\")" ["abc" "def"]
+   "str_split(\"abcXdef\" regex(\"X\"))" ["abc" "def"]])

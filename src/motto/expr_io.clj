@@ -17,7 +17,7 @@
       (let [x (first v)
             r (rest v)]
         (write x)
-        (when (and (seqable? x) (seq r))
+        (when (and (not (string? x)) (seqable? x) (seq r))
           (println))
         (when (seq r)
           (do (when-not (nil? (first r)) (print " "))
