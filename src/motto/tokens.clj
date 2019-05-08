@@ -80,6 +80,11 @@
 
 (def ^:private str-end-char? str-start-char?)
 
+(defn- ticked-start-char? [ch]
+  (= ch \`))
+
+(def ^:private ticked-end-char? ticked-start-char?)
+
 (defn- ident-char? [ch]
   (or (ident-start-char? ch)
       (Character/isDigit (int ch))))
@@ -167,14 +172,14 @@
       :else
       (multichar-token s num-char? number))))
 
-(defn- str-literal [s]
+(defn- quoted-literal [end-char? proc s]
   (loop [s (rest s), prev-ch \space, cs []]
     (if (seq s)
       (let [ch (first s)]
-        (if (str-end-char? ch)
+        (if (end-char? ch)
           (if (= prev-ch \\)
             (recur (rest s) ch (conj cs ch))
-            [(rest s) (su/implode cs)])
+            [(rest s) (proc (su/implode cs))])
           (recur (rest s) ch (conj cs ch))))
       (ex (str "string not terminated: " (su/implode cs))))))
 
@@ -202,12 +207,16 @@
 (def ^:private char-literal (partial escaped-literal :char))
 (def ^:private sym-literal (partial escaped-literal :sym))
 
+(def ^:private str-literal (partial quoted-literal str-end-char? identity))
+(def ^:private ticked-sym-literal (partial quoted-literal ticked-end-char? symbol))
+
 (defn- tokenizer [ch]
   (cond
     (ident-start-char? ch) identifier
     (opr-char? ch) operator
     (num-char-beg? ch) num-literal
     (str-start-char? ch) str-literal
+    (ticked-start-char? ch) ticked-sym-literal
     (= ch \\) char-literal
     (= ch \') sym-literal
     :else (ex (str "invalid character in input: " ch))))

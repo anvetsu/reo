@@ -24,7 +24,7 @@
 (defn spread [xs xss]
   (loop [i 0, xs xs, xss xss]
     (if (seq xss)
-      (let [x (xs i)]
+      (let [x (get xs i)]
         (recur (+ i 1)
                (assoc xs i (conj x (first xss)))
                (rest xss)))

@@ -13,8 +13,11 @@
            {:table true
             :columns col-names})))
 
-(defn tab-data [tab]
-  (dissoc tab :-meta-))
+(defn tab-data
+  ([tab]
+   (dissoc tab :-meta-))
+  ([tab cols]
+   (map #(get tab %) cols)))
 
 (defn- tab-meta [tab]
   (:-meta- tab))
@@ -132,3 +135,23 @@
 
 (defn count-grp [col by]
   (group count-grp-inc 0 col by))
+
+(defn- as-row [colnames colvals]
+  (into {} (map vector colnames colvals)))
+
+(defn -where- [predic tab]
+  (let [colnames (tab-cols tab)
+        cols (tab-data tab colnames)
+        rows (apply map (fn [x & xs] (as-row colnames (apply list x xs))) cols)]
+    (loop [rows rows, rs (into [] (repeat (count colnames) []))]
+      (if (seq rows)
+        (let [r (first rows)]
+          (if (predic r)
+            (recur (rest rows) (u/spread rs (vals r)))
+            (recur (rest rows) rs)))
+        (mktab colnames rs)))))
+
+(defn -filter- [xs f]
+  (if (tab? xs)
+    (-where- f xs)
+    (filter f xs)))
