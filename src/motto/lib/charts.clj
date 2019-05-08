@@ -238,3 +238,11 @@
             axis set-axis
             (u/ex (str "charts: invalid tag: " tag)))]
     (apply f chart args)))
+
+(defn chart-add [chart tag & args]
+  (let [f (case tag
+            boxplot add-box-plot
+            points add-points
+            lines add-lines
+            (u/ex (str "charts: invalid tag: " tag)))]
+    (apply f chart args)))
