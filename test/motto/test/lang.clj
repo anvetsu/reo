@@ -69,11 +69,11 @@
    "eq(\"abc\" [1 2 3 4])" false
    "lteq(\"abc\" [1 2 3 4])" false
    "eq(\"abc\" \"abc\" [1 2 3 4])" false
-   "num_eq(100 100)" true
-   "num_lt(100 100)" false
-   "num_lteq(100 100)" true
-   "num_gt(200 100 50)" true
-   "num_gteq(200 200 200 200)" true])
+   "neq(100 100)" true
+   "nlt(100 100)" false
+   "nlteq(100 100)" true
+   "ngt(200 100 50)" true
+   "ngteq(200 200 200 200)" true])
 
 (deft logical-test
   ["1<2 & 3<4*100"  true
@@ -206,12 +206,12 @@
   ["bools(band(0101b 0011b))" [false false false true]
    "bools(bor(0101b 0011b))" [false true true true]
    "bools(bxor(0101b 0011b))" [false true true]
-   "bools(bnot(01101b))" [true false false true]
+   "bools(bvnot(01101b))" [true false false true]
    "a:11001b" 'a
    "bools(band(a 10101b))" [true false false false true]
    "bools(a)" [true true false false true]
    "a:11001b" 'a
-   "bools(_band(a 10101b))" [true false false false true]
+   "bools(bvand(a 10101b))" [true false false false true]
    "bools(a)" [true false false false true]])
 
 (deft short-fn-test
@@ -227,5 +227,5 @@
    "show(data)" [[3 38.0] [1 13.0] [4 50.0]]])
 
 (deft pat-test
-  ["str_split(\"abcXdef\" \"X\")" ["abc" "def"]
-   "str_split(\"abcXdef\" regex(\"X\"))" ["abc" "def"]])
+  ["ssplit(\"abcXdef\" \"X\")" ["abc" "def"]
+   "ssplit(\"abcXdef\" regex(\"X\"))" ["abc" "def"]])
