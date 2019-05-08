@@ -6,7 +6,7 @@
   ([x options]
    (let [alpha (get options 'alpha)
          beta (get options 'beta)
-         lower-tail (get options 'lower_tail true)]
+         lower-tail (get options 'lowertail true)]
      (s/cdf-beta x :alpha alpha :beta beta :lower-tail? lower-tail)))
   ([x] (s/cdf-beta x)))
 
@@ -14,14 +14,14 @@
   ([x options]
    (let [size (get options 'size)
          prob (get options 'prob)
-         lower-tail (get options 'lower_tail true)]
+         lower-tail (get options 'lowertail true)]
      (s/cdf-binomial x :size size :prob prob :lower-tail? lower-tail)))
   ([x] (s/cdf-binomial x)))
 
 (defn cdf-chisq
   ([x options]
    (let [df (get options 'df)
-         lower-tail (get options 'lower_tail true)]
+         lower-tail (get options 'lowertail true)]
      (s/cdf-chisq x :df df :lower-tail? lower-tail)))
   ([x] (s/cdf-chisq x)))
 
@@ -35,7 +35,7 @@
   ([x options]
    (let [df1 (get options 'df1)
          df2 (get options 'df2)
-         lower-tail (get options 'lower_tail true)]
+         lower-tail (get options 'lowertail true)]
      (s/cdf-f x :df1 df1 :df2 df2 :lower-tail? lower-tail)))
   ([x] (s/cdf-f x)))
 
@@ -44,7 +44,7 @@
    (let [shape (get options 'shape)
          scale (get options 'scale)
          rate (get options 'rate)
-         lower-tail (get options 'lower_tail true)]
+         lower-tail (get options 'lowertail true)]
      (s/cdf-gamma x :shape shape :scale scale
                   :rate rate :lower-tail? lower-tail)))
   ([x] (s/cdf-gamma x)))
@@ -53,7 +53,7 @@
   ([x options]
    (let [size (get options 'size)
          prob (get options 'prob)
-         lower-tail (get options 'lower_tail true)]
+         lower-tail (get options 'lowertail true)]
      (s/cdf-neg-binomial x :size size :prob prob :lower-tail? lower-tail)))
   ([x] (s/cdf-neg-binomial x)))
 
@@ -67,7 +67,7 @@
 (defn cdf-poisson
   ([x options]
    (let [lambda (get options 'lambda)
-         lower-tail (get options 'lower_tail true)]
+         lower-tail (get options 'lowertail true)]
      (s/cdf-poisson x :lambda lambda :lower-tail? lower-tail)))
   ([x] (s/cdf-poisson x)))
 
@@ -208,3 +208,38 @@
          fun (get options 'fun)]
      (s/sweep x :stat stat :fun fun)))
   ([x] (s/sweep x)))
+
+(defn cdf [tag & args]
+  (let [f (case tag
+            beta cdf-beta
+            binomial cdf-binomial
+            chisq cdf-chisq
+            empirical s/cdf-empirical
+            exp cdf-exp
+            f cdf-f
+            gamma cdf-gamma
+            negbinomial cdf-neg-binomial
+            normal cdf-normal
+            poisson cdf-poisson
+            t cdf-t
+            uniform cdf-uniform
+            weibull cdf-weibull
+            (u/ex (str "stats: invalid tag: " tag)))]
+    (apply f args)))
+
+(defn pdf [tag & args]
+  (let [f (case tag
+            beta pdf-beta
+            binomial pdf-binomial
+            chisq pdf-chisq
+            exp pdf-exp
+            f pdf-f
+            gamma pdf-gamma
+            negbinomial pdf-neg-binomial
+            normal pdf-normal
+            poisson pdf-poisson
+            t pdf-t
+            uniform pdf-uniform
+            weibull pdf-weibull
+            (u/ex (str "stats: invalid tag: " tag)))]
+    (apply f args)))

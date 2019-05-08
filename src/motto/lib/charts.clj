@@ -1,17 +1,18 @@
 (ns motto.lib.charts
   (:require [incanter.core :as ic]
             [incanter.charts :as charts]
-            [motto.tab :as tab]))
+            [motto.tab :as tab]
+            [motto.util :as u]))
 
 (defn histogram
   ([xs options]
    (let [nbins (get options 'nbins 10)
          density (get options 'density false)
          title (get options 'title)
-         x-label (get options 'x_label)
-         y-label (get options 'y_label)
+         x-label (get options 'xlabel)
+         y-label (get options 'ylabel)
          legend (get options 'legend false)
-         series-label (get options 'series_label)
+         series-label (get options 'serieslabel)
          visible? (get options 'visible true)
          hg (charts/histogram xs :nbins nbins :density density
                               :title title :x-label x-label
@@ -38,13 +39,13 @@
    (let [nbins (get options 'nbins 10)
          density (get options 'density false)
          title (get options 'title)
-         x-label (get options 'x_label)
-         y-label (get options 'y_label)
+         x-label (get options 'xlabel)
+         y-label (get options 'ylabel)
          legend (get options 'legend false)
-         series-label (get options 'series_label)
+         series-label (get options 'serieslabel)
          visible? (get options 'visible true)
          gradient (get options 'gradient false)
-         group-by (get options 'group_by)
+         group-by (get options 'groupby)
          sp (charts/scatter-plot x y :nbins nbins :density density
                                  :title title :x-label x-label
                                  :y-label y-label :legend legend
@@ -59,12 +60,12 @@
 (defn box-plot
   ([x options]
    (let [title (get options 'title)
-         x-label (get options 'x_label)
-         y-label (get options 'y_label)
+         x-label (get options 'xlabel)
+         y-label (get options 'ylabel)
          legend (get options 'legend false)
-         series-label (get options 'series_label)
+         series-label (get options 'serieslabel)
          visible? (get options 'visible true)
-         group-by (get options 'group_by)
+         group-by (get options 'groupby)
          bp (charts/box-plot x :title title :x-label x-label
                              :y-label y-label :legend legend
                              :series-label series-label
@@ -77,7 +78,7 @@
 
 (defn add-box-plot
   ([chart x options]
-   (let [series-label (get options 'series_label)]
+   (let [series-label (get options 'serieslabel)]
      (charts/add-box-plot chart x :series-label series-label)))
   ([chart x] (charts/add-box-plot chart x)))
 
@@ -85,14 +86,14 @@
   ([x y options]
    (let [data (get options 'data)
          title (get options 'title)
-         x-label (get options 'x_label)
-         y-label (get options 'y_label)
+         x-label (get options 'xlabel)
+         y-label (get options 'ylabel)
          legend (get options 'legend false)
-         series-label (get options 'series_label)
+         series-label (get options 'serieslabel)
          visible? (get options 'visible true)
-         group-by (get options 'group_by)
+         group-by (get options 'groupby)
          points (get options 'points false)
-         auto-sort (get options 'auto_sort true)
+         auto-sort (get options 'autosort true)
          p (charts/xy-plot x y
                            :title title :x-label x-label
                            :y-label y-label :legend legend
@@ -107,15 +108,15 @@
 
 (defn add-points
   ([chart x y options]
-   (let [series-label (get options 'series-label)]
+   (let [series-label (get options 'serieslabel)]
      (charts/add-points chart x y :series-label series-label)))
   ([chart x y] (charts/add-points chart x y)))
 
 (defn add-lines
   ([chart x y options]
-   (let [series-label (get options 'series-label)
+   (let [series-label (get options 'serieslabel)
          points (get options 'points false)
-         auto-sort (get options 'auto_sort true)]
+         auto-sort (get options 'autosort true)]
      (charts/add-lines chart x y :series-label series-label
                        :points points :auto-sort auto-sort)))
   ([chart x y] (charts/add-lines chart x y)))
@@ -123,13 +124,13 @@
 (defn area-chart
   ([categories values options]
    (let [title (get options 'title)
-         x-label (get options 'x_label)
-         y-label (get options 'y_label)
+         x-label (get options 'xlabel)
+         y-label (get options 'ylabel)
          legend (get options 'legend false)
-         series-label (get options 'series_label)
+         series-label (get options 'serieslabel)
          visible? (get options 'visible true)
          vertical (get options 'vertical true)
-         group-by (get options 'group_by)
+         group-by (get options 'groupby)
          ac (charts/area-chart categories values
                                :title title :x-label x-label
                                :y-label y-label :legend legend
@@ -144,9 +145,9 @@
 (defn bar-chart
   ([categories values options]
    (let [title (get options 'title)
-         x-label (get options 'x_label)
-         y-label (get options 'y_label)
-         series-label (get options 'series_label)
+         x-label (get options 'xlabel)
+         y-label (get options 'ylabel)
+         series-label (get options 'serieslabel)
          visible? (get options 'visible true)
          bc (charts/bar-chart categories values
                               :title title :x-label x-label
@@ -161,13 +162,13 @@
 (defn line-chart
   ([categories values options]
    (let [title (get options 'title)
-         x-label (get options 'x_label)
-         y-label (get options 'y_label)
+         x-label (get options 'xlabel)
+         y-label (get options 'ylabel)
          legend (get options 'legend false)
-         series-label (get options 'series_label)
+         series-label (get options 'serieslabel)
          visible? (get options 'visible true)
          gradient (get options 'gradient false)
-         group-by (get options 'group_by)
+         group-by (get options 'groupby)
          lc (charts/line-chart categories values
                                :title title :x-label x-label
                                :y-label y-label :legend legend
@@ -213,8 +214,8 @@
   ([options]
    (let [base (get options 'base)
          label (get options 'label)
-         int-ticks? (get options 'int_ticks)
-         smallest-value (get options 'smallest_value)]
+         int-ticks? (get options 'intticks)
+         smallest-value (get options 'smallestvalue)]
      (charts/log-axis :base base :label label
                       :int-ticks? int-ticks?
                       :smallest-value smallest-value)))
@@ -222,3 +223,18 @@
 
 (defn set-axis [chart dim axis]
   (charts/set-axis chart (keyword dim) axis))
+
+(defn chart-set [chart tag & args]
+  (let [f (case tag
+            alpha charts/set-alpha
+            bgalpha charts/set-background-alpha
+            bgdefault charts/set-background-default
+            pointsize set-point-size
+            title charts/set-title
+            xlabel charts/set-x-label
+            xrange charts/set-x-range
+            ylabel charts/set-y-label
+            yrange charts/set-y-range
+            axis set-axis
+            (u/ex (str "charts: invalid tag: " tag)))]
+    (apply f chart args)))
