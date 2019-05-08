@@ -60,13 +60,19 @@
 
 (deft csv-test
   ["emp:csv(\"test/data/emp.csv\")" 'emp
-   "count(cols(emp))" 3
+   "count(cols(emp))" 4
    "emp('Name)(0)" "Tom. G"
    "sum(map(parse, emp('Salary)))" 12623.76
+   "emp('DOJ)(1)" "2014-03-15T10:10:45Z"
    "cfg:dict('types ['s 'i 'd])" 'cfg
    "emp:csv(\"test/data/emp.csv\" cfg)" 'emp
    "emp('Dept)(1)" 2
    "sum(emp('Salary))" 12623.76
+   "emp('DOJ)(1)" "2014-03-15T10:10:45Z"
+   "trimtm:fn(s) dt(first(str_split(s \"T\")) \"yyyy-MM-dd\")" 'trimtm
+   "cfg:dict('types ['s 'i 'd trimtm])" 'cfg
+   "emp:csv(\"test/data/emp.csv\" cfg)" 'emp
+   "sdt(emp('DOJ)(1))" "2014-03-15T00:00:00"
    "cfg:dict('headers ['n 'd 's], 'delim \\:)" 'cfg
    "emp:csv(\"test/data/emp2.csv\", cfg)" 'emp
    "cols(emp)" ['n 'd 's]

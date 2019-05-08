@@ -8,8 +8,10 @@
             CSVParser CSVRecord]))
 
 (defn- conv [v t]
-  (if (string? t)
-    (dt/dt v t)
+  (cond
+    (string? t) (dt/dt v t)
+    (fn? t) (t v)
+    :else
     (case t
       :i (u/safe-parse-int v)
       :f (u/safe-parse-float v)
@@ -22,7 +24,7 @@
         f (fn [^CSVRecord r]
             (map (fn [^Integer i]
                    (let [v (.get r i)
-                         t (types i)]
+                         t (get types i)]
                      (if t (conv v t) v)))
                  indices))]
     (map f records)))
@@ -57,7 +59,7 @@
           (recur
            (rest types)
            (conj rs
-                 (if (string? t)
+                 (if (or (string? t) (fn? t))
                    t
                    (keyword t)))))
         rs))

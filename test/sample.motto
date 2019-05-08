@@ -57,7 +57,9 @@ xyp:xy_plot(hbs ecdf_h~hbs ['x_label:"Loaf weight" 'y_label:"Probability"
 			    'legend:1b 'series_label:"Honest baker" 'visible:0b])
 add_lines(xyp dbs ecdf_dh~dbs ['series_label:"Dishonest baker"])
 
-dfmt:"yyyy-MM-dd'T'HH:mm:ss'Z'"
-data:csv("/home/vijay/Downloads/ch2-inference/data/dwell-times.tsv" ['delim:\tab 'headers:['date 'dwell_time] 'types:[dfmt 'i]])
+dfmt:"yyyy-MM-dd"
+p:regex("T")
+trimtm:fn(s) dt(first(str_split(s p)) dfmt)
+data:csv("/home/vijay/Downloads/ch2-inference/data/dwell-times.tsv" ['delim:\tab 'headers:['date 'dwell_time] 'types:[trimtm 'i]])
 h:histogram(data('dwell_time) ['x_label:"Dwell time (s)" 'nbins:20 'visible:0b])
 chart_set_axis(h 'y log_axis(['label:"Log frequency"]))
