@@ -123,7 +123,9 @@
    "[a b c]" [10 20 200]
    "xs:[1 2 3]" 'xs
    "[a b c]:xs" 'c
-   "a+b+c" 6])
+   "a+b+c" 6
+   "`a-b:c%d`:1234" (symbol "a-b:c%d")
+   "`a-b:c%d`*10" 12340])
 
 (deft fns-test
   ["(fn (x) x*x)(10)"        100

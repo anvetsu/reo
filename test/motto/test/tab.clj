@@ -69,6 +69,7 @@
    "emp('Dept)(1)" 2
    "sum(emp('Salary))" 12623.76
    "emp('DOJ)(1)" "2014-03-15T10:10:45Z"
+   "((fn(e) e('Dept)>1)!emp)('Name)(0)" "Ken M"
    "trimtm:fn(s) dt(first(str_split(s \"T\")) \"yyyy-MM-dd\")" 'trimtm
    "cfg:dict('types ['s 'i 'd trimtm])" 'cfg
    "emp:csv(\"test/data/emp.csv\" cfg)" 'emp
