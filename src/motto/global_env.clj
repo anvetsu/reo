@@ -110,7 +110,7 @@
       (def -conj- motto.lib.list/-conj-)
       (def -fold- motto.lib.list/-fold-)
       (def -map- motto.lib.list/-map-)
-      (def takeRepeat motto.lib.list/-take-repeat-)
+      (def liftr motto.lib.list/-take-repeat-)
       (def lift motto.lib.list/lift)
       (def dip motto.lib.list/dip)
       (def fold-incr motto.lib.list/fold-incr)
