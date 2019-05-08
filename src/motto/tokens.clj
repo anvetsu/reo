@@ -181,7 +181,7 @@
             (recur (rest s) ch (conj cs ch))
             [(rest s) (proc (su/implode cs))])
           (recur (rest s) ch (conj cs ch))))
-      (ex (str "string not terminated: " (su/implode cs))))))
+      (ex (str "literal not terminated: " (su/implode cs))))))
 
 (defn- escaped-literal [tp s]
   (let [[s cs]
