@@ -44,6 +44,7 @@
       (def lteq motto.lib.obj/lteq)
       (def gt motto.lib.obj/gt)
       (def gteq motto.lib.obj/gteq)
+      (def size motto.lib.obj/size)
 
       (def ceil motto.lib.math/ceil)
       (def floor motto.lib.math/floor)
@@ -149,13 +150,15 @@
 
       (def -tab- motto.tab/-t-)
       (def tab motto.tab/mkt)
-      (def cols motto.tab/tcols)
+      (def cols motto.tab/cols)
       (def top motto.tab/top)
       (def group motto.tab/group)
       (def count_group motto.tab/count-grp)
       (def club motto.tab/tmerge)
       (def where motto.tab/-where-)
       (def -filter- motto.tab/-filter-)
+      (def flip motto.tab/flip)
+      (def rows motto.tab/rtdata)
 
       (def datasource motto.dbconn/data-source)
       (def open motto.dbconn/open)

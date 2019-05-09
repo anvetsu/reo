@@ -90,3 +90,9 @@
    "[0 1] * table" [[0 0 0][8 9 10]]
    "[0 1] * table+table" [[5 6 7][16 18 20]]
    "[0 1] * (table+table)" [[0 0 0][16 18 20]]])
+
+(deft rt-test
+  ["cd:['name 'age]$[[\"sam\" \"marie\" \"joe\"] [3 4 2]]" 'cd
+   "t:flip(cd)" 't
+   "rows(t)(0)" ["sam" 3]
+   "rows(t)(1)(1)" 4])

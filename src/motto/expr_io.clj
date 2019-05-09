@@ -33,8 +33,37 @@
   (bv/for-each print-bval bv)
   (print "b"))
 
+(defn- print-n [n x]
+  (loop [n n]
+    (when (>= n 0)
+      (print x)
+      (recur (dec n)))))
+
+(defn- max-row-width [rows]
+  (let [cs (fn [row] (map (fn [r] (count (str r))) row))
+        css (map cs rows)]
+    (apply max (flatten css))))
+
 (defn- write-tab [tab]
-  (let [[col-names data] [(tab/tcols tab) (tab/tdata tab)]]
+  (let [cns (tab/rtcols tab)
+        rows (tab/rtdata tab)
+        width-cn (inc (max-row-width rows))
+        cnsfmt (str "%" width-cn "s")]
+    (loop [cns cns, len 0]
+      (if (seq cns)
+        (let [cn (name (first cns))]
+          (print (format cnsfmt cn))
+          (recur (rest cns) (+ len (+ width-cn (count cn)))))
+        (do (println)
+            (print-n len \-)
+            (println))))
+    (doseq [row rows]
+      (doseq [r row]
+        (print (format cnsfmt (str r))))
+      (println))))
+
+(defn- write-coldict [cd]
+  (let [[col-names data] [(tab/tcols cd) (tab/tdata cd)]]
     (loop [cs col-names]
       (when (seq cs)
         (let [k (first cs)
@@ -77,7 +106,8 @@
                    (fn? x)) '<fn>
                :else x)]
       (cond
-        (tab/t? x) (write-tab x)
+        (tab/t? x) (write-coldict x)
+        (tab/rt? x) (write-tab x)
         (tp/err? x) (write-err x)
         (string? v) (print v)
         (bv/bitvec? x) (write-bitvec x)

@@ -7,10 +7,10 @@
 
 (defn as-t [col-names data]
   (when-not (= (count col-names) (count (set col-names)))
-    (u/ex (str "coldict: duplicate columns: " col-names)))
+    (u/ex (str "tab: duplicate columns: " col-names)))
   (let [t (into {} data)]
     (assoc t :-meta-
-           {:table true
+           {:coldict true
             :columns col-names})))
 
 (defn tdata
@@ -23,7 +23,7 @@
   (:-meta- t))
 
 (defn t? [x]
-  (and (:table (tmeta x))
+  (and (:coldict (tmeta x))
        true))
 
 (defn tcols [t]
@@ -62,10 +62,10 @@
       (recur (rest ns) (rest vs) (conj data [(first ns) (first vs)]))
 
       (seq ns)
-      (u/ex "coldict: not enough values")
+      (u/ex "tab: not enough values")
 
       (seq vs)
-      (u/ex "coldict: not enough columns")
+      (u/ex "tab: not enough columns")
 
       :else data)))
 
@@ -155,3 +155,48 @@
   (if (t? xs)
     (-where- f xs)
     (filter f xs)))
+
+;; Convert a coldict (t) to a records table.
+(defn flip [t]
+  (let [colnames (tcols t)
+        cols (tdata t)
+        data (map #(get cols %) colnames)
+        rows (apply map vector data)
+        rc (count rows)]
+    {:data rows
+     :-meta- {:table true
+              :columns colnames
+              :count rc}}))
+
+(defn- rtmeta [x]
+  (:-meta- x))
+
+(defn rt? [x]
+  (and (:table (rtmeta x))
+       true))
+
+(defn rtcols [x]
+  (:columns (rtmeta x)))
+
+(defn rtdata [x]
+  (into [] (:data (dissoc x :-meta-))))
+
+(defn rtsize [x]
+  (:count (rtmeta x)))
+
+(defn size [x]
+  (cond
+    (t? x) (count (first (vals (tdata x))))
+    (rt? x) (rtsize x)
+    :else nil))
+
+(defn cols [x]
+  (cond
+    (t? x) (tcols x)
+    (rt? x) (rtcols x)
+    :else []))
+
+(defn rt->dset [t]
+  (let [colnames (vec (rtcols t))
+        cols (rtdata t)]
+    (ic/dataset colnames cols)))

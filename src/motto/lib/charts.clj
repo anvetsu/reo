@@ -194,9 +194,10 @@
    (pie-chart c v nil)))
 
 (defn view [x]
-  (if (tab/t? x)
-    (ic/view (tab/t->dset x))
-    (ic/view x))
+  (cond
+    (tab/t? x) (ic/view (tab/t->dset x))
+    (tab/rt? x) (ic/view (tab/rt->dset x))
+    :else (ic/view x))
   nil)
 
 (defn set-point-size

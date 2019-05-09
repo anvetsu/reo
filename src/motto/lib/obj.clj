@@ -1,4 +1,5 @@
-(ns motto.lib.obj)
+(ns motto.lib.obj
+  (:require [motto.tab :as tab]))
 
 (defn- =? [x y]
   (= 0 (compare x y)))
@@ -35,3 +36,6 @@
 (def gt (partial cmpr >?))
 (def lteq (partial cmpr <=?))
 (def gteq (partial cmpr >=?))
+
+(defn size [x]
+  (or (tab/size x) (count x)))
