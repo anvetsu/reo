@@ -144,22 +144,12 @@
           [b ts2] (parse-expr ts1)]
       [[:when c b] ts2])))
 
-(defn- parse-op [tokens]
-  (let [[x y] [(first tokens) (second tokens)]]
-    (cond
-      (some #{x} ops)
-      [(x op-syms) (rest tokens)]
-      (some #{x} infix-fn-names)
-      [(x infix-fns) (rest tokens)]
-      :else (ex-tokens "invalid use of `op`" tokens))))
-
 (defn- parse-atom [x tokens]
   (cond
     (= x c/t) [:true (rest tokens)]
     (= x c/f) [:false (rest tokens)]
     (= x 'fn) (parse-fn (rest tokens))
     (= x 'if) (parse-if (rest tokens))
-    (= x 'op) (parse-op (rest tokens))
     :else [x (rest tokens)]))
 
 (defn- parse-dict [k v tokens]
