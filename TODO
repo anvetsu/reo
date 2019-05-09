@@ -1,8 +1,5 @@
 
- * handle incanter datasets in tab functions.
- 
+ * better date-time support (based on https://github.com/dm3/clojure.java-time?).
+ * encode string in UTF-8 by default.
  * parallel fn calls and combined results.
- * functions to filter columns.
- * more data analytics functions.
-
  * represent homogeneous lists optimally.
