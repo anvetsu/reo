@@ -100,3 +100,16 @@
    "cols(cd2)" ['name 'age]
    "cd2('age)" [3 4 2]
    "cd2('name)" ["sam" "marie" "joe"]])
+
+(deft sel-grp-test
+  ["t:['c1 'c2 'c3]$[1000+til(6) ['a 'b 'c 'a 'b 'a] 10*(1+til(6))]" 't
+   "[c1 v]:[t('c1) 2*t('c3)]" 'v
+   "[c1 v]" [[1000 1001 1002 1003 1004 1005][20 40 60 80 100 120]]
+   "[x y]:[group(`+` 0 t('c3) t('c2)) group(^inc(X2) 0 c1 t('c2))]" 'y
+   "t2:tab([x y])" 't2
+   "cols(t2)" ['a 'b 'c]
+   "[t2('a) t2('b) t2('c)]" [[110 3][70 2][30 1]]
+   "t2:(^if {X1('c2)='a ['c3:10*X1('c3)] X1})~t" 't2
+   "t2('c3)" [100 20 30 400 50 600]
+   "rt:rtab(cols(t) sort(^X1(1) < X2(1), rows(flip(t))))" 'rt
+   "flip(rt)('c2)" ['a 'a 'a 'b 'b 'c]])

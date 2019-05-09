@@ -44,9 +44,6 @@
       (recur (rest xs) (f r (first xs)))
       r)))
 
-(defn -map- [xs f]
-  (map f xs))
-
 (defn fold-incr [ys f]
   (loop [xs (rest ys), lv (first ys), r [lv]]
     (if (seq xs)

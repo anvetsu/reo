@@ -166,16 +166,18 @@
 (defn rtsize [x]
   (:count (rtmeta x)))
 
+(defn mkrt [colnames rows]
+  {:data rows
+   :-meta- {:table true
+            :columns colnames
+            :count (count rows)}})
+
 (defn- t->rt [t]
   (let [colnames (tcols t)
         cols (tdata t)
         data (map #(get cols %) colnames)
-        rows (apply map vector data)
-        rc (count rows)]
-    {:data rows
-     :-meta- {:table true
-              :columns colnames
-              :count rc}}))
+        rows (apply map vector data)]
+    (mkrt colnames rows)))
 
 (defn- rt->t [rt]
   (let [colnames (rtcols rt)]
@@ -206,3 +208,20 @@
   (let [colnames (vec (rtcols t))
         cols (rtdata t)]
     (ic/dataset colnames cols)))
+
+(defn- tmap [f t]
+  (let [colnames (tcols t)
+        cols (tdata t colnames)
+        rows (apply map (fn [x & xs] (as-row colnames (apply list x xs))) cols)]
+    (loop [rows rows, rs (into [] (repeat (count colnames) []))]
+      (if (seq rows)
+        (let [r (first rows)
+              r2 (f r)
+              nr (merge r r2)]
+          (recur (rest rows) (u/spread rs (vals nr))))
+        (mkt colnames rs)))))
+
+(defn -map- [x f]
+  (if (t? x)
+    (tmap f x)
+    (map f x)))
