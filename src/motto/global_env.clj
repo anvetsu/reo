@@ -145,6 +145,7 @@
       (def inf motto.lib.list/inf)
       (def dig motto.lib.list/dig)
       (def without motto.lib.list/without)
+      (def eachprev motto.lib.list/each-previous)
 
       (def -tab- motto.tab/-tab-)
       (def tab motto.tab/mktab)

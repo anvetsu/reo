@@ -239,3 +239,10 @@
   (if (string? b)
     (str b a)
     (concat (u/in-seq b) (u/in-seq a))))
+
+(defn each-previous [f orig-xs]
+  (loop [xs (rest orig-xs), x (first orig-xs), rs []]
+    (if (seq xs)
+      (let [y (first xs)]
+        (recur (rest xs) y (conj rs (f y x))))
+      rs)))
