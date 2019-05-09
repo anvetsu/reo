@@ -156,18 +156,6 @@
     (-where- f xs)
     (filter f xs)))
 
-;; Convert a coldict (t) to a records table.
-(defn flip [t]
-  (let [colnames (tcols t)
-        cols (tdata t)
-        data (map #(get cols %) colnames)
-        rows (apply map vector data)
-        rc (count rows)]
-    {:data rows
-     :-meta- {:table true
-              :columns colnames
-              :count rc}}))
-
 (defn- rtmeta [x]
   (:-meta- x))
 
@@ -183,6 +171,30 @@
 
 (defn rtsize [x]
   (:count (rtmeta x)))
+
+(defn- t->rt [t]
+  (let [colnames (tcols t)
+        cols (tdata t)
+        data (map #(get cols %) colnames)
+        rows (apply map vector data)
+        rc (count rows)]
+    {:data rows
+     :-meta- {:table true
+              :columns colnames
+              :count rc}}))
+
+(defn- rt->t [rt]
+  (let [colnames (rtcols rt)]
+    (loop [rows (:data rt), rs (into [] (repeat (count colnames) []))]
+      (if (seq rows)
+        (recur (rest rows) (u/spread rs (first rows)))
+        (mkt colnames rs)))))
+
+;; Convert a coldict (t) to a records table and vice versa.
+(defn flip [x]
+  (if (t? x)
+    (t->rt x)
+    (rt->t x)))
 
 (defn size [x]
   (cond

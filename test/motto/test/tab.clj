@@ -95,4 +95,8 @@
   ["cd:['name 'age]$[[\"sam\" \"marie\" \"joe\"] [3 4 2]]" 'cd
    "t:flip(cd)" 't
    "rows(t)(0)" ["sam" 3]
-   "rows(t)(1)(1)" 4])
+   "rows(t)(1)(1)" 4
+   "cd2:flip(t)" 'cd2
+   "cols(cd2)" ['name 'age]
+   "cd2('age)" [3 4 2]
+   "cd2('name)" ["sam" "marie" "joe"]])
