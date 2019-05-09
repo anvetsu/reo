@@ -98,8 +98,8 @@
 
 (defn- param-ref [x]
   (when (symbol? x)
-    (let [n (name x)]
-      (when (.startsWith n "_")
+    (let [^String n (name x)]
+      (when (.startsWith n "X")
         (try
           (let [i (dec (Integer/parseInt (.substring n 1)))]
             (when-not (neg? i) i))
