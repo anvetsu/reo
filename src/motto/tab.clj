@@ -130,12 +130,6 @@
                (assoc rs y r2)))
       (into {} rs))))
 
-(defn- count-grp-inc [_ c]
-  (+ c 1))
-
-(defn count-grp [col by]
-  (group count-grp-inc 0 col by))
-
 (defn- as-row [colnames colvals]
   (into {} (map vector colnames colvals)))
 
