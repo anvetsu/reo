@@ -5,4 +5,4 @@
 
 (defn load-data [filename]
   (let [dset (ixls/read-xls filename)]
-    (tab/dset->tab dset)))
+    (tab/dset->t dset)))

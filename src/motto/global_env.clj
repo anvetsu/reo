@@ -147,13 +147,13 @@
       (def without motto.lib.list/without)
       (def eachprev motto.lib.list/each-previous)
 
-      (def -tab- motto.tab/-tab-)
-      (def tab motto.tab/mktab)
-      (def cols motto.tab/tab-cols)
+      (def -tab- motto.tab/-t-)
+      (def tab motto.tab/mkt)
+      (def cols motto.tab/tcols)
       (def top motto.tab/top)
       (def group motto.tab/group)
       (def count_group motto.tab/count-grp)
-      (def club motto.tab/tab-merge)
+      (def club motto.tab/tmerge)
       (def where motto.tab/-where-)
       (def -filter- motto.tab/-filter-)
 

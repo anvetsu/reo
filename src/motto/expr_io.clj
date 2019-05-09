@@ -34,7 +34,7 @@
   (print "b"))
 
 (defn- write-tab [tab]
-  (let [[col-names data] [(tab/tab-cols tab) (tab/tab-data tab)]]
+  (let [[col-names data] [(tab/tcols tab) (tab/tdata tab)]]
     (loop [cs col-names]
       (when (seq cs)
         (let [k (first cs)
@@ -77,7 +77,7 @@
                    (fn? x)) '<fn>
                :else x)]
       (cond
-        (tab/tab? x) (write-tab x)
+        (tab/t? x) (write-tab x)
         (tp/err? x) (write-err x)
         (string? v) (print v)
         (bv/bitvec? x) (write-bitvec x)
