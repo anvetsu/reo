@@ -110,6 +110,7 @@
       (def -concat- motto.lib.list/-concat-)
       (def -conj- motto.lib.list/-conj-)
       (def -fold- motto.lib.list/-fold-)
+      (def -map- motto.lib.list/-map-)
       (def liftr motto.lib.list/-take-repeat-)
       (def lift motto.lib.list/lift)
       (def dip motto.lib.list/dip)
@@ -157,7 +158,7 @@
       (def club motto.tab/tmerge)
       (def where motto.tab/-where-)
       (def -filter- motto.tab/-filter-)
-      (def -map- motto.tab/-map-)
+      (def tmap motto.tab/tmap)
       (def flip motto.tab/flip)
 
       (def datasource motto.dbconn/data-source)

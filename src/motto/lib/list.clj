@@ -243,3 +243,6 @@
       (let [y (first xs)]
         (recur (rest xs) y (conj rs (f y x))))
       rs)))
+
+(defn -map- [xs f]
+  (map f xs))

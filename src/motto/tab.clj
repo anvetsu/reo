@@ -135,7 +135,7 @@
 
 (defn -where- [predic t]
   (let [colnames (tcols t)
-        cols (tdata t colnames)
+        cols (vals (tdata t))
         rows (apply map (fn [x & xs] (as-row colnames (apply list x xs))) cols)]
     (loop [rows rows, rs (into [] (repeat (count colnames) []))]
       (if (seq rows)
@@ -215,9 +215,9 @@
         cols (rtdata t)]
     (ic/dataset colnames cols)))
 
-(defn- tmap [f t]
+(defn tmap [f t]
   (let [colnames (tcols t)
-        cols (tdata t colnames)
+        cols (vals (tdata t))
         rows (apply map (fn [x & xs] (as-row colnames (apply list x xs))) cols)]
     (loop [rows rows, rs (into [] (repeat (count colnames) []))]
       (if (seq rows)
@@ -226,8 +226,3 @@
               nr (merge r r2)]
           (recur (rest rows) (u/spread rs (vals nr))))
         (mkt colnames rs)))))
-
-(defn -map- [x f]
-  (if (t? x)
-    (tmap f x)
-    (map f x)))

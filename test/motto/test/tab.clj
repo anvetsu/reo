@@ -109,7 +109,7 @@
    "t2:tab([x y])" 't2
    "fields(t2)" ['a 'b 'c]
    "[t2('a) t2('b) t2('c)]" [[110 3][70 2][30 1]]
-   "t2:(^if {X1('c2)='a ['c3:10*X1('c3)] X1})~t" 't2
+   "t2:tmap(^if {X1('c2)='a ['c3:10*X1('c3)] X1} t)" 't2
    "t2('c3)" [100 20 30 400 50 600]
    "rt:rtab(fields(t) sort(^X1(1) < X2(1), data(flip(t))))" 'rt
    "flip(rt)('c2)" ['a 'a 'a 'b 'b 'c]])
