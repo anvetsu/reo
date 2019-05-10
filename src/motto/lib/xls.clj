@@ -3,6 +3,10 @@
             [incanter.excel :as ixls]
             [motto.tab :as tab]))
 
-(defn load-data [filename]
-  (let [dset (ixls/read-xls filename)]
-    (tab/dset->t dset)))
+(defn read-xls
+  ([filename options]
+   (let [sheet (get options 'sheet 0)
+         all-sheets? (get options 'all_sheets false)
+         dset (ixls/read-xls filename :sheet sheet :all-sheets all-sheets?)]
+     (tab/dset->t dset)))
+  ([filename] (read-xls {})))
