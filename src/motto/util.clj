@@ -79,3 +79,11 @@
   (if (seqable? x)
     x
     [x]))
+
+(defn string->reader
+  ([s] (string->reader s "UTF-8"))
+  ([s encoding]
+   (-> s
+       (.getBytes encoding)
+       (java.io.ByteArrayInputStream.)
+       (java.io.InputStreamReader.))))

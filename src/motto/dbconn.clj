@@ -154,7 +154,7 @@
            (if (.next rs)
              (recur (u/spread rows (fetch-row rs col-infos)))
              rows))]
-     (tab/mktab (column-names col-infos) data)))
+     (tab/mkt (column-names col-infos) data)))
   ([^Statement stmt]
    (query stmt nil)))
 

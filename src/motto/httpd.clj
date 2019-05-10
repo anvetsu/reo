@@ -5,7 +5,7 @@
         org.httpkit.server)
   (:require [clojure.string :as str]
             [clojure.walk :as w]
-            [cheshire.core :as json]
+            [clojure.data.json :as json]
             [clojure.tools.logging :as log]
             [motto.flag :as flag]
             [motto.global-env :as env]
@@ -19,7 +19,8 @@
     (e/evaluate-all exprs eval)))
 
 (defn- request-obj [req]
-  (json/parse-string (String. (.bytes (:body req))) true))
+  (json/read-str (String. (.bytes (:body req)))
+                 :key-fn keyword))
 
 (defn- sanitize-obj [x]
   (if (instance? java.util.Calendar x)
@@ -32,7 +33,7 @@
 (defn- resp-obj [obj]
   {:status 200
    :headers {"Content-Type" "application/json"}
-   :body (json/generate-string {:value (sanitize obj)})})
+   :body (json/write-str {:value (sanitize obj)})})
 
 (defn- handle-eval [req]
   (try

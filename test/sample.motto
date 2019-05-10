@@ -39,27 +39,22 @@ d:pairs(tenures('name) dtom~tenures('days))
 "stat"
 honest_baker:fn(mean sd) repeatedly(^draw(gauss(mean sd)))
 hbs:lift(10000 honest_baker(1000 30))
-c1:histogram(hbs ['xlabel:"Honest baker" 'nbins:25 'visible:0b])
+hg:partial(chart 'histogram)
+c1:hg(hbs ['xlabel:"Honest baker" 'nbins:25 'visible:0b])
 
 dishonest_baker:fn(mean sd) (partial(apply max))~(partition(13 repeatedly(^draw(gauss(mean sd)))))
 dbs:lift(10000 dishonest_baker(950 30))
-c2:histogram(dbs ['xlabel:"Dishonest baker" 'nbins:25 'visible:0b])
+c2:hg(dbs ['xlabel:"Dishonest baker" 'nbins:25 'visible:0b])
 
-skew1:qqplot(hbs ['visible:0b])
-skew2:qqplot(dbs ['visible:0b])
+qq:partial(plot 'qq)
+skew1:qq(hbs ['visible:0b])
+skew2:qq(dbs ['visible:0b])
 
-bp:boxplot(hbs ['legend:1b 'ylabel:"Loaf weight (g)" 'series_label:"Honest baker" 'visible:0b])
+bp:plot('box hbs ['legend:1b 'ylabel:"Loaf weight (g)" 'series_label:"Honest baker" 'visible:0b])
 chartadd(bp 'boxplot dbs ['series_label:"Dishonest baker"])
 
 ecdf_h:cdf('empirical hbs)
 ecdf_dh:cdf('empirical dbs)
-xyp:xyplot(hbs ecdf_h~hbs ['xlabel:"Loaf weight" 'ylabel:"Probability"
+xyp:plot('xy hbs ecdf_h~hbs ['xlabel:"Loaf weight" 'ylabel:"Probability"
 			    'legend:1b 'serieslabel:"Honest baker" 'visible:0b])
 chartadd(xyp 'lines dbs ecdf_dh~dbs ['serieslabel:"Dishonest baker"])
-
-dfmt:"yyyy-MM-dd"
-p:regex("T")
-trimtm:fn(s) dt(first(ssplit(s p)) dfmt)
-data:csv("/home/vijay/Downloads/ch2-inference/data/dwell-times.tsv" ['delim:\tab 'headers:['date 'dwell_time] 'types:[trimtm 'i]])
-h:histogram(data('dwell_time) ['xlabel:"Dwell time (s)" 'nbins:20 'visible:0b])
-chartset(h 'axis 'y logaxis(['label:"Log frequency"]))

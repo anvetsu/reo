@@ -237,7 +237,7 @@
             ylabel charts/set-y-label
             yrange charts/set-y-range
             axis set-axis
-            (u/ex (str "charts: invalid tag: " tag)))]
+            (u/ex (str "chart-set: invalid tag: " tag)))]
     (apply f chart args)))
 
 (defn chart-add [chart tag & args]
@@ -245,5 +245,24 @@
             boxplot add-box-plot
             points add-points
             lines add-lines
-            (u/ex (str "charts: invalid tag: " tag)))]
+            (u/ex (str "chart-add: invalid tag: " tag)))]
     (apply f chart args)))
+
+(defn plot [tag & args]
+  (let [f (case tag
+            scatter scatter-plot
+            qq qq-plot
+            box box-plot
+            xy xy-plot
+            (u/ex (str "plot: invalid tag: " tag)))]
+    (apply f args)))
+
+(defn chart [tag & args]
+  (let [f (case tag
+            histogram histogram
+            area area-chart
+            bar bar-chart
+            line line-chart
+            pie pie-chart
+            (u/ex (str "chart: invalid tag: " tag)))]
+    (apply f args)))

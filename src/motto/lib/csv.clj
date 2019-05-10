@@ -35,11 +35,8 @@
 (defn with-auto-header [p]
   (.withFirstRecordAsHeader p))
 
-(defn with-header
-  ([p headers]
-   (.withHeader p headers))
-  ([p]
-   (.withHeader p nil)))
+(defn with-header [p headers]
+  (.withHeader p (into-array String (map name headers))))
 
 (defn with-delim [p c]
   (.withDelimiter p c))
