@@ -228,4 +228,4 @@
 
 (deft pat-test
   ["ssplit(\"abcXdef\" \"X\")" ["abc" "def"]
-   "ssplit(\"abcXdef\" regex(\"X\"))" ["abc" "def"]])
+   "ssplit(\"abcXdef\" rx(\"X\"))" ["abc" "def"]])

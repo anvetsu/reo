@@ -46,19 +46,44 @@
       (def gteq motto.lib.obj/gteq)
       (def size motto.lib.obj/size)
 
+      ;; math
       (def ceil motto.lib.math/ceil)
       (def floor motto.lib.math/floor)
       (def sqrt motto.lib.math/sqrt)
+      (def E java.lang.Math/E)
+      (def PI java.lang.Math/PI)
+      (def abs motto.lib.math/abs)
+      (def acos motto.lib.math/acos)
+      (def asin motto.lib.math/asin)
+      (def atan motto.lib.math/atan)
+      (def atan2 motto.lib.math/atan2)
+      (def cbrt motto.lib.math/cbrt)
+      (def cos motto.lib.math/cos)
+      (def cosh motto.lib.math/cosh)
+      (def exp motto.lib.math/exp)
+      (def expm1 motto.lib.math/expm1)
+      (def log motto.lib.math/log)
+      (def log10 motto.lib.math/log10)
+      (def log1p motto.lib.math/log1p)
+      (def sin motto.lib.math/sin)
+      (def sinh motto.lib.math/sinh)
+      (def tan motto.lib.math/tan)
+      (def tanh motto.lib.math/tanh)
+      (def degrees motto.lib.math/degrees)
+      (def radians motto.lib.math/radians)
 
+      ;; string
       (def sjoin motto.lib.str/join)
       (def ssplit motto.lib.str/split)
 
-      (def regex re-pattern)
-      (def reseq re-seq)
-      (def refind re-find)
-      (def rematches re-matches)
-      (def rematcher re-matcher)
+      ;; regex
+      (def rx re-pattern)
+      (def rx_seq re-seq)
+      (def rx_find re-find)
+      (def rx_matches re-matches)
+      (def rx_matcher re-matcher)
 
+      ;; bit-vector
       (def bits motto.bitvec/from-seq)
       (def bools motto.bitvec/to-seq)
       (def countBits motto.bitvec/length)
@@ -73,6 +98,7 @@
       (def bviter motto.bitvec/for-each)
       (def bvnot motto.bitvec/flip-all)
 
+      ;; set
       (def setu clojure.set/union)
       (def seti clojure.set/intersection)
       (def setd clojure.set/difference)
@@ -99,6 +125,7 @@
       (def bandNot motto.lib.burrow/band-not)
       (def bxor motto.lib.burrow/bxor)
 
+      ;; date-time
       (def dt motto.lib.dt/dt)
       (def sdt motto.lib.dt/sdt)
       (def now motto.lib.dt/now)
@@ -148,6 +175,7 @@
       (def without motto.lib.list/without)
       (def eachprev motto.lib.list/each-previous)
 
+      ;; table
       (def -tab- motto.tab/-t-)
       (def tab motto.tab/mkt)
       (def rtab motto.tab/mkrt)
@@ -161,6 +189,7 @@
       (def tmap motto.tab/tmap)
       (def flip motto.tab/flip)
 
+      ;; jdbc
       (def datasource motto.dbconn/data-source)
       (def open motto.dbconn/open)
       (def close motto.dbconn/close)
@@ -168,31 +197,37 @@
       (def qry motto.dbconn/qry)
       (def cmd motto.dbconn/cmd)
 
+      ;; csv
       (def csv motto.lib.csv/csv)
-      (def csvfmt motto.lib.csv/fmt)
-      (def csvahdr motto.lib.csv/with-auto-header)
-      (def csvhdr motto.lib.csv/with-header)
-      (def csvdelim motto.lib.csv/with-delim)
-      (def csvrd motto.lib.csv/rd)
+      (def csv_fmt motto.lib.csv/fmt)
+      (def csv_ahdr motto.lib.csv/with-auto-header)
+      (def csv_hdr motto.lib.csv/with-header)
+      (def csv_delim motto.lib.csv/with-delim)
+      (def csv_rd motto.lib.csv/rd)
 
-      (def httpget motto.lib.http/http-get)
-      (def httpres motto.lib.http/http-res)
+      ;; http
+      (def http_get motto.lib.http/http-get)
+      (def http_res motto.lib.http/http-res)
 
+      ;; json
       (def json motto.lib.json/json-str)
-      (def jsonparse motto.lib.json/parse)
+      (def json_parse motto.lib.json/parse)
 
+      ;; combinatorics
       (def permutations clojure.math.combinatorics/permutations)
-      (def countPermutations clojure.math.combinatorics/count-permutations)
+      (def count_permutations clojure.math.combinatorics/count-permutations)
       (def combinations clojure.math.combinatorics/combinations)
-      (def countCombinations clojure.math.combinatorics/count-combinations)
+      (def count_combinations clojure.math.combinatorics/count-combinations)
       (def subsets clojure.math.combinatorics/subsets)
-      (def countSubsets clojure.math.combinatorics/count-subsets)
-      (def cartesianProduct clojure.math.combinatorics/cartesian-product)
+      (def count_subsets clojure.math.combinatorics/count-subsets)
+      (def cartesian_product clojure.math.combinatorics/cartesian-product)
       (def selections clojure.math.combinatorics/selections)
       (def partitions clojure.math.combinatorics/partitions)
 
-      (def xls motto.lib.xls/load-data)
+      ;; excel
+      (def xls motto.lib.xls/read-xls)
 
+      ;; charts
       (def histogram motto.lib.charts/histogram)
       (def qqplot motto.lib.charts/qq-plot)
       (def scatterplot motto.lib.charts/scatter-plot)
@@ -207,6 +242,7 @@
       (def chartset motto.lib.charts/chart-set)
       (def logaxis motto.lib.charts/log-axis)
 
+      ;; stats
       (def median incanter.stats/median)
       (def mean incanter.stats/mean)
       (def sd incanter.stats/sd)
@@ -219,15 +255,14 @@
       (def sampleNormal incanter.stats/sample-normal)
       (def correlation incanter.stats/correlation)
       (def covariance incanter.stats/covariance)
-      (def cumulativeMean incanter.stats/cumulative-mean)
+      (def cumulative_mean incanter.stats/cumulative-mean)
       (def distance motto.lib.stats/distance)
-      (def jaccardIndex incanter.stats/jaccard-index)
-      (def oddsRatio incanter.stats/odds-ratio)
+      (def jaccard_index incanter.stats/jaccard-index)
+      (def odds_ratio incanter.stats/odds-ratio)
       (def permute incanter.stats/permute)
       (def predict incanter.stats/predict)
       (def summary incanter.stats/summary)
       (def sweep motto.lib.stats/sweep)
-
       (def gauss incanter.distributions/normal-distribution)
       (def draw incanter.distributions/draw)
 
