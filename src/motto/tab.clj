@@ -204,6 +204,12 @@
     (rt? x) (rtcols x)
     :else []))
 
+(defn rows [x]
+  (cond
+    (t? x) (tdata x)
+    (rt? x) (rtdata x)
+    :else []))
+
 (defn rt->dset [t]
   (let [colnames (vec (rtcols t))
         cols (rtdata t)]

@@ -150,7 +150,8 @@
       (def -tab- motto.tab/-t-)
       (def tab motto.tab/mkt)
       (def rtab motto.tab/mkrt)
-      (def cols motto.tab/cols)
+      (def fields motto.tab/cols)
+      (def data motto.tab/rows)
       (def top motto.tab/top)
       (def group motto.tab/group)
       (def club motto.tab/tmerge)
@@ -158,7 +159,6 @@
       (def -filter- motto.tab/-filter-)
       (def -map- motto.tab/-map-)
       (def flip motto.tab/flip)
-      (def rows motto.tab/rtdata)
 
       (def datasource motto.dbconn/data-source)
       (def open motto.dbconn/open)
