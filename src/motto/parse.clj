@@ -5,7 +5,7 @@
             [motto.const :as c]
             [motto.util :as u]))
 
-(def ^:private reserved-names #{'fn 'if})
+(def ^:private reserved-names #{'fn 'if 'rec})
 
 (def ^:private infix-fns {:hash '-concat-
                           :semicolon '-conj-
@@ -144,13 +144,24 @@
           [b ts2] (parse-expr ts1)]
       [[:when c b] ts2])))
 
-(defn- parse-atom [x tokens]
+(defn- transl-ident [x]
   (cond
-    (= x c/t) [:true (rest tokens)]
-    (= x c/f) [:false (rest tokens)]
-    (= x 'fn) (parse-fn (rest tokens))
-    (= x 'if) (parse-if (rest tokens))
-    :else [x (rest tokens)]))
+    (= x 'rec) 'recur
+    (= x 'recur) '-recur-
+    :else x))
+
+(defn- parse-atom [x tokens]
+  (let [ts (rest tokens)]
+    (cond
+      (= x 'fn) (parse-fn ts)
+      (= x 'if) (parse-if ts)
+      :else
+      (let [r
+            (cond
+              (= x c/t) :true
+              (= x c/f) :false
+              :else (transl-ident x))]
+        [r ts]))))
 
 (defn- parse-dict [k v tokens]
   (loop [tokens tokens, rs {k v}]
@@ -290,7 +301,7 @@
 (defn- valid-ident [var]
   (when (some #{var} reserved-names)
     (ex (str "reserved name: " var)))
-  var)
+  (transl-ident var))
 
 (defn- multi-define [ns vs]
   (let [bs (map (fn [n i] [:define (valid-ident n) [:call vs [i]]])

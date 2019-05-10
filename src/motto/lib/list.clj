@@ -9,17 +9,12 @@
           (range 0 x)
           [])))
 
-(defn- n-of [x n]
-  (loop [n n, xs []]
-    (if (<= n 0)
-      xs
-      (recur (dec n) (conj xs x)))))
-
-(defn listf [f n]
-  (loop [n n, i 0, rs []]
-    (if (<= n 0)
-      rs
-      (recur (dec n) (inc i) (conj rs (f i))))))
+(defn listf
+  ([f n i]
+   (if (>= i n)
+     []
+     (lazy-seq (cons (f i) (listf f n (inc i))))))
+  ([f n] (listf f n 0)))
 
 (defn lift [n xs]
   (let [[f n] (if (neg? n)
@@ -39,17 +34,14 @@
     (cons y (vec x))))
 
 (defn -fold- [ys f]
-  (loop [xs (rest ys), r (first ys)]
-    (if (seq xs)
-      (recur (rest xs) (f r (first xs)))
-      r)))
+  (reduce f (first ys) (rest ys)))
 
 (defn fold-incr [ys f]
-  (loop [xs (rest ys), lv (first ys), r [lv]]
-    (if (seq xs)
-      (let [cv (f lv (first xs))]
-        (recur (rest xs) cv (conj r cv)))
-      r)))
+  (reverse
+   (reduce
+    #(conj %1 (f (first %1) %2))
+    (list (first ys))
+    (rest ys))))
 
 (defn fold-times [x n f]
   (loop [n n, r x]
