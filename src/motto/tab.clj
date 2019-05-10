@@ -206,7 +206,7 @@
 
 (defn rows [x]
   (cond
-    (t? x) (tdata x)
+    (t? x) (vals (tdata x))
     (rt? x) (rtdata x)
     :else []))
 
