@@ -186,11 +186,15 @@
         (recur (rest rows) (u/spread rs (first rows)))
         (mkt colnames rs)))))
 
+(defn- flip-seqs [xs]
+  (apply map vector xs))
+
 ;; Convert a coldict (t) to a records table and vice versa.
 (defn flip [x]
-  (if (t? x)
-    (t->rt x)
-    (rt->t x)))
+  (cond
+    (t? x) (t->rt x)
+    (rt? x) (rt->t x)
+    :else (flip-seqs x)))
 
 (defn size [x]
   (cond
