@@ -194,10 +194,7 @@
    (pie-chart c v nil)))
 
 (defn view [x]
-  (cond
-    (tab/t? x) (ic/view (tab/t->dset x))
-    (tab/rt? x) (ic/view (tab/rt->dset x))
-    :else (ic/view x))
+  (ic/view (tab/maybe-dset x))
   nil)
 
 (defn set-point-size
@@ -207,7 +204,7 @@
      (charts/set-point-size chart point-sz
                             :series series
                             :dataset (when tab
-                                       (tab/t->dset tab)))))
+                                       (tab/maybe-dset tab)))))
   ([chart point-sz]
    (set-point-size chart point-sz nil)))
 

@@ -23,7 +23,8 @@
   (:-meta- t))
 
 (defn t? [x]
-  (and (:coldict (tmeta x))
+  (and (map? x)
+       (:coldict (tmeta x))
        true))
 
 (defn tcols [t]
@@ -154,7 +155,8 @@
   (:-meta- x))
 
 (defn rt? [x]
-  (and (:table (rtmeta x))
+  (and (map? x)
+       (:table (rtmeta x))
        true))
 
 (defn rtcols [x]
@@ -230,3 +232,9 @@
               nr (merge r r2)]
           (recur (rest rows) (u/spread rs (vals nr))))
         (mkt colnames rs)))))
+
+(defn maybe-dset [x]
+  (cond
+    (t? x) (t->dset x)
+    (rt? x) (rt->dset x)
+    :else x))

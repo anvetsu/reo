@@ -174,6 +174,7 @@
       (def dig motto.lib.list/dig)
       (def without motto.lib.list/without)
       (def eachprev motto.lib.list/each-previous)
+      (def factor motto.lib.list/factor)
 
       ;; table
       (def -tab- motto.tab/-t-)
@@ -254,7 +255,7 @@
       (def odds_ratio incanter.stats/odds-ratio)
       (def permute incanter.stats/permute)
       (def predict incanter.stats/predict)
-      (def summary incanter.stats/summary)
+      (def summary motto.lib.stats/summary)
       (def sweep motto.lib.stats/sweep)
       (def gauss incanter.distributions/normal-distribution)
       (def draw incanter.distributions/draw)

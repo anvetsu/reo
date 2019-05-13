@@ -1,5 +1,6 @@
 (ns motto.lib.stats
   (:require [incanter.stats :as s]
+            [motto.tab :as tab]
             [motto.util :as u]))
 
 (defn cdf-beta
@@ -243,3 +244,6 @@
             weibull pdf-weibull
             (u/ex (str "stats: invalid tag: " tag)))]
     (apply f args)))
+
+(defn summary [xs]
+  (map u/keys->syms (s/summary (tab/maybe-dset xs))))

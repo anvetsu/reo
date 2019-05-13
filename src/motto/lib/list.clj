@@ -238,3 +238,19 @@
 
 (defn -map- [xs f]
   (map f xs))
+
+(defn factor
+  ([xs options]
+   (let [sort? (get options 'sort)
+         levels (get options 'levels)]
+     (loop [ss (cond
+                 levels levels
+                 sort? (apply sorted-set (sort xs))
+                 :else (set xs))
+            i 1
+            bag {}]
+       (if (seq ss)
+         (recur (rest ss) (inc i)
+                (assoc bag (first ss) i))
+         [(into {} bag) (map #(get bag %) xs)]))))
+  ([xs] (factor xs nil)))

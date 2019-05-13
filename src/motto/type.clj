@@ -42,7 +42,8 @@
   {:error x})
 
 (defn err? [x]
-  (and (:error x)
+  (and (map? x)
+       (:error x)
        true))
 
 (defn err-data [x]
