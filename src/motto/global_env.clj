@@ -16,6 +16,7 @@
             [motto.lib.dt]
             [motto.lib.list]
             [motto.lib.xls]
+            [motto.lib.dct]
             [motto.lib.charts]
             [motto.lib.stats]
             [motto.lib.json]
@@ -259,5 +260,7 @@
       (def sweep motto.lib.stats/sweep)
       (def gauss incanter.distributions/normal-distribution)
       (def draw incanter.distributions/draw)
+
+      (def dct motto.lib.dct/dct)
 
       (fn [expr] (eval expr)))))
