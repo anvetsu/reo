@@ -10,18 +10,22 @@
 (defn- writable? [x]
   (not (or (nil? x) (= x :void))))
 
+(def ^:private max-vec-out 100)
+
 (defn write-vec [v]
   (print "[")
   (when (seq v)
-    (loop [v v]
+    (loop [v v, i 0]
       (let [x (first v)
             r (rest v)]
         (write x)
         (when (and (not (string? x)) (seqable? x) (seq r))
           (println))
         (when (seq r)
-          (do (when-not (nil? (first r)) (print " "))
-              (recur r))))))
+          (if (>= i max-vec-out)
+            (print " ...")
+            (do (when-not (nil? (first r)) (print " "))
+                (recur r (inc i))))))))
   (print "]"))
 
 (defn- print-bval [b]
