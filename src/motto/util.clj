@@ -1,4 +1,5 @@
 (ns motto.util
+  (:require [clojure.string :as str])
   (:import [java.io File]))
 
 (defn ex [s]
@@ -87,3 +88,7 @@
        (.getBytes encoding)
        (java.io.ByteArrayInputStream.)
        (java.io.InputStreamReader.))))
+
+(defn normalized-sym [x]
+  (let [n (name x)]
+    (symbol (str/replace n #"[_ -]" "_"))))

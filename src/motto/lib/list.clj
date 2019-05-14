@@ -256,4 +256,7 @@
   ([xs] (factor xs nil)))
 
 (defn replc [xs x y]
-  (map #(if (= % x) y %) xs))
+  (let [p (if (seqable? x)
+            #(if (some #{%} x) y %)
+            #(if (= % x) y %))]
+    (map p xs)))

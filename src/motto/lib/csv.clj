@@ -91,7 +91,8 @@
          fmt3 (if-let [delim (:delim config)]
                 (with-delim fmt2 delim)
                 fmt2)
-         [hdr data] (rd filename fmt3 config)]
-     (tab/mkt hdr (spread (count hdr) data))))
+         [hdr data] (rd filename fmt3 config)
+         nhdr (doall (map u/normalized-sym hdr))]
+     (tab/mkt nhdr (spread (count hdr) data))))
   ([filename]
    (csv filename nil)))
