@@ -121,15 +121,20 @@
           (recur (rest cs) (conj rs (take n v))))
         (mkt colnames rs)))))
 
-(defn group [f default col by]
-  (loop [xs col, ys by, rs {}]
-    (if (seq ys)
-      (let [y (first ys)
-            r1 (get rs y default)
-            r2 (f (first xs) r1)]
-        (recur (rest xs) (rest ys)
-               (assoc rs y r2)))
-      (into {} rs))))
+(defn group
+  ([f default col by]
+   (loop [xs col, ys by, rs {}]
+     (if (seq ys)
+       (let [y (first ys)
+             r1 (get rs y default)
+             r2 (f (first xs) r1)]
+         (recur (rest xs) (rest ys)
+                (assoc rs y r2)))
+       (into {} rs))))
+  ([f default by]
+   (group f default (set by) by)))
+
+(def group-count (partial group #(inc %2) 0))
 
 (defn- as-row [colnames colvals]
   (into {} (map vector colnames colvals)))

@@ -260,3 +260,6 @@
             #(if (some #{%} x) y %)
             #(if (= % x) y %))]
     (map p xs)))
+
+(defn replcf [xs f y]
+  (map #(if (f %) y %) xs))

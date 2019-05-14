@@ -186,6 +186,7 @@
       (def eachprev motto.lib.list/each-previous)
       (def factor motto.lib.list/factor)
       (def replc motto.lib.list/replc)
+      (def replcf motto.lib.list/replcf)
 
       ;; table
       (def -tab- motto.tab/-t-)
@@ -195,6 +196,7 @@
       (def data motto.tab/rows)
       (def top motto.tab/top)
       (def group motto.tab/group)
+      (def group_count motto.tab/group-count)
       (def club motto.tab/tmerge)
       (def where motto.tab/-where-)
       (def -filter- motto.tab/-filter-)

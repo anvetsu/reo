@@ -12,4 +12,8 @@ ys:replc(d('birthwgt_oz) [97 98 99] nan)
 zs:d('birthwgt_lb)+d('birthwgt_oz)/16.0
 d2:assoc(d2 'birthwgt_lb xs 'birthwgt_oz ys 'totalwgt_lb zs)
 
-sort(group(^inc(X2) 0 set(d2('outcome)) d2('outcome)))
+sort(group_count(d2('outcome)))
+sort(group_count(d2('birthwgt_lb)))
+
+xs:d2('birthwgt_lb)
+d2:assoc(d2 'birthwgt_lb replcf(xs ^X1>20 nan))
