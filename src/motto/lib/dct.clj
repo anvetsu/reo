@@ -77,4 +77,4 @@
              rs (into [] (repeat (count header) []))]
         (if (seq dat)
           (recur (rest dat) (u/spread rs (first dat)))
-          (tab/mkt (map #(symbol (name %)) header) rs))))))
+          (tab/mkt (doall (map #(symbol (name %)) header)) rs))))))
