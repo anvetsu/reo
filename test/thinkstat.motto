@@ -18,6 +18,6 @@ sort(group_count(d2('birthwgt_lb)))
 xs:d2('birthwgt_lb)
 d2:assoc(d2 'birthwgt_lb replcf(xs ^X1>20 nan))
 
-mkpregmap:fn(t) collect(conj(X1 X2) [] t('caseid))
+mkpregmap:fn(t) collect(^conj(X1 X2) [] t('caseid))
 pregmap:mkpregmap(d2)
 d2('outcome)~pregmap("10229") "=> [4 4 4 4 4 4 1]"

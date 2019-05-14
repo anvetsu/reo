@@ -263,3 +263,25 @@
 
 (defn replcf [xs f y]
   (map #(if (f %) y %) xs))
+
+(defn rests [xss]
+  (loop [xss xss, rss []]
+    (if (seq xss)
+      (recur (rest xss) (conj rss (rest (first xss))))
+      rss)))
+
+(defn firsts [xss]
+  (loop [xss xss, rss []]
+    (if (seq xss)
+      (recur (rest xss) (conj rss (first (first xss))))
+      rss)))
+
+(defn filter-by [f xs yss]
+  (loop [xs xs
+         yss yss
+         rs (into [] (repeat (count yss) []))]
+    (if (seq xs)
+      (if (f (first xs))
+        (recur (rest xs) (rests yss) (u/spread rs (firsts yss)))
+        (recur (rest xs) (rests yss) rs))
+      rs)))

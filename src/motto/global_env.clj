@@ -187,6 +187,7 @@
       (def factor motto.lib.list/factor)
       (def replc motto.lib.list/replc)
       (def replcf motto.lib.list/replcf)
+      (def filter_by motto.lib.list/filter-by)
 
       ;; table
       (def -tab- motto.tab/-t-)
