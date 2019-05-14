@@ -231,3 +231,9 @@
 (deft pat-test
   ["ssplit(\"abcXdef\" \"X\")" ["abc" "def"]
    "ssplit(\"abcXdef\" rx(\"X\"))" ["abc" "def"]])
+
+(deft ex-test
+  ["f:fn(x) if {x=0 ex(\"div by 0\") x/10.0}" 'f
+   "f(100)" 10.0
+   "f(0)" :ex
+   "with_ex(^{X1} ^f(0))" "div by 0"])

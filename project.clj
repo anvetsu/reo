@@ -7,6 +7,7 @@
                  [incanter "1.9.3"]
                  [http-kit "2.3.0"]
                  [compojure "1.6.1"]
+                 [slingshot "0.12.2"]
                  [org.hsqldb/hsqldb "2.4.1"]
                  [com.mchange/c3p0 "0.9.5.4"]
                  [com.taoensso/nippy "2.14.0"]

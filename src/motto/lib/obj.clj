@@ -1,5 +1,6 @@
 (ns motto.lib.obj
-  (:require [motto.tab :as tab]))
+  (:require [slingshot.slingshot :as ss]
+            [motto.tab :as tab]))
 
 (defn- =? [x y]
   (= 0 (compare x y)))
@@ -41,3 +42,14 @@
   (or (tab/size x) (count x)))
 
 (defn void? [x] (= :void x))
+
+(defn ex [obj]
+  (ss/throw+ {:type :motto-ex :obj obj}))
+
+(defn with-ex [handler f]
+  (ss/try+
+   (f)
+   (catch [:type :motto-ex] {:keys [obj]}
+     (handler obj))
+   (catch Object obj
+     (handler obj))))

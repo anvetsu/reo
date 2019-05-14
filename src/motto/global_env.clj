@@ -47,8 +47,12 @@
       (def gt motto.lib.obj/gt)
       (def gteq motto.lib.obj/gteq)
       (def size motto.lib.obj/size)
-      (def is_nil nil?)
+      (def nul nil)
+      (def void :void)
+      (def is_nul nil?)
       (def is_void motto.lib.obj/void?)
+      (def ex motto.lib.obj/ex)
+      (def with_ex motto.lib.obj/with-ex)
 
       ;; math
       (def ceil motto.lib.math/ceil)
