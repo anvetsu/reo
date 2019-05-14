@@ -183,32 +183,36 @@
           (recur (rest s) ch (conj cs ch))))
       (ex (str "literal not terminated: " (su/implode cs))))))
 
+(def ^:private str-literal (partial quoted-literal str-end-char? identity))
+(def ^:private ticked-sym-literal (partial quoted-literal ticked-end-char? symbol))
+
 (defn- escaped-literal [tp s]
-  (let [[s cs]
-        (loop [s s, cs []]
-          (if (seq s)
-            (let [c (first s)]
-              (cond
-                (Character/isWhitespace (int c))
-                [s cs]
+  (if (and (= :sym tp)
+           (ticked-start-char? (second s)))
+    (let [[s sym] (ticked-sym-literal (rest s))]
+      [s `(quote ~sym)])
+    (let [[s cs]
+          (loop [s s, cs []]
+            (if (seq s)
+              (let [c (first s)]
+                (cond
+                  (Character/isWhitespace (int c))
+                  [s cs]
 
-                (opr-char? c)
-                (if (= :char tp)
-                  (if (>= (count cs) 2)
-                    [s cs]
-                    (recur (rest s) (conj cs c)))
-                  [s cs])
+                  (opr-char? c)
+                  (if (= :char tp)
+                    (if (>= (count cs) 2)
+                      [s cs]
+                      (recur (rest s) (conj cs c)))
+                    [s cs])
 
-                :else
-                (recur (rest s) (conj cs c))))
-            [s cs]))]
-    [s (read-string (su/implode cs))]))
+                  :else
+                  (recur (rest s) (conj cs c))))
+              [s cs]))]
+      [s (read-string (su/implode cs))])))
 
 (def ^:private char-literal (partial escaped-literal :char))
 (def ^:private sym-literal (partial escaped-literal :sym))
-
-(def ^:private str-literal (partial quoted-literal str-end-char? identity))
-(def ^:private ticked-sym-literal (partial quoted-literal ticked-end-char? symbol))
 
 (defn- tokenizer [ch]
   (cond
