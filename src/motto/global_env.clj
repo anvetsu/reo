@@ -8,6 +8,7 @@
             [motto.type]
             [motto.bitvec]
             [motto.tab]
+            [motto.lib.io]
             [motto.lib.obj]
             [motto.lib.csv]
             [motto.lib.burrow]
@@ -262,5 +263,22 @@
       (def draw incanter.distributions/draw)
 
       (def dct motto.lib.dct/dct)
+
+      ;; io
+      (def file_copy motto.lib.io/copy)
+      (def file_delete motto.lib.io/delete-file)
+      (def bytes_in motto.lib.io/input-stream)
+      (def bytes_out motto.lib.io/output-stream)
+      (def bytes_flush motto.lib.io/flush-out)
+      (def byte_write motto.lib.io/write-byte)
+      (def bytes_write motto.lib.io/write-bytes)
+      (def close motto.lib.io/close)
+      (def ireset motto.lib.io/reset)
+      (def iskip motto.lib.io/skip)
+      (def str_in motto.lib.io/reader)
+      (def str_out motto.lib.io/writer)
+      (def str_write motto.lib.io/write-str)
+      (def str_flush motto.lib.io/flush-writer)
+      (def str_in_seq clojure.core/line-seq)
 
       (fn [expr] (eval expr)))))
