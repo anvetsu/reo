@@ -39,3 +39,5 @@
 
 (defn size [x]
   (or (tab/size x) (count x)))
+
+(defn void? [x] (= :void x))

@@ -25,8 +25,6 @@
       r)))
 
 (defn burrow [opr x y]
-  (when (or (nil? x) (nil? y))
-    (throw (Exception. "invalid argument to operator")))
   (cond
     (and (u/atomic? x) (u/atomic? y)) (opr x y)
     (and (seqable? x) (seqable? y)) (seq-burrow opr x y)

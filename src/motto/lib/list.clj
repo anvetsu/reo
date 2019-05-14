@@ -254,3 +254,6 @@
                 (assoc bag (first ss) i))
          [(into {} bag) (map #(get bag %) xs)]))))
   ([xs] (factor xs nil)))
+
+(defn replc [xs x y]
+  (map #(if (= % x) y %) xs))

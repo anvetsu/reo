@@ -47,6 +47,8 @@
       (def gt motto.lib.obj/gt)
       (def gteq motto.lib.obj/gteq)
       (def size motto.lib.obj/size)
+      (def is_nil nil?)
+      (def is_void motto.lib.obj/void?)
 
       ;; math
       (def ceil motto.lib.math/ceil)
@@ -73,10 +75,15 @@
       (def tanh motto.lib.math/tanh)
       (def degrees motto.lib.math/degrees)
       (def radians motto.lib.math/radians)
+      (def nan Double/NaN)
+      (def is_nan motto.lib.math/nan?)
 
       ;; string
       (def sjoin motto.lib.str/join)
       (def ssplit motto.lib.str/split)
+
+      ;; bytes
+      (def byte_array byte-array)
 
       ;; regex
       (def rx re-pattern)
@@ -126,6 +133,7 @@
       (def bor motto.lib.burrow/bor)
       (def bandNot motto.lib.burrow/band-not)
       (def bxor motto.lib.burrow/bxor)
+      (def burrow motto.lib.burrow/burrow)
 
       ;; date-time
       (def dt motto.lib.dt/dt)
@@ -177,6 +185,7 @@
       (def without motto.lib.list/without)
       (def eachprev motto.lib.list/each-previous)
       (def factor motto.lib.list/factor)
+      (def replc motto.lib.list/replc)
 
       ;; table
       (def -tab- motto.tab/-t-)

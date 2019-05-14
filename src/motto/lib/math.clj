@@ -79,3 +79,6 @@
 
 (defn radians [^Double x]
   (Math/toRadians x))
+
+(defn nan? [^Double x]
+  (Double/isNaN x))
