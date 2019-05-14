@@ -94,11 +94,11 @@
         rs))))
 
 (defn collect [f default xs]
-  (loop [xs xs, rs {}]
+  (loop [xs xs, i 0, rs {}]
     (if (seq xs)
       (let [x (first xs)
-            v (f (get rs x default))]
-        (recur (rest xs) (assoc rs x v)))
+            v (f (get rs x default) i)]
+        (recur (rest xs) (inc i) (assoc rs x v)))
       (into {} rs))))
 
 (defn collect-once [f xs]

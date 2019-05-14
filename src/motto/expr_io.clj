@@ -82,15 +82,17 @@
 
 (defn- write-dict [m]
   (print "[")
-  (loop [m m]
-      (when (seq m)
+  (loop [m m, i 0]
+    (when (seq m)
+      (if (>= i max-vec-out)
+        (print " ...")
         (let [[k v] (first m)]
           (write k)
           (print ":")
           (write v)
           (when (seq (rest m))
             (print " "))
-          (recur (rest m)))))
+          (recur (rest m) (inc i))))))
   (print "]"))
 
 (defn write-err [e]
