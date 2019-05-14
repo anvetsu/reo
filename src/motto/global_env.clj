@@ -296,5 +296,6 @@
       (def str_write motto.lib.io/write-str)
       (def str_flush motto.lib.io/flush-writer)
       (def str_in_seq clojure.core/line-seq)
+      (def with_in motto.lib.io/with-is)
 
       (fn [expr] (eval expr)))))

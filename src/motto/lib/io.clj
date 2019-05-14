@@ -55,3 +55,7 @@
         (count s)))
 
 (defn flush-writer [^Writer w] (safe (.flush w) true))
+
+(defn with-is [f ^InputStream is]
+  (with-open [is is]
+    (f is)))
