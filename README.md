@@ -122,6 +122,9 @@ What is the total additional cost incurred to the company by the salary increase
 1014.75
 ```
 
+That concludes our very short tutorial! I hope it has whetted your apetite to learn more about Motto.
+To learn more, please go the [detailed documentation](docs/index.md).
+
 ### Scripts & Compilation
 
 Motto source files usually have the extension `.m`.
