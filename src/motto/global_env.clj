@@ -207,6 +207,7 @@
       (def -filter- motto.tab/-filter-)
       (def tmap motto.tab/tmap)
       (def flip motto.tab/flip)
+      (def save motto.tab/save)
 
       ;; jdbc
       (def datasource motto.dbconn/data-source)
@@ -253,6 +254,7 @@
       (def view motto.lib.charts/view)
       (def chartset motto.lib.charts/chart-set)
       (def logaxis motto.lib.charts/log-axis)
+      (def save_view motto.lib.charts/save)
 
       ;; stats
       (def median incanter.stats/median)

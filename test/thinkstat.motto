@@ -22,6 +22,14 @@ mkpregmap:fn(t) collect(^conj(X1 X2) [] t('caseid))
 pregmap:mkpregmap(d2)
 d2('outcome)~pregmap("10229") "=> [4 4 4 4 4 4 1]"
 
+ppl:['eye 'hair 'count]$[name~['green 'hazel 'green 'green 'blue 'green 'brown
+                          'blue 'blue 'brown 'blue 'brown 'brown 'hazel
+                          'hazel 'hazel]
+                         name~['black 'red 'blond 'brown 'black 'red 'black 'blond
+                          'brown 'blond 'red 'brown 'red 'black 'blond 'brown]
+                         [5/2 7 8 29/2 10 7 34 47 42 7/2 17/2 119/2 13 15/2 5 27]]
+chart('bar ppl('hair) ppl('count) ['groupby:ppl('eye) 'legend:1b])
+
 males:[140 145 160 190 155 165 150 190 195 138 160 155 153
        145 170 175 175 170 180 135 170 157 130 185 190 155
        170 155 215 150 145 155 150 155 150 180 160 135 160

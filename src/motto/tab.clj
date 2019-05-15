@@ -243,3 +243,16 @@
     (t? x) (t->dset x)
     (rt? x) (rt->dset x)
     :else x))
+
+(defn save
+  ([x filename options]
+   (let [dat (cond
+               (t? x) (t->dset x)
+               (rt? x) (rt->dset x)
+               :else x)
+         delim (get options 'delim)
+         header (get options 'header)
+         append (get options 'append)]
+     (ic/save dat filename :delim delim
+              :header header :append append)))
+  ([x filename] (save x filename nil)))

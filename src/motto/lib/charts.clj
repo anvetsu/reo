@@ -149,10 +149,12 @@
          y-label (get options 'ylabel)
          series-label (get options 'serieslabel)
          visible? (get options 'visible true)
+         group-by (get options 'groupby)
+         legend (get options 'legend false)
          bc (charts/bar-chart categories values
                               :title title :x-label x-label
-                              :y-label y-label
-                              :series-label series-label)]
+                              :y-label y-label :group-by group-by
+                              :legend legend :series-label series-label)]
      (when visible?
        (ic/view bc))
      bc))
@@ -263,3 +265,10 @@
             pie pie-chart
             (u/ex (str "chart: invalid tag: " tag)))]
     (apply f args)))
+
+(defn save
+  ([chart filename options]
+   (let [w (get options 'width)
+         h (get options 'height)]
+     (ic/save chart filename :width w :height h)))
+  ([chart filename] (save chart filename nil)))
