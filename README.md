@@ -9,7 +9,7 @@ Motto is a programmable platform for data analysis.
  - Built-in statistical and visualization functions.
  - High-performance immutable data structures - lists, sets, dictionaries, tables.
  - Support for parallel and distributed computing.
- - Integrates seamlessly with Java ecosystem.
+ - Integrates seamlessly with the Java ecosystem.
 
 ### Getting Started
 
@@ -29,14 +29,16 @@ motto v0.0.1
 
 ### A 5-minute Tutorial
 
-In the short tutorial, let's create and manipulate a database for managing employee salaries.
-A columnar-table is one of the basic structures used by Motto. This format make it easier to
+In this short tutorial, let's create and manipulate a database for managing employee salaries.
+A columnar-table is one of the basic structures used by Motto. This format makes it easy and efficient to
 write functions that aggregate values in individual columns.
 
 We use the `tab` function to manually create a table:
 
 ```
-> emp:tab(['name 'salary] [["Max G" "Kevin J" "Sue D" "Ben B" "Joe G"] [1900.78 2344.88 1200.56 3400.56 1300.78]])
+> emp:tab(['name 'salary]
+          [["Max G" "Kevin J" "Sue D" "Ben B" "Joe G"]
+           [1900.78 2344.88 1200.56 3400.56 1300.78]])
 emp
 ```
 
