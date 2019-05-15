@@ -1,7 +1,7 @@
 (ns motto.tab
   (:require [incanter.core :as ic]
             [motto.util :as u]
-            [motto.lib.list :as ls]))
+            [motto.list :as ls]))
 
 (declare mkt)
 
