@@ -1,7 +1,7 @@
-(ns motto.lib.burrow
+(ns motto.burrow
   (:require [motto.util :as u]
             [motto.bitvec :as bv]
-            [motto.lib.math :as math]))
+            [motto.math :as math]))
 
 (declare burrow)
 
