@@ -39,7 +39,6 @@ We use the `tab` function to manually create a table:
 > emp:tab(['name 'salary]
           [["Max G" "Kevin J" "Sue D" "Ben B" "Joe G"]
            [1900.78 2344.88 1200.56 3400.56 1300.78]])
-emp
 ```
 
 The first argument is a list of column names. We have two symbolic names here: `'name` and `'salary`.
@@ -65,16 +64,11 @@ We may also get graphical views of our data, in spreadsheet format or as a chart
 ```
 > view(emp)
 ```
-
-You should see the following display:
-
 ![employee data](docs/images/saldat.png)
 
 ```
 > chart('bar emp('name) emp('salary))
 ```
-
-This will produce the chart shown below:
 
 ![employee chart](docs/images/salchart.png)
 
