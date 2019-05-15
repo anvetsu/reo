@@ -4,12 +4,12 @@ Motto is a programmable platform for data analysis.
 
 #### Features
 
- - Import/export data from/to multiple source - RDBMS, CSV/JSON/XML files, HTTP APIs etc.
- - Manipulate and analyze data using a simple and expressive functional language.
+ - Multiple data sources and sinks - RDBMS, CSV/JSON/XML files, HTTP APIs etc.
+ - A simple and expressive functional language for data analysis.
  - Built-in statistical and visualization functions.
- - High-performance immutable lists, dictionaries and tables.
+ - High-performance immutable data structures - lists, sets, dictionaries, tables.
  - Support for parallel and distributed computing.
- - Runs on top of the JVM.
+ - Integrates seamlessly with Java ecosystem.
 
 ### Getting Started
 
