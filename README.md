@@ -58,7 +58,7 @@ We can have graphical displays of our data, in spreadsheet format or a chart:
 
 You should see the following display:
 
-![alt "employee data"](https://github.com/vijaymathew/motto/docs/images/saldat.png)
+!["employee data"](https://github.com/vijaymathew/motto/docs/images/saldat.png)
 
 ```
 > chart('bar emp('name) emp('salary))
@@ -66,7 +66,7 @@ You should see the following display:
 
 This will produce a chart like:
 
-![alt "employee chart"](https://github.com/vijaymathew/motto/docs/images/salchart.png)
+!["employee chart"](https://github.com/vijaymathew/motto/docs/images/salchart.png)
 
 If you want to, you can just `flip` a table to a record based format.
 
