@@ -195,9 +195,14 @@
   ([c v]
    (pie-chart c v nil)))
 
-(defn view [x]
-  (ic/view (tab/maybe-dset x))
-  nil)
+(defn view
+  ([x options]
+   (let [title (get options 'title "Motto View")
+         w (get options 'width)
+         h (get options 'height)]
+     (ic/view (tab/maybe-dset x) :title title :width w :height h))
+   nil)
+  ([x] (view x nil)))
 
 (defn set-point-size
   ([chart point-sz options]
