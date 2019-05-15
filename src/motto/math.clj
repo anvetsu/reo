@@ -1,4 +1,4 @@
-(ns motto.lib.math)
+(ns motto.math)
 
 (defn pow [x y & ys]
   (let [r (Math/pow x y)
