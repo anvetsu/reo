@@ -5,7 +5,7 @@
             [motto.const :as c]
             [motto.util :as u]))
 
-(def ^:private reserved-names #{'fn 'if 'rec})
+(def ^:private reserved-names #{'fn 'if 'rec 'ld})
 
 (def ^:private infix-fns {:hash '-concat-
                           :semicolon '-conj-
