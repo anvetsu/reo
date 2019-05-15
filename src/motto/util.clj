@@ -70,11 +70,18 @@
 (defn keys->type [m s->t]
   (into {} (map (fn [[k v]] [(s->t (name k)) v]) m)))
 
+(defn normalized-sym [x]
+  (let [n (name x)]
+    (symbol (str/replace n #"[_ -]" "_"))))
+
 (defn keys->syms [m]
   (keys->type m symbol))
 
 (defn keys->kws [m]
   (keys->type m keyword))
+
+(defn keys->nsyms [m]
+  (keys->type m normalized-sym))
 
 (defn in-seq [x]
   (if (seqable? x)
@@ -88,7 +95,3 @@
        (.getBytes encoding)
        (java.io.ByteArrayInputStream.)
        (java.io.InputStreamReader.))))
-
-(defn normalized-sym [x]
-  (let [n (name x)]
-    (symbol (str/replace n #"[_ -]" "_"))))

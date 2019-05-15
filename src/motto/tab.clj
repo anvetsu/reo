@@ -246,10 +246,7 @@
 
 (defn save
   ([x filename options]
-   (let [dat (cond
-               (t? x) (t->dset x)
-               (rt? x) (rt->dset x)
-               :else x)
+   (let [dat (maybe-dset x)
          delim (get options 'delim)
          header (get options 'header)
          append (get options 'append)]

@@ -208,6 +208,7 @@
       (def tmap motto.tab/tmap)
       (def flip motto.tab/flip)
       (def save motto.tab/save)
+      (def dataset incanter.core/dataset)
 
       ;; jdbc
       (def datasource motto.dbconn/data-source)

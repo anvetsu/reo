@@ -1,5 +1,6 @@
 (ns motto.lib.stats
   (:require [incanter.stats :as s]
+            [incanter.core :as ic]
             [motto.tab :as tab]
             [motto.util :as u]))
 
@@ -246,4 +247,5 @@
     (apply f args)))
 
 (defn summary [xs]
-  (map u/keys->syms (s/summary (tab/maybe-dset xs))))
+  (let [dat (if (vector? xs) (tab/mkt ['NA] [xs]) xs)]
+    (map u/keys->nsyms (s/summary (tab/maybe-dset dat)))))
