@@ -122,7 +122,7 @@ What is the total additional cost incurred to the company by the salary increase
 1014.75
 ```
 
-That concludes our very short tutorial! I hope it has whetted your apetite to learn more about Motto.
+That concludes our very short tutorial!
 To learn more, please go the [detailed documentation](docs/index.md).
 
 ### Scripts & Compilation
