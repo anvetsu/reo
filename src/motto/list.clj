@@ -1,7 +1,7 @@
-(ns motto.lib.list
+(ns motto.list
   (:require [motto.util :as u]
             [motto.bitvec :as bv]
-            [motto.lib.burrow :as b]))
+            [motto.burrow :as b]))
 
 (defn til [x]
   (into []
