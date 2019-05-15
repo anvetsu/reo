@@ -261,7 +261,7 @@
       (def median incanter.stats/median)
       (def mean incanter.stats/mean)
       (def sd incanter.stats/sd)
-      (def var incanter.stats/variance)
+      (def v incanter.stats/variance)
       (def cdf motto.lib.stats/cdf)
       (def pdf motto.lib.stats/pdf)
       (def chisqtest motto.lib.stats/chisq-test)
@@ -269,7 +269,7 @@
       (def quantile incanter.stats/quantile)
       (def sample_normal incanter.stats/sample-normal)
       (def cor incanter.stats/correlation)
-      (def covar incanter.stats/covariance)
+      (def cov incanter.stats/covariance)
       (def cmean incanter.stats/cumulative-mean)
       (def distance motto.lib.stats/distance)
       (def jaccard_index incanter.stats/jaccard-index)
@@ -280,7 +280,7 @@
       (def sweep motto.lib.stats/sweep)
       (def gauss incanter.distributions/normal-distribution)
       (def draw incanter.distributions/draw)
-
+      (def zscore motto.lib.stats/zscore)
       (def dct motto.lib.dct/dct)
 
       ;; io

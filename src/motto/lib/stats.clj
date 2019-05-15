@@ -249,3 +249,6 @@
 (defn summary [xs]
   (let [dat (if (vector? xs) (tab/mkt ['NA] [xs]) xs)]
     (map u/keys->nsyms (s/summary (tab/maybe-dset dat)))))
+
+(defn zscore [sd mean x]
+  (/ (- x mean) sd))
