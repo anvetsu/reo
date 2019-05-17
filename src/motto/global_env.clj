@@ -11,6 +11,7 @@
             [motto.burrow]
             [motto.math]
             [motto.list]
+            [motto.lib.clj-integ]
             [motto.lib.io]
             [motto.lib.obj]
             [motto.lib.csv]
@@ -53,6 +54,11 @@
       (def is_void motto.lib.obj/void?)
       (def ex motto.lib.obj/ex)
       (def with_ex motto.lib.obj/with-ex)
+
+      ;; Clojure integration
+      (def clj_refer motto.lib.clj-integ/clj-refer)
+      (def clj_use motto.lib.clj-integ/clj-use)
+      (def clj_require motto.lib.clj-integ/clj-require)
 
       ;; math
       (def ceil motto.math/ceil)
