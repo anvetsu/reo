@@ -1,7 +1,7 @@
 (defproject motto "0.1.0"
   :main motto.core
   :aot [motto.core]
-  :dependencies [[org.clojure/clojure "1.9.0"]
+  :dependencies [[org.clojure/clojure "1.10.0"]
                  [org.clojure/tools.cli "0.4.2"]
                  [org.clojure/math.combinatorics "0.1.5"]
                  [incanter "1.9.3"]
