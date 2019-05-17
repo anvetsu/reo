@@ -11,6 +11,7 @@
             [motto.burrow]
             [motto.math]
             [motto.list]
+            [motto.lib.sys]
             [motto.lib.clj-integ]
             [motto.lib.io]
             [motto.lib.obj]
@@ -41,6 +42,8 @@
       (def is_str string?)
       (def is_vec vector?)
       (def is_dict map?)
+
+      (def exit motto.lib.sys/exit)
 
       (def neq =)
       (def nlt <)
