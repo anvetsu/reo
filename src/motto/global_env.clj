@@ -15,7 +15,6 @@
             [motto.lib.io]
             [motto.lib.obj]
             [motto.lib.csv]
-            [motto.lib.str]
             [motto.lib.dt]
             [motto.lib.xls]
             [motto.lib.dct]
@@ -87,10 +86,6 @@
       (def radians motto.math/radians)
       (def nan Double/NaN)
       (def is_nan motto.math/nan?)
-
-      ;; string
-      (def sjoin motto.lib.str/join)
-      (def ssplit motto.lib.str/split)
 
       ;; bytes
       (def byte_array byte-array)

@@ -229,7 +229,7 @@
    "show(data)" [[3 38.0] [1 13.0] [4 50.0]]])
 
 (deft pat-test
-  ["ssplit(\"abcXdef\" \"X\")" ["abc" "def"]
+  ["ssplit:`clojure.string/split`" 'ssplit
    "ssplit(\"abcXdef\" rx(\"X\"))" ["abc" "def"]])
 
 (deft ex-test
