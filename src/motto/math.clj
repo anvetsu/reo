@@ -82,3 +82,6 @@
 
 (defn nan? [^Double x]
   (Double/isNaN x))
+
+(defn inf? [^Double x]
+  (Double/isInfinite x))

@@ -48,10 +48,15 @@
   (let [x (compare x y)]
     (or (< x 0) (= x 0))))
 
+(defn- safe-div [x y]
+  (if (zero? y)
+    Double/POSITIVE_INFINITY
+    (/ x y)))
+
 (def add   (partial burrow +))
 (def sub   (partial burrow -))
 (def mul   (partial burrow *))
-(def div   (partial burrow /))
+(def div   (partial burrow safe-div))
 (def residue (partial burrow mod))
 (def pow   (partial burrow math/pow))
 (def eq    (partial burrow =))

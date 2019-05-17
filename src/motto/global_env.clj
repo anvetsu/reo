@@ -32,8 +32,15 @@
       (def parse read-string)
       (def fst first)
       (def snd second)
-      (def isOdd odd?)
-      (def isEven even?)
+      (def is_odd odd?)
+      (def is_even even?)
+      (def is_int int?)
+      (def is_float float?)
+      (def is_double double?)
+      (def is_seq seqable?)
+      (def is_str string?)
+      (def is_vec vector?)
+      (def is_dict map?)
 
       (def neq =)
       (def nlt <)
@@ -86,6 +93,9 @@
       (def radians motto.math/radians)
       (def nan Double/NaN)
       (def is_nan motto.math/nan?)
+      (def inf Double/POSITIVE_INFINITY)
+      (def _inf Double/NEGATIVE_INFINITY)
+      (def is_inf motto.math/inf?)
 
       ;; bytes
       (def byte_array byte-array)
@@ -185,7 +195,7 @@
       (def dim motto.list/dim)
       (def sel motto.list/sel)
       (def in motto.list/in?)
-      (def inf motto.list/inf)
+      (def infs motto.list/infs)
       (def dig motto.list/dig)
       (def without motto.list/without)
       (def eachprev motto.list/each-previous)
@@ -195,6 +205,8 @@
       (def filter_by motto.list/filter-by)
 
       ;; table
+      (def is_tab motto.tab/t?)
+      (def is_rtab motto.tab/rt?)
       (def -tab- motto.tab/-t-)
       (def tab motto.tab/mkt)
       (def rtab motto.tab/mkrt)

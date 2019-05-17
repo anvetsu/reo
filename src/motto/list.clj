@@ -3,11 +3,13 @@
             [motto.bitvec :as bv]
             [motto.burrow :as b]))
 
-(defn til [x]
-  (into []
-        (if (pos? x)
-          (range 0 x)
-          [])))
+(defn til
+  ([n x]
+   (into []
+         (if (pos? x)
+           (range n x)
+           [])))
+  ([x] (til 0 x)))
 
 (defn listf
   ([f n i]
@@ -167,8 +169,8 @@
     true
     false))
 
-(defn inf [x]
-  (lazy-seq (cons x (inf x))))
+(defn infs [x]
+  (lazy-seq (cons x (infs x))))
 
 (defn take-repeat
   ([n xs orig-xs into-vec?]
