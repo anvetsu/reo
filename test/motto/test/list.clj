@@ -121,3 +121,7 @@
 (deft replc-test
   ["replc([10 2 100 2 3] 2 20)" [10 20 100 20 3]
    "replc([10 2 100 2 3] [2 3] 20)" [10 20 100 20 20]])
+
+(deft listf-test
+  ["take(5 listf(inc 0))" [0 1 2 3 4]
+   "take(5 listf(^X1+2 0))" [0 2 4 6 8]])

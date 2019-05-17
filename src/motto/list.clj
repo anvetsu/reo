@@ -11,12 +11,9 @@
            [])))
   ([x] (til 0 x)))
 
-(defn listf
-  ([f n i]
-   (if (>= i n)
-     []
-     (lazy-seq (cons (f i) (listf f n (inc i))))))
-  ([f n] (listf f n 0)))
+(defn listf [f n]
+  (let [r (f n)]
+    (lazy-seq (cons n (listf f r)))))
 
 (defn lift [n xs]
   (let [[f n] (if (neg? n)
