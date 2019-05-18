@@ -19,7 +19,8 @@
 
 (defn- force-err-msg [ex]
   (fmt-errmsg
-   (or (.getMessage ex)
+   (or (:cause (Throwable->map ex))
+       (.getMessage ex)
        (str (type ex)))))
 
 (defn repl []

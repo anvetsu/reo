@@ -17,14 +17,16 @@
   (when (seq v)
     (loop [v v, i 0]
       (let [x (first v)
-            r (rest v)]
+            r (rest v)
+            fr (first r)]
         (write x)
         (when (and (not (string? x)) (seqable? x) (seq r))
-          (println))
+          (when (and (not (string? fr)) (seqable? fr))
+            (println)))
         (when (seq r)
           (if (>= i max-vec-out)
             (print " ...")
-            (do (when-not (nil? (first r)) (print " "))
+            (do (when-not (nil? fr) (print " "))
                 (recur r (inc i))))))))
   (print "]"))
 
