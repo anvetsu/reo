@@ -206,6 +206,7 @@
       (def replc motto.list/replc)
       (def replcf motto.list/replcf)
       (def filter_by motto.list/filter-by)
+      (def lazy motto.list/lazy)
 
       ;; table
       (def is_tab motto.tab/t?)

@@ -239,3 +239,8 @@
    "f(100)" 10.0
    "f(0)" :ex
    "with_ex(^{X1} ^f(0))" "div by 0"])
+
+(deft lazy-test
+  ["incs:^lazy(X1 fn()incs(inc(X1)))" 'incs
+   "xs:incs(100)" 'xs
+   "lift(5 xs)" [100 101 102 103 104]])
