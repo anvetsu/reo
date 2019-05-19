@@ -29,7 +29,7 @@
    '(do
       (def -neg- -)
       (def dict hash-map)
-      (def randi rand-int)
+      (def roll rand-int)
       (def parse read-string)
       (def fst first)
       (def snd second)
