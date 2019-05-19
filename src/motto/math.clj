@@ -53,8 +53,11 @@
 (defn hypot [^Double x ^Double y]
   (Math/hypot x y))
 
-(defn log [^Double x]
-  (Math/log x))
+(defn log
+  ([^Double x]
+   (Math/log x))
+  ([^Double base ^Double x]
+   (/ (Math/log x) (Math/log base))))
 
 (defn log10 [^Double x]
   (Math/log10 x))
