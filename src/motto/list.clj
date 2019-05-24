@@ -6,9 +6,10 @@
 (defn til
   ([n x]
    (into []
-         (if (pos? x)
-           (range n x)
-           [])))
+         (cond
+           (pos? x) (range n x)
+           (neg? x) (reverse (range n (Math/abs x)))
+           :else [])))
   ([x] (til 0 x)))
 
 (defn listf [f n]
