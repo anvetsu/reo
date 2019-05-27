@@ -75,6 +75,8 @@ The logical operators are:
  * `&` - and
  * `|` - or
 
+Some examples:
+
 ```scheme
 ? 1 < 1+1
 ; 1b
