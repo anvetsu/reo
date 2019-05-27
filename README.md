@@ -47,8 +47,8 @@ Let's have a look at the table now:
 
 ```
 > emp
-name: [Max G Kevin J Sue D Ben B Joe G]
-salary: [1900.78 2344.88 1200.56 3400.56 1300.78]
+<span style="color:grey">name: [Max G Kevin J Sue D Ben B Joe G]
+salary: [1900.78 2344.88 1200.56 3400.56 1300.78]</span>
 ```
 
 Here is a quick "statistical" summary of the table:
