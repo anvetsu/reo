@@ -54,8 +54,8 @@ Let's have a look at the table now:
 ; salary: [1900.78 2344.88 1200.56 3400.56 1300.78]
 ```
 
-> In this tutorial, the output from Motto will be prefixed by a semi-colon (;).
-> Note that this is not part of the output produced by the real REPL.
+*Note* In this tutorial, the output from Motto will be identified by a semi-colon (;).
+This is not part of the output produced by the real REPL.
 
 Here is a quick "statistical" summary of the table:
 
