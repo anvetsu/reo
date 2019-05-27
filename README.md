@@ -35,7 +35,7 @@ write functions that aggregate values in individual columns.
 
 We use the `tab` function to manually create a table:
 
-```rust
+```lisp
 > emp:tab(['name 'salary]
           [["Max G" "Kevin J" "Sue D" "Ben B" "Joe G"]
            [1900.78 2344.88 1200.56 3400.56 1300.78]])
@@ -45,11 +45,11 @@ The first argument is a list of column names. We have two symbolic names here: `
 The second argument is a list of lists. Each list is the values for each column.
 Let's have a look at the table now:
 
-```rust
+```lisp
 > emp
 
-`name: [Max G Kevin J Sue D Ben B Joe G]
-salary: [1900.78 2344.88 1200.56 3400.56 1300.78]`
+; name: [Max G Kevin J Sue D Ben B Joe G]
+; salary: [1900.78 2344.88 1200.56 3400.56 1300.78]
 ```
 
 Here is a quick "statistical" summary of the table:
