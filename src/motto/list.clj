@@ -12,9 +12,12 @@
            :else [])))
   ([x] (til 0 x)))
 
-(defn listf [f n]
-  (let [r (f n)]
-    (lazy-seq (cons n (listf f r)))))
+(defn listf
+  ([f n]
+   (let [r (f n)]
+     (lazy-seq (cons n (listf f r)))))
+  ([f]
+   (lazy-seq (cons (f) (listf f)))))
 
 (defn lift [n xs]
   (let [[f n] (if (neg? n)
