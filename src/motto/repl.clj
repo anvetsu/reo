@@ -26,7 +26,7 @@
 (defn repl []
   (let [eval (env/make-eval)]
     (loop []
-      (do (print "> ") (flush)
+      (do (print "? ") (flush)
           (try
             (let [s (eio/read-multiln multiln-prompt)]
               (if s
