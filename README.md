@@ -37,7 +37,7 @@ write functions that aggregate values in individual columns.
 
 We use the `tab` function to manually create a table:
 
-```lisp
+```scheme
 > emp:tab(['name 'salary]
           [["Max G" "Kevin J" "Sue D" "Ben B" "Joe G"]
            [1900.78 2344.88 1200.56 3400.56 1300.78]])
@@ -47,7 +47,7 @@ The first argument is a list of column names. We have two symbolic names here: `
 The second argument is a list of lists. Each list is the values for each column.
 Let's have a look at the table now:
 
-```lisp
+```scheme
 > emp
 
 ; name: [Max G Kevin J Sue D Ben B Joe G]
@@ -59,7 +59,7 @@ This is not part of the output produced by the real REPL.
 
 Here is a quick "statistical" summary of the table:
 
-```lisp
+```scheme
 > summary(emp)
 
 ; [[col:name count:0 is_numeric:0b Joe_G:1 Ben_B:1 Sue_D:1 Kevin_J:1 Max_G:1]
@@ -68,12 +68,12 @@ Here is a quick "statistical" summary of the table:
 
 We may also get graphical views of our data, in spreadsheet format or as a chart:
 
-```lisp
+```scheme
 > view(emp)
 ```
 ![employee data](docs/images/saldat.png)
 
-```lisp
+```scheme
 > chart('bar emp('name) emp('salary))
 ```
 
@@ -81,7 +81,7 @@ We may also get graphical views of our data, in spreadsheet format or as a chart
 
 If you want to, you can just `flip` a table to a record based format.
 
-```lisp
+```scheme
 > flip(emp)
 
 ;    name  salary
@@ -103,14 +103,14 @@ some operations, but in this tutorial we only work with columnar data.
 
 Let's write a function to compute a given percentage of each salary:
 
-```lisp
+```scheme
 > sals:emp('salary)
 > incr:fn(percent) map(fn(s) s * percent, sals)
 ```
 
 We can use this function to give a 10% salary increment to all employees:
 
-```lisp
+```scheme
 > incr(0.1) + sals
 
 ; [2090.858 2579.368 1320.616 3740.616 1430.858]
@@ -118,7 +118,7 @@ We can use this function to give a 10% salary increment to all employees:
 
 How much salary increase is allotted to each employee?
 
-```lisp
+```scheme
 > (incr(0.1) + sals) - sals
 
 ; [190.078 234.48 120.05 340.05 130.077]
@@ -126,7 +126,7 @@ How much salary increase is allotted to each employee?
 
 What is the total additional cost incurred to the company by the salary increase?
 
-```lisp
+```scheme
 > sum((incr(0.1) + sals) - sals)
 
 ; 1014.75
