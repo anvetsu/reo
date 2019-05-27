@@ -24,10 +24,10 @@ This will land you in the REPL, where you can play with the platform:
 
 ```
 motto v0.0.1
->
+?
 ```
 
-The `>` prompt shows that Motto is waiting for your input.
+The `?` prompt shows that Motto is waiting for your input.
 
 ### A 5-minute Tutorial
 
@@ -38,7 +38,7 @@ write functions that aggregate values in individual columns.
 We use the `tab` function to manually create a table:
 
 ```scheme
-> emp:tab(['name 'salary]
+? emp:tab(['name 'salary]
           [["Max G" "Kevin J" "Sue D" "Ben B" "Joe G"]
            [1900.78 2344.88 1200.56 3400.56 1300.78]])
 ```
@@ -48,7 +48,7 @@ The second argument is a list of lists. Each list is the values for each column.
 Let's have a look at the table now:
 
 ```scheme
-> emp
+? emp
 
 ; name: [Max G Kevin J Sue D Ben B Joe G]
 ; salary: [1900.78 2344.88 1200.56 3400.56 1300.78]
@@ -60,7 +60,7 @@ This is not part of the output produced by the real REPL.
 Here is a quick "statistical" summary of the table:
 
 ```scheme
-> summary(emp)
+? summary(emp)
 
 ; [[col:name count:0 is_numeric:0b Joe_G:1 Ben_B:1 Sue_D:1 Kevin_J:1 Max_G:1]
 ;  [col:salary min:1200.56 max:3400.56 mean:2029.512 median:1900.78 is_numeric:1b]]
@@ -69,12 +69,12 @@ Here is a quick "statistical" summary of the table:
 We may also get graphical views of our data, in spreadsheet format or as a chart:
 
 ```scheme
-> view(emp)
+? view(emp)
 ```
 ![employee data](docs/images/saldat.png)
 
 ```scheme
-> chart('bar emp('name) emp('salary))
+? chart('bar emp('name) emp('salary))
 ```
 
 ![employee chart](docs/images/salchart.png)
@@ -82,7 +82,7 @@ We may also get graphical views of our data, in spreadsheet format or as a chart
 If you want to, you can just `flip` a table to a record based format.
 
 ```scheme
-> flip(emp)
+? flip(emp)
 
 ;    name  salary
 ; ---------------------------
@@ -92,7 +92,7 @@ If you want to, you can just `flip` a table to a record based format.
 ;    Ben B 3400.56
 ;    Joe G 1300.78
 
-> flip(flip(emp))
+? flip(flip(emp))
 
 ; name: [Max G Kevin J Sue D Ben B Joe G]
 ; salary: [1900.78 2344.88 1200.56 3400.56 1300.78]
@@ -104,14 +104,14 @@ some operations, but in this tutorial we only work with columnar data.
 Let's write a function to compute a given percentage of each salary:
 
 ```scheme
-> sals:emp('salary)
-> incr:fn(percent) map(fn(s) s * percent, sals)
+? sals:emp('salary)
+? incr:fn(percent) map(fn(s) s * percent, sals)
 ```
 
 We can use this function to give a 10% salary increment to all employees:
 
 ```scheme
-> incr(0.1) + sals
+? incr(0.1) + sals
 
 ; [2090.858 2579.368 1320.616 3740.616 1430.858]
 ```
@@ -119,7 +119,7 @@ We can use this function to give a 10% salary increment to all employees:
 How much salary increase is allotted to each employee?
 
 ```scheme
-> (incr(0.1) + sals) - sals
+? (incr(0.1) + sals) - sals
 
 ; [190.078 234.48 120.05 340.05 130.077]
 ```
@@ -127,7 +127,7 @@ How much salary increase is allotted to each employee?
 What is the total additional cost incurred to the company by the salary increase?
 
 ```scheme
-> sum((incr(0.1) + sals) - sals)
+? sum((incr(0.1) + sals) - sals)
 
 ; 1014.75
 ```
@@ -144,7 +144,7 @@ It is customary to call `ld` without the `.m` extension.
 For instance, if you have a script called "abc.m", it can be loaded as:
 
 ```
-> ld "abc"
+? ld "abc"
 ```
 
 `ld` will take care of compiling the script into object code, if the object code
@@ -153,7 +153,7 @@ file (with extension `.mo`) is not found.
 A script can be explicitly compiled into a `.mo` file by calling the `cf` (compile-file) function:
 
 ```
-> cf("abc")
+? cf("abc")
 ```
 
 The object code is compiled on-the-fly to JVM byte code.
