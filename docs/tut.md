@@ -130,11 +130,11 @@ quantities can be represented as two lists:
 The comma separator is required while mixing positive and negative numbers. E.g: `[2, -1 3]`. If the
 comma separator is left out, the list returned will be `[1 3]` instead of the expected `[2 -1 3]`.
 
-The total prices can be found by simply multiplying the two lists together:
+The total costs can be found by simply multiplying the two lists together:
 
 ```scheme
-? tot: price * qty
-? tot
+? cost: price * qty
+? cost
 ; [179.25 170.0 165.75 121.0 94.0]
 ```
 
@@ -213,7 +213,72 @@ lists of any dimension, the solution is the following simple program:
 ;  [-2 -1.2999999999999972 1 2 0 -0.5 -2]]
 ```
 
-### Deductions & Reductions
+### Reductions & Deductions
+
+Earlier in this tutorial, we calculated the cost of purchase of a list of products:
+
+```scheme
+? cost
+; [179.25 170.0 165.75 121.0 94.0]
+```
+
+We find the total cost by adding together all elements in the list.
+This can be achieved with the help of the `fold` operator denoted by the `@` symbol:
+
+```scheme
+? `+` @ cost
+; 730.0
+```
+
+As `+` is an operator the function attached to it is extracted by enclosing it in ticks (`).
+Now what does the fold (`@`) operator do? It basically inserts the `+` function between all the elements of
+the `cost` list and then evaluate the resulting expression:
+
+```scheme
+`+` @ cost => 179.25 + 170.0 + 165.75 + 121.0 + 94.0 => 730.0
+```
+
+The fold operator is defined in terms of a lower level function called `reduce`. This function takes three
+arguments: a function that is inserted between the elements, an initial value to start the folding and the list to be
+folded.
+
+```scheme
+? reduce(`+` 0 cost)
+; 730.0
+```
+
+Convenience functions for folding a list using the arithmetic operators are built-into Motto - `sum` for `+`, `dif` (difference) for `-`,
+`prd` (product) for `*` and `qt` (quotient) for `/`:
+
+```scheme
+? sum(cost)
+; 730.0
+
+? dif([4 3 2])
+; -1
+
+? prd([5 5 10])
+; 250
+
+? qt([100 5 2])
+; 10
+```
+
+Let's use fold for finding the average cost:
+
+```scheme
+? sum(cost) / count(cost)
+; 146.0
+```
+
+That was just an exercise! Normally, you should use the built-in `mean` function for this:
+
+```scheme
+? mean(cost)
+; 146.0
+```
+
+### Indexing & Iteration
 
 ;; TODO
 
