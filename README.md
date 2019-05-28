@@ -29,6 +29,8 @@ motto v0.0.1
 
 The `?` prompt shows that Motto is waiting for your input.
 
+Also see: [Documentation](docs/index.md)
+
 ### A 5-minute Tutorial
 
 In this short tutorial, let's create and manipulate a database for managing employee salaries.
