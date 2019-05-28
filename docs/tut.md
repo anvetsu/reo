@@ -213,11 +213,7 @@ lists of any dimension, the solution is the following simple program:
 ;  [-2 -1.2999999999999972 1 2 0 -0.5 -2]]
 ```
 
-### Tables
-
-;; TODO
-
-### Dictionaries
+### Deductions & Reductions
 
 ;; TODO
 
