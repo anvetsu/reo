@@ -124,6 +124,15 @@ quantities can be represented as two lists:
 ```scheme
 ? price:[59.75 34.0 55.25 60.5 23.5]
 ? qty:[3 5 3 2 4]
+```
+
+**Note** You may separate each element in a list by commas but this is optional most of the time.
+The comma separator is required while mixing positive and negative numbers. E.g: `[2, -1 3]`. If the
+comma separator is left out, the list returned will be `[1 3]` instead of the expected `[2 -1 3]`.
+
+The total prices can be found by simply multiplying the two lists together:
+
+```scheme
 ? tot: price * qty
 ? tot
 ; [179.25 170.0 165.75 121.0 94.0]
@@ -134,9 +143,13 @@ This is true for comparison operators and many other built-in functions. This "b
 of more complex shapes and structures. This advanced list processing capability eliminates the need for imperative,
 "loopy" code common in many languages.
 
-**Note** You may separate each element in a list by commas but this is optional most of the time.
-The comma separator is required while mixing positive and negative numbers. E.g: `[2, -1 3]`. If the
-comma separator is left out, the list returned will be `[1 3]` instead of the expected `[2 -1 3]`.
+You may freely mix numbers and lists in an arithmetic expression. For example, you can add a `5%` tax to the prices as,
+
+```scheme
+? tax:0.05
+? price + tax * price
+; [62.7375 35.7 58.0125 63.525 24.675]
+```
 
 ### Multi-dimensional Data
 
