@@ -278,9 +278,84 @@ That was just an exercise! Normally, you should use the built-in `mean` function
 ; 146.0
 ```
 
-### Indexing & Iteration
+### Indexing & Mapping
 
-;; TODO
+A list can be called like a function, with an index as argument. The value at that index will be returned.
+List indices starts at `0`.
+
+```scheme
+? xs:[10 78 34 90]
+? xs(0)
+; 10
+
+? sqrt(xs(2))
+; 5.830951894845301
+```
+
+What if want to apply a function to each element in a list and construct a list of the results?
+We can do thet with the `map` function:
+
+```scheme
+? map(sqrt xs)
+; [3.1622776601683795 8.831760866327848 5.830951894845301 9.486832980505138]
+```
+
+Mapping a function over a list a common operation, so we have an operator for that represented by the `~` (tilde) symbol.
+
+```scheme
+? sqrt ~ xs
+; [3.1622776601683795 8.831760866327848 5.830951894845301 9.486832980505138]
+```
+
+As a list itself is treated as a function, we can map it over a list of indices to extract a subset:
+
+```scheme
+? xs ~ [0 2 3]
+; [10 34 90]
+```
+
+We can combine the fold and map operators to return the accumulated results
+at each stage of the fold:
+
+```scheme
+? `+` @~ [1 2 3 4 5]
+; [1 3 6 10 15]
+```
+
+Here is a more practical example of `map`. We are given the following inforation about 5 employees in a company:
+
+```scheme
+? salary:[1500 2300 1200 3000 1250]
+? category:[0 2 1 0 1]
+```
+
+The management has decided to give a salary increment to employees in each category based on these fixed rates:
+
+ - Category 0: 500
+ - Category 1: 200
+ - Category 2: 350
+
+These rates can be represented as the list:
+
+```scheme
+? rate:[500 200 350]
+```
+
+The increment applicable to each employee can be found out by mapping the `rate` list over the `category` list:
+
+```scheme
+? rate ~ category
+; [500 350 200 500 200]
+```
+
+The actual increment can be computed by adding these rates to the `salary` list:
+
+```scheme
+? (rate ~ category) + salary
+; [2000 2650 1400 3500 1450]
+```
+
+Those are the new salaries!
 
 ### Functions
 
