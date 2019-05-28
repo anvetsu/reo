@@ -29,7 +29,7 @@ motto v0.0.1
 
 The `?` prompt shows that Motto is waiting for your input.
 
-Also see: [Documentation](docs/index.md)
+You may continue with the following short tutorial or visit the [Documentation](docs/index.md) pages.
 
 ### A 5-minute Tutorial
 
