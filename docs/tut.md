@@ -190,6 +190,8 @@ The `tab` function takes two arguments - the dimension and the sequence of data 
 ;  [36 37 38 37 37 36 35]]
 ```
 
+**Note** Just as for lists, the comma separator is optional for function arguments.
+
 If you find yourself tabulating too much, you may save a few keystrokes by using the `tab` operator (`$`):
 
 ```scheme
