@@ -134,10 +134,69 @@ This is true for comparison operators and many other built-in functions. This "b
 of more complex shapes and structures. This advanced list processing capability eliminates the need for imperative,
 "loopy" code common in many languages.
 
+**Note** You may separate each element in a list by commas but this is optional most of the time.
+The comma separator is required while mixing positive and negative numbers. E.g: `[2, -1 3]`. If the
+comma separator is left out, the list returned will be `[1 3]` instead of the expected `[2 -1 3]`.
+
 ### Multi-dimensional Data
 
-;; TODO
+Lists can be used to model data with multiple dimensions. An as example, consider the temperature forecasts (in Celsius) for two cities
+for the next 7 days:
 
+```scheme
+? forecast:[[37 36 37.5 37 35.4 33 35]
+            [38 38.3 37 35 37 36.5 37]]
+```
+
+The `dim` function can be used to find out the dimension of complex lists:
+
+```scheme
+? dim(forecast)
+; [2 7]
+```
+
+The output means `forecast` is a list with `2` rows and `7` columns.
+
+After 7 days we receive the actual temperature readings as a single list with 14 entries.
+The first 7 entries pertain to the first city and the next 7 entries are for the second city.
+
+```scheme
+? sensor_data:[36 35 37 36 35 34 35 36 37 38 37 37 36 35]
+? assert(count(sensor_data) = 14)
+```
+
+Before we can use this for comparison with the forecast, we need to mold this sequence into the
+appropriate shape or dimension. We can use the `tab` (tabulate) function for this.
+The `tab` function takes two arguments - the dimension and the sequence of data that needs to tabulated.
+
+```scheme
+? actual:tab([2 7] sensor_data)
+? actual
+
+; [[36 35 37 36 35 34 35]
+;  [36 37 38 37 37 36 35]]
+```
+
+If you find yourself tabulating too much, you may save a few keystrokes by using the `tab` operator (`$`):
+
+```scheme
+? [2 7] $ sensor_data
+
+; [[36 35 37 36 35 34 35]
+;  [36 37 38 37 37 36 35]]
+```
+
+Now that we have the forecast data and actual data, one basic question we would like to answer is
+how much the actual temperature readings varies from the forecast? As the arithmetic operators can burrow into
+lists of any dimension, the solution is the following simple program:
+
+```scheme
+? variance:actual - forecast
+? variance
+
+; [[-1 -1 -0.5 -1 -0.3999999999999986 1 0]
+;  [-2 -1.2999999999999972 1 2 0 -0.5 -2]]
+```
 
 ### Tables
 
