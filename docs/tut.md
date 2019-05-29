@@ -28,7 +28,7 @@ It is hoped that this tutorial will convince you of the veracity of that last se
 For simple data objects, like numbers and booleans, Motto behaves like any traditional programming
 language:
 
-```js
+```lisp
 ? 157.89 + 34.19
 ; 192.07999999999998
 
@@ -38,14 +38,14 @@ language:
 
 Large numbers may be written with an underscore for ease of reading:
 
-```js
+```lisp
 ? 1_50_000 * 45_000
 ; 6750000000
 ```
 
 Division of integers will result in an exact real value.
 
-```js
+```lisp
 ? 56 / 2
 ; 28
 
@@ -55,7 +55,7 @@ Division of integers will result in an exact real value.
 
 Divisions that involve an inexact floating-point number will produce an inexact result.
 
-```js
+```lisp
 ? 56 / 3.0
 ;18.666666666666668
 ```
@@ -63,7 +63,7 @@ Divisions that involve an inexact floating-point number will produce an inexact 
 Division by zero will return a constant that represents infinity, which can be used in other
 arithmetic operations. The only catch is that any operation that involve infinity will return infinity.
 
-```js
+```lisp
 ? 56/0
 ; inf
 
@@ -90,7 +90,7 @@ The logical operators are:
 
 Some examples:
 
-```js
+```lisp
 ? 1 < 1+1
 ; 1b
 
@@ -103,7 +103,7 @@ Some examples:
 
 Strings are enclosed in double-quotes. Character literals are prefixed by a `\`.
 
-```js
+```lisp
 ? "hello world"
 ; hello world
 
@@ -116,7 +116,7 @@ Non-visual characters may be written with more descriptively as `\space` and `\t
 String constants may also be represented as *symbols*. A symbol is an identifier prefixed by a single-quote (').
 Symbols that contain white-spaces or other special characters must be enclosed in tick-quotes (`).
 
-```js
+```lisp
 ? 'red
 ; red
 
@@ -135,7 +135,7 @@ Symbols are more efficient than strings because two symbols made of the same cha
 Variables are created using the `:` (declare) operator. This operator will return the symbolic name of the
 new variable. (In the sample code we have left out these return values).
 
-```js
+```lisp
 ? price:59.75
 ? qty:3
 ? tot:price * qty
@@ -150,7 +150,7 @@ of program expressions delimited by opening and closing curley-braces (`{` and `
 
 In the following program, the global definition of `x` is "shadowed" by the local definition of `x` in the code-block:
 
-```js
+```lisp
 ? x:10
 ? y:20
 
@@ -173,7 +173,7 @@ Assume that we have to find the total price of not one by five products. The pri
 quantities can be represented as two lists:
 
 
-```js
+```lisp
 ? price:[59.75 34.0 55.25 60.5 23.5]
 ? qty:[3 5 3 2 4]
 ```
@@ -184,7 +184,7 @@ comma separator is left out, the list returned will be `[1 3]` instead of the ex
 
 The total costs can be found by simply multiplying the two lists together:
 
-```js
+```lisp
 ? cost: price * qty
 ? cost
 ; [179.25 170.0 165.75 121.0 94.0]
@@ -197,7 +197,7 @@ of more complex shapes and structures. This advanced list processing capability 
 
 You may freely mix numbers and lists in an arithmetic expression. For example, you can add a `5%` tax to the prices as,
 
-```js
+```lisp
 ? tax:0.05
 ? price + tax * price
 ; [62.7375 35.7 58.0125 63.525 24.675]
@@ -209,14 +209,14 @@ You may freely mix numbers and lists in an arithmetic expression. For example, y
 Lists can be used to model data with multiple dimensions. An as example, consider the temperature forecasts (in Celsius) for two cities
 for the next 7 days:
 
-```js
+```lisp
 ? forecast:[[37 36 37.5 37 35.4 33 35]
             [38 38.3 37 35 37 36.5 37]]
 ```
 
 The `dim` function can be used to find out the dimension of complex lists:
 
-```js
+```lisp
 ? dim(forecast)
 ; [2 7]
 ```
@@ -226,7 +226,7 @@ The output means `forecast` is a list with `2` rows and `7` columns.
 After 7 days we receive the actual temperature readings as a single list with 14 entries.
 The first 7 entries pertain to the first city and the next 7 entries are for the second city.
 
-```js
+```lisp
 ? sensor_data:[36 35 37 36 35 34 35 36 37 38 37 37 36 35]
 ? assert(count(sensor_data) = 14)
 ```
@@ -235,7 +235,7 @@ Before we can use this for comparison with the forecast, we need to mold this se
 appropriate shape or dimension. We can use the `tab` (tabulate) function for this.
 The `tab` function takes two arguments - the dimension and the sequence of data that needs to tabulated.
 
-```js
+```lisp
 ? actual:tab([2 7] sensor_data)
 ? actual
 
@@ -247,7 +247,7 @@ The `tab` function takes two arguments - the dimension and the sequence of data 
 
 If you find yourself tabulating too much, you may save a few keystrokes by using the `tab` operator (`$`):
 
-```js
+```lisp
 ? [2 7] $ sensor_data
 
 ; [[36 35 37 36 35 34 35]
@@ -258,7 +258,7 @@ Now that we have the forecast data and actual data, one basic question we would 
 how much the actual temperature readings varies from the forecast? As the arithmetic operators can burrow into
 lists of any dimension, the solution is the following simple program:
 
-```js
+```lisp
 ? variance:actual - forecast
 ? variance
 
@@ -271,7 +271,7 @@ lists of any dimension, the solution is the following simple program:
 
 Earlier in this tutorial, we calculated the cost of purchase of a list of products:
 
-```js
+```lisp
 ? cost
 ; [179.25 170.0 165.75 121.0 94.0]
 ```
@@ -279,7 +279,7 @@ Earlier in this tutorial, we calculated the cost of purchase of a list of produc
 We find the total cost by adding together all elements in the list.
 This can be achieved with the help of the `fold` operator denoted by the `@` symbol:
 
-```js
+```lisp
 ? `+` @ cost
 ; 730.0
 ```
@@ -288,7 +288,7 @@ As `+` is an operator the function attached to it is extracted by enclosing it i
 Now what does the fold (`@`) operator do? It basically inserts the `+` function between all the elements of
 the `cost` list and then evaluate the resulting expression:
 
-```js
+```lisp
 `+` @ cost => 179.25 + 170.0 + 165.75 + 121.0 + 94.0 => 730.0
 ```
 
@@ -296,7 +296,7 @@ The fold operator is defined in terms of a lower level function called `reduce`.
 arguments: a function that is inserted between the elements, an initial value to start the folding and the list to be
 folded.
 
-```js
+```lisp
 ? reduce(`+` 0 cost)
 ; 730.0
 ```
@@ -304,7 +304,7 @@ folded.
 Convenience functions for folding a list using the arithmetic operators are built-into Motto - `sum` for `+`, `dif` (difference) for `-`,
 `prd` (product) for `*` and `qt` (quotient) for `/`:
 
-```js
+```lisp
 ? sum(cost)
 ; 730.0
 
@@ -320,14 +320,14 @@ Convenience functions for folding a list using the arithmetic operators are buil
 
 Let's use fold for finding the average cost:
 
-```js
+```lisp
 ? sum(cost) / count(cost)
 ; 146.0
 ```
 
 That was just an exercise! Normally, you should use the built-in `mean` function for this:
 
-```js
+```lisp
 ? mean(cost)
 ; 146.0
 ```
@@ -338,7 +338,7 @@ That was just an exercise! Normally, you should use the built-in `mean` function
 A list can be called like a function, with an index as argument. The value at that index will be returned.
 List indices starts at `0`.
 
-```js
+```lisp
 ? xs:[10 78 34 90]
 ? xs(0)
 ; 10
@@ -350,21 +350,21 @@ List indices starts at `0`.
 What if want to apply a function to each element in a list and construct a list of the results?
 We can do that with the `map` function:
 
-```js
+```lisp
 ? map(sqrt xs)
 ; [3.1622776601683795 8.831760866327848 5.830951894845301 9.486832980505138]
 ```
 
 Mapping a function over a list a common operation, so we have an operator for that represented by the `~` (tilde) symbol.
 
-```js
+```lisp
 ? sqrt ~ xs
 ; [3.1622776601683795 8.831760866327848 5.830951894845301 9.486832980505138]
 ```
 
 As a list itself is treated as a function, we can map it over a list of indices to extract a subset:
 
-```js
+```lisp
 ? xs ~ [0 2 3]
 ; [10 34 90]
 ```
@@ -372,14 +372,14 @@ As a list itself is treated as a function, we can map it over a list of indices 
 We can combine the fold and map operators to return the accumulated results
 at each stage of the fold:
 
-```js
+```lisp
 ? `+` @~ [1 2 3 4 5]
 ; [1 3 6 10 15]
 ```
 
 Here is a more practical example of `map`. We are given the following information about 5 employees in a company:
 
-```js
+```lisp
 ? salary:[1500 2300 1200 3000 1250]
 ? category:[0 2 1 0 1]
 ```
@@ -392,20 +392,20 @@ The management has decided to give a salary increment to employees in each categ
 
 These rates can be represented as the list:
 
-```js
+```lisp
 ? rate:[500 200 350]
 ```
 
 The increment applicable to each employee can be found out by mapping the `rate` list over the `category` list:
 
-```js
+```lisp
 ? rate ~ category
 ; [500 350 200 500 200]
 ```
 
 The actual increment can be computed by adding these rates to the `salary` list:
 
-```js
+```lisp
 ? (rate ~ category) + salary
 ; [2000 2650 1400 3500 1450]
 ```
@@ -418,13 +418,13 @@ Those are the new salaries!
 A dictionary is a data structure that associates names (keys) to values.
 Here is an example of using a dictionary to represent an employee record:
 
-```js
+```lisp
 emp:['name: "J Kale" 'dept: 101 'salary: 1500]
 ```
 
 A dictionary is indexed by keys:
 
-```js
+```lisp
 ? emp('name)
 ; J Kale
 
@@ -435,7 +435,7 @@ A dictionary is indexed by keys:
 If a non-existing key is looked-up, a `nil` value is returned, which has no printable representation.
 The function `is_nul` can be used to check if a value is `nil` or not.
 
-```js
+```lisp
 ? is_nul(emp('age))
 ; 1b
 ```
@@ -443,7 +443,7 @@ The function `is_nul` can be used to check if a value is `nil` or not.
 The `get` function also may be used to lookup keys. This function can accept an optional argument
 that will be returned instead of `nil` for missing keys.
 
-```js
+```lisp
 ? is_nul(get(emp 'age))
 ; 1b
 
@@ -453,7 +453,7 @@ that will be returned instead of `nil` for missing keys.
 
 Lists of dictionaries form tables. Here is a database of employee records:
 
-```js
+```lisp
 ? db:[['name:"J Kale"  'dept:101 'salary:1500]
       ['name:"M Sally" 'dept:100 'salary:2000]
       ['name:"K Joe"   'dept:101 'salary:1400]]
@@ -461,7 +461,7 @@ Lists of dictionaries form tables. Here is a database of employee records:
 
 How will you find the total salary? With the help of `map` and `sum`! First let's extract the salaries:
 
-```js
+```lisp
 ? sals:'salaries ~ db
 ? sals
 ; [1500 2000 1400]
@@ -469,7 +469,7 @@ How will you find the total salary? With the help of `map` and `sum`! First let'
 
 A symbol can also behave like a function. When applied to a dictionary, the symbol will extract the associated value.
 
-```js
+```lisp
 ? 'salary(emp)
 ; 1500
 ```
@@ -479,7 +479,7 @@ value for the list `sals`.
 
 Call `sum` on this list, and we have the total salary!
 
-```js
+```lisp
 ? sum(sals)
 ; 4900
 ```
@@ -488,14 +488,14 @@ Call `sum` on this list, and we have the total salary!
 
 If we perform a lot of aggregations like this, it will be more efficient to store tables in a different format, as shown below:
 
-```js
+```lisp
 ? db:['a: [1 2 3 4 5]
       'b: [10 20 30 40 50]]
 ```
 
 Now aggregations can be computed without an extra call to `map`.
 
-```js
+```lisp
 ? sum(db('a))
 ; 15
 ```
@@ -503,7 +503,7 @@ Now aggregations can be computed without an extra call to `map`.
 The `tab` function can be used to easily create such "columnar" tables. Let's re-define the employee table
 in this format:
 
-```js
+```lisp
 ? db:['name 'dept 'salary] $ [["J Kale" "M Sally" "K Joe"]
                               [101 100 101]
 			      [1500 2000 1400]]
@@ -516,14 +516,14 @@ in this format:
 
 Computing the total salary is now more straightforward:
 
-```js
+```lisp
 ? sum(db('salary))
 ; 4900
 ```
 
 Column names and data may be queried separately from the table:
 
-```js
+```lisp
 ? fields(db)
 ; [name dept salary]
 
@@ -535,7 +535,7 @@ Column names and data may be queried separately from the table:
 
 If required, a columnar table could be "flipped" into a record-based store:
 
-```js
+```lisp
 ? rec_db:flip(db)
 ? rec_db
 ;    name    dept  salary
@@ -553,7 +553,7 @@ If required, a columnar table could be "flipped" into a record-based store:
 
 And yes, a record-based table can be flipped back into a columnar store!
 
-```js
+```lisp
 ? flip(rec_db)
 ; name: [J Kale M Sally K Joe]
 ; dept: [101 100 101]
@@ -573,7 +573,7 @@ by the function parameterd (enclosed in brackets) and the function body.
 
 Here is how we will define a function that doubles its argument:
 
-```js
+```lisp
 ? dbl:fn(a) a + a
 ```
 
@@ -583,7 +583,7 @@ bound the doubling function to the name `dbl`.
 We can apply the `dbl` function to a single argument. It's double will be returned. As the function internally
 uses the burrowing `+` operator, `dbl` can seemlessly work with lists as well as single numbers.
 
-```js
+```lisp
 ? dbl(10)
 ; 20
 
@@ -596,13 +596,13 @@ uses the burrowing `+` operator, `dbl` can seemlessly work with lists as well as
 
 As another example, let's define a function that increments an amount by a percentage rate:
 
-```js
+```lisp
 ? incr:fn(percent amount) amount + amount * (percent/100.0)
 ```
 
 This is how we would call this two-argument function:
 
-```js
+```lisp
 ? incr(100 1000)
 ; 2000.0
 ? incr(50 1000)
@@ -623,7 +623,7 @@ Usually the `^` operator is used to define functions used only in a limited loca
 
 Here is `incr` defined as a use-once function and applied to the arguments `(50 1000)`:
 
-```js
+```lisp
 ? (^X2 + X2 * (X1/100.0))(50 1000)
 ; 1500.0
 ```
