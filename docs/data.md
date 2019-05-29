@@ -4,13 +4,13 @@
 
 ## Manipulating Structures
 
-### Concat & Append
+### Concat and Append
 
 ### Assoc, Merge etc
 
-## Lifting & Dropping
+## Lifting and Dropping
 
-## Filtering & Selecting
+## Filtering and Selecting
 
 ## Grouping
 
