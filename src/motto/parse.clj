@@ -121,10 +121,10 @@
         (loop [ts tokens, conds []]
           (if (seq ts)
             (let [ts (ignore-comma ts)]
-              (if (= :close-cb (first ts))
+              (if (= :closep (first ts))
                 [(conj conds :false) ts]
                 (let [[c ts1] (parse-expr ts)]
-                  (if (= :close-cb (first ts1))
+                  (if (= :closep (first ts1))
                     [(conj conds c) ts1]
                     (let [[b ts2] (parse-expr ts1)]
                       (recur ts2 (conj conds [c b])))))))
@@ -133,16 +133,14 @@
 
 (defn- parse-if [tokens]
   (cond
-    (= :open-cb (first tokens))
+    (= :openp (first tokens))
     (let [[expr ts] (parse-cond (rest tokens))]
-      (when-not (= :close-cb (first ts))
+      (when-not (= :closep (first ts))
         (ex-tokens "`if` condition not terminated" tokens))
       [expr (rest ts)])
 
     :else
-    (let [[c ts1] (parse-expr tokens)
-          [b ts2] (parse-expr ts1)]
-      [[:when c b] ts2])))
+    (ex-tokens "invalid `if`, missing opening parenthesis" tokens)))
 
 (defn- transl-ident [x]
   (cond

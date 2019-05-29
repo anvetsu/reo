@@ -11,7 +11,7 @@ pts:counts(orders('paymenttype))
 
 ords_by_code:fn(c) count_eq(c orders('paymenttype))
 
-tpgrp:fn(a b) group(fn(tp c) if {a <= tp & tp < b c+1 c}, 0 orders('totalprice), orders('paymenttype))
+tpgrp:fn(a b) group(fn(tp c) if (a <= tp & tp < b c+1 c), 0 orders('totalprice), orders('paymenttype))
 [["0-10" tpgrp(0 10)] ["10-100" tpgrp(10 100)] ["100-1000" tpgrp(100 1000)]]
 
 zipords:group(fn(nord, _) nord+1, 0, orders('numorders), orders('zipcode))

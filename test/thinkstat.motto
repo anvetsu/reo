@@ -2,7 +2,7 @@
 d:dct("./2002FemPreg.dct" "./2002FemPreg.dat.gz")
 
 ;; set agepreg to floats
-nilzero:fn(x) if {not(x) 0 x}
+nilzero:fn(x) if (not(x) 0 x)
 ap:nilzero~d('agepreg)
 ap2:ap/100.0
 d2:assoc(d 'agepreg ap2)

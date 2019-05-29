@@ -5,8 +5,8 @@ users:tab(['id 'name]
             "Kate" "Klein"]])
 friendships:[[0 1] [0 2] [1 2] [1 3] [2 3] [3 4] [4 5] [5 6] [5 7] [6 8] [7 8] [8 9]]
 
-friends:fn(i) truths(map(fn(x) if { fst(x) = i snd(x)
-                                    snd(x) = i fst(x) }
+friends:fn(i) truths(map(fn(x) if ( fst(x) = i snd(x)
+                                    snd(x) = i fst(x) )
                           friendships))
 allfriends:map(friends til(count(users('name))))
 
@@ -43,8 +43,8 @@ disc(84) "5"
 alph_lower:str_split("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 alph_upper:str_split("ABCDEFGHIJKLMNOPQRSTUVWXYZ ABCDEFGHIJKLMNOPQRSTUVWXYZ*")
 tale:str_split("Le Petit Chaperon-Rouge a bouffé le Loup")
-posp:fn(xs x) {i:pos(xs x) if {i = -1 count(xs)
-                               i }}
+posp:fn(xs x) {i:pos(xs x) if (i = -1 count(xs)
+                               i )}
 u:fn(c) alph_upper(posp(alph_lower c))
 str_join(u~tale)
 
