@@ -29,7 +29,8 @@ motto v0.0.1
 
 The `?` prompt shows that Motto is waiting for your input.
 
-You may continue with the following short tutorial or visit the [Documentation](docs/index.md) pages.
+It is suggested that you work through the following short tutorial and then
+proceed to the rest of the [Documentation](docs/index.md).
 
 ### A 5-minute Tutorial
 
