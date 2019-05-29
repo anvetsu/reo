@@ -143,6 +143,27 @@ new variable. (In the sample code we have left out these return values).
 ; 179.25
 ```
 
+### Controlling visibility
+
+Visibility or scope of variables can be controlled by declaring them within "code-blocks". A code-block is any sequence
+of program expressions delimited by opening and closing curley-braces (`{` and `}`).
+
+In the following program, the global definition of `x` is "shadowed" by the local definition of `x` in the code-block:
+
+```scheme
+? x:10
+? y:20
+
+? x+y
+; 30
+
+? {x:100 x+y}
+; 120
+
+? x+y
+; 30
+```
+
 <a name="lists"></a>
 ## Lists
 
@@ -595,6 +616,10 @@ This is how we would call this two-argument function:
 ;; TODO
 
 ### Function literals
+
+;; TODO
+
+### Closures
 
 ;; TODO
 
