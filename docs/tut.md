@@ -1,6 +1,6 @@
 # Motto - An Extended Tutorial
 
-Computers comsume and create all sorts of data - numbers, texts, lists and tables.
+Computers consume and create all sorts of data - numbers, texts, lists and tables.
 As the encoding of data becomes more complex, people tend to use specialized tools.
 As an example, spreadsheet programs are used for visualizing and manipulating tabular data.
 
@@ -99,6 +99,22 @@ Strings are enclosed in double-quotes. Character literals are prefixed by a `\`.
 ```
 
 Non-visual characters may be written with more descriptively as `\space` and `\tab`.
+
+String constants may also be represented as *symbols*. A symbol is an identifier prefixed by a single-quote (').
+Symbols that contain white-spaces or other special characters must be enclosed in tick-quotes (`).
+
+```scheme
+? 'red
+; red
+
+? '`hello world`
+; hello world
+
+? '`+++---`
+; +++---
+```
+
+Symbols are more efficient than strings because two symbols made of the same characters share the same space in memory.
 
 ### Variables
 
@@ -293,7 +309,7 @@ List indices starts at `0`.
 ```
 
 What if want to apply a function to each element in a list and construct a list of the results?
-We can do thet with the `map` function:
+We can do that with the `map` function:
 
 ```scheme
 ? map(sqrt xs)
@@ -322,7 +338,7 @@ at each stage of the fold:
 ; [1 3 6 10 15]
 ```
 
-Here is a more practical example of `map`. We are given the following inforation about 5 employees in a company:
+Here is a more practical example of `map`. We are given the following information about 5 employees in a company:
 
 ```scheme
 ? salary:[1500 2300 1200 3000 1250]
@@ -357,14 +373,167 @@ The actual increment can be computed by adding these rates to the `salary` list:
 
 Those are the new salaries!
 
+### Dictionaries & Tables
+
+A dictionary is a data structure that associates names (keys) to values.
+Here is an example of using a dictionary to represent an employee record:
+
+```scheme
+emp:['name: "J Kale" 'dept: 101 'salary: 1500]
+```
+
+A dictionary is indexed by keys:
+
+```scheme
+? emp('name)
+; J Kale
+
+? emp('salary)
+; 1500
+```
+
+If a non-existing key is looked-up, a `nil` value is returned, which has no printable representation.
+The function `is_nul` can be used to check if a value is `nil` or not.
+
+```scheme
+? is_nul(emp('age))
+; 1b
+```
+
+The `get` function also may be used to lookup keys. This function can accept an optional argument
+that will be returned instead of `nil` for missing keys.
+
+```scheme
+? is_nul(get(emp 'age))
+; 1b
+
+? get(emp 'age 45)
+; 45
+```
+
+Lists of dictionaries form tables. Here is a database of employee records:
+
+```scheme
+? db:[['name:"J Kale"  'dept:101 'salary:1500]
+      ['name:"M Sally" 'dept:100 'salary:2000]
+      ['name:"K Joe"   'dept:101 'salary:1400]]
+```
+
+How will you find the total salary? With the help of `map` and `sum`! First let's extract the salaries:
+
+```scheme
+? sals:'salaries ~ db
+? sals
+; [1500 2000 1400]
+```
+
+A symbol can also behave like a function. When applied to a dictionary, the symbol will extract the associated value.
+
+```scheme
+? 'salary(emp)
+; 1500
+```
+
+To extract all salaries in the `db` list, we just map the symbol `'salary` over that list. That's how we obtained the
+value for the list `sals`.
+
+Call `sum` on this list, and we have the total salary!
+
+```scheme
+? sum(sals)
+; 4900
+```
+
+#### Columnar tables
+
+If we perform a lot of aggregations like this, it will be more efficient to store tables in a different format, as shown below:
+
+```scheme
+? db:['a: [1 2 3 4 5]
+      'b: [10 20 30 40 50]]
+```
+
+Now aggregations can be computed without an extra call to `map`.
+
+```scheme
+? sum(db('a))
+; 15
+```
+
+The `tab` function can be used to easily create such "columnar" tables. Let's re-define the employee table
+in this format:
+
+```scheme
+? db:['name 'dept 'salary] $ [["J Kale" "M Sally" "K Joe"]
+                              [101 100 101]
+			      [1500 2000 1400]]
+
+? db
+; name: [J Kale M Sally K Joe]
+; dept: [101 100 101]
+; salary: [1500 2000 1400]
+```
+
+Computing the total salary is now more straightforward:
+
+```scheme
+? sum(db('salary))
+; 4900
+```
+
+Column names and data may be queried separately from the table:
+
+```scheme
+? fields(db)
+; [name dept salary]
+
+? data(db)
+; [[J Kale M Sally K Joe]
+;  [101 100 101]
+;  [1500 2000 1400]]
+```
+
+If required, a columnar table could be "flipped" into a record-based store:
+
+```scheme
+? rec_db:flip(db)
+? rec_db
+;    name    dept  salary
+; ---------------------------------------
+;   J Kale     101    1500
+;  M Sally     100    2000
+;    K Joe     101    1400
+
+? fields(rec_db)
+; [name dept salary]
+
+? data(rec_db)(0)
+;[J Kale 101 1500]
+```
+
+And yes, a record-based table can be flipped back into a columnar store!
+
+```scheme
+? flip(rec_db)
+; name: [J Kale M Sally K Joe]
+; dept: [101 100 101]
+; salary: [1500 2000 1400]
+```
+
+We will learn more about tables in the tutorial on [Data Analysis](data.md).
+
 ### Functions
 
 ;; TODO
 
-### Exceptions
+### Conditions & Control flow
 
 ;; TODO
 
-### Integration with JVM
+### Infinite Streams of Data
+
+;; TODO
+
+### Dealing with Errors
 
 ;; TODO
