@@ -10,17 +10,17 @@ in a weekend. This makes Motto a more expressive and scalable tool than a point-
 
 It is hoped that this tutorial will convince you of the veracity of that last sentence.
 
-1  [Simple Calculations](#simp)
-2  [Variables](#vars)
-3  [Lists](#lists)
-4  [Multiple Dimensions](#dims)
-5  [Reductions & Deductions](#reds)
-6  [Indexing & Mapping](#idx)
-7  [Dictionaries & Tables](#dicts)
-8  [Functions](#funs)
-9  [Conditions & Control Flow](#conds)
-10 [Infinit Data Streams](#inf)
-11 [Dealing with Errors](#err)
+1. [Simple Calculations](#simp)
+2. [Variables](#vars)
+3. [Lists](#lists)
+4. [Multiple Dimensions](#dims)
+5. [Reductions & Deductions](#reds)
+6. [Indexing & Mapping](#idx)
+7. [Dictionaries & Tables](#dicts)
+8. [Functions](#funs)
+9. [Conditions & Control Flow](#conds)
+10. [Infinit Data Streams](#inf)
+11. [Dealing with Errors](#err)
 
 <a name="simp"></a>
 ## Simple Calculations
