@@ -563,7 +563,7 @@ And yes, a record-based table can be flipped back into a columnar store!
 We will learn more about tables in the tutorial on [data analysis](data.md).
 
 <a name="funs"></a>
-### Functions
+## Functions
 
 So far we have used many functions that come built-in with Motto - `map`, `sum`, `reduce` and so on.
 We have seen that the operators like `+`, `*` and `=` themselves are functions.
@@ -611,10 +611,6 @@ This is how we would call this two-argument function:
 ; [1100.0 2100.0 4500.0]
 ```
 
-### Optional & Keyword arguments
-
-;; TODO
-
 ### Function literals
 
 ;; TODO
@@ -624,16 +620,20 @@ This is how we would call this two-argument function:
 ;; TODO
 
 <a name="conds"></a>
-### Conditions & Control flow
+## Conditions & Control flow
+
+;; TODO
+
+### Functions with optional and named arguments
 
 ;; TODO
 
 <a name="inf"></a>
-### Infinite Data Streams
+## Infinite Data Streams
 
 ;; TODO
 
 <a name="err"></a>
-### Dealing with Errors
+## Dealing with Errors
 
 ;; TODO

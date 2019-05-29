@@ -2,6 +2,14 @@
 
 ( WIP )
 
+## Manipulating Structures
+
+### Concat & Append
+
+### Assoc, Merge etc
+
+### Sets
+
 ## Lifting & Dropping
 
 ## Filtering & Selecting
