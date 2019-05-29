@@ -1,9 +1,8 @@
 # Motto Documentation
 
-- [An Extended Tutorial](tut.md)
-- [Advanced Data Analysis](data.md)
-- Creating Visualizations
-- Data Import & Export
-
-- Function Reference
-- Platform Integration
+1. [An Extended Tutorial](tut.md)
+2. [Munching Data](data.md)
+3. Visualizing Data
+4. Sourcing Data
+5. Platform & Service Integrations
+6. Function Reference

@@ -1,4 +1,4 @@
-# Data Analysis with Motto
+# Data Munching
 
 ( WIP )
 
@@ -8,13 +8,13 @@
 
 ### Assoc, Merge etc
 
-### Sets
-
 ## Lifting & Dropping
 
 ## Filtering & Selecting
 
 ## Grouping
+
+## Set Operations
 
 ## Doing Statistics
 

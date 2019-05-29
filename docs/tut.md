@@ -560,7 +560,7 @@ And yes, a record-based table can be flipped back into a columnar store!
 ; salary: [1500 2000 1400]
 ```
 
-We will learn more about tables in the tutorial on [data analysis](data.md).
+We will learn more about tables in the [next chapter](data.md).
 
 <a name="funs"></a>
 ## Functions
@@ -597,25 +597,42 @@ uses the burrowing `+` operator, `dbl` can seemlessly work with lists as well as
 As another example, let's define a function that increments an amount by a percentage rate:
 
 ```scheme
-? incr:fn(amount percent) amount + amount * (percent/100.0)
+? incr:fn(percent amount) amount + amount * (percent/100.0)
 ```
 
 This is how we would call this two-argument function:
 
 ```scheme
-? incr(1000 100)
+? incr(100 1000)
 ; 2000.0
-? incr(1000 50)
+? incr(50 1000)
 ; 1500.0
-? incr([1000 2000 3000] [10 5 50])
+? incr([10 5 50] [1000 2000 3000])
 ; [1100.0 2100.0 4500.0]
+? incr(5 [1000 2000 3000])
+; [1050.0 2100.0 3150.0]
 ```
 
 ### Function literals
 
-;; TODO
+As functions are the primary means of abstraction in the language, there is a shorthand operator for defining them.
+The `fn` keyword and the parameter list could be replaced by the `^` operator. A function defined this way can accept
+an arbitrary number of arguments. Each argument is referenced in the body of the function as `X1`, `X2`, `X3` and so on.
+
+Usually the `^` operator is used to define functions used only in a limited local scope.
+
+Here is `incr` defined as a use-once function and applied to the arguments `(50 1000)`:
+
+```scheme
+? (^X2 + X2 * (X1/100.0))(50 1000)
+; 1500.0
+```
 
 ### Closures
+
+;; TODO
+
+### Partials
 
 ;; TODO
 
