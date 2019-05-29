@@ -9,3 +9,5 @@
 ## Grouping
 
 ## Doing Statistics
+
+## Binary Data
