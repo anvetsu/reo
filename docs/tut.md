@@ -10,7 +10,7 @@ in a weekend. This makes Motto a more expressive and scalable tool than a point-
 
 It is hoped that this tutorial will convince you of the veracity of that last sentence.
 
-This tutorial is divided into the following sections:
+This document is divided into the following sections:
 
 1. [Simple Calculations](#simp)
 2. [Variables](#vars)
