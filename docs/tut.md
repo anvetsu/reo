@@ -539,10 +539,62 @@ And yes, a record-based table can be flipped back into a columnar store!
 ; salary: [1500 2000 1400]
 ```
 
-We will learn more about tables in the tutorial on [Data Analysis](data.md).
+We will learn more about tables in the tutorial on [data analysis](data.md).
 
 <a name="funs"></a>
 ### Functions
+
+So far we have used many functions that come built-in with Motto - `map`, `sum`, `reduce` and so on.
+We have seen that the operators like `+`, `*` and `=` themselves are functions.
+
+In this section we will see how we can define our own functions. A function is created by the `fn` keyword, followed
+by the function parameterd (enclosed in brackets) and the function body.
+
+Here is how we will define a function that doubles its argument:
+
+```scheme
+? dbl:fn(a) a + a
+```
+
+Functions are also data, so we can bind a function to a variable. In the above example, we have
+bound the doubling function to the name `dbl`.
+
+We can apply the `dbl` function to a single argument. It's double will be returned. As the function internally
+uses the burrowing `+` operator, `dbl` can seemlessly work with lists as well as single numbers.
+
+```scheme
+? dbl(10)
+; 20
+
+? dbl([1 2 3])
+; [2 4 6]
+
+? dbl([[2 3] 4 5 [[[6 7]]]])
+; [[4 6] 8 10 [[[12 14]]]]
+```
+
+As another example, let's define a function that increments an amount by a percentage rate:
+
+```scheme
+? incr:fn(amount percent) amount + amount * (percent/100.0)
+```
+
+This is how we would call this two-argument function:
+
+```scheme
+? incr(1000 100)
+; 2000.0
+? incr(1000 50)
+; 1500.0
+? incr([1000 2000 3000] [10 5 50])
+; [1100.0 2100.0 4500.0]
+```
+
+### Optional & Keyword arguments
+
+;; TODO
+
+### Function literals
 
 ;; TODO
 
