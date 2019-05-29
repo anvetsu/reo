@@ -1,6 +1,9 @@
 # Motto Documentation
 
 - [An Extended Tutorial](tut.md)
-- [Data Analysis with Motto](data.md)
+- [Advanced Data Analysis](data.md)
+- Creating Visualizations
+- Data Import & Export
+
 - Function Reference
-- Customizing and Extending Motto
+- Platform Integration
