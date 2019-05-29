@@ -2,13 +2,15 @@
 
 Computers consume and create all sorts of data - numbers, texts, lists and tables.
 As the encoding of data becomes more complex, people tend to use specialized tools.
-As an example, spreadsheet programs are used for visualizing and manipulating tabular data.
+For example, spreadsheet programs are used for visualizing and manipulating tabular data.
 
 In contrast, Motto strives to be a powerful tool that can deal with data in many forms
 and shapes. The user interface to Motto is an elegant programming language that you can pick up
 in a weekend. This makes Motto a more expressive and scalable tool than a point-and-click GUI program.
 
 It is hoped that this tutorial will convince you of the veracity of that last sentence.
+
+This tutorial is divided into the following sections:
 
 1. [Simple Calculations](#simp)
 2. [Variables](#vars)
