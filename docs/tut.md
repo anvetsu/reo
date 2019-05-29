@@ -10,10 +10,20 @@ in a weekend. This makes Motto a more expressive and scalable tool than a point-
 
 It is hoped that this tutorial will convince you of the veracity of that last sentence.
 
-- [Simple Data](#simple_data)
+1  [Simple Calculations](#simp)
+2  [Variables](#vars)
+3  [Lists](#lists)
+4  [Multiple Dimensions](#dims)
+5  [Reductions & Deductions](#reds)
+6  [Indexing & Mapping](#idx)
+7  [Dictionaries & Tables](#dicts)
+8  [Functions](#funs)
+9  [Conditions & Control Flow](#conds)
+10 [Infinit Data Streams](#inf)
+11 [Dealing with Errors](#err)
 
-<a name="simple_data"></a>
-### Simple Data
+<a name="simp"></a>
+## Simple Calculations
 
 For simple data objects, like numbers and booleans, Motto behaves like any traditional programming
 language:
@@ -119,7 +129,8 @@ Symbols that contain white-spaces or other special characters must be enclosed i
 
 Symbols are more efficient than strings because two symbols made of the same characters share the same space in memory.
 
-### Variables
+<a name="vars"></a>
+## Variables
 
 Variables are created using the `:` (declare) operator. This operator will return the symbolic name of the
 new variable. (In the sample code we have left out these return values).
@@ -132,7 +143,8 @@ new variable. (In the sample code we have left out these return values).
 ; 179.25
 ```
 
-### Lists
+<a name="lists"></a>
+## Lists
 
 Motto can also operate on lists of values. Lists are delimited by opening and closing square brackets.
 
@@ -170,7 +182,8 @@ You may freely mix numbers and lists in an arithmetic expression. For example, y
 ; [62.7375 35.7 58.0125 63.525 24.675]
 ```
 
-### Multi-dimensional Data
+<a name="dims"></a>
+## Multiple Dimensions
 
 Lists can be used to model data with multiple dimensions. An as example, consider the temperature forecasts (in Celsius) for two cities
 for the next 7 days:
@@ -232,7 +245,8 @@ lists of any dimension, the solution is the following simple program:
 ;  [-2 -1.2999999999999972 1 2 0 -0.5 -2]]
 ```
 
-### Reductions & Deductions
+<a name="reds"></a>
+## Reductions & Deductions
 
 Earlier in this tutorial, we calculated the cost of purchase of a list of products:
 
@@ -297,7 +311,8 @@ That was just an exercise! Normally, you should use the built-in `mean` function
 ; 146.0
 ```
 
-### Indexing & Mapping
+<a name="idx"></a>
+## Indexing & Mapping
 
 A list can be called like a function, with an index as argument. The value at that index will be returned.
 List indices starts at `0`.
@@ -376,7 +391,8 @@ The actual increment can be computed by adding these rates to the `salary` list:
 
 Those are the new salaries!
 
-### Dictionaries & Tables
+<a name="dicts"></a>
+## Dictionaries & Tables
 
 A dictionary is a data structure that associates names (keys) to values.
 Here is an example of using a dictionary to represent an employee record:
@@ -447,7 +463,7 @@ Call `sum` on this list, and we have the total salary!
 ; 4900
 ```
 
-#### Columnar tables
+### Columnar tables
 
 If we perform a lot of aggregations like this, it will be more efficient to store tables in a different format, as shown below:
 
@@ -525,18 +541,22 @@ And yes, a record-based table can be flipped back into a columnar store!
 
 We will learn more about tables in the tutorial on [Data Analysis](data.md).
 
+<a name="funs"></a>
 ### Functions
 
 ;; TODO
 
+<a name="conds"></a>
 ### Conditions & Control flow
 
 ;; TODO
 
-### Infinite Streams of Data
+<a name="inf"></a>
+### Infinite Data Streams
 
 ;; TODO
 
+<a name="err"></a>
 ### Dealing with Errors
 
 ;; TODO
