@@ -10,6 +10,9 @@ in a weekend. This makes Motto a more expressive and scalable tool than a point-
 
 It is hoped that this tutorial will convince you of the veracity of that last sentence.
 
+- [Simple Data](#simple_data)
+
+<a name="simple_data"></a>
 ### Simple Data
 
 For simple data objects, like numbers and booleans, Motto behaves like any traditional programming
