@@ -1,4 +1,4 @@
-# Data Munching
+# Munching Data
 
 ( WIP )
 

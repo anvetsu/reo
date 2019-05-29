@@ -20,7 +20,7 @@ This document is divided into the following sections:
 6. [Indexing and Mapping](#idx)
 7. [Dictionaries and Tables](#dicts)
 8. [Functions](#funs)
-9. [Conditions and Control Flow](#conds)
+9. [Control Flow](#conds)
 10. [Infinit Data Streams](#inf)
 11. [Dealing with Errors](#err)
 
@@ -639,7 +639,7 @@ Here is `incr` defined as a use-once function and applied to the arguments `(50 
 ;; TODO
 
 <a name="conds"></a>
-## Conditions and Control flow
+## Control flow
 
 ;; TODO
 
