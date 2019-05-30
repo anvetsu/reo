@@ -41,7 +41,7 @@ write functions that aggregate values in individual columns.
 
 We use the `tab` function to manually create a table:
 
-```js
+```lisp
 ? emp:tab(['name 'salary]
           [["Max G" "Kevin J" "Sue D" "Ben B" "Joe G"]
            [1900.78 2344.88 1200.56 3400.56 1300.78]])
@@ -51,37 +51,33 @@ The first argument is a list of column names. We have two symbolic names here: `
 The second argument is a list of lists. Each list is the values for each column.
 Let's have a look at the table now:
 
-```js
+```lisp
 ? emp
 
-/*
-name: [Max G Kevin J Sue D Ben B Joe G]
-salary: [1900.78 2344.88 1200.56 3400.56 1300.78]
-*/
+; name: [Max G Kevin J Sue D Ben B Joe G]
+; salary: [1900.78 2344.88 1200.56 3400.56 1300.78]
 ```
 
-**Note** In this tutorial, the output from Motto will be enclosed in a `/*` and `*/`.
+**Note** In this tutorial, the output from Motto will be identified by a semi-colon (;).
 This is not part of the output produced by the real REPL.
 
 Here is a quick "statistical" summary of the table:
 
-```js
+```lisp
 ? summary(emp)
 
-/*
-[[col:name count:0 is_numeric:0b Joe_G:1 Ben_B:1 Sue_D:1 Kevin_J:1 Max_G:1]
- [col:salary min:1200.56 max:3400.56 mean:2029.512 median:1900.78 is_numeric:1b]]
-*/
+; [[col:name count:0 is_numeric:0b Joe_G:1 Ben_B:1 Sue_D:1 Kevin_J:1 Max_G:1]
+;  [col:salary min:1200.56 max:3400.56 mean:2029.512 median:1900.78 is_numeric:1b]]
 ```
 
 We may also get graphical views of our data, in spreadsheet format or as a chart:
 
-```js
+```lisp
 ? view(emp)
 ```
 ![employee data](docs/images/saldat.png)
 
-```js
+```lisp
 ? chart('bar emp('name) emp('salary))
 ```
 
@@ -89,25 +85,21 @@ We may also get graphical views of our data, in spreadsheet format or as a chart
 
 If you want to, you can just `flip` a table to a record based format.
 
-```js
+```lisp
 ? flip(emp)
 
-/*
-   name  salary
----------------------------
-   Max G 1900.78
-  Kevin J 2344.88
-  Sue D 1200.56
-  Ben B 3400.56
-  Joe G 1300.78
-*/
+;    name  salary
+; ---------------------------
+;    Max G 1900.78
+;  Kevin J 2344.88
+;    Sue D 1200.56
+;    Ben B 3400.56
+;    Joe G 1300.78
 
 ? flip(flip(emp))
 
-/*
-name: [Max G Kevin J Sue D Ben B Joe G]
-salary: [1900.78 2344.88 1200.56 3400.56 1300.78]
-*/
+; name: [Max G Kevin J Sue D Ben B Joe G]
+; salary: [1900.78 2344.88 1200.56 3400.56 1300.78]
 ```
 
 Record-based tables might be the ideal structure for
@@ -115,39 +107,33 @@ some operations, but in this tutorial we only work with columnar data.
 
 Let's write a function to compute a given percentage of each salary:
 
-```js
+```lisp
 ? sals:emp('salary)
 ? incr:fn(percent) map(fn(s) s * percent, sals)
 ```
 
 We can use this function to give a 10% salary increment to all employees:
 
-```js
+```lisp
 ? incr(0.1) + sals
 
-/*
-[2090.858 2579.368 1320.616 3740.616 1430.858]
-*/
+; [2090.858 2579.368 1320.616 3740.616 1430.858]
 ```
 
 How much salary increase is allotted to each employee?
 
-```js
+```lisp
 ? (incr(0.1) + sals) - sals
 
-/*
-[190.078 234.48 120.05 340.05 130.077]
-*/
+; [190.078 234.48 120.05 340.05 130.077]
 ```
 
 What is the total additional cost incurred to the company by the salary increase?
 
-```js
+```lisp
 ? sum((incr(0.1) + sals) - sals)
 
-/*
-1014.75
-*/
+; 1014.75
 ```
 
 That concludes our very short tutorial!
