@@ -580,6 +580,8 @@ Here is how we will define a function that doubles its argument:
 ? dbl:fn(a) a + a
 ```
 
+There is no explicit `return` statement, the value of the last expression of the function will be automatically returned.
+
 Functions are also data, so we can bind a function to a variable. In the above example, we have
 bound the doubling function to the name `dbl`.
 
@@ -728,11 +730,112 @@ to the values `10` and `20` respectively:
 ```
 
 <a name="conds"></a>
-## Control flow
+## Control Flow
 
-;; TODO
+The basic mechanism for conditional execution of code is the `if` construct.
+This is a special construct built into the language, but its syntax is similar to a function call.
+
+```lisp
+if(cond1 conseq1 cond2 conseq2 ... alternative)
+```
+
+The arguments passed to `if` must be a sequence of conditions and consequences.
+If any of the condition return `true` (`1b`) its consequence is evaluated.
+If none of the conditions evaluate to `true`, the last expression passed as argument is evaluated.
+This last `alternative` expression is optional, if defaults to `false` (`0b`).
+
+```lisp
+? if (1<2 100)
+; 100
+
+? if (1>2 100)
+; 0b
+
+? if (1>2 100
+      3=3 200)
+; 200
+
+? if (1>2 100
+      3<>3 200
+      400)
+; 400
+```
+
+### Repeating yourself
+
+Motto does not have imperative looping constructs like the `for` loop or `while` loop. Instead repetetive
+code execution is achieved by recursive function calls.
+
+A common example of recursion is the function to compute the `n`<sup>th</sup> Fibonacci number:
+
+```lisp
+? fib:fn (n) if (n <= 1 n
+                 fib(n - 1) + fib(n - 2))
+
+? fib(10)
+; 55
+```
+
+Recursions that run deep can cause a stackoverflow error to happen.
+This can be prevented by making the recusrive call from a <a href="https://en.wikipedia.org/wiki/Tail_call" target="_blank">tail position</a>
+using the special `rec` construct.
+
+```lisp
+? fib2:fn (n a b) if (n = 0 a
+                      n = 1 b
+		      rec(n - 1, b, a + b))
+
+? fib:fn(n) fib2(n 0 1)
+
+? fib(25)
+; 75025
+```
 
 <a name="err"></a>
 ## Dealing with Errors
 
-;; TODO
+Motto runs on top of the Java Virtual Machine and some low-level function calls will raise exceptions.
+Sometimes, a function you write may also want to report a critical condition by raising an exception.
+This can be achieved by calling the `ex` function, which can take any object as argument.
+
+```lisp
+? ex("fatal!")
+; ERROR: throw+: {:type :motto-ex, :obj "fatal!"}
+```
+
+As another example, consider the following function. It will divide `100` by a given number. If this number is
+zero, it will raise an exception:
+
+```lisp
+? f:^if (X1=0 ex("zero!")
+         100/X1)
+```
+
+The REPL will catch and print the exception. You may also write your own exception handler using the
+function `with_ex`.
+
+Generally, this is how `with_ex` is used:
+
+```lisp
+with_ex(handler_fn, do_fn)
+```
+
+`Do_fn` is called with no arguments. Normally its value will become the return value of `with_ex`.
+If `do_fn` raise an exception, `handler_fn` will be called with the exception object.
+`handler_fn` can deal with this object in whatever way is appropriate. The value returned
+by `handler_fn` will become the return value of `with_ex`.
+
+The next function offers a safer version of `f` with the help of `with_ex`:
+
+```lisp
+? safe_f:fn(n) with_ex(^{ wrln(str("ERROR: " X1)),
+                          inf },
+		       ^f(n))
+
+? safe_f(5)
+; 20
+
+? safe_f(0)
+; ERROR: zero!
+; inf
+```
