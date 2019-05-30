@@ -4,15 +4,15 @@ This document presents some functions and operators that you will find useful
 while processing data in Motto. These will be presented in the form of short
 code recipes, with short explanations, where that is absolutley required.
 
-## Concat and Append
+## Insert, Append
 
-Insert a new element to the beginning or end of a list using the `concat` (;)
-operator:
+Insert a new element to the beginning or end of a list using the `concat` (`;`)
+operator. (Do not confuse this operator with the `;` prefix of the output):
 
 ```lisp
 ? xs:[10 34 5]
 ? xs
-; [10 34 5]
+<i>[10 34 5]</i>
 
 ? 2;xs
 ;[2 10 34 5]
