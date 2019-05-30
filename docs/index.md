@@ -5,4 +5,5 @@
 3. Visualizing Data
 4. Sourcing Data
 5. [Advanced Topics](adv.md)
-6. Function Reference
+6. Language Reference
+7. Function Reference

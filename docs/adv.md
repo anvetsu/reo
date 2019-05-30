@@ -1,5 +1,13 @@
 # Advanced Topics
 
+## Mutable State
+
+;; TODO
+
+## Closures
+
+;; TODO
+
 ## Infinite Streams of Data
 
 ;; TODO

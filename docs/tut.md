@@ -631,13 +631,59 @@ Here is `incr` defined as a use-once function and applied to the arguments `(50 
 ; 1500.0
 ```
 
-### Closures
-
-;; TODO
-
 ### Partials
 
-;; TODO
+Functions may be *partially applied*, to only a subset of its arguments. For example,
+the following program patially applies the `+` function to `5`. This operation will return a new function
+that, when called with an argument will complete the call to the addition.
+
+```lisp
+? add5:partial(`+` 5)
+
+? add5(10)
+; 15
+
+? add5(5)
+; 10
+```
+
+Partial application is an important functional programming technique. We will call the `partial` function
+often while writing significant programs in Motto.
+
+### Compositions
+
+Another technique for building new functions out of existing ones is through *function composition*.
+For instance, imagine that you want to find the square-root of the sum of all numbers in a list.
+Here is how you would express it as a *composition* of the functions `sqrt` and `sum`:
+
+```lisp
+? sqrt(sum([1 2 3 4 5]))
+; 3.872983346207417
+```
+
+If this is a frequent computation, you can instantiate a new function defined as the composition of `sqrt` and `sum`
+and apply that to any list.
+
+```lisp
+? sqsum:^sqrt(sum(X1))
+
+? sqsum([1 2 3 4 5])
+; 3.872983346207417
+? sqsum([10.5 90.2 5.6])
+; 10.310189135025603
+```
+
+The `comp` built-in function can make the task of defining such compositions:
+
+
+```lisp
+? sqsum:comp(sqrt sum)
+
+? sqsum([1 2 3 4 5])
+; 3.872983346207417
+? sqsum([10.5 90.2 5.6])
+; 10.310189135025603
+```
 
 <a name="conds"></a>
 ## Control flow
