@@ -435,8 +435,8 @@ A dictionary is indexed by keys:
 ; 1500
 ```
 
-If a non-existing key is looked-up, a `nil` value is returned, which has no printable representation.
-The function `is_nul` can be used to check if a value is `nil` or not.
+If a non-existing key is looked-up, a `nul` (null) value is returned, which has no printable representation.
+The function `is_nul` can be used to check if a value is `nul` or not.
 
 ```lisp
 ? is_nul(emp('age))
@@ -444,7 +444,7 @@ The function `is_nul` can be used to check if a value is `nil` or not.
 ```
 
 The `get` function also may be used to lookup keys. This function can accept an optional argument
-that will be returned instead of `nil` for missing keys.
+that will be returned instead of `nul` for missing keys.
 
 ```lisp
 ? is_nul(get(emp 'age))
@@ -685,12 +685,50 @@ The `comp` built-in function can make the task of defining such compositions:
 ; 10.310189135025603
 ```
 
+### Optional and named arguments
+
+In an earlier section we saw that functions defined with the `^` operator accepts an arbitrary number of arguments.
+Each of these arguments has to be explicitly referenced with variables names `X1...XN`. What if we want to define a function
+with `n` number of required parameters and `x` optional parameters? The following example will show you how to do this:
+
+```lisp
+? prn_args:fn(x & xs) { wrln(x) wrln(xs) }
+
+? prn_args(10)
+; 10
+
+? prn_args(10 20 30 40)
+; 10
+; [20 30 40]
+```
+
+The function `prn_args` is defined to take `x` as required argument and an arbitrary number of optional arguments.
+The optional arguments are collected in a list named `xs`. If no optional arguments are passed, `xs` will be `nul`.
+The function just writes its arguments to standard output and does nothing else.
+
+**Note** The function `wrln` stands for "write-line". It writes the textual representation of an object followed by a newline
+to the current output stream. The function `wr` (write) is similar, but does not emit the newline. You may explicitly
+emit a newline by calling the `newln` function.
+
+Functions with named arguments with default values can be emulated with the help of `^` and dictionaries.
+The following program shows an example. A function is defined to take two arguments `x` and `y`. They default
+to the values `10` and `20` respectively:
+
+```lisp
+? f:^{x:get(X1 'x 10) y:get(X1 'y 20) x+y}
+
+? f()
+; 30
+
+? f(['x: 100])
+; 120
+
+? f(['x: 100 'y: 200])
+; 300
+```
+
 <a name="conds"></a>
 ## Control flow
-
-;; TODO
-
-### Functions with optional and named arguments
 
 ;; TODO
 

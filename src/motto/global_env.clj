@@ -11,6 +11,7 @@
             [motto.burrow]
             [motto.math]
             [motto.list]
+            [motto.expr-io]
             [motto.lib.sys]
             [motto.lib.clj-integ]
             [motto.lib.io]
@@ -301,6 +302,11 @@
       (def dct motto.lib.dct/dct)
 
       ;; io
+      (def wr motto.expr-io/write)
+      (def wrln motto.expr-io/writeln)
+      (def newln clojure.core/println)
+      (def rdln motto.expr-io/readln)
+      (def rdmln motto.expr-io/read-multiln)
       (def file_copy motto.lib.io/copy)
       (def file_delete motto.lib.io/delete-file)
       (def bytes_in motto.lib.io/input-stream)
