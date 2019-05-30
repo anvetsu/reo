@@ -851,8 +851,13 @@ The next function offers a safer version of `f`, utilizing `with_ex`:
 
 ## Conclusion
 
-That concludes our first detailed peek at Motto. You know enough to use Motto to solve serious data processing problems.
+That concludes our first detailed peek at Motto. You may quit Motto by calling the `exit` function:
 
-But there is always something new to learn! For instance, how to import data from external sources like databases or spreadsheets?
+```lisp
+? exit()
+```
+
+Now you know enough to use Motto to solve serious data processing problems. But there is always something new
+to learn! For instance, how to import data from external sources like databases or spreadsheets?
 How to use data to build statistical models and visualizations? These questions and more will be answered in the rest of
 this [documentation](index.md).
