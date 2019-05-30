@@ -1,7 +1,7 @@
 # Motto - An Extended Tutorial
 
 Modern digital computers are good at consuming and processing large amounts of data.
-They are also good at dealing with variuos types of data - numbers, texts, lists and tables.
+They are also good at dealing with various types of data - numbers, texts, lists and tables.
 
 As the representation of data becomes more complex, computer users tend to depend on specialized tools.
 For example, spreadsheet programs are used for visualizing and manipulating tabular data.
@@ -149,7 +149,7 @@ new variable. (In the sample code we have left out these return values).
 ### Controlling visibility
 
 Visibility or scope of variables can be controlled by declaring them within "code-blocks". A code-block is any sequence
-of program expressions delimited by opening and closing curley-braces (`{` and `}`).
+of program expressions delimited by opening and closing curly-braces (`{` and `}`).
 
 In the following program, the global definition of `x` is "shadowed" by the local definition of `x` in the code-block:
 
@@ -587,7 +587,7 @@ There is no explicit `return` statement, the value of the last expression in the
 Functions are also data, so we can bind a function to a variable. In the above example, we have
 bound the doubling function to the name `dbl`.
 
-As the function internally uses the burrowing `+` operator, `dbl` can seemlessly work with lists as well as single numbers.
+As the function internally uses the burrowing `+` operator, `dbl` can seamlessly work with lists as well as single numbers.
 
 ```lisp
 ? dbl(10)
@@ -640,7 +640,7 @@ Here is `incr` again, defined as a use-once function and applied to the argument
 ### Partials
 
 Functions may be *partially applied*, to only a subset of its arguments. For example,
-the following program patially applies the `+` function to `5`. This operation will return a new function
+the following program partially applies the `+` function to `5`. This operation will return a new function
 that, when called with an argument will complete the addition.
 
 ```lisp
@@ -766,7 +766,7 @@ This last `alternative` expression is optional and defaults to `false` (`0b`).
 
 ### Repeating yourself
 
-Motto does not have imperative looping constructs like the `for` loop or `while` loop. Instead repetetive
+Motto does not have imperative looping constructs like the `for` loop or `while` loop. Instead, repetitive
 code execution is achieved by recursive function calls.
 
 A common example of recursion is the function to compute the `n`<sup>th</sup> Fibonacci number:
@@ -779,8 +779,8 @@ A common example of recursion is the function to compute the `n`<sup>th</sup> Fi
 ; 55
 ```
 
-Recursions that run deep can cause a stackoverflow error to happen.
-This can be prevented by making the recusrive call from a <a href="https://en.wikipedia.org/wiki/Tail_call" target="_blank">tail position</a>
+Recursions that run deep can cause a stack-overflow error to happen.
+This can be prevented by making the recursive call from a <a href="https://en.wikipedia.org/wiki/Tail_call" target="_blank">tail position</a>
 using the special `rec` construct.
 
 ```lisp
@@ -848,3 +848,11 @@ The next function offers a safer version of `f`, utilizing `with_ex`:
 ; ERROR: zero!
 ; inf
 ```
+
+## Conclusion
+
+That concludes our first detailed peek at Motto. You know enough to use Motto to solve serious data processing problems.
+
+But there is always something new to learn! For instance, how to import data from external sources like databases or spreadsheets?
+How to use data to build statistical models and visualizations? These questions and more will be answered in the rest of
+this [documentation](index.md).

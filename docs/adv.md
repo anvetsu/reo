@@ -20,6 +20,10 @@
 
 ;; TODO
 
+## Server Mode Evaluation
+
+;; TODO
+
 ## Parallel and Concurrent Programming
 
 ;; TODO
