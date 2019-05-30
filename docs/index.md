@@ -4,5 +4,5 @@
 2. [Munching Data](data.md)
 3. Visualizing Data
 4. Sourcing Data
-5. Platform & Service Integrations
+5. [Advanced Topics](adv.md)
 6. Function Reference

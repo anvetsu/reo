@@ -1,7 +1,9 @@
 # Motto - An Extended Tutorial
 
-Computers consume and create all sorts of data - numbers, texts, lists and tables.
-As the encoding of data becomes more complex, people tend to use specialized tools.
+Modern digital computers are good at consuming and processing large amounts of data.
+They are also good at dealing with variuos types of data - numbers, texts, lists and tables.
+
+As the representation of data becomes more complex, computer users tend to depend on specialized tools.
 For example, spreadsheet programs are used for visualizing and manipulating tabular data.
 
 In contrast, Motto strives to be a powerful tool that can deal with data in many forms
@@ -21,8 +23,7 @@ This document is divided into the following sections:
 7. [Dictionaries and Tables](#dicts)
 8. [Functions](#funs)
 9. [Control Flow](#conds)
-10. [Infinit Data Streams](#inf)
-11. [Dealing with Errors](#err)
+10. [Dealing with Errors](#err)
 
 <a name="simp"></a>
 ## Simple Calculations
@@ -644,11 +645,6 @@ Here is `incr` defined as a use-once function and applied to the arguments `(50 
 ;; TODO
 
 ### Functions with optional and named arguments
-
-;; TODO
-
-<a name="inf"></a>
-## Infinite Data Streams
 
 ;; TODO
 
