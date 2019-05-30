@@ -12,10 +12,10 @@ operator. (Do not confuse this operator with the `;` prefix of the output):
 ```lisp
 ? xs:[10 34 5]
 ? xs
-<i>[10 34 5]</i>
+; [10 34 5]
 
 ? 2;xs
-;[2 10 34 5]
+; [2 10 34 5]
 
 ? xs;2
 ; [10 34 5 2]
