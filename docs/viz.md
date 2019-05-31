@@ -20,6 +20,6 @@ plot('xy til(years) returns
 
 The `plot` function will produce the following chart on screen:
 
-![projected returns](docs/images/retsb.png)
+![projected returns](docs/images/rets.png)
 
 ;; TODO
