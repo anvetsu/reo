@@ -97,7 +97,7 @@ listf(sqrt 10)
 ; [10 3.1622776601683795 1.7782794100389228 1.333521432163324 ...]
 ```
 
-## Insert, Append
+## Manipulating Lists
 
 Insert a new element to the beginning or end of a list using the `concat` (`;`)
 operator. (Do not confuse this operator with the `;` prefix of the output):
@@ -119,11 +119,30 @@ operator. (Do not confuse this operator with the `;` prefix of the output):
 ; [10 34 5 [1 2 3]]
 ```
 
-## Assoc, Dissoc, Merge
+The `append` operator concatenates two lists into one:
+
+```lisp
+? [1 2 3]#xs
+; [1 2 3 10 34 5]
+
+? xs#[1 2 3]
+; [10 34 5 1 2 3]
+```
+
+Atomic values are automatically converted to a list:
+
+```lisp
+? 100#xs
+; [100 10 34 5]
+```
 
 ## Lifting and Dropping
 
 ## Filtering and Selecting
+
+## Dealing with Dictionaries
+
+;; assoc, dissoc, merge
 
 ## Grouping
 
