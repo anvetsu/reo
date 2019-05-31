@@ -144,7 +144,7 @@ To learn more, please go the [detailed documentation](docs/index.md).
 The basic design of Motto is inspired by the <a href="https://en.wikipedia.org/wiki/APL_(programming_language)" target="_blank">APL</a>
 family of array programming languages. Another major influence is Lisp,
 especially the <a href="https://en.wikipedia.org/wiki/Scheme_%28programming_language%29" target="_blank">Scheme</a>
-and <a href="https://clojure.org/" target="_blank">Clojure</a> variants.
+and <a href="https://clojure.org/" target="_blank">Clojure</a> variants of that language.
 
 Motto itself is implemented in Clojure and makes extensive use of its core functions, immutable datastructures and evaluator.
 Motto runs on top of the Java Virtual Machine and is integrated well into that high-quality platform.
