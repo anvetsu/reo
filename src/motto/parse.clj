@@ -325,7 +325,7 @@
   (let [[x ts] (parse-defs tokens)]
     (if x
       (cond
-        (= x 'ld) (parse-load (rest ts))
+        (= x 'ld) (parse-load ts)
         (= :define (first ts)) (parse-define x (rest ts))
         :else [nil tokens])
       [nil tokens])))
