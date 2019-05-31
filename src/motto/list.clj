@@ -4,12 +4,13 @@
             [motto.burrow :as b]))
 
 (defn til
-  ([n x]
+  ([n x step]
    (into []
          (cond
-           (pos? x) (range n x)
-           (neg? x) (reverse (range n (Math/abs x)))
+           (pos? x) (range n x step)
+           (neg? x) (reverse (range n (Math/abs x) step))
            :else [])))
+  ([n x] (til n x 1))
   ([x] (til 0 x)))
 
 (defn listf
