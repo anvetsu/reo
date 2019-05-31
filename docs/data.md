@@ -4,6 +4,10 @@ This document presents some functions and operators that you will find useful
 while processing data in Motto. These will be presented in the form of short
 code recipes, with short explanations, where that is absolutley required.
 
+## Making Sequences
+
+;; TODO - til, range, repeat etc
+
 ## Insert, Append
 
 Insert a new element to the beginning or end of a list using the `concat` (`;`)

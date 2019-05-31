@@ -5,8 +5,8 @@ Visual aids are an excellent means for communicating information.
 Motto has built-in visualization facilities that enable you to present
 results of data analysis in an appealing manner.
 
-The following example shows how to graphically view the projects returns from an investment
-over the next 20 years:
+The following program shows how to graphically view the projected returns from an investment
+over 20 years:
 
 ```lisp
 principal: 10000
