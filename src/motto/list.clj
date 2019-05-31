@@ -3,6 +3,11 @@
             [motto.bitvec :as bv]
             [motto.burrow :as b]))
 
+(defn dict [x & xs]
+  (if (seq xs)
+    (apply hash-map x xs)
+    (into {} x)))
+
 (defn til
   ([n x step]
    (into []

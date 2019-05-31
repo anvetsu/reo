@@ -29,7 +29,7 @@
   (eval
    '(do
       (def -neg- -)
-      (def dict hash-map)
+      (def dict motto.list/dict)
       (def roll rand-int)
       (def parse read-string)
       (def fst first)
