@@ -1,4 +1,4 @@
-# Munching Data
+# Useful Recipes
 
 This document presents some functions and operators that you will find handy
 for data processing and analysis. You will be presented with
@@ -97,7 +97,50 @@ listf(sqrt 10)
 ; [10 3.1622776601683795 1.7782794100389228 1.333521432163324 ...]
 ```
 
-## Manipulating Lists
+## Accesing and Manipulating Sequences
+
+Accessing the first, all-but-first and last elements in a sequence:
+
+```lisp
+? xs:[1 2 3 4 5]
+
+? first(xs)
+; 1
+
+? rest(xs)
+; [2 3 4 5]
+
+? last(xs)
+; 5
+```
+
+Accessing an element by index in a normal list:
+
+```lisp
+? xs(3)
+; 4
+
+? get(xs 4)
+; 5
+
+? get(xs 5 100)
+; 100
+```
+
+Accessing an element by index in a lazy-sequence:
+
+```lisp
+? xs:range(10 20)
+
+? xs
+; [10 11 12 13 14 15 16 17 18 19]
+
+? nth(xs 5)
+; 15
+
+? vec(xs)(5)
+; 15
+```
 
 Insert a new element to the beginning or end of a list using the `concat` (`;`)
 operator. (Do not confuse this operator with the `;` prefix of the output):
