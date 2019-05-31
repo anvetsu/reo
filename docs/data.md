@@ -162,7 +162,54 @@ Drop the first `n` or last `n` elements from a sequence:
 
 ## Compare, Select, Filter
 
-;; filter, sel, comparisons, max, min etc
+Comparison operators burrow into sequences and returns a list of
+boolean values:
+
+```lisp
+? xs:[10 89 3 41 52 77]
+
+? xs > 40
+; [0b 1b 0b 1b 1b 1b]
+```
+
+The select function (`sel`) filters a list by masking it using a sequence of boolean values:
+
+```lisp
+? sel(xs > 40, xs)
+; [89 41 52 77]
+```
+
+The function `filter` is similar to `sel`, but selects values that satisfy a predicate:
+
+```lisp
+? filter(^X1 > 40, xs)
+; [89 41 52 77]
+```
+
+`Filter` returns a lazy-sequence, so it might be ideal for filtering really large lists.
+
+The `mx` (max) function selects the largest value from a sequence, the function `mn` (min) selects the smallest value:
+
+```lisp
+? mx(xs)
+; 89
+
+? mn(xs)
+; 3
+```
+
+The functions `big` and `sml` (small) are burrowing versions of `mx` and `mn`:
+
+```lisp
+? big(40 xs)
+; [40 89 40 41 52 77]
+
+? sml(40 xs)
+; [10 40 3 40 40 40]
+
+? big([10 20 30 40 50 60] xs)
+; [10 89 30 41 52 77]
+```
 
 ## Dealing with Dictionaries
 
