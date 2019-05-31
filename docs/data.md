@@ -301,6 +301,19 @@ Such sequences can be coerced into dictionaries:
 
 ## Sorting
 
+```lisp
+? sort([10 20 1 4 89])
+; [1 4 10 20 89]
+
+? sort(`>` [10 20 1 4 89])
+; [89 20 10 4 1]
+
+? sort(^X1('qty) < X2('qty) [['id:1 'qty:100] ['id:2 'qty:43] ['id:3 'qty:560]])
+; [[id:2 qty:43]
+;  [id:1 qty:100]
+;  [id:3 qty:560]]
+```
+
 ## Grouping
 
 ## Set Operations
