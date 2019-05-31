@@ -78,7 +78,7 @@ Create `n` instances of an object:
 ; [hi hi hi hi hi]
 
 ? vec(repeat(5 "hi"))(0)
-hi
+; hi
 ```
 Create a lazy-sequence by repeatedly applying a function. For example, the following program
 returns an infinite sequence of random integers in the range `0-100`:
