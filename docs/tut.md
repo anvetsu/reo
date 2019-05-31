@@ -24,6 +24,7 @@ This document is divided into the following sections:
 8. [Functions](#funs)
 9. [Control Flow](#conds)
 10. [Dealing with Errors](#err)
+11. [Scripts and Compilation](#scripts)
 
 <a name="simp"></a>
 ## Simple Calculations
@@ -848,6 +849,30 @@ The next function offers a safer version of `f`, utilizing `with_ex`:
 ; ERROR: zero!
 ; inf
 ```
+
+<a name="scripts"></a>
+## Scripts & Compilation
+
+Motto source files usually have the extension `.m`.
+Source files can be loaded into the interpreter by invoking the `ld` command.
+It is customary to call `ld` without the `.m` extension.
+
+For instance, if you have a script called "abc.m", it can be loaded as:
+
+```lisp
+? ld "abc"
+```
+
+`ld` will take care of compiling the script into object code, if the object code
+file (with extension `.mo`) is not found.
+
+A script can be explicitly compiled into a `.mo` file by calling the `cf` (compile-file) function:
+
+```lisp
+? cf("abc")
+```
+
+The object code is compiled on-the-fly to JVM byte code.
 
 ## Conclusion
 

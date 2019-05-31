@@ -8,7 +8,11 @@
 
 ;; TODO
 
-## Infinite Streams of Data
+## Streams of Data
+
+;; TODO
+
+### Infinite streams
 
 ;; TODO
 
