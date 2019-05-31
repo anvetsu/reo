@@ -254,9 +254,52 @@ The functions `big` and `sml` (small) are burrowing versions of `mx` and `mn`:
 ; [10 89 30 41 52 77]
 ```
 
-## Dealing with Dictionaries
+## Accessing and Manipulating Dictionaries
 
-;; assoc, dissoc, merge
+Adding and removing keys:
+
+```lisp
+? data: ['name: "Rachel" 'age: 4]
+
+? assoc(data 'class 1 'div 'A)
+; [name:Rachel age:4 class:1 div:A]
+
+? dissoc(data 'age)
+; [name:Rachel]
+```
+
+Dictionaries, like all sequences, are immutable. The operations `assoc` and `dissoc`
+return new dictionaries. The original in left intact:
+
+```lisp
+? data
+; [name:Rachel age:4]
+```
+
+`Map` and `filter` can be applied to dictionaries:
+
+```lisp
+? r:map(^{k:first(X1) v:second(X1) [k v*10]}, ['a:1 'b:20 'c:30])
+? r
+; [[a 10]
+;  [b 200]
+;  [c 300]]
+
+? r:filter(^{k:first(X1) v:second(X1) is_odd(v)}, ['a:1 'b:2 'c:3])
+? r
+; [[a 1]
+;  [c 3]]
+```
+
+These functions return generic sequences of key-value pair.
+Such sequences can be coerced into dictionaries:
+
+```lisp
+? dict(r)
+; [a:1 c:3]
+```
+
+## Sorting
 
 ## Grouping
 
