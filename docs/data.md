@@ -136,9 +136,33 @@ Atomic values are automatically converted to a list:
 ; [100 10 34 5]
 ```
 
-## Lifting and Dropping
+## Lift and Drop
 
-## Filtering and Selecting
+Take the first `n` or last `n` elements from a sequence:
+
+```lisp
+? xs:til(50)
+
+? lift(5 xs)
+; [0 1 2 3 4]
+
+? lift(-5 xs)
+; [45 46 47 48 49]
+```
+
+Drop the first `n` or last `n` elements from a sequence:
+
+```lisp
+? dip(45 xs)
+; [45 46 47 48 49]
+
+? dip(-45 xs)
+; [0 1 2 3 4]
+```
+
+## Compare, Select, Filter
+
+;; filter, sel, comparisons, max, min etc
 
 ## Dealing with Dictionaries
 
