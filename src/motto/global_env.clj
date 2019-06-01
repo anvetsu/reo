@@ -127,12 +127,15 @@
       (def bvnot motto.bitvec/flip-all)
 
       ;; set
+      (def is_set clojure.core/set?)
+      (def is_subset clojure.set/subset?)
+      (def is_superset clojure.set/superset?)
       (def setu clojure.set/union)
       (def seti clojure.set/intersection)
       (def setd clojure.set/difference)
       (def setp clojure.set/project)
       (def setj clojure.set/join)
-      (def sets clojure.set/select)
+      (def setsel clojure.set/select)
 
       (def -+- motto.burrow/add)
       (def --- motto.burrow/sub)
