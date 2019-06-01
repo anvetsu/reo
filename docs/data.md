@@ -231,6 +231,13 @@ The function `filter` is similar to `sel`, but selects values that satisfy a pre
 
 `Filter` returns a lazy-sequence, so it might be ideal for filtering really large lists.
 
+You may use the `!` shorthand operator in place of the `filter` function:
+
+```lisp
+? is_odd ! [1 2 3 4 5]
+; [1 3 5]
+```
+
 The `mx` (max) function selects the largest value from a sequence, the function `mn` (min) selects the smallest value:
 
 ```lisp
@@ -381,6 +388,59 @@ updating the employee table in-place.
 
 ## Set Operations
 
-## Doing Statistics
+Convert lists to a sets:
+
+```lisp
+? a:set([1 5 7 5 8 9])
+? a
+; [7 1 9 5 8]
+
+? is_set(a)
+; 1b
+
+? b:set([10 7 5 10 9 10])
+? b
+; [7 9 5 10]
+```
+
+Common set operations - `union`, `intersection` and `difference`:
+
+```lisp
+? setu(a b)
+; [7 1 9 5 10 8]
+
+? seti(a b)
+; [7 9 5]
+
+? setd(a b)
+; [1 8]
+
+? setd(b a)
+; [10]
+```
+
+Sets can be filtered, but the normal filter operation will return a generic sequence:
+
+```lisp
+? r:is_odd ! a
+? r
+; [7 1 9 5]
+
+? is_set(r)
+; 0b
+
+? is_seq(r)
+; 1b
+```
+
+The set-select function (`setsel`) will filter a set by a predicate and return a proper set:
+
+```lisp
+? setsel(is_odd a)
+; [7 1 9 5]
+
+? is_set(setsel(is_odd a))
+; 1b
+```
 
 ## Binary Data
