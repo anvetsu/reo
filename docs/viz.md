@@ -1,4 +1,4 @@
-# Visualizing Data
+# Statistics and Visualizations
 
 Visual aids are an excellent means for communicating information.
 
