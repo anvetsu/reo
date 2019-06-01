@@ -444,3 +444,51 @@ The set-select function (`setsel`) will filter a set by a predicate and return a
 ```
 
 ## Binary Data
+
+Binary data can be compactly represented as bit-vectors:
+
+```lisp
+? x:110001b
+? x
+; 110001b
+```
+
+Some common operations on bit-vectors:
+
+```
+? count_bits(x)
+; 6
+
+? bvget(x 1)
+; 1b
+
+? bvget(x 2)
+; 0b
+
+? bvand(x 101010b)
+; 1b
+
+? bvor(x 101010b)
+; 111011b
+
+? bvxor(x 101010b)
+; 011011b
+
+? bvflip(x 1)
+; 100001b
+
+? x
+; 100001b
+```
+
+Note that the `bvflip` function mutates the bit-vector.
+
+Boolean sequences and bit-vectors can be instantiated from each other:
+
+```lisp
+? bools(x)
+; [1b 0b 0b 0b 0b 1b]
+
+? bits(10 >= [1 5 10 15 20])
+; 111b
+```
