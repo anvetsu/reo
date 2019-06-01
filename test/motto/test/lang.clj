@@ -216,8 +216,9 @@
    "a:11001b" 'a
    "bools(band(a 10101b))" [true false false false true]
    "bools(a)" [true true false false true]
-   "a:11001b" 'a
    "bools(bvand(a 10101b))" [true false false false true]
+   "bools(a)" [true true false false true]
+   "bools(bvand(a 10101b 0b))" [true false false false true]
    "bools(a)" [true false false false true]])
 
 (deft short-fn-test

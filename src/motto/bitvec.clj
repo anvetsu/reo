@@ -97,14 +97,26 @@
   (.flip bv 0 (.length bv))
   bv)
 
-(defn _band [a b]
-  (land a b false))
+(defn _band
+  ([a b clone?]
+   (land a b clone?))
+  ([a b]
+   (land a b true)))
 
-(defn _bor [a b]
-  (lor a b false))
+(defn _bor
+  ([a b clone?]
+   (lor a b clone?))
+  ([a b]
+   (lor a b true)))
 
-(defn _bxor [a b]
-  (xor a b false))
+(defn _bxor
+  ([a b clone?]
+   (xor a b clone?))
+  ([a b]
+   (xor a b true)))
 
-(defn _band-not [a b]
-  (and-not a b false))
+(defn _band-not
+  ([a b clone?]
+   (and-not a b clone?))
+  ([a b]
+   (and-not a b true)))
