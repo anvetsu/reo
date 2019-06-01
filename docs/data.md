@@ -314,7 +314,70 @@ Such sequences can be coerced into dictionaries:
 ;  [id:3 qty:560]]
 ```
 
-## Grouping
+## Table Operations
+
+### Grouping
+
+Consider the following employee table:
+
+```lisp
+? emp:['name 'dept 'salary] $ [["Joe" "Sam" "Mat" "Ken" "San"]
+                                 [1 2 1 3 2]
+				 [1400 1450 1300 1120 1500]]
+? emp
+; name: [Joe Sam Mat Ken San]
+; dept: [1 2 1 3 2]
+; salary: [1400 1450 1300 1120 1500]
+```
+
+Find the total salary for each department:
+
+```lisp
+group(`+` 0 emp('salary) emp('dept))
+; [1:2700 2:2950 3:1120]
+```
+
+A resuable version of this sum and group-by function could defined as:
+
+```lisp
+? sum_grp:partial(group `+` 0)
+
+sum_grp(emp('salary) emp('dept))
+; [1:2700 2:2950 3:1120]
+```
+Count the number of employees in each department:
+
+```lisp
+? group_count(emp('dept))
+; [1:2 2:2 3:1]
+```
+
+### Filtering
+
+Find all employees with salary greater-than `1400`:
+
+```lisp
+? where(^X1('salary) > 1400, emp)
+; name: [Sam San]
+; dept: [2 2]
+; salary: [1450 1500]
+```
+
+### Merging
+
+Merge a new table with the employee table:
+
+```lisp
+? club(emp, ['years_of_service 'age] $ [[12 10 8 15 4] [35 30 36 40 31]])
+; name: [Joe Sam Mat Ken San]
+; dept: [1 2 1 3 2]
+; salary: [1400 1450 1300 1120 1500]
+; years_of_service: [12 10 8 15 4]
+; age: [35 30 36 40 31]
+```
+
+Note that tables are immutable and the `club` operation will return a new table instead of
+updating the employee table in-place.
 
 ## Set Operations
 
