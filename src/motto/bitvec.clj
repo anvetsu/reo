@@ -42,10 +42,8 @@
 (defn length [^BitSet bv]
   (.length bv))
 
-(defn on? [^BitSet bv i]
+(defn at [^BitSet bv i]
   (.get bv i))
-
-(def off? (comp on?))
 
 (defn land
   ([^BitSet bv1 ^BitSet bv2 clone?]
