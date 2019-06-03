@@ -121,7 +121,15 @@ JSON encoded string can be decoded back to Motto structures using the `json_dec`
 ; [{"a":1,"b":2},{"a":3,"b":4}]
 
 ? json_dec(json_enc([['a:1 'b:2] ['a:3 'b:4]]))
-;[[a:1 b:2] [a:3 b:4]]
+; [[a:1 b:2] [a:3 b:4]]
+```
+
+The result of the above `json_dec` can be converted to columnar format by calling tab:
+
+```lisp
+? tab([['a:1 'b:2] ['a:3 'b:4]])
+; a: [1 3]
+; b: [2 4]
 ```
 
 ## Excel Spreadsheets
@@ -182,4 +190,30 @@ it can be eaily extended to talk to any database with a JDBC driver.
 
 ## HTTP Services
 
-;; TODO
+The easiest way to fetch data over HTTP is via the `http_get` function. This function completes asynchronously and returns an
+`future` object that can be queried with the `http_res` (http-result) function.
+
+```lisp
+? f:http_get("https://some-server/data.json")
+? result:http_res(f)
+```
+
+`Http_res` will block until the result is filled with response from the HTTP call.
+The returned value will be a dictionary with the following main keys - `headers`, `status` and `body`.
+
+`Http_res` may also be called with an optional timeout value in milliseconds and a value to return on timeout.
+The following program will return a special `timeout` status if the HTTP request does not complete within a second:
+
+```lisp
+? result:http_res(f 1000 ['status:'timeout])
+```
+
+There is a more generic function for making HTTP requests. This is called `http_req`. For example,
+this function can be used as follows for POSTing JSON data to a HTTP server:
+
+```lisp
+? f:http_req(['url:"https://some-server/login" 'method:'post
+              'headers:["Content-Type" "application/json"]
+	      'body:json_enc(["user": "abc" "token: "xyz111"])])
+? result:http_res(f)
+```
