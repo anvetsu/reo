@@ -11,6 +11,7 @@
             [motto.burrow]
             [motto.math]
             [motto.list]
+            [motto.str-util]
             [motto.expr-io]
             [motto.lib.sys]
             [motto.lib.clj-integ]
@@ -43,6 +44,12 @@
       (def is_str string?)
       (def is_vec vector?)
       (def is_dict map?)
+      (def is_string string?)
+      (def is_number? number?)
+
+      (def to_int motto.str-util/s->int)
+      (def to_float motto.str-util/s->float)
+      (def to_double motto.str-util/s->double)
 
       (def exit motto.lib.sys/exit)
 
