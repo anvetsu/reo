@@ -133,20 +133,6 @@ Symbols that contain white-spaces or other special characters must be enclosed i
 
 Symbols are more efficient than strings because two symbols made of the same characters share the same space in memory.
 
-<a name="vars"></a>
-## Variables
-
-Variables are created using the `:` (declare) operator. This operator will return the symbolic name of the
-new variable. (In the sample code we have left out these return values).
-
-```lisp
-? price:59.75
-? qty:3
-? tot:price * qty
-? tot
-; 179.25
-```
-
 ### Date and Time
 
 The `now` function will return the current date-time:
@@ -201,6 +187,20 @@ The valid field flags that can be passed to `dtget` and `dtadd` are:
 ```
 
 An invalid flag will cause the functions to fallback to `day_of_year`.
+
+<a name="vars"></a>
+## Variables
+
+Variables are created using the `:` (declare) operator. This operator will return the symbolic name of the
+new variable. (In the sample code we have left out these return values).
+
+```lisp
+? price:59.75
+? qty:3
+? tot:price * qty
+? tot
+; 179.25
+```
 
 ### Controlling visibility
 
