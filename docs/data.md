@@ -217,3 +217,5 @@ this function can be used as follows for POSTing JSON data to a HTTP server:
 	      'body:json_enc(["user": "abc" "token": "xyz111"])])
 ? result:http_res(f)
 ```
+
+[Back](index.md)
