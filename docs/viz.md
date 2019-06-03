@@ -1,9 +1,4 @@
-# Statistics and Visualizations
-
-Visual aids are an excellent means for communicating information.
-
-Motto has built-in visualization facilities that enable you to present
-results of data analysis in an appealing manner.
+# Visualizing Return on Investment
 
 The following program shows how to graphically view the projected returns from an investment
 over 10 years:
@@ -21,4 +16,4 @@ The `plot` function will produce the following chart on screen:
 
 ![projected returns](images/rets.png)
 
-;; TODO
+[Back](sample.md)

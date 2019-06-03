@@ -492,3 +492,5 @@ Boolean sequences and bit-vectors can be instantiated from each other:
 ? bits(10 >= [1 5 10 15 20])
 ; 111b
 ```
+
+[Back](index.md)
