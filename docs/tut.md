@@ -147,6 +147,61 @@ new variable. (In the sample code we have left out these return values).
 ; 179.25
 ```
 
+### Date and Time
+
+The `now` function will return the current date-time:
+
+```lisp
+? now()
+; dt("2019-06-02T10:18:20")
+```
+
+Date and time is encoded in the format `YYYY-MM-DDThh:mm:ss`. A string in this format can be converted to a date object by calling the
+`dt` function. A date is converted back to a string by the `sdt` function.
+
+```lisp
+? a:dt("2018-01-02T14:30:23")
+? a
+; dt("2018-01-02T14:30:23")
+
+? sdt(a)
+; 2018-01-02T14:30:23
+```
+
+The `dtget` function can access the various parts of a date. For example, to access the year field, we can call this function as:
+
+```lisp
+? dtget(a 'y)
+; 2018
+```
+
+The `dtadd` function is used for changing the value of any part of a date. Note that this function returns a new date object, and leaves
+the original date unchanged:
+
+```lisp
+? dtadd(a 'y 10)
+; dt("2028-01-02T14:30:23")
+
+? dtadd(a 'y, -2)
+; dt("2016-01-02T14:30:23")
+```
+
+The valid field flags that can be passed to `dtget` and `dtadd` are:
+
+```lisp
+'y  - year
+'M  - month
+'d  - day_of_month
+'D  - day_of_year
+'dW - day_of_week
+'dM - day_of_week_in_month
+'H  - hour_of_day
+'m  - minute
+'s  - second
+```
+
+An invalid flag will cause the functions to fallback to `day_of_year`.
+
 ### Controlling visibility
 
 Visibility or scope of variables can be controlled by declaring them within "code-blocks". A code-block is any sequence
