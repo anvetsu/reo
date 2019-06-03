@@ -141,7 +141,44 @@ all_sheets - read all sheets? (default - 0b)
 
 ## Relational Databases
 
-;; TODO
+Motto can read and write relational databases. It comes with an embedded relational database
+that can be used as local storage.
+
+The main functions for interacting with the database is `cmd` and `qry`. `Cmd` is used for data-definition and
+manipulation and `qry` is used for loading data into in-memory columnar tables.
+
+```lisp
+? cmd("create table products (id varchar(20) primary key, name varchar(50), unit_price int, date_released date)")
+; 0
+? cmd("insert into products values('1', 'PS-178', 34000, '2019-02-25')")
+; 1
+? cmd("insert into products values('2', 'XTR-130', 23000, '2019-03-01')")
+; 1
+? cmd("insert into products values('3', 'TTY-234', 45600, '2018-12-02')")
+; 1
+? products:qry("select * from products")
+? products
+; id: [1 2 3]
+; name: [PS-178 XTR-130 TTY-234]
+; unit_price: [34000 23000 45600]
+; date_released: [#inst "2019-02-24T18:30:00.000-00:00" #inst "2019-02-28T18:30:00.000-00:00" #inst "2018-12-01T18:30:00.000-00:00"]
+```
+
+The values of `date_released` are returned as objects of the Java `Date` class. This needs to be converted to Motto's date-time type
+before they can be eaily processed.
+
+```lisp
+? products:assoc(products, 'date_released, dt ~ products('date_released))
+
+? products
+; id: [1 2 3]
+; name: [PS-178 XTR-130 TTY-234]
+; unit_price: [34000 23000 45600]
+; date_released: [dt("2019-02-25T00:00:00") dt("2019-03-01T00:00:00") dt("2018-12-02T00:00:00")]
+```
+
+As Motto internally uses [JDBC](https://en.wikipedia.org/wiki/Java_Database_Connectivity),
+it can be eaily extended to talk to any database with a JDBC driver.
 
 ## HTTP Services
 
