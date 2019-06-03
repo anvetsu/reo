@@ -1,5 +1,5 @@
 # Sample Applications
 
-[Visualizing Return on Investment](roi.md)
+1. [Visualizing Return on Investment](roi.md)
 
 [Back](index.md)
