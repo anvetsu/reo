@@ -213,7 +213,7 @@ this function can be used as follows for POSTing JSON data to a HTTP server:
 
 ```lisp
 ? f:http_req(['url:"https://some-server/login" 'method:'post
-              'headers:["Content-Type" "application/json"]
-	      'body:json_enc(["user": "abc" "token: "xyz111"])])
+              'headers:["Content-Type": "application/json"]
+	      'body:json_enc(["user": "abc" "token": "xyz111"])])
 ? result:http_res(f)
 ```
