@@ -258,7 +258,8 @@
       (def http_res motto.lib.http/http-res)
 
       ;; json
-      (def jsons motto.lib.json/json-str)
+      (def json_enc motto.lib.json/json-str)
+      (def json_dec motto.lib.json/str->json)
       (def json motto.lib.json/parse)
 
       ;; combinatorics
