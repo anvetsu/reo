@@ -12,7 +12,12 @@
          cal (GregorianCalendar.)]
      (.setTime cal (.parse dfmt s))
      cal))
-  ([s] (dt s nil)))
+  ([s]
+   (if (instance? java.sql.Date s)
+     (let [cal (Calendar/getInstance)]
+       (.setTime cal s)
+       cal)
+     (dt s nil))))
 
 (defn sdt
   ([^Calendar d fmt]
