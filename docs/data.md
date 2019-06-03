@@ -78,7 +78,51 @@ Other options that can be passed to `csv` are:
 
 ## JSON
 
-;; TODO
+Imagine that the products data is encoded as [JSON](https://json.org/) in the file "products.json":
+
+```js
+{"ProductId": "1",
+ "ProductName": "PS-178",
+ "UnitPrice": 34000,
+ "DateReleased": "2019-02-25"}
+{"ProductId": "2",
+ "ProductName": "XTR-130",
+ "UnitPrice": 23000,
+ "DateReleased": "2019-03-01"}
+{"ProductId": "3",
+ "ProductName": "TTY-234",
+ "UnitPrice": 45600,
+ "DateReleased": "2018-12-02"}
+```
+
+This data can be decoded and imported as a columnar table by calling the `json` function:
+
+```lisp
+? products:json("products.json")
+
+? products
+; ProductId: [1 2 3]
+; ProductName: [PS-178 XTR-130 TTY-234]
+; UnitPrice: [34000 23000 45600]
+; DateReleased: [2019-02-25 2019-03-01 2018-12-02]
+
+? sum(products('UnitPrice))
+; 102600
+
+? mx(products('UnitPrice))
+; 45600
+```
+
+Sequences and dictionaries can be encoded as JSON strings using the `json_enc` function.
+JSON encoded string can be decoded back to Motto structures using the `json_dec` function.
+
+```lisp
+? json_enc([['a:1 'b:2] ['a:3 'b:4]])
+; [{"a":1,"b":2},{"a":3,"b":4}]
+
+? json_dec(json_enc([['a:1 'b:2] ['a:3 'b:4]]))
+;[[a:1 b:2] [a:3 b:4]]
+```
 
 ## Excel Spreadsheets
 
