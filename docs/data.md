@@ -126,7 +126,18 @@ JSON encoded string can be decoded back to Motto structures using the `json_dec`
 
 ## Excel Spreadsheets
 
-;; TODO
+Excel files can be imported using the `xls` function.
+
+```lisp
+? xls("products.xls")
+```
+
+It can take an optional dictionary argument with the following keys:
+
+```
+sheet  - the index of the sheet to read (default - 0)
+all_sheets - read all sheets? (default - 0b)
+```
 
 ## Relational Databases
 
