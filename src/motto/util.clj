@@ -67,12 +67,16 @@
       (catch Exception _ 0.0))
     0.0))
 
-(defn keys->type [m s->t]
-  (into {} (map (fn [[k v]] [(s->t (name k)) v]) m)))
-
 (defn normalized-sym [x]
   (let [n (name x)]
     (symbol (str/replace n #"[_ -]" "_"))))
+
+(defn uscore->hyphen [s]
+  (let [n (name s)]
+    (symbol (str/replace n #"[_]" "-"))))
+
+(defn keys->type [m s->t]
+  (into {} (map (fn [[k v]] [(s->t (uscore->hyphen k)) v]) m)))
 
 (defn keys->syms [m]
   (keys->type m symbol))

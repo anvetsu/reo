@@ -256,6 +256,7 @@
       ;; http
       (def http_get motto.lib.http/http-get)
       (def http_res motto.lib.http/http-res)
+      (def http_req motto.lib.http/http-req)
 
       ;; json
       (def json_enc motto.lib.json/json-str)

@@ -17,3 +17,8 @@
    (http-res p timeout-ms :void))
   ([p]
    (u/keys->syms @p)))
+
+(defn http-req [options]
+  (let [opts (u/keys->kws options)
+        method (keyword (get opts :method 'get))]
+    (http/request (assoc opts :method method))))
