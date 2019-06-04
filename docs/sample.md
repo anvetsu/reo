@@ -1,5 +1,11 @@
 # Sample Applications
 
+These section demonstrates some interesting tasks to which Motto could be applied.
+
+It is recommended that you study these examples carefully. You will learn how to effectively
+use the platform for solving real-world problems. You will also get familiar with many aspects of
+the language that were not covered in earlier sections.
+
 1. [Visualizing Return on Investment](sample/roi.md)
 
 **WIP**
