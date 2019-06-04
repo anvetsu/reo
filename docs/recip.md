@@ -443,6 +443,48 @@ The set-select function (`setsel`) will filter a set by a predicate and return a
 ; 1b
 ```
 
+## Working with Strings
+
+Concatenate multiple objects into a single string:
+
+```lisp
+? str("Select one of: " [1 90 89])
+; Select one of: [1 90 89]
+```
+
+Convert a string to a list of characters:
+
+```lisp
+? s:"hello world"
+? cs:vec(seq(s))
+
+? cs
+; [h e l l o   w o r l d]
+
+? cs(2)
+; l
+```
+
+You may import and use the functions in the
+<a href="https://clojure.github.io/clojure/clojure.string-api.html" target="_blank">`clojure.string`</a> namespace:
+
+```lisp
+? clj_use(['`clojure.string` 'as 'str])
+
+? `str/starts-with?`(s "he")
+; 1b
+```
+
+You can also directly call methods on the Java
+<a href='https://docs.oracle.com/javase/7/docs/api/java/lang/String.html" target="_blank">String</a> class:
+
+```lisp
+? `.indexOf`(s "ll")
+; 2
+```
+
+The same techniques can be applied to access any Clojure function or Java object/class methods.
+
 ## Binary Data
 
 Binary data can be compactly represented as bit-vectors:
