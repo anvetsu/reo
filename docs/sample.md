@@ -7,6 +7,7 @@ use the platform for solving real-world problems. You will also get familiar wit
 the language that were not covered in earlier sections.
 
 1. [Visualizing Return on Investment](sample/roi.md)
+2. [Calculating Mortgages](sample/mortgage.md)
 
 **WIP**
 
