@@ -1,6 +1,6 @@
 # Sample Applications
 
-1. [Visualizing Return on Investment](roi.md)
+1. [Visualizing Return on Investment](sample/roi.md)
 
 **WIP**
 
