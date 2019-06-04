@@ -485,6 +485,47 @@ You can also directly call methods on the Java
 
 The same techniques can be applied to access any Clojure function or Java object/class methods.
 
+### Regular expressions
+
+Create <a href="https://en.wikipedia.org/wiki/Regular_expression" target="_blank">regular expressions</a> with `rx` function:
+
+```lisp
+? exp:rx("abc")
+```
+
+The `re_matches` can check if a regular expression matches a string. It will return `nul` if there is no match:
+
+```lisp
+? is_nul(rx_matches(exp "xyz"))
+; 1b
+
+? rx_matches(exp "abc")
+; abc
+
+? is_nul(rx_matches(exp "abcxyz"))
+; 1b
+
+? rx_matches(rx("abc(.*)") "abcxyz")
+; [abcxyz xyz]
+```
+
+`Rx_find` returns the first match within a string:
+
+```lisp
+? rx_find(rx("l+") "doll")
+; ll
+
+? rx_find(rx("s+(.*)(s+)") "success")
+; [success ucces s]
+```
+
+`Rx_seq` will return all substrings that match:
+
+```lisp
+? rx_seq(rx("s+") "mississippi")
+; [ss ss]
+```
+
 ## Binary Data
 
 Binary data can be compactly represented as bit-vectors:
