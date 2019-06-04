@@ -1,6 +1,6 @@
 # Sample Applications
 
-These section demonstrates some interesting tasks to which Motto could be applied.
+This section demonstrates some interesting tasks to which Motto can be applied.
 
 It is recommended that you study these examples carefully. You will learn how to effectively
 use the platform for solving real-world problems. You will also get familiar with many aspects of
