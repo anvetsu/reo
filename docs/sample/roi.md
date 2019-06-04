@@ -14,6 +14,6 @@ plot('xy til(years) returns ['xlabel: "Years" 'ylabel: "Returns"])
 
 The `plot` function will produce the following chart on screen:
 
-![projected returns](images/rets.png)
+![projected returns](../images/rets.png)
 
 [Back](sample.md)
