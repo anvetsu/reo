@@ -90,8 +90,6 @@ The total payment over 5 months is recomputed as follows, if the client is willi
 ; 6807.0
 ```
 
-## Reference
-
-<a href="https://mitpress.mit.edu/books/introduction-computation-and-programming-using-python-second-edition">Introduction to Computation and Programming Using Python</a>.
+**Acknowledgment** This example is based on Chapter 8 of <a href="https://mitpress.mit.edu/books/introduction-computation-and-programming-using-python-second-edition">Introduction to Computation and Programming Using Python</a>.
 
 [Back](../sample.md)
