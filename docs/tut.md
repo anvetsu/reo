@@ -105,6 +105,31 @@ Some examples:
 ; 1b
 ```
 
+#### Multi-line expressions
+
+Long expressions can be split across multiple lines by ending each line with two or more spaces.
+The REPL will mark each new line of the expression with the `-` prompt.
+
+The following example shows how to split the expression `(2 + 2 * 3) / 2` across multiple lines.
+(Here each space is visually identified with an underscore, this is not part of the program or the REPL output):
+
+```lisp
+? (2 + 2 _ _
+- * 3 _ _
+- ) / 2
+; 4
+```
+
+Expressions enclosed in `( )`, `[ ]` and `{ }` can be split to multiple space without adding trailing spaces:
+
+```lisp
+? [1 2 3
+- 4 5]
+; [1 2 3 4 5]
+```
+
+### Textual Data
+
 Strings are enclosed in double-quotes. Character literals are prefixed by a `\`.
 
 ```lisp

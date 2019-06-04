@@ -154,7 +154,7 @@
   ([brace-counts]
    (if-let [s (read-line)]
      (if (str/ends-with? s "  ")
-       [:more s]
+       [:more s brace-counts]
        (let [c (match-braces s brace-counts)]
          (cond
            (every? #(<= % 0) c) [:done s]
