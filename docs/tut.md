@@ -227,6 +227,25 @@ new variable. (In the sample code we have left out these return values).
 ; 179.25
 ```
 
+#### Multiple bindings
+
+Multiple variables can be bound in a single expression by specifying the variables and corresponding values in lists:
+
+```lisp
+? [a b c]:[100 200+10 45/5]
+
+? a
+; 100
+
+? b
+; 210
+
+? c
+; 9
+```
+
+The values list must have as many expressions as there are variables, it may have more but not less.
+
 ### Controlling visibility
 
 Visibility or scope of variables can be controlled by declaring them within "code-blocks". A code-block is any sequence
