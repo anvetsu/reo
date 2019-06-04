@@ -476,7 +476,7 @@ You may import and use the functions in the
 ```
 
 You can also directly call methods on the Java
-<a href='https://docs.oracle.com/javase/7/docs/api/java/lang/String.html" target="_blank">String</a> class:
+<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html" target="_blank">String</a> class:
 
 ```lisp
 ? `.indexOf`(s "ll")
