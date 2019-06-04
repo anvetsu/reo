@@ -16,4 +16,4 @@ The `plot` function will produce the following chart on screen:
 
 ![projected returns](../images/rets.png)
 
-[Back](sample.md)
+[Back](../sample.md)
