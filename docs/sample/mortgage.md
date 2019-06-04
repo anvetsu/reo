@@ -37,3 +37,7 @@ Here is how you can use `lazy` to generate an infinite number of integers, from 
 ? lift(20 xs)
 ; [10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29]
 ```
+
+## Reference
+
+<a href="https://mitpress.mit.edu/books/introduction-computation-and-programming-using-python-second-edition">Introduction to Computation and Programming Using Python</a>.
