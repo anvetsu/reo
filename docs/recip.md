@@ -2,7 +2,7 @@
 
 This document presents some functions and operators that you will find handy
 for data processing and analysis. You will be presented with
-code recipes. Short explanations will be provided, where that is absolutley required.
+code recipes. Short explanations will be provided, where that is absolutely required.
 
 ## Making Sequences
 
@@ -97,7 +97,7 @@ listf(sqrt 10)
 ; [10 3.1622776601683795 1.7782794100389228 1.333521432163324 ...]
 ```
 
-## Accesing and Manipulating Sequences
+## Accessing and Manipulating Sequences
 
 Accessing the first, all-but-first and last elements in a sequence:
 
@@ -344,7 +344,7 @@ group(`+` 0 emp('salary) emp('dept))
 ; [1:2700 2:2950 3:1120]
 ```
 
-A resuable version of this sum and group-by function could defined as:
+A reusable version of this sum and group-by function could defined as:
 
 ```lisp
 ? sum_grp:partial(group `+` 0)

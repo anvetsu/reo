@@ -3,7 +3,7 @@
 Motto can read and write data encoded in various formats.
 It can also fetch data from external sources like databases and HTTP servers.
 
-## Character Delimited Files
+## Delimited Files
 
 A common way to encode textual data is to use comma or some other character to delimit values.
 
@@ -173,7 +173,7 @@ manipulation and `qry` is used for loading data into in-memory columnar tables.
 ```
 
 The values of `date_released` are returned as objects of the Java `Date` class. This needs to be converted to Motto's date-time type
-before they can be eaily processed.
+before they can be easily processed.
 
 ```lisp
 ? products:assoc(products, 'date_released, dt ~ products('date_released))
@@ -186,7 +186,7 @@ before they can be eaily processed.
 ```
 
 As Motto internally uses [JDBC](https://en.wikipedia.org/wiki/Java_Database_Connectivity),
-it can be eaily extended to talk to any database with a JDBC driver.
+it can be easily extended to talk to any database with a JDBC driver.
 
 ## HTTP Services
 

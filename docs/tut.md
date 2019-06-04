@@ -1,7 +1,7 @@
-# Motto - An Extended Tutorial
+# An Extended Tutorial
 
-Modern digital computers are good at consuming and processing large amounts of data.
-They are also good at dealing with various types of data - numbers, texts, lists and tables.
+Modern digital computers are very good at consuming and processing large amounts of data.
+They are also good at dealing with various *types* of data - numbers, texts, lists and tables.
 
 As the representation of data becomes more complex, computer users tend to depend on specialized tools.
 For example, spreadsheet programs are used for visualizing and manipulating tabular data.
