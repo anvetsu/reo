@@ -14,7 +14,7 @@ items:[['clock 175 10]
        ['computer 200 20]]
 ```
 
-We can sort the items by either weight, value or the ration of value to weight.
+We can sort the items by either weight, value or the ratio of value to weight.
 Then we have to pick the items from the sorted list until the bag is full.
 Finally we will choose the best packing by comparing the total value of items packed by all three methods.
 
@@ -32,16 +32,18 @@ items run-out.
 
 ```lisp
 pack:fn(bag maxwt items) \
-       if (seq(items) { i:first(items)
-                        w:maxwt-i(2)
-			if (is_pos(w) rec(bag;i w rest(items))
-			    is_zero(w) bag;i
-			    rec(bag maxwt rest(items))) }
+       if (seq(items) {
+            i:first(items)
+            w:maxwt-i(2)
+            if (is_pos(w) rec(bag;i w rest(items))
+                is_zero(w) bag;i
+                rec(bag maxwt rest(items)))
+	   }
            bag)
 ```
 
 The `pack_bag` function, that we define next, will take a predicate, sort the items by that predicate
-and call `pack` with an empty bag, maximum allowed wait and the sorted list of items:
+and call `pack` with an empty bag, maximum allowed weight and the sorted list of items:
 
 ```lisp
 pack_bag:fn(cmpr maxwt) pack([] maxwt sort(cmpr, items))
