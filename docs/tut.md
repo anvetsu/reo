@@ -854,6 +854,31 @@ to the values `10` and `20` respectively:
 ; 300
 ```
 
+### Argument Destructuring
+
+Function parameters can be defined as data-patterns of lists and dictionaries.
+
+The following example shows how to define a function with a list pattern:
+
+```lisp
+? f:fn([x y z]) x+y+z
+
+? f([10 20 30])
+; 60
+```
+
+When the function is called, the argument list is destructured according to the pattern and its elements are assigned to
+the variables in the pattern. Note that a pattern variable will default to `nul`.
+
+The next function destructures its dictionary argument:
+
+```lisp
+? g:fn([a:'a b:'b]) a + b
+
+? g(['a:10 'b:20])
+; 30
+```
+
 <a name="conds"></a>
 ## Control Flow
 
