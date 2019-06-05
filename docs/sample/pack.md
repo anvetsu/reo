@@ -1,6 +1,6 @@
 # Greedy Packing
 
-This program shows a greedy solution to the [Knapsack problem](https://en.wikipedia.org/wiki/Knapsack_problem#Computational_complexity).
+This program shows a greedy solution to the [Knapsack problem](https://en.wikipedia.org/wiki/Knapsack_problem).
 
 Imagine that we have to pack the following items into a bag that carry a maximum weight of 20 (units).
 Each item is encoded as `[item_name value weight]`.
