@@ -247,3 +247,17 @@
   ["incs:^lazy(X1 fn()incs(inc(X1)))" 'incs
    "xs:incs(100)" 'xs
    "lift(5 xs)" [100 101 102 103 104]])
+
+(deft ident-keys
+  ["[x y]:[10 20]" 'y
+   "[x+y x-y x y]" [30 -10 10 20]
+   "m:[x:'a y:'b]" 'm
+   "m" {10 'a 20 'b}
+   "m(x)" 'a
+   "m(y)" 'b])
+
+(deft fn-destruct
+  ["f:fn([x y]) x + y" 'f
+   "f([1 2])" 3
+   "g:fn([a:'a b:'b]) a + b" 'g
+   "g(['a:4 'b:5])" 9])

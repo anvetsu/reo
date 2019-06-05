@@ -84,9 +84,10 @@
       :load `(ld ~(first args) eval)
       (call-fn ident args lsp))))
 
-(defn- mkfn [fexpr]
-  (let [f (:fn fexpr)]
-    `(fn ~(into [] (:params f)) ~(->lisp eval (:body f)))))
+(defn- mkfn [fexpr eval]
+  (let [f (:fn fexpr)
+        ps (map #(->lisp eval %) (:params f))]
+    `(fn ~(into [] ps) ~(->lisp eval (:body f)))))
 
 (defn ->lisp [eval expr]
   (cond
@@ -95,7 +96,7 @@
     (= expr :void) :void
     (tp/literal? expr) expr
     (tp/identifier? expr) (translate-ident expr)
-    (tp/function? expr) (mkfn expr)
+    (tp/function? expr) (mkfn expr eval)
     (tp/bitvec-lit? expr) `(motto.bitvec/from-str ~(second expr))
     (seq expr) (form->lisp (first expr) (rest expr) eval)))
 

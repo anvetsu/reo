@@ -73,21 +73,24 @@
   (let [[bindings body] (local-defs exprs)]
     [:let bindings body]))
 
+(declare parse-list)
+
 (defn- parse-params [tokens]
   (if (= :openp (first tokens))
     (loop [ts (rest tokens)
            params []]
       (if (seq ts)
         (let [t (first ts)
-              [done? nt]
+              [done? nt rs]
               (cond
-                (tp/identifier? t) [false t]
                 (= :and t) [false '&]
                 (= :closep t) [true [params (rest ts)]]
-                :else (ex (str "invalid parameter: " t)))]
+                (= :open-sb t) (let [[ls rs] (parse-list (rest ts))]
+                                 [false ls rs])
+                :else [false t])]
           (if done?
             nt
-            (recur (ignore-comma (rest ts)) (conj params nt))))
+            (recur (ignore-comma (or rs (rest ts))) (conj params nt))))
         (ex "missing closing parenthesis in function definition")))
     (ex-tokens "missing open parenthesis" tokens)))
 
@@ -166,11 +169,16 @@
     (if (seq tokens)
       (if (= :close-sb (first tokens))
         [[:dict rs] (rest tokens)]
-        (let [[k tokens] (parse-expr tokens)]
-          (when-not (= :define (first tokens))
-            (ex-tokens "expected key-value pair" tokens))
-          (let [[v tokens] (parse-expr (rest tokens))]
-            (recur tokens (assoc rs k v)))))
+        (let [[ident? def?] [(tp/identifier? (first tokens))
+                             (= :define (second tokens))]]
+          (if (and ident? def?)
+            (let [[v ts] (parse-expr (nthrest tokens 2))]
+              (recur ts (assoc rs (first tokens) v)))
+            (let [[k tokens] (parse-expr tokens)]
+              (when-not (= :define (first tokens))
+                (ex-tokens "expected key-value pair" tokens))
+              (let [[v tokens] (parse-expr (rest tokens))]
+                (recur tokens (assoc rs k v)))))))
       (ex-tokens "invalid dictionary" tokens))))
 
 (defn- parse-list [tokens]
@@ -178,11 +186,16 @@
     (if (seq tokens)
       (if (= :close-sb (first tokens))
         [[:list xs] (rest tokens)]
-        (let [[x tokens] (parse-expr tokens)]
-          (if (and first? (= :define (first tokens)))
-            (let [[v tokens] (parse-expr (rest tokens))]
-              (parse-dict x v tokens))
-            (recur (ignore-comma tokens) false (conj xs x)))))
+        (let [[ident? def?] [(tp/identifier? (first tokens))
+                             (= :define (second tokens))]]
+          (if (and ident? def?)
+            (let [[v ts] (parse-expr (nthrest tokens 2))]
+              (parse-dict (first tokens) v ts))
+            (let [[x tokens] (parse-expr tokens)]
+              (if (and first? (= :define (first tokens)))
+                (let [[v tokens] (parse-expr (rest tokens))]
+                  (parse-dict x v tokens))
+                (recur (ignore-comma tokens) false (conj xs x)))))))
       (ex-tokens "invalid list" tokens))))
 
 (defn- parse-neg-expr [tokens]
