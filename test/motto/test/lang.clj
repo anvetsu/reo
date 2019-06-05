@@ -71,11 +71,11 @@
    "eq(\"abc\" [1 2 3 4])" false
    "lteq(\"abc\" [1 2 3 4])" false
    "eq(\"abc\" \"abc\" [1 2 3 4])" false
-   "neq(100 100)" true
-   "nlt(100 100)" false
-   "nlteq(100 100)" true
-   "ngt(200 100 50)" true
-   "ngteq(200 200 200 200)" true])
+   "num_eq(100 100)" true
+   "num_lt(100 100)" false
+   "num_lteq(100 100)" true
+   "num_gt(200 100 50)" true
+   "num_gteq(200 200 200 200)" true])
 
 (deft logical-test
   ["1<2 & 3<4*100"  true

@@ -53,11 +53,11 @@
 
       (def exit motto.lib.sys/exit)
 
-      (def neq =)
-      (def nlt <)
-      (def ngt >)
-      (def nlteq <=)
-      (def ngteq >=)
+      (def num_eq clojure.core/=)
+      (def num_lt clojure.core/<)
+      (def num_gt clojure.core/>)
+      (def num_lteq clojure.core/<=)
+      (def num_gteq clojure.core/>=)
 
       (def eq motto.lib.obj/eq)
       (def lt motto.lib.obj/lt)
