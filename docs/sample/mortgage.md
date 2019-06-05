@@ -13,7 +13,7 @@ monthly_payment: fn(loan rate months) {
 
 We need a function to return the payments and the outstanding for each month.
 It takes the current outstanding loan amount, rate of interest and the current payment
-as arguments.
+as arguments. The return value is an infinite sequence of `payments` and `outstandings`.
 
 ```lisp
 payseq: fn(loan rate payment) {
@@ -22,26 +22,6 @@ payseq: fn(loan rate payment) {
           lazy([payment outstanding], fn() payseq(outstanding rate payment))
         }
 ```
-
-This function essentially returns an infinite sequence of `payments` and `outstandings`.
-
-You make such infinite sequences with the help of the `lazy` function. It takes two arguments:
-
-  - a value for the head of the sequence.
-  - a zero-argument function that will be called to generate the rest of the sequence.
-
-Here is how you can use `lazy` to generate an infinite number of integers, from a starting value:
-
-```lisp
-? nums:fn(n) lazy(n fn()nums(inc(n)))
-? xs:nums(10)
-
-"take as many integers as you want: "
-? lift(20 xs)
-; [10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29]
-```
-
-Let's get back to mortgage calculations!
 
 The following function computes the fixed monthly pay and calls `payseq` to return the sequence of
 payments and balances, starting from the principal loan amount:
