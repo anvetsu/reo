@@ -13,7 +13,7 @@ monthly_payment: fn(loan rate months) {
 
 We need a function to return the payments and the outstanding for each month.
 It takes the current outstanding loan amount, rate of interest and the current payment
-as arguments. The return value is an infinite sequence of `payments` and `outstandings`.
+as arguments. The return value is an [infinite sequence](../tut.md#lazy) of `payments` and `outstandings`.
 
 ```lisp
 payseq: fn(loan rate payment) {

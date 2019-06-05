@@ -306,7 +306,8 @@ You may freely mix numbers and lists in an arithmetic expression. For example, y
 ; [62.7375 35.7 58.0125 63.525 24.675]
 ```
 
-## Infinite Lists
+<a name="lazy"></a>
+### Infinite Lists
 
 A list need not contine a finite number of elements. It could be infinite!
 You make such infinite sequences with the help of the `lazy` function, which takes two arguments:
