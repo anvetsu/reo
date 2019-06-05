@@ -5,7 +5,7 @@ monthly rate and number of months.
 
 ```rust
 monthly_payment: fn(loan rate months) {
-                   r: rate/12
+                   r: rate
                    x: pow(r+1.0 months)
 		   loan * ((r * x) / (x-1.0))
 		 }
@@ -28,6 +28,7 @@ payments and balances, starting from the principal loan amount:
 
 ```rust
 make_payment: fn(loan rate months) {
+                rate: rate/12.0
                 payment: monthly_payment(loan rate months)
                 [[0.0 loan]]#payseq(loan rate payment)
               }
@@ -57,6 +58,7 @@ This is used for computing the initial payment made:
 
 ```rust
 make_pts_payment: fn(loan rate months points) {
+                   rate: rate/12.0
                    payment: monthly_payment(loan rate months)
                    [[loan*(points/100.0), loan]]#payseq(loan rate payment)
               }
@@ -66,8 +68,21 @@ The total payment over 5 months is recomputed as follows, if the client is willi
 0.2:
 
 ```rust
-? total_paid(make_pts_payment(10000 0.2 24 7) 12)
+? floor(total_paid(make_pts_payment(10000 0.2 24 7) 12))
 ; 6807.0
+```
+
+### Mortgage with Variable Rate
+
+```rust
+make_vr_payment: fn(loan rate months vrate vmonths) {
+                   rate: rate/12.0
+		   vrate: vrate/12.0
+                   vr_pay: lift(inc(vmonths) make_payment(loan vrate vmonths))
+		   mons: months - vmonths
+		   norm_pay: lift(mons make_payment(second(last(vr_pay)) rate mons))
+		   vr_pay#norm_pay
+                 }
 ```
 
 **Credits** - This example is based on Chapter 8 of <a href="https://mitpress.mit.edu/books/introduction-computation-and-programming-using-python-second-edition">Introduction to Computation and Programming Using Python</a>.
