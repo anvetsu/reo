@@ -15,7 +15,7 @@ We need a function to return the payments and the outstanding for each month.
 It takes the current outstanding loan amount, rate of interest and the current payment
 as arguments. The return value is an [infinite sequence](../tut.md#lazy) of `payments` and `outstandings`.
 
-```lisp
+```rust
 payseq: fn(loan rate payment) {
           reduction: payment - loan*rate
           outstanding: loan - reduction
@@ -26,7 +26,7 @@ payseq: fn(loan rate payment) {
 The following function computes the fixed monthly pay and calls `payseq` to return the sequence of
 payments and balances, starting from the principal loan amount:
 
-```lisp
+```rust
 make_payment: fn(loan rate months) {
                 payment: monthly_payment(loan rate months)
                 [[0.0 loan]]#payseq(loan rate payment)
@@ -35,14 +35,14 @@ make_payment: fn(loan rate months) {
 
 Next we need a function to report the total amount paid for a given period:
 
-```lisp
+```rust
 ? total_paid: fn(payments months) sum(first ~ lift(inc(months) payments))
 ```
 
 How much money is to be paid for 12 months for a loan of 10000 taken for 24 months for a fixed monthly rate of 0.5?
 Here is the answer:
 
-```lisp
+```rust
 ? floor(total_paid(make_payment(10000 0.5 24) 12))
 ; 8005.0
 ```
@@ -55,7 +55,7 @@ In this example, we define a point as a `1%` cash payment of the total value of 
 The following extended version of the `make_payment` function accommodates the `points` purchased by the client.
 This is used for computing the initial payment made:
 
-```lisp
+```rust
 make_pts_payment: fn(loan rate months points) {
                    payment: monthly_payment(loan rate months)
                    [[loan*(points/100.0), loan]]#payseq(loan rate payment)
@@ -65,7 +65,7 @@ make_pts_payment: fn(loan rate months points) {
 The total payment over 5 months is recomputed as follows, if the client is willing to buy 7 points. He is given an reduced rate of
 0.2:
 
-```lisp
+```rust
 ? total_paid(make_pts_payment(10000 0.2 24 7) 12)
 ; 6807.0
 ```

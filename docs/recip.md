@@ -8,7 +8,7 @@ code recipes. Short explanations will be provided, where that is absolutely requ
 
 Create a numeric list:
 
-```lisp
+```rust
 ? til(5)
 ; [0 1 2 3 4]
 ? til(2 5)
@@ -17,14 +17,14 @@ Create a numeric list:
 
 You may change the factor of increment:
 
-```lisp
+```rust
 ? til(2 10 3)
 ; [2 5 8]
 ```
 
 A negative offset will return the list in reverse:
 
-```lisp
+```rust
 ? til(-5)
 ; [4 3 2 1 0]
 
@@ -38,7 +38,7 @@ A negative offset will return the list in reverse:
 The `range` function returns a lazy-numeric-sequence. A lazy sequence is realized only when
 elements are actually accessed. This makes it ideal for creating very large sequences.
 
-```lisp
+```rust
 ? range(5)
 ? range(5)
 ; [0 1 2 3 4]
@@ -52,7 +52,7 @@ elements are actually accessed. This makes it ideal for creating very large sequ
 
 `Range` do not support negative offsets, you have to explicitly reverse the result:
 
-```lisp
+```rust
 ? reverse(range(2 10 3))
 ; [8 5 2]
 ```
@@ -60,7 +60,7 @@ elements are actually accessed. This makes it ideal for creating very large sequ
 Also note that a lazy sequence cannot be directly indexed, it must be converted to a
 normal list (internally known as a `vector`) before it could be directly indexed.
 
-```lisp
+```rust
 ? til(1 10)(3)
 ; 4
 
@@ -73,7 +73,7 @@ normal list (internally known as a `vector`) before it could be directly indexed
 
 Create `n` instances of an object:
 
-```lisp
+```rust
 ? repeat(5 "hi")
 ; [hi hi hi hi hi]
 
@@ -83,7 +83,7 @@ Create `n` instances of an object:
 Create a lazy-sequence by repeatedly applying a function. For example, the following program
 returns an infinite sequence of random integers in the range `0-100`:
 
-```lisp
+```rust
 ? listf(^roll(100))
 ; [80 8 91 98 7 97 69 0 91 27 ...]
 ```
@@ -92,7 +92,7 @@ returns an infinite sequence of random integers in the range `0-100`:
 to seed the first call to the function. Each subsequent call will be seeded by the preceding result. Here is
 function that returns a sequence of square-roots, starting at `10`:
 
-```lisp
+```rust
 listf(sqrt 10)
 ; [10 3.1622776601683795 1.7782794100389228 1.333521432163324 ...]
 ```
@@ -101,7 +101,7 @@ listf(sqrt 10)
 
 Accessing the first, all-but-first and last elements in a sequence:
 
-```lisp
+```rust
 ? xs:[1 2 3 4 5]
 
 ? first(xs)
@@ -116,7 +116,7 @@ Accessing the first, all-but-first and last elements in a sequence:
 
 Accessing an element by index in a normal list:
 
-```lisp
+```rust
 ? xs(3)
 ; 4
 
@@ -129,7 +129,7 @@ Accessing an element by index in a normal list:
 
 Accessing an element by index in a lazy-sequence:
 
-```lisp
+```rust
 ? xs:range(10 20)
 
 ? xs
@@ -145,7 +145,7 @@ Accessing an element by index in a lazy-sequence:
 Insert a new element to the beginning or end of a list using the `concat` (`;`)
 operator. (Do not confuse this operator with the `;` prefix of the output):
 
-```lisp
+```rust
 ? xs:[10 34 5]
 ? xs
 ; [10 34 5]
@@ -164,7 +164,7 @@ operator. (Do not confuse this operator with the `;` prefix of the output):
 
 The `append` operator concatenates two lists into one:
 
-```lisp
+```rust
 ? [1 2 3]#xs
 ; [1 2 3 10 34 5]
 
@@ -174,7 +174,7 @@ The `append` operator concatenates two lists into one:
 
 Atomic values are automatically converted to a list:
 
-```lisp
+```rust
 ? 100#xs
 ; [100 10 34 5]
 ```
@@ -183,7 +183,7 @@ Atomic values are automatically converted to a list:
 
 Take the first `n` or last `n` elements from a sequence:
 
-```lisp
+```rust
 ? xs:til(50)
 
 ? lift(5 xs)
@@ -195,7 +195,7 @@ Take the first `n` or last `n` elements from a sequence:
 
 Drop the first `n` or last `n` elements from a sequence:
 
-```lisp
+```rust
 ? dip(45 xs)
 ; [45 46 47 48 49]
 
@@ -208,7 +208,7 @@ Drop the first `n` or last `n` elements from a sequence:
 Comparison operators burrow into sequences and returns a list of
 boolean values:
 
-```lisp
+```rust
 ? xs:[10 89 3 41 52 77]
 
 ? xs > 40
@@ -217,14 +217,14 @@ boolean values:
 
 The select function (`sel`) filters a list by masking it using a sequence of boolean values:
 
-```lisp
+```rust
 ? sel(xs > 40, xs)
 ; [89 41 52 77]
 ```
 
 The function `filter` is similar to `sel`, but selects values that satisfy a predicate:
 
-```lisp
+```rust
 ? filter(^X1 > 40, xs)
 ; [89 41 52 77]
 ```
@@ -233,14 +233,14 @@ The function `filter` is similar to `sel`, but selects values that satisfy a pre
 
 You may use the `!` shorthand operator in place of the `filter` function:
 
-```lisp
+```rust
 ? is_odd ! [1 2 3 4 5]
 ; [1 3 5]
 ```
 
 The `mx` (max) function selects the largest value from a sequence, the function `mn` (min) selects the smallest value:
 
-```lisp
+```rust
 ? mx(xs)
 ; 89
 
@@ -250,7 +250,7 @@ The `mx` (max) function selects the largest value from a sequence, the function 
 
 The functions `big` and `sml` (small) are burrowing versions of `mx` and `mn`:
 
-```lisp
+```rust
 ? big(40 xs)
 ; [40 89 40 41 52 77]
 
@@ -265,7 +265,7 @@ The functions `big` and `sml` (small) are burrowing versions of `mx` and `mn`:
 
 Adding and removing keys:
 
-```lisp
+```rust
 ? data: ['name: "Rachel" 'age: 4]
 
 ? assoc(data 'class 1 'div 'A)
@@ -278,14 +278,14 @@ Adding and removing keys:
 Dictionaries, like all sequences, are immutable. The operations `assoc` and `dissoc`
 return new dictionaries. The original in left intact:
 
-```lisp
+```rust
 ? data
 ; [name:Rachel age:4]
 ```
 
 `Map` and `filter` can be applied to dictionaries:
 
-```lisp
+```rust
 ? r:map(^{k:first(X1) v:second(X1) [k v*10]}, ['a:1 'b:20 'c:30])
 ? r
 ; [[a 10]
@@ -301,14 +301,14 @@ return new dictionaries. The original in left intact:
 These functions return generic sequences of key-value pair.
 Such sequences can be coerced into dictionaries:
 
-```lisp
+```rust
 ? dict(r)
 ; [a:1 c:3]
 ```
 
 ## Sorting
 
-```lisp
+```rust
 ? sort([10 20 1 4 89])
 ; [1 4 10 20 89]
 
@@ -327,7 +327,7 @@ Such sequences can be coerced into dictionaries:
 
 Consider the following employee table:
 
-```lisp
+```rust
 ? emp:['name 'dept 'salary] $ [["Joe" "Sam" "Mat" "Ken" "San"]
                                  [1 2 1 3 2]
 				 [1400 1450 1300 1120 1500]]
@@ -339,14 +339,14 @@ Consider the following employee table:
 
 Find the total salary for each department:
 
-```lisp
+```rust
 group(`+` 0 emp('salary) emp('dept))
 ; [1:2700 2:2950 3:1120]
 ```
 
 A reusable version of this sum and group-by function could defined as:
 
-```lisp
+```rust
 ? sum_grp:partial(group `+` 0)
 
 sum_grp(emp('salary) emp('dept))
@@ -354,7 +354,7 @@ sum_grp(emp('salary) emp('dept))
 ```
 Count the number of employees in each department:
 
-```lisp
+```rust
 ? group_count(emp('dept))
 ; [1:2 2:2 3:1]
 ```
@@ -363,7 +363,7 @@ Count the number of employees in each department:
 
 Find all employees with salary greater-than `1400`:
 
-```lisp
+```rust
 ? where(^X1('salary) > 1400, emp)
 ; name: [Sam San]
 ; dept: [2 2]
@@ -374,7 +374,7 @@ Find all employees with salary greater-than `1400`:
 
 Merge a new table with the employee table:
 
-```lisp
+```rust
 ? club(emp, ['years_of_service 'age] $ [[12 10 8 15 4] [35 30 36 40 31]])
 ; name: [Joe Sam Mat Ken San]
 ; dept: [1 2 1 3 2]
@@ -390,7 +390,7 @@ updating the employee table in-place.
 
 Convert lists to a sets:
 
-```lisp
+```rust
 ? a:set([1 5 7 5 8 9])
 ? a
 ; [7 1 9 5 8]
@@ -405,7 +405,7 @@ Convert lists to a sets:
 
 Common set operations - `union`, `intersection` and `difference`:
 
-```lisp
+```rust
 ? setu(a b)
 ; [7 1 9 5 10 8]
 
@@ -421,7 +421,7 @@ Common set operations - `union`, `intersection` and `difference`:
 
 Sets can be filtered, but the normal filter operation will return a generic sequence:
 
-```lisp
+```rust
 ? r:is_odd ! a
 ? r
 ; [7 1 9 5]
@@ -435,7 +435,7 @@ Sets can be filtered, but the normal filter operation will return a generic sequ
 
 The set-select function (`setsel`) will filter a set by a predicate and return a proper set:
 
-```lisp
+```rust
 ? setsel(is_odd a)
 ; [7 1 9 5]
 
@@ -447,14 +447,14 @@ The set-select function (`setsel`) will filter a set by a predicate and return a
 
 Concatenate multiple objects into a single string:
 
-```lisp
+```rust
 ? str("Select one of: " [1 90 89])
 ; Select one of: [1 90 89]
 ```
 
 Convert a string to a list of characters:
 
-```lisp
+```rust
 ? s:"hello world"
 ? cs:vec(seq(s))
 
@@ -468,7 +468,7 @@ Convert a string to a list of characters:
 You may import and use the functions in the
 <a href="https://clojure.github.io/clojure/clojure.string-api.html" target="_blank">`clojure.string`</a> namespace:
 
-```lisp
+```rust
 ? clj_use(['`clojure.string` 'as 'str])
 
 ? `str/starts-with?`(s "he")
@@ -478,7 +478,7 @@ You may import and use the functions in the
 You can also directly call methods on the Java
 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html" target="_blank">String</a> class:
 
-```lisp
+```rust
 ? `.indexOf`(s "ll")
 ; 2
 ```
@@ -489,13 +489,13 @@ The same techniques can be applied to access any Clojure function or Java object
 
 Create <a href="https://en.wikipedia.org/wiki/Regular_expression" target="_blank">regular expressions</a> with `rx` function:
 
-```lisp
+```rust
 ? exp:rx("abc")
 ```
 
 The `re_matches` can check if a regular expression matches a string. It will return `nul` if there is no match:
 
-```lisp
+```rust
 ? is_nul(rx_matches(exp "xyz"))
 ; 1b
 
@@ -511,7 +511,7 @@ The `re_matches` can check if a regular expression matches a string. It will ret
 
 `Rx_find` returns the first match within a string:
 
-```lisp
+```rust
 ? rx_find(rx("l+") "doll")
 ; ll
 
@@ -521,7 +521,7 @@ The `re_matches` can check if a regular expression matches a string. It will ret
 
 `Rx_seq` will return all substrings that match:
 
-```lisp
+```rust
 ? rx_seq(rx("s+") "mississippi")
 ; [ss ss]
 ```
@@ -530,7 +530,7 @@ The `re_matches` can check if a regular expression matches a string. It will ret
 
 Binary data can be compactly represented as bit-vectors:
 
-```lisp
+```rust
 ? x:110001b
 ? x
 ; 110001b
@@ -568,7 +568,7 @@ Note that the `bvflip` function mutates the bit-vector.
 
 Boolean sequences and bit-vectors can be instantiated from each other:
 
-```lisp
+```rust
 ? bools(x)
 ; [1b 0b 0b 0b 0b 1b]
 

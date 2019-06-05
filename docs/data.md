@@ -22,7 +22,7 @@ Data formatted in this way is known as CSV (comma-separated-values) encoded.
 Motto can import CSV encoded files and convert them to tables. For example, if the above data is contained in a file
 named "products.csv", we can import it as:
 
-```lisp
+```rust
 ? products:csv("products.csv")
 
 ? products
@@ -34,14 +34,14 @@ named "products.csv", we can import it as:
 
 One problem is that all values, even those that are supposed to be numbers, is imported as strings.
 
-```lisp
+```rust
 ? is_string(products('UnitPrice)(0))
 ; 1b
 ```
 
 So we need to do some explicit conversions before we can apply data processing operations on them:
 
-```lisp
+```rust
 ? sum(to_int ~ products('UnitPrice))
 ; 102600
 ```
@@ -50,7 +50,7 @@ This may not be convenient always. So the `csv` function allows you to specify t
 take care of converting values at the time of load itself. The following call to `csv` specifies the types of
 the products columns as `string (ProductId)`, `string (ProductName)`, `int (UnitPrice)` and `date of format yyyy-MM-dd (DateReleased)`.
 
-```lisp
+```rust
 ? products:csv("products.csv" ['types:['s 's 'i "yyyy-MM-dd"]])
 
 ? products
@@ -97,7 +97,7 @@ Imagine that the products data is encoded as [JSON](https://json.org/) in the fi
 
 This data can be decoded and imported as a columnar table by calling the `json` function:
 
-```lisp
+```rust
 ? products:json("products.json")
 
 ? products
@@ -116,7 +116,7 @@ This data can be decoded and imported as a columnar table by calling the `json` 
 Sequences and dictionaries can be encoded as JSON strings using the `json_enc` function.
 JSON encoded string can be decoded back to Motto structures using the `json_dec` function.
 
-```lisp
+```rust
 ? json_enc([['a:1 'b:2] ['a:3 'b:4]])
 ; [{"a":1,"b":2},{"a":3,"b":4}]
 
@@ -126,7 +126,7 @@ JSON encoded string can be decoded back to Motto structures using the `json_dec`
 
 The result of the above `json_dec` can be converted to columnar format by calling tab:
 
-```lisp
+```rust
 ? tab([['a:1 'b:2] ['a:3 'b:4]])
 ; a: [1 3]
 ; b: [2 4]
@@ -136,7 +136,7 @@ The result of the above `json_dec` can be converted to columnar format by callin
 
 Excel files can be imported using the `xls` function.
 
-```lisp
+```rust
 ? xls("products.xls")
 ```
 
@@ -155,7 +155,7 @@ that can be used as local storage.
 The main functions for interacting with the database is `cmd` and `qry`. `Cmd` is used for data-definition and
 manipulation and `qry` is used for loading data into in-memory columnar tables.
 
-```lisp
+```rust
 ? cmd("create table products (id varchar(20) primary key, name varchar(50), unit_price int, date_released date)")
 ; 0
 ? cmd("insert into products values('1', 'PS-178', 34000, '2019-02-25')")
@@ -175,7 +175,7 @@ manipulation and `qry` is used for loading data into in-memory columnar tables.
 The values of `date_released` are returned as objects of the Java `Date` class. This needs to be converted to Motto's date-time type
 before they can be easily processed.
 
-```lisp
+```rust
 ? products:assoc(products, 'date_released, dt ~ products('date_released))
 
 ? products
@@ -193,7 +193,7 @@ it can be easily extended to talk to any database with a JDBC driver.
 The easiest way to fetch data over HTTP is via the `http_get` function. This function completes asynchronously and returns an
 `future` object that can be queried with the `http_res` (http-result) function.
 
-```lisp
+```rust
 ? f:http_get("https://some-server/data.json")
 ? result:http_res(f)
 ```
@@ -204,14 +204,14 @@ The returned value will be a dictionary with the following main keys - `headers`
 `Http_res` may also be called with an optional timeout value in milliseconds and a value to return on timeout.
 The following program will return a special `timeout` status if the HTTP request does not complete within a second:
 
-```lisp
+```rust
 ? result:http_res(f 1000 ['status:'timeout])
 ```
 
 There is a more generic function for making HTTP requests. This is called `http_req`. For example,
 this function can be used as follows for POSTing JSON data to a HTTP server:
 
-```lisp
+```rust
 ? f:http_req(['url:"https://some-server/login" 'method:'post
               'headers:["Content-Type": "application/json"]
 	      'body:json_enc(["user": "abc" "token": "xyz111"])])

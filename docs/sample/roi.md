@@ -3,7 +3,7 @@
 The following program shows how to graphically view the projected returns from an investment
 over 10 years:
 
-```lisp
+```rust
 investment: 10000
 rate: 0.08
 years: 10

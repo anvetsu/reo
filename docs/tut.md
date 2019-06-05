@@ -32,7 +32,7 @@ This document is divided into the following sections:
 For simple data objects, like numbers and booleans, Motto behaves like any traditional programming
 language:
 
-```lisp
+```rust
 ? 157.89 + 34.19
 ; 192.07999999999998
 
@@ -42,14 +42,14 @@ language:
 
 Large numbers may be written with an underscore for ease of reading:
 
-```lisp
+```rust
 ? 1_50_000 * 45_000
 ; 6750000000
 ```
 
 Division of integers will result in an exact real value.
 
-```lisp
+```rust
 ? 56 / 2
 ; 28
 
@@ -59,7 +59,7 @@ Division of integers will result in an exact real value.
 
 Divisions that involve an inexact floating-point number will produce an inexact result.
 
-```lisp
+```rust
 ? 56 / 3.0
 ;18.666666666666668
 ```
@@ -67,7 +67,7 @@ Divisions that involve an inexact floating-point number will produce an inexact 
 Division by zero will return a constant that represents infinity, which can be used in other
 arithmetic operations. The only catch is that any operation that involve infinity will return infinity.
 
-```lisp
+```rust
 ? 56/0
 ; inf
 
@@ -94,7 +94,7 @@ The logical operators are:
 
 Some examples:
 
-```lisp
+```rust
 ? 1 < 1+1
 ; 1b
 
@@ -113,7 +113,7 @@ The REPL will mark each new line of the expression with the `-` prompt.
 The following example shows how to split the expression `(2 + 2 * 3) / 2` across multiple lines.
 (Here each space is visually identified with an underscore, this is not part of the program or the REPL output):
 
-```lisp
+```rust
 ? (2 + 2 _ _
 - * 3 _ _
 - ) / 2
@@ -122,7 +122,7 @@ The following example shows how to split the expression `(2 + 2 * 3) / 2` across
 
 Expressions enclosed in `( )`, `[ ]` and `{ }` can be split to multiple space without adding trailing spaces:
 
-```lisp
+```rust
 ? [1 2 3
 - 4 5]
 ; [1 2 3 4 5]
@@ -132,7 +132,7 @@ Expressions enclosed in `( )`, `[ ]` and `{ }` can be split to multiple space wi
 
 Strings are enclosed in double-quotes. Character literals are prefixed by a `\`.
 
-```lisp
+```rust
 ? "hello world"
 ; hello world
 
@@ -145,7 +145,7 @@ Non-visual characters may be written more descriptively as `\space` and `\tab`.
 String constants may also be represented as *symbols*. A symbol is an identifier prefixed by a single-quote (').
 Symbols that contain white-spaces or other special characters must be enclosed in tick-quotes (`).
 
-```lisp
+```rust
 ? 'red
 ; red
 
@@ -162,7 +162,7 @@ Symbols are more efficient than strings because two symbols made of the same cha
 
 The `now` function will return the current date-time:
 
-```lisp
+```rust
 ? now()
 ; dt("2019-06-02T10:18:20")
 ```
@@ -170,7 +170,7 @@ The `now` function will return the current date-time:
 Date and time is encoded in the format `YYYY-MM-DDThh:mm:ss`. A string in this format can be converted to a date object by calling the
 `dt` function. A date is converted back to a string by the `sdt` function.
 
-```lisp
+```rust
 ? a:dt("2018-01-02T14:30:23")
 ? a
 ; dt("2018-01-02T14:30:23")
@@ -181,7 +181,7 @@ Date and time is encoded in the format `YYYY-MM-DDThh:mm:ss`. A string in this f
 
 The `dtget` function can access the various parts of a date. For example, to access the year field, we can call this function as:
 
-```lisp
+```rust
 ? dtget(a 'y)
 ; 2018
 ```
@@ -189,7 +189,7 @@ The `dtget` function can access the various parts of a date. For example, to acc
 The `dtadd` function is used for changing the value of any part of a date. Note that this function returns a new date object, and leaves
 the original date unchanged:
 
-```lisp
+```rust
 ? dtadd(a 'y 10)
 ; dt("2028-01-02T14:30:23")
 
@@ -199,7 +199,7 @@ the original date unchanged:
 
 The valid field flags that can be passed to `dtget` and `dtadd` are:
 
-```lisp
+```rust
 'y  - year
 'M  - month
 'd  - day_of_month
@@ -219,7 +219,7 @@ An invalid flag will cause the functions to fallback to `day_of_year`.
 Variables are created using the `:` (declare) operator. This operator will return the symbolic name of the
 new variable. (In the sample code we have left out these return values).
 
-```lisp
+```rust
 ? price:59.75
 ? qty:3
 ? tot:price * qty
@@ -231,7 +231,7 @@ new variable. (In the sample code we have left out these return values).
 
 Multiple variables can be bound in a single expression by specifying the variables and corresponding values in lists:
 
-```lisp
+```rust
 ? [a b c]:[100 200+10 45/5]
 
 ? a
@@ -253,7 +253,7 @@ of program expressions delimited by opening and closing curly-braces (`{` and `}
 
 In the following program, the global definition of `x` is "shadowed" by the local definition of `x` in the code-block:
 
-```lisp
+```rust
 ? x:10
 ? y:20
 
@@ -276,7 +276,7 @@ Assume that we have to find the total price of not one by five products. The pri
 quantities can be represented as two lists:
 
 
-```lisp
+```rust
 ? price:[59.75 34.0 55.25 60.5 23.5]
 ? qty:[3 5 3 2 4]
 ```
@@ -287,7 +287,7 @@ comma separator is left out, the list returned will be `[1 3]` instead of the ex
 
 The total costs can be found by simply multiplying the two lists together:
 
-```lisp
+```rust
 ? cost: price * qty
 ? cost
 ; [179.25 170.0 165.75 121.0 94.0]
@@ -300,7 +300,7 @@ of more complex shapes and structures. This advanced list processing capability 
 
 You may freely mix numbers and lists in an arithmetic expression. For example, you can add a `5%` tax to the prices as,
 
-```lisp
+```rust
 ? tax:0.05
 ? price + tax * price
 ; [62.7375 35.7 58.0125 63.525 24.675]
@@ -317,7 +317,7 @@ You make such infinite sequences with the help of the `lazy` function, which tak
 
 Here is how you can use `lazy` to generate an endless sequence of integers, given a starting value:
 
-```lisp
+```rust
 ? nums:fn(n) lazy(n fn()nums(inc(n)))
 ? xs:nums(10)
 
@@ -334,14 +334,14 @@ Here is how you can use `lazy` to generate an endless sequence of integers, give
 Lists can be used to model data with multiple dimensions. As an example, consider the temperature forecasts (in Celsius) for two cities
 for the next 7 days:
 
-```lisp
+```rust
 ? forecast:[[37 36 37.5 37 35.4 33 35]
             [38 38.3 37 35 37 36.5 37]]
 ```
 
 The `dim` function can be used to find out the dimension of complex lists:
 
-```lisp
+```rust
 ? dim(forecast)
 ; [2 7]
 ```
@@ -351,7 +351,7 @@ This output means `forecast` is a list with `2` rows and `7` columns.
 After 7 days we receive the actual temperature readings as a single list with 14 entries.
 The first 7 entries pertain to the first city and the next 7 entries are for the second city.
 
-```lisp
+```rust
 ? sensor_data:[36 35 37 36 35 34 35 36 37 38 37 37 36 35]
 ? assert(count(sensor_data) = 14)
 ```
@@ -360,7 +360,7 @@ Before we can use this for comparison with the forecast, we need to mold this se
 appropriate shape or dimension. We can use the `tab` (tabulate) function for this.
 The `tab` function takes two arguments - the dimension and the sequence of data that needs to be tabulated.
 
-```lisp
+```rust
 ? actual:tab([2 7] sensor_data)
 ? actual
 
@@ -372,7 +372,7 @@ The `tab` function takes two arguments - the dimension and the sequence of data 
 
 If you find yourself tabulating too much, you may save a few keystrokes by using the `tab` operator (`$`):
 
-```lisp
+```rust
 ? [2 7] $ sensor_data
 
 ; [[36 35 37 36 35 34 35]
@@ -383,7 +383,7 @@ Now that we have the forecast data and actual data, one basic question we would 
 how much the actual temperature readings varies from the forecast? As the arithmetic operators can burrow into
 lists of any dimension, the solution is the following simple program:
 
-```lisp
+```rust
 ? variance:actual - forecast
 ? variance
 
@@ -396,7 +396,7 @@ lists of any dimension, the solution is the following simple program:
 
 Earlier in this tutorial, we calculated the cost of purchase of a list of products:
 
-```lisp
+```rust
 ? cost
 ; [179.25 170.0 165.75 121.0 94.0]
 ```
@@ -404,7 +404,7 @@ Earlier in this tutorial, we calculated the cost of purchase of a list of produc
 We find the total cost by adding together all elements in the list.
 This can be achieved with the help of the `fold` operator denoted by the `@` symbol:
 
-```lisp
+```rust
 ? `+` @ cost
 ; 730.0
 ```
@@ -414,7 +414,7 @@ As `+` is an operator the function attached to it is extracted by enclosing it i
 Now what does the fold (`@`) operator do? It basically inserts the `+` function between all the elements of
 the list and then evaluate the resulting expression:
 
-```lisp
+```rust
 `+` @ cost => 179.25 + 170.0 + 165.75 + 121.0 + 94.0 => 730.0
 ```
 
@@ -422,7 +422,7 @@ The fold operator is defined in terms of a lower level function called `reduce`.
 arguments: a function that is inserted between the elements, an initial value to start the folding and the list to be
 folded.
 
-```lisp
+```rust
 ? reduce(`+` 0 cost)
 ; 730.0
 ```
@@ -430,7 +430,7 @@ folded.
 Convenience functions for folding a list using the arithmetic operators are built-in - `sum` for `+`, `dif` (difference) for `-`,
 `prd` (product) for `*` and `qt` (quotient) for `/`:
 
-```lisp
+```rust
 ? sum(cost)
 ; 730.0
 
@@ -446,14 +446,14 @@ Convenience functions for folding a list using the arithmetic operators are buil
 
 Let's use fold for finding the average cost:
 
-```lisp
+```rust
 ? sum(cost) / count(cost)
 ; 146.0
 ```
 
 That was just an exercise! Normally, you should use the built-in `mean` function for this:
 
-```lisp
+```rust
 ? mean(cost)
 ; 146.0
 ```
@@ -464,7 +464,7 @@ That was just an exercise! Normally, you should use the built-in `mean` function
 A list can be called like a function, with an index as argument. The value at that index will be returned.
 List indices starts at `0`.
 
-```lisp
+```rust
 ? xs:[10 78 34 90]
 ? xs(0)
 ; 10
@@ -476,21 +476,21 @@ List indices starts at `0`.
 What if want to apply a function to each element in a list and construct a list of the results?
 We can do that with the `map` function:
 
-```lisp
+```rust
 ? map(sqrt xs)
 ; [3.1622776601683795 8.831760866327848 5.830951894845301 9.486832980505138]
 ```
 
 Mapping a function over a list is a common operation, so we have an operator for that represented by the `~` (tilde) symbol.
 
-```lisp
+```rust
 ? sqrt ~ xs
 ; [3.1622776601683795 8.831760866327848 5.830951894845301 9.486832980505138]
 ```
 
 As a list itself is treated as a function, we can map it over a list of indices to extract a subset of the list:
 
-```lisp
+```rust
 ? xs ~ [0 2 3]
 ; [10 34 90]
 ```
@@ -498,14 +498,14 @@ As a list itself is treated as a function, we can map it over a list of indices 
 We can combine the fold and map operators to return the accumulated results
 at each stage of the fold:
 
-```lisp
+```rust
 ? `+` @~ [1 2 3 4 5]
 ; [1 3 6 10 15]
 ```
 
 Here is a more practical example of `map`. We are given the following information about 5 employees in a company:
 
-```lisp
+```rust
 ? salary:[1500 2300 1200 3000 1250]
 ? category:[0 2 1 0 1]
 ```
@@ -518,20 +518,20 @@ The management has decided to give a salary increment to employees in each categ
 
 These rates is represented by the list:
 
-```lisp
+```rust
 ? rate:[500 200 350]
 ```
 
 The increment applicable to each employee can be found out by mapping the `rate` list over the `category` list:
 
-```lisp
+```rust
 ? rate ~ category
 ; [500 350 200 500 200]
 ```
 
 The actual increment can be computed by adding these rates to the `salary` list:
 
-```lisp
+```rust
 ? (rate ~ category) + salary
 ; [2000 2650 1400 3500 1450]
 ```
@@ -545,13 +545,13 @@ A dictionary is a data structure which associates names (keys) to values.
 
 Here is an example of using a dictionary to represent an employee record:
 
-```lisp
+```rust
 emp:['name: "J Kale" 'dept: 101 'salary: 1500]
 ```
 
 A dictionary is indexed by keys:
 
-```lisp
+```rust
 ? emp('name)
 ; J Kale
 
@@ -562,7 +562,7 @@ A dictionary is indexed by keys:
 If a non-existing key is looked-up, a `nul` (null) value is returned, which has no printable representation.
 The function `is_nul` can be used to check if a value is `nul` or not.
 
-```lisp
+```rust
 ? is_nul(emp('age))
 ; 1b
 ```
@@ -570,7 +570,7 @@ The function `is_nul` can be used to check if a value is `nul` or not.
 The `get` function also may be used to lookup keys. This function can accept an optional argument
 that will be returned instead of `nul` for missing keys.
 
-```lisp
+```rust
 ? is_nul(get(emp 'age))
 ; 1b
 
@@ -580,7 +580,7 @@ that will be returned instead of `nul` for missing keys.
 
 Lists of dictionaries form tables. Here is a database of employee records:
 
-```lisp
+```rust
 ? db:[['name:"J Kale"  'dept:101 'salary:1500]
       ['name:"M Sally" 'dept:100 'salary:2000]
       ['name:"K Joe"   'dept:101 'salary:1400]]
@@ -588,7 +588,7 @@ Lists of dictionaries form tables. Here is a database of employee records:
 
 How will you find the total salary? With the help of `map` and `sum`! First let's extract the salaries:
 
-```lisp
+```rust
 ? sals:'salaries ~ db
 ? sals
 ; [1500 2000 1400]
@@ -596,7 +596,7 @@ How will you find the total salary? With the help of `map` and `sum`! First let'
 
 A symbol can also behave like a function. When applied to a dictionary, the symbol will extract the associated value.
 
-```lisp
+```rust
 ? 'salary(emp)
 ; 1500
 ```
@@ -606,7 +606,7 @@ value for the list `sals`.
 
 Call `sum` on this list, and we have the total salary!
 
-```lisp
+```rust
 ? sum(sals)
 ; 4900
 ```
@@ -615,14 +615,14 @@ Call `sum` on this list, and we have the total salary!
 
 If we perform a lot of aggregations like this, it will be more efficient to store tables in a different format, as shown below:
 
-```lisp
+```rust
 ? db:['a: [1 2 3 4 5]
       'b: [10 20 30 40 50]]
 ```
 
 Now aggregations can be computed without the extra call to `map`.
 
-```lisp
+```rust
 ? sum(db('a))
 ; 15
 ```
@@ -630,7 +630,7 @@ Now aggregations can be computed without the extra call to `map`.
 The `tab` function can be used to easily create such "columnar" tables. Let's re-define the employee table
 in this format:
 
-```lisp
+```rust
 ? db:['name 'dept 'salary] $ [["J Kale" "M Sally" "K Joe"]
                               [101 100 101]
 			      [1500 2000 1400]]
@@ -643,14 +643,14 @@ in this format:
 
 Computing the total salary is now more straightforward:
 
-```lisp
+```rust
 ? sum(db('salary))
 ; 4900
 ```
 
 Column names and data may be queried separately from the table:
 
-```lisp
+```rust
 ? fields(db)
 ; [name dept salary]
 
@@ -662,7 +662,7 @@ Column names and data may be queried separately from the table:
 
 If required, a columnar table could be "flipped" into a record-based store:
 
-```lisp
+```rust
 ? rec_db:flip(db)
 ? rec_db
 ;    name    dept  salary
@@ -680,7 +680,7 @@ If required, a columnar table could be "flipped" into a record-based store:
 
 And yes, a record-based table can be flipped back into a columnar store!
 
-```lisp
+```rust
 ? flip(rec_db)
 ; name: [J Kale M Sally K Joe]
 ; dept: [101 100 101]
@@ -700,7 +700,7 @@ by the function parameters (enclosed in brackets) and the function body.
 
 Here is how we will define a function that doubles its argument:
 
-```lisp
+```rust
 ? dbl:fn(a) a + a
 ```
 
@@ -711,7 +711,7 @@ bound the doubling function to the name `dbl`.
 
 As the function internally uses the burrowing `+` operator, `dbl` can seamlessly work with lists as well as single numbers.
 
-```lisp
+```rust
 ? dbl(10)
 ; 20
 
@@ -724,13 +724,13 @@ As the function internally uses the burrowing `+` operator, `dbl` can seamlessly
 
 As another example, let's define a function that increments an amount by a percentage rate:
 
-```lisp
+```rust
 ? incr:fn(percent amount) amount + amount * (percent/100.0)
 ```
 
 The following are all valid ways we can use this two-argument function:
 
-```lisp
+```rust
 ? incr(100 1000)
 ; 2000.0
 
@@ -754,7 +754,7 @@ Usually the `^` operator is used to define functions used only in a limited loca
 
 Here is `incr` again, defined as a use-once function and applied to the arguments `(50 1000)`:
 
-```lisp
+```rust
 ? (^X2 + X2 * (X1/100.0))(50 1000)
 ; 1500.0
 ```
@@ -765,7 +765,7 @@ Functions may be *partially applied*, to only a subset of its arguments. For exa
 the following program partially applies the `+` function to `5`. This operation will return a new function
 that, when called with an argument will complete the addition.
 
-```lisp
+```rust
 ? add5:partial(`+` 5)
 
 ? add5(10)
@@ -784,7 +784,7 @@ Another technique for building new functions out of existing ones is through *fu
 For instance, imagine that you want to find the square-root of the sum of all numbers in a list.
 Here is how you would express it as a *composition* of the functions `sqrt` and `sum`:
 
-```lisp
+```rust
 ? sqrt(sum([1 2 3 4 5]))
 ; 3.872983346207417
 ```
@@ -792,7 +792,7 @@ Here is how you would express it as a *composition* of the functions `sqrt` and 
 If this is a frequent computation, you can instantiate a new function defined as the composition of `sqrt` and `sum`
 and apply that to any list.
 
-```lisp
+```rust
 ? sqsum:^sqrt(sum(X1))
 
 ? sqsum([1 2 3 4 5])
@@ -803,7 +803,7 @@ and apply that to any list.
 
 The `comp` built-in function can ease the task of defining such compositions:
 
-```lisp
+```rust
 ? sqsum:comp(sqrt sum)
 
 ? sqsum([1 2 3 4 5])
@@ -818,7 +818,7 @@ In an earlier section we saw that functions defined with the `^` operator accept
 Each of these arguments has to be explicitly referenced with variables names `X1...XN`. What if we want to define a function
 with `n` number of required parameters and `x` optional parameters? The following example will show you how to do this:
 
-```lisp
+```rust
 ? prn_args:fn(x & xs) { wrln(x) wrln(xs) }
 
 ? prn_args(10)
@@ -841,7 +841,7 @@ Functions with named arguments with default values can be emulated with the help
 The following program shows an example. A function is defined to take two arguments `x` and `y`. They default
 to the values `10` and `20` respectively:
 
-```lisp
+```rust
 ? f:^{x:get(X1 'x 10) y:get(X1 'y 20) x+y}
 
 ? f()
@@ -860,7 +860,7 @@ to the values `10` and `20` respectively:
 The basic mechanism for conditional execution of code is the `if` construct.
 This is a special construct built into the language, but its syntax is similar to a function call.
 
-```lisp
+```rust
 if (cond1 conseq1 cond2 conseq2 ... alternative)
 ```
 
@@ -869,7 +869,7 @@ If a condition returns `true` (`1b`), its consequence is evaluated.
 If none of the conditions evaluate to `true`, the last expression passed as argument is evaluated.
 This last `alternative` expression is optional and defaults to `false` (`0b`).
 
-```lisp
+```rust
 ? if (1<2 100)
 ; 100
 
@@ -893,7 +893,7 @@ code execution is achieved by recursive function calls.
 
 A common example of recursion is the function to compute the `n`<sup>th</sup> Fibonacci number:
 
-```lisp
+```rust
 ? fib:fn (n) if (n <= 1 n
                  fib(n - 1) + fib(n - 2))
 
@@ -905,7 +905,7 @@ Recursions that run deep can cause a stack-overflow error to happen.
 This can be prevented by making the recursive call from a <a href="https://en.wikipedia.org/wiki/Tail_call" target="_blank">tail position</a>
 using the special `rec` construct.
 
-```lisp
+```rust
 ? fib2:fn (n a b) if (n = 0 a
                       n = 1 b
 		      rec(n - 1, b, a + b))
@@ -923,7 +923,7 @@ Motto runs on top of the Java Virtual Machine and some low-level function calls 
 Sometimes, a function you write also may want to report a critical condition by raising an exception.
 This can be achieved by calling the `ex` function, which can take any object as argument.
 
-```lisp
+```rust
 ? ex("fatal!")
 ; ERROR: throw+: {:type :motto-ex, :obj "fatal!"}
 ```
@@ -931,7 +931,7 @@ This can be achieved by calling the `ex` function, which can take any object as 
 As another example, consider the following function. It will divide `100` by a given number. If this number is
 zero, it will raise an exception:
 
-```lisp
+```rust
 ? f:^if (X1=0 ex("zero!")
          100/X1)
 
@@ -947,7 +947,7 @@ function `with_ex`.
 
 Generally, this is how `with_ex` is used:
 
-```lisp
+```rust
 with_ex(handler_fn, do_fn)
 ```
 
@@ -958,7 +958,7 @@ by `handler_fn` will then become the return value of `with_ex`.
 
 The next function offers a safer version of `f`, utilizing `with_ex`:
 
-```lisp
+```rust
 ? safe_f:fn(n) with_ex(^{ wrln(str("ERROR: " X1)),
                           inf },
 		       ^f(n))
@@ -980,7 +980,7 @@ It is customary to call `ld` without the `.m` extension.
 
 For instance, if you have a script called "abc.m", it can be loaded as:
 
-```lisp
+```rust
 ? ld "abc"
 ```
 
@@ -989,7 +989,7 @@ file (with extension `.mo`) is not found.
 
 A script can be explicitly compiled into a `.mo` file by calling the `cf` (compile-file) function:
 
-```lisp
+```rust
 ? cf("abc")
 ```
 
@@ -999,7 +999,7 @@ The object code is compiled on-the-fly to JVM byte code.
 
 That concludes our first detailed peek at Motto. You may quit Motto by calling the `exit` function:
 
-```lisp
+```rust
 ? exit()
 ```
 
