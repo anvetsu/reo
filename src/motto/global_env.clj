@@ -49,6 +49,7 @@
       (def is_dict map?)
       (def is_string string?)
       (def is_number? number?)
+      (def is_empty empty?)
 
       (def to_int motto.str-util/s->int)
       (def to_float motto.str-util/s->float)
