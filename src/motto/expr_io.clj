@@ -152,9 +152,9 @@
 
 (defn readln
   ([brace-counts]
-   (if-let [s (read-line)]
-     (if (str/ends-with? s "  ")
-       [:more s brace-counts]
+   (if-let [^String s (read-line)]
+     (if (str/ends-with? s "\\")
+       [:more (.substring s 0 (dec (.length s))) brace-counts]
        (let [c (match-braces s brace-counts)]
          (cond
            (every? #(<= % 0) c) [:done s]
