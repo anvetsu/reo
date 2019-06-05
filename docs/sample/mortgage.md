@@ -3,7 +3,7 @@
 The following function computes the fixed monthly payment for a loan for the given
 monthly rate and number of months.
 
-```lisp
+```rust
 monthly_payment: fn(loan rate months) {
                    r: rate/12
                    x: pow(r+1.0 months)
