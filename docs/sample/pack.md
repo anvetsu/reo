@@ -5,7 +5,7 @@ This program shows a greedy solution to the [Knapsack problem](https://en.wikipe
 Imagine that we have to pack the following items into a bag that carry a maximum weight of 20 (units).
 Each item is encoded as `[item_name value weight]`.
 
-```lisp
+```rust
 items:[['clock 175 10]
        ['painting 90 9]
        ['radio 20 4]
@@ -20,7 +20,7 @@ Finally we will choose the best packing by comparing the total value of items pa
 
 Here we define the three predicates required for sorting:
 
-```lisp
+```rust
 by_wt:fn([_ _ w1] [_ _ w2]) w1 < w2
 by_val:fn([_ v1 _] [_ v2 _]) v1 > v2
 by_rat:fn([_ v1 w1] [_ v2 w2]) v1/w1 > v2/w2
@@ -30,7 +30,7 @@ Next we define the `pack` function. This will pick each item from a sorted list 
 and put that into a bag. The bag is returned when it is packed to full capacity or when the
 items run-out.
 
-```lisp
+```rust
 pack:fn(bag maxwt items) \
        if (items {
             i:first(items)
@@ -45,13 +45,13 @@ pack:fn(bag maxwt items) \
 The `pack_bag` function, that we define next, will take a predicate, sort the items by that predicate
 and call `pack` with an empty bag, maximum allowed weight and the sorted list of items:
 
-```lisp
+```rust
 pack_bag:fn(cmpr maxwt) pack([] maxwt sort(cmpr, items))
 ```
 
 Now we have everything required to start packing!
 
-```lisp
+```rust
 ? bag_by_wt:pack_bag(by_wt 20)
 ? bag_by_val:pack_bag(by_val 20)
 ? bag_by_rat:pack_bag(by_rat 20)
@@ -74,7 +74,7 @@ Now we have everything required to start packing!
 
 It's just a matter of folding these bags by value to figure out the best method:
 
-```lisp
+```rust
 ? totval:fn(bag) sum(second ~ bag)
 
 ? totval(bag_by_wt)
