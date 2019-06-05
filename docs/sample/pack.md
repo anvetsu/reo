@@ -32,12 +32,12 @@ items run-out.
 
 ```lisp
 pack:fn(bag maxwt items) \
-       if (seq(items) {
+       if (items {
             i:first(items)
             w:maxwt-i(2)
-            if (is_pos(w) rec(bag;i w rest(items))
+            if (is_pos(w) rec(bag;i w next(items))
                 is_zero(w) bag;i
-                rec(bag maxwt rest(items)))
+                rec(bag maxwt next(items)))
 	   }
            bag)
 ```
