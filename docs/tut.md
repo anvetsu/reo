@@ -47,6 +47,16 @@ Large numbers may be written with an underscore for ease of reading:
 ; 6750000000
 ```
 
+A number in a particular base can be entered with the `0base_` prefix:
+
+```rust
+? 02_1110011
+; 115
+
+? 016_FF
+; 255
+```
+
 Division of integers will result in an exact real value.
 
 ```rust
