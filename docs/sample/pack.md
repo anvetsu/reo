@@ -1,6 +1,6 @@
 # Greedy Packing
 
-This program shows a greedy solution to the [Knapsack problem](https://en.wikipedia.org/wiki/Knapsack_problem).
+This program shows a greedy solution to the [0/1 Knapsack problem](https://en.wikipedia.org/wiki/Knapsack_problem).
 
 Imagine that we have to pack the following items into a bag that carry a maximum weight of 20u (units - kg or pound).
 Each item is encoded as `[item_name value weight]`.
@@ -14,7 +14,7 @@ items:[['clock 175 10]
        ['computer 200 20]]
 ```
 
-It will be useful to define accessors for an item's fields:
+It will be useful to define accessor functions for an item's fields:
 
 ```rust
 iname:first
@@ -147,6 +147,9 @@ So what's the optimal combination that gives the maximum value for a bag that ca
 ? totval(bag)
 ; 275
 ```
+
+Keep in mind that the optimal algorithm has a time complexity of `O(n*2<sup>n</sup>)`, where `n` is the number of items.
+This makes it practical only for very small data-sets.
 
 **Reference** - <a href="https://mitpress.mit.edu/books/introduction-computation-and-programming-using-python-second-edition">Introduction to Computation and Programming Using Python</a>.
 
