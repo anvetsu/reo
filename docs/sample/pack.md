@@ -53,7 +53,7 @@ An example of using `pack`:
 ; [[1 5 3]]
 ```
 
-Let's define `pack_bag`:
+OK, let's define `pack_bag`:
 
 ```rust
 pack_bag:fn(cmpr maxwt) first(pack(maxwt iweight sort(cmpr, items)))
@@ -140,7 +140,7 @@ best_fit:fn(maxwt) max_by_val @ best_fits(maxwt)
 
 So what's the optimal combination that gives the maximum value for a bag that can carry 20u?
 
-```rest
+```rust
 ? bag:best_fit(20)
 ? bag
 ; [[clock 175 10]
