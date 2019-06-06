@@ -34,27 +34,29 @@ by_val:fn([_ v1 _] [_ v2 _]) v1 > v2
 by_rat:fn([_ v1 w1] [_ v2 w2]) v1/w1 > v2/w2
 ```
 
-Next we define the `pack` function. This will pick each item from a sorted list of items
-and put that into a bag. The bag is returned when it is packed to full capacity or when the
-items run-out.
+The `pack_bag` function, which we define next, will take a predicate and the maximum allowed weight
+as arguments. The `items` are sorted by the predicate and passed to the built-in `pack` function.
+
+The `pack` function works as follows:
+
+It extracts a "weight" from each item in a list and moves that item to another list until a maximum
+weight is achieved. This new list along with the rest of the original list is returned as a pair.
+
+An example of using `pack`:
 
 ```rust
-pack:fn(bag maxwt items) \
-       if (items {
-            i:first(items)
-            w:maxwt-iweight(i)
-            if (is_pos(w) rec(bag;i w next(items))
-                is_zero(w) bag;i
-                rec(bag maxwt next(items)))
-	   }
-           bag)
+? pack(10 identity [1 5 8 3 4 1 2 7])
+; [[1 5 3 1]
+;  [2 7]]
+
+? pack(10 identity [1 5 8 3 4 2])
+; [[1 5 3]]
 ```
 
-The `pack_bag` function, that we define next, will take a predicate, sort the items by that predicate
-and call `pack` with an empty bag, maximum allowed weight and the sorted list of items:
+Let's define `pack_bag`:
 
 ```rust
-pack_bag:fn(cmpr maxwt) pack([] maxwt sort(cmpr, items))
+pack_bag:fn(cmpr maxwt) first(pack(maxwt iweight sort(cmpr, items)))
 ```
 
 Now we have everything required to start packing!
