@@ -269,12 +269,14 @@ In the following program, the global definition of `x` is "shadowed" by the loca
 ? x+y
 ; 30
 
-? {x:100 x+y}
+? {[x 100] x+y}
 ; 120
 
 ? x+y
 ; 30
 ```
+
+Note that variable declarations in a code-block must be specified as a simple list of variable names and values.
 
 <a name="lists"></a>
 ## Lists
@@ -851,7 +853,7 @@ The following program shows an example. A function is defined to take two argume
 to the values `10` and `20` respectively:
 
 ```rust
-? f:^{x:get(X1 'x 10) y:get(X1 'y 20) x+y}
+? f:^{[x get(X1 'x 10), y get(X1 'y 20)] x+y}
 
 ? f()
 ; 30
@@ -959,7 +961,7 @@ This can be achieved by calling the `ex` function, which can take any object as 
 
 ```rust
 ? ex("fatal!")
-; ERROR: throw+: {:type :motto-ex, :obj "fatal!"}
+; ERROR: throw+: [:type :motto-ex, :obj "fatal!"]
 ```
 
 As another example, consider the following function. It will divide `100` by a given number. If this number is
@@ -973,7 +975,7 @@ zero, it will raise an exception:
 ; 20
 
 ?f(0)
-; ERROR: throw+: {:type :motto-ex, :obj "zero!"}
+; ERROR: throw+: [:type :motto-ex, :obj "zero!"]
 ```
 
 The REPL will catch and print the exception. You may also write your own exception handlers using the
