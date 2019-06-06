@@ -276,7 +276,8 @@ In the following program, the global definition of `x` is "shadowed" by the loca
 ; 30
 ```
 
-Note that variable declarations in a code-block must be specified as a simple list of variable names and values.
+Note that variable declarations in a code-block are specified as a simple list of variable names and values.
+Also keep in mind that the `declare` operator (`:`), even when used in a code-block, will create a global variable.
 
 <a name="lists"></a>
 ## Lists
