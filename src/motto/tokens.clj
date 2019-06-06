@@ -70,12 +70,14 @@
   (or (Character/isDigit (int ch))
       (= ch \.)))
 
-(defn- num-char? [ch]
+(defn- num-char? [ch prev]
   (or (num-char-beg? ch)
       (= ch \_)
       (= ch \e)
       (= ch \E)
-      (= ch \b)))
+      (= ch \b)
+      (and (= ch \-)
+           (= (Character/toLowerCase prev) \e))))
 
 (defn- str-start-char? [ch]
   (= ch \"))
@@ -87,16 +89,16 @@
 
 (def ^:private ticked-end-char? ticked-start-char?)
 
-(defn- ident-char? [ch]
+(defn- ident-char? [ch _]
   (or (ident-start-char? ch)
       (Character/isDigit (int ch))))
 
 (defn- multichar-token [s predic mk]
-  (loop [s s, cs []]
+  (loop [s s, prev \space cs []]
     (if (seq s)
       (let [c (first s)]
-        (if (predic c)
-          (recur (rest s) (conj cs c))
+        (if (predic c prev)
+          (recur (rest s) c (conj cs c))
           [s (mk cs)]))
       [s (mk cs)])))
 
@@ -108,7 +110,7 @@
 (defn- norm-num [s]
   (s/replace s uscore-p ""))
 
-(defn- based-num-char? [ch]
+(defn- based-num-char? [ch _]
   (let [i (int ch)]
     (or (Character/isDigit i)
         (= ch \_)
