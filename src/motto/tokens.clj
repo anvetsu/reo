@@ -73,6 +73,8 @@
 (defn- num-char? [ch]
   (or (num-char-beg? ch)
       (= ch \_)
+      (= ch \e)
+      (= ch \E)
       (= ch \b)))
 
 (defn- str-start-char? [ch]
