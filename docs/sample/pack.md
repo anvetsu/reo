@@ -77,16 +77,23 @@ It's just a matter of folding these bags by value to figure out the best method:
 ```rust
 ? totval:fn(bag) sum(second ~ bag)
 
-? totval(bag_by_wt)
-; 170
+? w:totval(bag_by_wt)
+? v:totval(bag_by_val)
+? r:totval(bag_by_rat)
 
-? totval(bag_by_val)
-; 200
-
-? totval(bag_by_rat)
-; 255
+? [w v r]
+; [170 200 255]
 ```
 
-**Reference** - Chapter 12 of <a href="https://mitpress.mit.edu/books/introduction-computation-and-programming-using-python-second-edition">Introduction to Computation and Programming Using Python</a>.
+We may use fold again to automate the task of finding the best method:
+
+
+```rust
+? best_of_2:fn([n1 b1] [n2 b2]) if (b1 > b2 [n1 b1] [n2 b2])
+? best_of_2 @ [['by_weight w] ['by_val v] ['by_ratio r]]
+; [by_ratio 255]
+```
+
+**Reference** - <a href="https://mitpress.mit.edu/books/introduction-computation-and-programming-using-python-second-edition">Introduction to Computation and Programming Using Python</a>.
 
 [Back](../sample.md)
