@@ -151,7 +151,7 @@ So what's the optimal combination that gives the maximum value for a bag that ca
 ; 275
 ```
 
-Keep in mind that the optimal algorithm has a time complexity of `O(n*2<sup>n</sup>)`, where `n` is the number of items.
+Keep in mind that the optimal algorithm has a time complexity of O(n*2<sup>n</sup>), where `n` is the number of items.
 This makes it practical only for very small data-sets.
 
 **Reference** - <a href="https://mitpress.mit.edu/books/introduction-computation-and-programming-using-python-second-edition">Introduction to Computation and Programming Using Python</a>.
