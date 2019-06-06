@@ -286,13 +286,13 @@ return new dictionaries. The original in left intact:
 `Map` and `filter` can be applied to dictionaries:
 
 ```rust
-? r:map(^{k:first(X1) v:second(X1) [k v*10]}, ['a:1 'b:20 'c:30])
+? r:map(^{[k first(X1), v second(X1)] [k v*10]}, ['a:1 'b:20 'c:30])
 ? r
 ; [[a 10]
 ;  [b 200]
 ;  [c 300]]
 
-? r:filter(^{k:first(X1) v:second(X1) is_odd(v)}, ['a:1 'b:2 'c:3])
+? r:filter(^{[k first(X1) v second(X1)] is_odd(v)}, ['a:1 'b:2 'c:3])
 ? r
 ; [[a 1]
 ;  [c 3]]

@@ -49,4 +49,4 @@ We will be following a technique widely knows as [Newton's method](https://en.wi
 
 ```rust
 f1:fn(n fact rs) if (is_zero(rem(n fact)) rec(n/fact fact fact;rs) [n rs])
-pf:fn(n fact ps) if (num_lteq(fact n/fact) {[nn rs]:f1(n fact []) rec(nn inc(fact) ps#rs)} ps)
+pf:fn(n fact ps) if (num_lteq(fact n/fact) {[[nn rs] f1(n fact [])] rec(nn inc(fact) ps#rs)} ps)
