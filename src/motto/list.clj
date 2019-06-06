@@ -37,6 +37,17 @@
                 [drop n])]
     (vec (f n xs))))
 
+(defn pack [maxwt wtfn items]
+  (loop [bag [], maxwt maxwt, items (seq items)]
+    (if items
+      (let [i (first items)
+            w (- maxwt (wtfn i))]
+        (cond
+          (pos? w) (recur (conj bag i) w (next items))
+          (zero? w) [(conj bag i) (next items)]
+          :else (recur bag maxwt (next items))))
+      [bag items])))
+
 (defn -conj- [x y]
   (if (seqable? y)
     (conj (vec y) x)
