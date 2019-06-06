@@ -50,6 +50,8 @@
       (def is_string string?)
       (def is_number? number?)
       (def is_empty empty?)
+      (def is_true true?)
+      (def is_false false?)
 
       (def to_int motto.str-util/s->int)
       (def to_float motto.str-util/s->float)
