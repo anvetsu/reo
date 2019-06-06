@@ -1,9 +1,9 @@
 # Greedy Packing
 
-This program shows a greedy solution to the [0/1 Knapsack problem](https://en.wikipedia.org/wiki/Knapsack_problem).
+This program shows two greedy solutions to the [0/1 Knapsack problem](https://en.wikipedia.org/wiki/Knapsack_problem).
 
 Imagine that we have to pack the following items into a bag that carry a maximum weight of 20u (units - kg or pound).
-Each item is encoded as `[item_name value weight]`.
+Each item is encoded as `[item_name, value, weight]`.
 
 ```rust
 items:[['clock 175 10]
@@ -19,7 +19,7 @@ It will be useful to define accessor functions for an item's fields:
 ```rust
 iname:first
 ivalue:second
-iweight:fn(item) nth(item 2)
+iweight:fn(item) item(2)
 ```
 
 We can sort the items by either weight, value or the ratio of value to weight.
