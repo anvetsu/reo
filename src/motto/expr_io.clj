@@ -21,7 +21,7 @@
             fr (first r)]
         (write x)
         (when (and (not (string? x)) (seqable? x) (seq r))
-          (when (and (not (string? fr)) (seqable? fr))
+          (when (and (not (string? fr)) (seqable? fr) (seq fr))
             (println)))
         (when (seq r)
           (if (>= i max-vec-out)
