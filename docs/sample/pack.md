@@ -117,7 +117,7 @@ All possible subsets of a set can be obtained by calling the built-in `subsets` 
 We also need a function to find the total weight of a combination:
 
 ```rust
-towt:fn(bag) sum(iweight ~ bag)
+totwt:fn(bag) sum(iweight ~ bag)
 ```
 
 The `best_fits` function defined below will filter out all overweight combinations
@@ -125,14 +125,15 @@ from all possible subsets (i.e the [power set](https://en.wikipedia.org/wiki/Pow
 Note that the first subset, which is empty, is ignored by the `filter` operation.
 
 ```rust
-best_fits:fn(maxwt) (fn(bag) num_lteq(towt(bag), maxwt)) ! rest(subsets(items))
+best_fits:fn(maxwt) (fn(bag) num_lteq(totwt(bag), maxwt)) ! rest(subsets(items))
 ```
 
 The next function picks the best from the bags returned by `best_fits`.
 This is calculated by folding the results by a `maximum-by-value` function.
 
 ```rust
-best_fit:fn(maxwt) (fn(a b) if (totval(a) > totval(b) a b)) @ best_fits(maxwt)
+max_by_val:fn(a b) if (totval(a) > totval(b) a b)
+best_fit:fn(maxwt) max_by_val @ best_fits(maxwt)
 ```
 
 So what's the optimal combination that gives the maximum value for a bag that can carry 20u?
