@@ -317,7 +317,7 @@
 (defn- multi-define [ns vs]
   (let [bs (map (fn [n i] [:define (valid-ident n) [:call vs [i]]])
                 ns (range (count ns)))]
-    [:block bs]))
+    [:do bs]))
 
 (defn- parse-define [x tokens]
   (let [[e ts] (parse-expr tokens)]
@@ -355,13 +355,14 @@
     (when next-parser
       (fetch-expr (next-parser tokens) nil))))
 
-(defn- blockify [exprs]
-  [:block [(vars->let exprs)]])
+(defn- blockify [exprs let?]
+  [(if let? :let :do) exprs])
 
 (defn- parse-expr [tokens]
   (let [p (fn [tokens]
             (fetch-expr (parse-stmt tokens) parse-logical))
         block? (= :open-cb (first tokens))
+        let? (= :open-sb (first (rest tokens)))
         tokens (if block? (rest tokens) tokens)
         [expr tokens] (p tokens)]
     (if block?
@@ -370,7 +371,7 @@
           (let [tokens (ignore-comma tokens)
                 t (first tokens)]
             (if (= :close-cb t)
-              [(blockify exprs) (rest tokens)]
+              [(blockify exprs let?) (rest tokens)]
               (let [[expr tokens] (p tokens)]
                 (recur tokens (conj exprs expr)))))
           (ex "code-block not closed")))

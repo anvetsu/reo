@@ -48,8 +48,10 @@
         eargs (all->lisp args lsp)]
     (concat (list fnval) eargs)))
 
-(defn- form->let [bindings body lsp]
-  (let [body-expr (lsp body)]
+(defn- form->let [letdef lsp]
+  (let [bindings (first letdef)
+        body (rest letdef)
+        body-expr (lsp body)]
     (if (seq bindings)
       `(let ~(into [] (lsp bindings))
          ~@body-expr)
@@ -77,10 +79,10 @@
       :dict (dict->lisp (first args) lsp)
       :and `(and ~@(all->lisp args lsp))
       :or `(or ~@(all->lisp args lsp))
-      :block `(do ~@(all->lisp (first args) lsp))
+      :do `(do ~@(all->lisp (first args) lsp))
       :when `(if ~(lsp (first args)) ~(lsp (second args)) false)
       :cond `(cond ~@(condbody->lisp (first args) lsp))
-      :let (form->let (first args) (second args) lsp)
+      :let (form->let (first args) lsp)
       :load `(ld ~(first args) eval)
       (call-fn ident args lsp))))
 

@@ -115,7 +115,7 @@
    "if:200"       :ex
    "a:10"        'a
    "a + 2"       12
-   "{a:100 b:4+a b}"   104
+   "{[a 100, b 4+a] b}"   104
    "a+b"         :ex
    "b:4"         'b
    "a+b"         14
@@ -154,12 +154,12 @@
 (deft blck-test
   ["{1+2 3+4 5+4}"    9
    "a:10"             'a
-   "pyth:fn(x y) { a:x*x b:y*y a+b }" 'pyth
+   "pyth:fn(x y) {[a x*x b y*y] a+b }" 'pyth
    "pyth(3 4)"        25
    "a"                10
-   "{a:100 b:200 a+b}" 300
+   "{[a 100 b 200] a+b}" 300
    "a"                10
-   "{a:100 b:200 a+b c:3}" :ex])
+   "{[a 100 b 200] a+b c:3}" 'c])
 
 (deft op-test
   ["`+`(1 2)"     3
@@ -222,7 +222,7 @@
    "bools(a)" [true false false false true]])
 
 (deft short-fn-test
-  ["frac:^{tot:float(sum(X1)) d:^X1/tot d~X1}" 'frac
+  ["frac:^{[tot float(sum(X1)) d ^X1/tot] d~X1}" 'frac
    "data:[3 1 4]" 'data
    "frac(data)" [0.375 0.125 0.5]
    "percent:^100 * frac(X1)" 'percent
