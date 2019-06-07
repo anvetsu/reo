@@ -315,9 +315,9 @@
   (transl-ident var))
 
 (defn- multi-define [ns vs]
-  (let [bs (map (fn [n i] [:define (valid-ident n) [:call vs [i]]])
+  (let [bs (map (fn [n i] [:define (valid-ident n) [:call 'get ['-x- i]]])
                 ns (range (count ns)))]
-    [:do bs]))
+    `[:let [[~(symbol "-x-") ~vs] ~@bs]]))
 
 (defn- parse-define [x tokens]
   (let [[e ts] (parse-expr tokens)]
