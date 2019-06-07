@@ -225,7 +225,7 @@ An invalid flag will cause the functions to fallback to `day_of_year`.
 <a name="vars"></a>
 ## Variables
 
-Variables are created using the `:` (declare) operator. This operator will return the symbolic name of the
+Variables are created using the `:` (define) operator. This operator will return the symbolic name of the
 new variable. (In the sample code we have left out these return values).
 
 ```rust
@@ -277,7 +277,37 @@ In the following program, the global definition of `x` is "shadowed" by the loca
 ```
 
 Note that variable declarations in a code-block are specified as a simple list of variable names and values.
-Also keep in mind that the `declare` operator (`:`), even when used in a code-block, will create a global variable.
+
+```rust
+? {[x 1 y 2] x+y}
+; 3
+```
+
+Also keep in mind that the `define` operator (`:`), even when used in a code-block, will create a global variable.
+The following program will change the global value of `y`, while preserving the global value of `x`:
+
+```rust
+? {[x 100] y:200 x+y}
+; 300
+
+? x
+; 10
+
+? y
+; 200
+```
+
+Code-blocks can be defined just to group together program statements, without introducing new local bindings:
+
+```rust
+? { wr('hello)
+    wr(\space)
+    wr('world)
+    newln() }
+; hello world
+``
+
+The statements may be optionally separated using comma.
 
 <a name="lists"></a>
 ## Lists
@@ -872,7 +902,7 @@ Function parameters can be defined as data-patterns of lists and dictionaries.
 
 The following example shows how to define a function with a list pattern:
 
-```lisp
+```rust
 ? f:fn([x y z]) x+y+z
 
 ? f([10 20 30])
@@ -884,11 +914,35 @@ the variables in the pattern. Note that a pattern variable will default to `nul`
 
 The next function destructures its dictionary argument:
 
-```lisp
+```rust
 ? g:fn([a:'a b:'b]) a + b
 
 ? g(['a:10 'b:20])
 ; 30
+```
+
+The `define` operator and variable bindings in code-blocks can also destructure sequences and dictionaries:
+
+```rust
+? [a b c]:[10 20 30]
+
+? a+b+c
+; 60
+
+? [x:'x y:200]:['x:20 200:10]
+
+? x+y
+; 30
+
+? {[[a b c] [1 2 3]] a+b+c}
+; 6
+? [a b c]
+; [10 20 30]
+
+? {[[x:'x y:200] ['x:2 200:1]] [x y]}
+; [2 1]
+? [x y]
+; [20 10]
 ```
 
 <a name="conds"></a>
