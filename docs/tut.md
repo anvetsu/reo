@@ -1088,7 +1088,7 @@ The object code is compiled on-the-fly to JVM byte code.
 
 ## Conclusion
 
-That concludes our first detailed peek at Motto. You may quit Motto by calling the `exit` function:
+That concludes our first detailed peek at Motto. You may quit the REPL by calling the `exit` function:
 
 ```rust
 ? exit()
