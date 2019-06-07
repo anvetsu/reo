@@ -801,6 +801,18 @@ Here is `incr` again, defined as a use-once function and applied to the argument
 ; 1500.0
 ```
 
+The following program shows how to compute the first `10` numbers of the Fibonacci sequence
+by applying the `fold-times` (`@>`) operator to a function literal:
+
+```rust
+? (^X1;sum(lift(-2 X1))) @> 10 [1 1]
+; [1 1 2 3 5 8 13 21 34 55 89 144]
+```
+
+The `fold-times` operator is an extension to the basic `fold` operator (`@`).
+This operator starts with an initial list and extends it with the result of passing that to a function.
+The function gets the extended list for each call.
+
 ### Partials
 
 Functions may be *partially applied*, to only a subset of its arguments. For example,
