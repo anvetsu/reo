@@ -314,16 +314,26 @@
     (ex (str "reserved name: " var)))
   (transl-ident var))
 
+(defn- multi-define-dict [pat dict]
+  (let [ks (keys pat)
+        bs (map (fn [k] [:define (valid-ident k)
+                         [:call 'get ['-x- (get pat k)]]])
+                ks)]
+    `[:let [[~(symbol "-x-") ~dict] ~@bs]]))
+
 (defn- multi-define [ns vs]
-  (let [bs (map (fn [n i] [:define (valid-ident n) [:call 'get ['-x- i]]])
-                ns (range (count ns)))]
-    `[:let [[~(symbol "-x-") ~vs] ~@bs]]))
+  (if (map? ns)
+    (multi-define-dict ns vs)
+    (let [bs (map (fn [n i] [:define (valid-ident n) [:call 'get ['-x- i]]])
+                  ns (range (count ns)))]
+      `[:let [[~(symbol "-x-") ~vs] ~@bs]])))
 
 (defn- parse-define [x tokens]
   (let [[e ts] (parse-expr tokens)]
     (when-not e
       (ex (str "no value to bind: " x)))
-    (if (and (seqable? x) (= :list (first x)))
+    (if (and (seqable? x) (let [f (first x)]
+                            (or (= :list f) (= :dict f))))
       [(multi-define (first (rest x)) e) ts]
       [[:define (valid-ident x) e] ts])))
 
