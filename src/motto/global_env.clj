@@ -14,6 +14,7 @@
             [motto.str-util]
             [motto.expr-io]
             [motto.lib.sys]
+            [motto.lib.func]
             [motto.lib.clj-integ]
             [motto.lib.io]
             [motto.lib.obj]
@@ -58,6 +59,8 @@
       (def to_double motto.str-util/s->double)
 
       (def exit motto.lib.sys/exit)
+
+      (def fork motto.lib.func/fork)
 
       (def num_eq clojure.core/=)
       (def num_lt clojure.core/<)
