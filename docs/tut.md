@@ -912,6 +912,35 @@ The `comp` built-in function can ease the task of defining such compositions:
 ; 3.872983346207417
 ? sqsum([10.5 90.2 5.6])
 ; 10.310189135025603
+
+? primes:[2 3 5 7 11]
+? b:inc~primes
+
+? b
+; [3 4 6 8 12]
+
+? comp(inc inc)~b
+; [5 6 8 10 14]
+```
+
+### Forking
+
+A `forking` function call is of the form: `g(f(x) h(x))`. The `fork` function can create a function composition that satisfies this form.
+
+```rust
+? mnmx:fork(mn `#` mx)
+
+? mnmx([10 3 4 50 23])
+; [3 50]
+```
+
+The `#` operator represents a function that can append two values into a single sequence.
+
+Without `fork`, we would've had to write this as:
+
+```rust
+? mn([10 3 4 50 23]) # mx([10 3 4 50 23])
+; [3 50]
 ```
 
 ### Optional and named arguments
