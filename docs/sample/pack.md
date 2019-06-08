@@ -23,7 +23,7 @@ iweight:fn(item) item(2)
 ```
 
 We can sort the items by either weight, value or the ratio of value to weight.
-Then we have to pick the items from the sorted list until the bag is full.
+Then we have to pick the items from the sorted sequence until the bag is full.
 Finally we will choose the best packing by comparing the total value of items packed by all three methods.
 
 Here we define the three predicates required for sorting:
@@ -39,8 +39,8 @@ as arguments. The `items` are sorted by the predicate and passed to the built-in
 
 The `pack` function works as follows:
 
-It extracts a "weight" from each item in a list and moves that item to another list until a maximum
-weight is achieved. This new list along with the rest of the original list is returned as a pair.
+It extracts a "weight" from each item in a sequence and moves that item to another sequence until a maximum
+weight is achieved. This new sequence along with the rest of the original sequence is returned as a pair.
 
 An example of using `pack`:
 

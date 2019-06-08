@@ -6,7 +6,7 @@ code recipes. Short explanations will be provided, where that is absolutely requ
 
 ## Making Sequences
 
-Create a numeric list:
+Create a numeric sequence:
 
 ```rust
 ? til(5)
@@ -22,7 +22,7 @@ You may change the factor of increment:
 ; [2 5 8]
 ```
 
-A negative offset will return the list in reverse:
+A negative offset will return the sequence in reverse:
 
 ```rust
 ? til(-5)
@@ -58,7 +58,7 @@ elements are actually accessed. This makes it ideal for creating very large sequ
 ```
 
 Also note that a lazy sequence cannot be directly indexed, it must be converted to a
-normal list (internally known as a `vector`) before it could be directly indexed.
+vector before it could be directly indexed.
 
 ```rust
 ? til(1 10)(3)
@@ -114,7 +114,7 @@ Accessing the first, all-but-first and last elements in a sequence:
 ; 5
 ```
 
-Accessing an element by index in a normal list:
+Accessing an element by index in a vector:
 
 ```rust
 ? xs(3)
@@ -142,7 +142,7 @@ Accessing an element by index in a lazy-sequence:
 ; 15
 ```
 
-Insert a new element to the beginning or end of a list using the `concat` (`;`)
+Insert a new element to the beginning or end of a sequence using the `concat` (`;`)
 operator. (Do not confuse this operator with the `;` prefix of the output):
 
 ```rust
@@ -162,7 +162,7 @@ operator. (Do not confuse this operator with the `;` prefix of the output):
 ; [10 34 5 [1 2 3]]
 ```
 
-The `append` operator concatenates two lists into one:
+The `append` operator concatenates two sequences into one:
 
 ```rust
 ? [1 2 3]#xs
@@ -172,7 +172,7 @@ The `append` operator concatenates two lists into one:
 ; [10 34 5 1 2 3]
 ```
 
-Atomic values are automatically converted to a list:
+Atomic values are automatically converted to a sequence:
 
 ```rust
 ? 100#xs
@@ -205,7 +205,7 @@ Drop the first `n` or last `n` elements from a sequence:
 
 ## Compare, Select, Filter
 
-Comparison operators burrow into sequences and returns a list of
+Comparison operators burrow into sequences and returns a sequence of
 boolean values:
 
 ```rust
@@ -215,7 +215,7 @@ boolean values:
 ; [0b 1b 0b 1b 1b 1b]
 ```
 
-The select function (`sel`) filters a list by masking it using a sequence of boolean values:
+The select function (`sel`) filters a sequence by masking it using a sequence of boolean values:
 
 ```rust
 ? sel(xs > 40, xs)
@@ -229,7 +229,7 @@ The function `filter` is similar to `sel`, but selects values that satisfy a pre
 ; [89 41 52 77]
 ```
 
-`Filter` returns a lazy-sequence, so it might be ideal for filtering really large lists.
+`Filter` returns a lazy-sequence, so it might be ideal for filtering really large sequences.
 
 You may use the `!` shorthand operator in place of the `filter` function:
 
@@ -388,7 +388,7 @@ updating the employee table in-place.
 
 ## Set Operations
 
-Convert lists to a sets:
+Convert sequences to sets:
 
 ```rust
 ? a:set([1 5 7 5 8 9])
@@ -452,7 +452,7 @@ Concatenate multiple objects into a single string:
 ; Select one of: [1 90 89]
 ```
 
-Convert a string to a list of characters:
+Convert a string to a sequence of characters:
 
 ```rust
 ? s:"hello world"

@@ -6,7 +6,7 @@ Motto is a programmable platform for data analysis.
 
  - Data import/export - databases, Excel/CSV/JSON/XML files, HTTP APIs etc.
  - A simple and expressive functional language for data analysis.
- - High-performance immutable data structures - lists, sets, dictionaries, tables.
+ - High-performance immutable data structures - lists, vectors, sets, dictionaries, tables.
  - Built-in statistical functions.
  - Powerful charting capabilities.
  - Parallel and distributed computing.
@@ -47,8 +47,8 @@ We use the `tab` function to manually create a table:
            [1900.78 2344.88 1200.56 3400.56 1300.78]])
 ```
 
-The first argument is a list of column names. We have two symbolic names here: `'name` and `'salary`.
-The second argument is a list of lists. Each list is the values for each column.
+The first argument is a vector (or a collection) of column names. We have two symbolic names here: `'name` and `'salary`.
+The second argument is a vector of vectors. Each vector is the values for each column.
 Let's have a look at the table now:
 
 ```lisp

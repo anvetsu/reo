@@ -1,7 +1,7 @@
 # An Extended Tutorial
 
 Modern digital computers are very good at consuming and processing large amounts of data.
-They are also good at dealing with various *types* of data - numbers, texts, lists and tables.
+They are also good at dealing with various *types* of data - numbers, texts, vectors, lists and tables.
 
 As the representation of data becomes more complex, computer users tend to depend on specialized tools.
 For example, spreadsheet programs are used for visualizing and manipulating tabular data.
@@ -16,7 +16,7 @@ This document is divided into the following sections:
 
 1. [Simple Calculations](#simp)
 2. [Variables](#vars)
-3. [Lists](#lists)
+3. [Vectors and Lists](#lists)
 4. [Multiple Dimensions](#dims)
 5. [Reductions and Deductions](#reds)
 6. [Indexing and Mapping](#idx)
@@ -310,12 +310,13 @@ Code-blocks can be defined just to group together program statements, without in
 The statements may be optionally separated using comma.
 
 <a name="lists"></a>
-## Lists
+## Vectors and Lists
 
-Motto can also operate on lists of values. Lists are delimited by opening and closing square brackets.
+Motto can also operate on vectors of values, delimited by opening and closing square brackets.
+Vectors support access to items by index in log32N hops.
 
 Assume that we have to find the total price of not one by five products. The prices and corresponding
-quantities can be represented as two lists:
+quantities can be represented as two vectors:
 
 
 ```rust
@@ -323,11 +324,11 @@ quantities can be represented as two lists:
 ? qty:[3 5 3 2 4]
 ```
 
-**Note** You may separate each element in a list by commas but this is optional.
+**Note** You may separate each element in a vector by commas but this is optional.
 The comma separator is required while mixing positive and negative numbers. E.g: `[2, -1 3]`. If the
-comma separator is left out, the list returned will be `[1 3]` instead of the expected `[2 -1 3]`.
+comma separator is left out, the vector returned will be `[1 3]` instead of the expected `[2 -1 3]`.
 
-The total costs can be found by simply multiplying the two lists together:
+The total costs can be found by simply multiplying the two vectors together:
 
 ```rust
 ? cost: price * qty
@@ -335,12 +336,12 @@ The total costs can be found by simply multiplying the two lists together:
 ; [179.25 170.0 165.75 121.0 94.0]
 ```
 
-As we can see here, the arithmetic operators can operate on lists as well as they work with individual numbers.
-This is true for comparison operators and many other built-in functions. This "burrowing" behavior extends to lists
-of more complex shapes and structures. This advanced list processing capability eliminates the need for imperative,
+As we can see here, the arithmetic operators can operate on vectors as well as they work with individual numbers.
+This is true for comparison operators and many other built-in functions. This "burrowing" behavior extends to vectors
+of more complex shapes and structures. This advanced vector processing capability eliminates the need for imperative,
 "loopy" code common in many languages.
 
-You may freely mix numbers and lists in an arithmetic expression. For example, you can add a `5%` tax to the prices as,
+You may freely mix numbers and vectors in an arithmetic expression. For example, you can add a `5%` tax to the prices as,
 
 ```rust
 ? tax:0.05
@@ -348,10 +349,57 @@ You may freely mix numbers and lists in an arithmetic expression. For example, y
 ; [62.7375 35.7 58.0125 63.525 24.675]
 ```
 
-<a name="lazy"></a>
-### Infinite Lists
+### Lists
 
-A list need not contine a finite number of elements. It could be infinite!
+Lists are made of nodes linked by references. They are constructed by calling the `list` function.
+
+```rust
+? xs:list(1 2 3 4 5)
+? xs
+; [1 2 3 4 5]
+```
+
+New elements can be added to a list's head in constant time. So they are suitable for being used as stacks:
+
+```rust
+? peek(xs)
+; 1
+
+? pop(xs)
+; [2 3 4 5]
+
+? push(pop(xs) 10)
+; [10 2 3 4 5]
+```
+
+Both vectors and lists are instances of more generic types known as sequences. So they share some of the
+basic functions, though the behavior of functions like `push`, `peek` and `get` are optimized for the actual underlying
+structure.
+
+```rust
+? xs:[1 2 3 4 5]
+? ys:list(1 2 3 4 5)
+
+? is_vec(xs)
+; 1b
+? is_list(ys)
+; 1b
+
+? count(xs)
+; 5
+? count(ys)
+; 5
+
+? push(xs 10)
+; [1 2 3 4 5 10]
+? push(ys 10)
+; [10 1 2 3 4 5]
+```
+
+<a name="lazy"></a>
+### Infinite Sequences
+
+A sequence need not contain a finite number of elements. It could be infinite!
 You make such infinite sequences with the help of the `lazy` function, which takes two arguments:
 
   - a value for the head of the sequence.
@@ -373,7 +421,7 @@ Here is how you can use `lazy` to generate an endless sequence of integers, give
 <a name="dims"></a>
 ## Multiple Dimensions
 
-Lists can be used to model data with multiple dimensions. As an example, consider the temperature forecasts (in Celsius) for two cities
+Sequences can be used to model data with multiple dimensions. As an example, consider the temperature forecasts (in Celsius) for two cities
 for the next 7 days:
 
 ```rust
@@ -381,16 +429,16 @@ for the next 7 days:
             [38 38.3 37 35 37 36.5 37]]
 ```
 
-The `dim` function can be used to find out the dimension of complex lists:
+The `dim` function can be used to find out the dimension of complex sequences:
 
 ```rust
 ? dim(forecast)
 ; [2 7]
 ```
 
-This output means `forecast` is a list with `2` rows and `7` columns.
+This output means `forecast` is a sequence with `2` rows and `7` columns.
 
-After 7 days we receive the actual temperature readings as a single list with 14 entries.
+After 7 days we receive the actual temperature readings as a single sequence with 14 entries.
 The first 7 entries pertain to the first city and the next 7 entries are for the second city.
 
 ```rust
@@ -410,7 +458,7 @@ The `tab` function takes two arguments - the dimension and the sequence of data 
 ;  [36 37 38 37 37 36 35]]
 ```
 
-**Note** Just as for lists, the comma separator is optional for function arguments.
+**Note** Just as for sequences, the comma separator is optional for function arguments.
 
 If you find yourself tabulating too much, you may save a few keystrokes by using the `tab` operator (`$`):
 
@@ -423,7 +471,7 @@ If you find yourself tabulating too much, you may save a few keystrokes by using
 
 Now that we have the forecast data and actual data, one basic question we would like to answer is
 how much the actual temperature readings varies from the forecast? As the arithmetic operators can burrow into
-lists of any dimension, the solution is the following simple program:
+sequences of any dimension, the solution is the following simple program:
 
 ```rust
 ? variance:actual - forecast
@@ -436,14 +484,14 @@ lists of any dimension, the solution is the following simple program:
 <a name="reds"></a>
 ## Reductions and Deductions
 
-Earlier in this tutorial, we calculated the cost of purchase of a list of products:
+Earlier in this tutorial, we calculated the cost of purchase of a sequence of products:
 
 ```rust
 ? cost
 ; [179.25 170.0 165.75 121.0 94.0]
 ```
 
-We find the total cost by adding together all elements in the list.
+We find the total cost by adding together all elements in the sequence.
 This can be achieved with the help of the `fold` operator denoted by the `@` symbol:
 
 ```rust
@@ -454,14 +502,14 @@ This can be achieved with the help of the `fold` operator denoted by the `@` sym
 As `+` is an operator the function attached to it is extracted by enclosing it in tick-quotes (`).
 
 Now what does the fold (`@`) operator do? It basically inserts the `+` function between all the elements of
-the list and then evaluate the resulting expression:
+the sequence and then evaluate the resulting expression:
 
 ```rust
 `+` @ cost => 179.25 + 170.0 + 165.75 + 121.0 + 94.0 => 730.0
 ```
 
 The fold operator is defined in terms of a lower level function called `reduce`. This function takes three
-arguments: a function that is inserted between the elements, an initial value to start the folding and the list to be
+arguments: a function that is inserted between the elements, an initial value to start the folding and the sequence to be
 folded.
 
 ```rust
@@ -469,7 +517,7 @@ folded.
 ; 730.0
 ```
 
-Convenience functions for folding a list using the arithmetic operators are built-in - `sum` for `+`, `dif` (difference) for `-`,
+Convenience functions for folding a sequence using the arithmetic operators are built-in - `sum` for `+`, `dif` (difference) for `-`,
 `prd` (product) for `*` and `qt` (quotient) for `/`:
 
 ```rust
@@ -503,8 +551,8 @@ That was just an exercise! Normally, you should use the built-in `mean` function
 <a name="idx"></a>
 ## Indexing and Mapping
 
-A list can be called like a function, with an index as argument. The value at that index will be returned.
-List indices starts at `0`.
+A vector can be called like a function, with an index as argument. The value at that index will be returned.
+vector indices starts at `0`.
 
 ```rust
 ? xs:[10 78 34 90]
@@ -515,7 +563,7 @@ List indices starts at `0`.
 ; 5.830951894845301
 ```
 
-What if want to apply a function to each element in a list and construct a list of the results?
+What if want to apply a function to each element in a sequence and construct a sequence of the results?
 We can do that with the `map` function:
 
 ```rust
@@ -523,14 +571,14 @@ We can do that with the `map` function:
 ; [3.1622776601683795 8.831760866327848 5.830951894845301 9.486832980505138]
 ```
 
-Mapping a function over a list is a common operation, so we have an operator for that represented by the `~` (tilde) symbol.
+Mapping a function over a sequence is a common operation, so we have an operator for that represented by the `~` (tilde) symbol.
 
 ```rust
 ? sqrt ~ xs
 ; [3.1622776601683795 8.831760866327848 5.830951894845301 9.486832980505138]
 ```
 
-As a list itself is treated as a function, we can map it over a list of indices to extract a subset of the list:
+As a sequence itself is treated as a function, we can map it over a sequence of indices to extract a subset of the sequence:
 
 ```rust
 ? xs ~ [0 2 3]
@@ -558,20 +606,20 @@ The management has decided to give a salary increment to employees in each categ
  - Category 1: 200
  - Category 2: 350
 
-These rates is represented by the list:
+These rates is represented by the vector:
 
 ```rust
 ? rate:[500 200 350]
 ```
 
-The increment applicable to each employee can be found out by mapping the `rate` list over the `category` list:
+The increment applicable to each employee can be found out by mapping the `rate` vector over the `category` vector:
 
 ```rust
 ? rate ~ category
 ; [500 350 200 500 200]
 ```
 
-The actual increment can be computed by adding these rates to the `salary` list:
+The actual increment can be computed by adding these rates to the `salary` vector:
 
 ```rust
 ? (rate ~ category) + salary
@@ -620,7 +668,7 @@ that will be returned instead of `nul` for missing keys.
 ; 45
 ```
 
-Lists of dictionaries form tables. Here is a database of employee records:
+Vectors of dictionaries form tables. Here is a database of employee records:
 
 ```rust
 ? db:[['name:"J Kale"  'dept:101 'salary:1500]
@@ -643,10 +691,10 @@ A symbol can also behave like a function. When applied to a dictionary, the symb
 ; 1500
 ```
 
-To extract all salaries in the `db` list, we just map the symbol `'salary` over that list. That's how we obtained the
-value for the list `sals`.
+To extract all salaries in the `db` vector, we just map the symbol `'salary` over it. That's how we obtained the
+value for the sequence `sals`.
 
-Call `sum` on this list, and we have the total salary!
+Call `sum` on this sequence, and we have the total salary!
 
 ```rust
 ? sum(sals)
@@ -751,7 +799,7 @@ There is no explicit `return` statement, the value of the last expression in the
 Functions are also data, so we can bind a function to a variable. In the above example, we have
 bound the doubling function to the name `dbl`.
 
-As the function internally uses the burrowing `+` operator, `dbl` can seamlessly work with lists as well as single numbers.
+As the function internally uses the burrowing `+` operator, `dbl` can seamlessly work with sequences as well as single numbers.
 
 ```rust
 ? dbl(10)
@@ -810,8 +858,8 @@ by applying the `fold-times` (`@>`) operator to a function literal:
 ```
 
 The `fold-times` operator is an extension to the basic `fold` operator (`@`).
-This operator starts with an initial list and extends it with the result of passing that to a function.
-The function gets the extended list for each call.
+This operator starts with an initial sequence and extends it with the result of passing that to a function.
+The function gets the extended sequence for each call.
 
 ### Partials
 
@@ -835,7 +883,7 @@ often while writing significant programs.
 ### Compositions
 
 Another technique for building new functions out of existing ones is through *function composition*.
-For instance, imagine that you want to find the square-root of the sum of all numbers in a list.
+For instance, imagine that you want to find the square-root of the sum of all numbers in a vector.
 Here is how you would express it as a *composition* of the functions `sqrt` and `sum`:
 
 ```rust
@@ -844,7 +892,7 @@ Here is how you would express it as a *composition* of the functions `sqrt` and 
 ```
 
 If this is a frequent computation, you can instantiate a new function defined as the composition of `sqrt` and `sum`
-and apply that to any list.
+and apply that to any sequence.
 
 ```rust
 ? sqsum:^sqrt(sum(X1))
@@ -884,7 +932,7 @@ with `n` number of required parameters and `x` optional parameters? The followin
 ```
 
 The function `prn_args` is defined to take `x` as required argument and an arbitrary number of optional arguments.
-The optional arguments are collected in a list named `xs`. If no optional arguments are passed, `xs` will be `nul`.
+The optional arguments are collected in a sequence named `xs`. If no optional arguments are passed, `xs` will be `nul`.
 The function just writes its arguments to standard output and does nothing else.
 
 **Note** The function `wrln` stands for "write-line". It writes the textual representation of an object followed by a newline
@@ -910,9 +958,9 @@ to the values `10` and `20` respectively:
 
 ### Argument Destructuring
 
-Function parameters can be defined as data-patterns of lists and dictionaries.
+Function parameters can be defined as data-patterns of vectors and dictionaries.
 
-The following example shows how to define a function with a list pattern:
+The following example shows how to define a function with a vector pattern:
 
 ```rust
 ? f:fn([x y z]) x+y+z
