@@ -184,6 +184,7 @@
       (def -concat- motto.list/-concat-)
       (intern *ns* (symbol "#") motto.list/-concat-)
       (def -conj- motto.list/-conj-)
+      (intern *ns* (symbol ";") motto.list/-conj-)
       (def -fold- motto.list/-fold-)
       (intern *ns* (symbol "@") motto.list/-fold-)
       (def -map- clojure.core/map)
