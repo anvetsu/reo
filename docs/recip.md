@@ -80,7 +80,7 @@ vector before it could be directly indexed.
 ; 4
 ```
 
-Build enumerations or tables:
+Build enumerations or tabulations:
 
 ```rust
 ? xs:enum(num_mul [0 1 2 3 4 5])
