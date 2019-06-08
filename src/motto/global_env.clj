@@ -47,6 +47,7 @@
       (def is_seq clojure.core/seqable?)
       (def is_str clojure.core/string?)
       (def is_vec clojure.core/vector?)
+      (def is_list clojure.core/list?)
       (def is_dict clojure.core/map?)
       (def is_string clojure.core/string?)
       (def is_number? clojure.core/number?)
@@ -181,6 +182,7 @@
 
       (def cf motto.compile/compile-file)
 
+      (def push clojure.core/conj)
       (def -concat- motto.list/-concat-)
       (intern *ns* (symbol "#") motto.list/-concat-)
       (def -conj- motto.list/-conj-)
