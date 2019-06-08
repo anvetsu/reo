@@ -68,6 +68,10 @@
       (def num_gt clojure.core/>)
       (def num_lteq clojure.core/<=)
       (def num_gteq clojure.core/>=)
+      (def num_add clojure.core/+)
+      (def num_sub clojure.core/-)
+      (def num_div clojure.core//)
+      (def num_mul clojure.core/*)
 
       (def eq motto.lib.obj/eq)
       (def lt motto.lib.obj/lt)
