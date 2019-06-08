@@ -1,4 +1,4 @@
-# An Extended Tutorial
+# Motto - A Primer
 
 Modern digital computers are very good at consuming and processing large amounts of data.
 They are also good at dealing with various *types* of data - numbers, texts, vectors, lists and tables.
