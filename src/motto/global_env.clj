@@ -62,6 +62,7 @@
       (def exit motto.lib.sys/exit)
 
       (def fork motto.lib.func/fork)
+      (def times motto.lib.func/times)
 
       (def num_eq clojure.core/=)
       (def num_lt clojure.core/<)

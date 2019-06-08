@@ -923,6 +923,29 @@ The `comp` built-in function can ease the task of defining such compositions:
 ; [5 6 8 10 14]
 ```
 
+The composition for incrementing `n` number of times can be created by the `times` function:
+
+```rust
+? i3:times(3 inc)
+? i3 ~ primes
+; [5 6 8 10 14]
+
+? d3:times(3 dec)
+? d3 ~ (i3 ~ primes)
+; [2 3 5 7 11]
+```
+
+Well that was just for illustrating the various ways you can build composed functions.
+With burrowing arithmetic, we could've just done:
+
+```rust
+? primes + 3
+; [5 6 8 10 14]
+
+? primes + 3 - 3
+; [2 3 5 7 11]
+```
+
 ### Forking
 
 A `forking` function call is of the form: `g(f(x) h(x))`. The `fork` function can create a function composition that satisfies this form.
