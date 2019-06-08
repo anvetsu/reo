@@ -1,10 +1,19 @@
 # Useful Recipes
 
 This document presents some functions and operators that you will find handy
-for data processing and analysis. You will be presented with
+while processing data. You will be presented with
 code recipes. Short explanations will be provided, where that is absolutely required.
 
-## Making Sequences
+1. [Sequences](#seq)
+2. [Dictionaries](#dict)
+3. [Sorting](#sort)
+4. [Tables](#tab)
+5. [Sets](#set)
+6. [Strings](#str)
+7. [Binary Data](#bin)
+
+<a name="seq"></a>
+## Sequences
 
 Create a numeric sequence:
 
@@ -97,7 +106,7 @@ listf(sqrt 10)
 ; [10 3.1622776601683795 1.7782794100389228 1.333521432163324 ...]
 ```
 
-## Accessing and Manipulating Sequences
+### Accessing and Manipulating Sequences
 
 Accessing the first, all-but-first and last elements in a sequence:
 
@@ -179,7 +188,7 @@ Atomic values are automatically converted to a sequence:
 ; [100 10 34 5]
 ```
 
-## Lift and Drop
+### Lift and Drop
 
 Take the first `n` or last `n` elements from a sequence:
 
@@ -203,7 +212,7 @@ Drop the first `n` or last `n` elements from a sequence:
 ; [0 1 2 3 4]
 ```
 
-## Compare, Select, Filter
+### Compare, Select, Filter
 
 Comparison operators burrow into sequences and returns a sequence of
 boolean values:
@@ -261,7 +270,8 @@ The functions `big` and `sml` (small) are burrowing versions of `mx` and `mn`:
 ; [10 89 30 41 52 77]
 ```
 
-## Accessing and Manipulating Dictionaries
+<a name="dict"></a>
+## Dictionaries
 
 Adding and removing keys:
 
@@ -306,6 +316,7 @@ Such sequences can be coerced into dictionaries:
 ; [a:1 c:3]
 ```
 
+<a name="sort"></a>
 ## Sorting
 
 ```rust
@@ -321,7 +332,8 @@ Such sequences can be coerced into dictionaries:
 ;  [id:3 qty:560]]
 ```
 
-## Table Operations
+<a name="tab"></a>
+## Tables
 
 ### Grouping
 
@@ -386,7 +398,8 @@ Merge a new table with the employee table:
 Note that tables are immutable and the `club` operation will return a new table instead of
 updating the employee table in-place.
 
-## Set Operations
+<a name="set"></a>
+## Sets
 
 Convert sequences to sets:
 
@@ -443,7 +456,8 @@ The set-select function (`setsel`) will filter a set by a predicate and return a
 ; 1b
 ```
 
-## Working with Strings
+<a name="str"></a>
+## Strings
 
 Concatenate multiple objects into a single string:
 
@@ -526,6 +540,7 @@ The `re_matches` can check if a regular expression matches a string. It will ret
 ; [ss ss]
 ```
 
+<a name="bin"></a>
 ## Binary Data
 
 Binary data can be compactly represented as bit-vectors:
