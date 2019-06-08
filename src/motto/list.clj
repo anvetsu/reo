@@ -304,3 +304,7 @@
       rs)))
 
 (defn lazy [x f] (lazy-seq (cons x (f))))
+
+(defn enum [f arg]
+  (let [f (fn [y] (map #(f y %) arg))]
+    (map f arg)))

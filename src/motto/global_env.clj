@@ -242,6 +242,7 @@
       (def replcf motto.list/replcf)
       (def filter_by motto.list/filter-by)
       (def lazy motto.list/lazy)
+      (def enum motto.list/enum)
 
       ;; table
       (def is_tab motto.tab/t?)

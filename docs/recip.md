@@ -80,6 +80,34 @@ vector before it could be directly indexed.
 ; 4
 ```
 
+Build enumerations or tables:
+
+```rust
+? xs:enum(num_mul [0 1 2 3 4 5])
+
+? xs
+; [[0 0 0 0 0 0]
+;  [0 1 2 3 4 5]
+;  [0 2 4 6 8 10]
+;  [0 3 6 9 12 15]
+;  [0 4 8 12 16 20]
+;  [0 5 10 15 20 25]]
+```
+
+The above program computes the multiplication table from 0 - 5.
+
+We could've used ``*`` instead of `num_mul`, but `num_mul` is faster if the arguments are guarenteed to be numbers.
+
+```rust
+? nby3:fn(n) nth(nth(xs 3) n)
+
+? nby3(3)
+; 9
+
+? nby3(2)
+; 6
+```
+
 Create `n` instances of an object:
 
 ```rust
