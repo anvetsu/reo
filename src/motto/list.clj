@@ -49,37 +49,37 @@
       [bag items])))
 
 (defn -conj- [x y]
-  (if (seqable? y)
-    (conj (vec y) x)
-    (cons y (vec x))))
+  (if (seqable? x)
+    (conj (vec x) y)
+    (cons x (vec y))))
 
-(defn -fold- [ys f]
+(defn -fold- [f ys]
   (reduce f (first ys) (rest ys)))
 
-(defn fold-incr [ys f]
+(defn fold-incr [f ys]
   (reverse
    (reduce
     #(conj %1 (f (first %1) %2))
     (list (first ys))
     (rest ys))))
 
-(defn fold-times [x n f]
+(defn fold-times [f n x]
   (loop [n n, r x]
     (if (<= n 0)
       r
       (recur (dec n) (f r)))))
 
 (defn sum [ys]
-  (-fold- ys b/add))
+  (-fold- b/add ys))
 
 (defn diff [ys]
-  (-fold- ys b/sub))
+  (-fold- b/sub ys))
 
 (defn prd [ys]
-  (-fold- ys b/mul))
+  (-fold- b/mul ys))
 
 (defn -quot- [ys]
-  (-fold- ys b/div))
+  (-fold- b/div ys))
 
 (defn -max- [ys]
   (apply max ys))
@@ -88,22 +88,22 @@
   (apply min ys))
 
 (defn sums [ys]
-  (fold-incr ys b/add))
+  (fold-incr b/add ys))
 
 (defn diffs [ys]
-  (fold-incr ys b/sub))
+  (fold-incr b/sub ys))
 
 (defn prds [ys]
-  (fold-incr ys b/mul))
+  (fold-incr b/mul ys))
 
 (defn quots [ys]
-  (fold-incr ys b/div))
+  (fold-incr b/div ys))
 
 (defn maxs [ys]
-  (fold-incr ys max))
+  (fold-incr max ys))
 
 (defn mins [ys]
-  (fold-incr ys min))
+  (fold-incr min ys))
 
 (defn twins [f xs]
   (loop [xs xs, rs [(first xs)]]
@@ -245,9 +245,9 @@
       :else (without-iter (flatten x) xs))))
 
 (defn -concat- [a b]
-  (if (string? b)
-    (str b a)
-    (concat (u/in-seq b) (u/in-seq a))))
+  (if (string? a)
+    (str a b)
+    (concat (u/in-seq a) (u/in-seq b))))
 
 (defn each-previous [f orig-xs]
   (loop [xs (rest orig-xs), x (first orig-xs), rs []]
@@ -255,9 +255,6 @@
       (let [y (first xs)]
         (recur (rest xs) y (conj rs (f y x))))
       rs)))
-
-(defn -map- [xs f]
-  (map f xs))
 
 (defn factor
   ([xs options]

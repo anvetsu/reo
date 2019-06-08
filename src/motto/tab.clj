@@ -110,7 +110,7 @@
   ([dicts]
    (dicts->t dicts)))
 
-(defn -t- [x y] (mkt (u/in-seq y) (u/in-seq x)))
+(defn -t- [x y] (mkt (u/in-seq x) (u/in-seq y)))
 
 (defn top [n t]
   (let [[colnames data] [(tcols t) (tdata t)]]
@@ -151,7 +151,7 @@
             (recur (rest rows) rs)))
         (mkt colnames rs)))))
 
-(defn -filter- [xs f]
+(defn -filter- [f xs]
   (if (t? xs)
     (-where- f xs)
     (filter f xs)))

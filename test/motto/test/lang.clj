@@ -268,5 +268,5 @@
    "format(\"%.0f\" 2.74877906944E11)" "274877906944"])
 
 (deft funcs
-  ["mnmx:fork(mx `#` mn)" 'mnmx
+  ["mnmx:fork(mn `#` mx)" 'mnmx
    "mnmx([10 1 4 20 14 7])" [1 20]])
