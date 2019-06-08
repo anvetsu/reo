@@ -956,6 +956,29 @@ to the values `10` and `20` respectively:
 ; 300
 ```
 
+### Applying Functions
+
+What if the number of arguments to a function cannot be determined at compile time?
+We can use the `apply` function to call that function with a list of arguments. This list could be
+constructed while the program is running.
+
+```rust
+? xs:[1 2 3 4]
+? ys:push(xs 100)
+
+? apply(prn_args ys)
+; 1
+; [2 3 4 100]
+```
+
+In fact, `apply` itself can take an arbitrary number of arguments, only the last one needs to be a sequence:
+
+```rust
+? apply(prn_args 1 2 3 [10 20])
+; 1
+; [2 3 10 20]
+```
+
 ### Argument Destructuring
 
 Function parameters can be defined as data-patterns of vectors and dictionaries.
