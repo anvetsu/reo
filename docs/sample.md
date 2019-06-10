@@ -1,4 +1,4 @@
-# Sample Applications
+# Chrestomathy
 
 This section shows some interesting tasks to which Motto could be effectively applied.
 The main objective is to demonstrate how Motto can yield compact and intuitive solutions to problems from many domains.
