@@ -1,103 +1,497 @@
 # Sequences
 
-(Work-in-Progress)
+#### # (concat)
 
-#### #
+Concatenate two sequences. Put atomic arguments into sequences as required.
 
-#### ;
+```rust
+? [1 2 3]#[4 5]
+; [1 2 3 4 5]
 
-#### @
+? [1 2 3]#4
+; [1 2 3 4]
 
-#### @>
+? 1#[2 3]
+; [1 2 3]
 
-#### @~
+? 1#2
+; [1 2]
+```
 
-#### collect
+#### ; (push)
 
-#### collect1
+Push an object to the front or back of a sequence.
 
-#### counteq
+```rust
+? 1;[2 3]
+; [1 2 3]
 
-#### countf
+? [2 3];4
+; [2 3 4]
 
-#### counts
+? [1 2 3];[4 5]
+; [1 2 3 [4 5]]
+```
 
-#### dif
+#### @ (fold)
+
+Insert an operator or function between each element of a sequence and reduce the sequence to a single value.
+
+```rust
+? (fn(x y) x*x + y*y) @ [1 2 3 4 5]
+1373609
+```
+
+#### @> (fold-times)
+
+Start with an initial sequence, pass it to a function. Extend the sequence with the result.
+Repeat the process `n` times.
+
+```rust
+? (fn (x) x;sum(lift(-2 x))) @> 10 [1 1]
+; [1 1 2 3 5 8 13 21 34 55 89 144]
+```
+
+#### @~ (fold-incr)
+
+Perform a fold and return a sequence of incremental results.
+
+```rust
+? (fn(x y) x*x + y*y) @~ [1 2 3 4 5]
+; [1 5 34 1172 1373609]
+```
+
+#### collect(f init xs)
+
+Call `f` with each element in `xs` and its index. Accumulates the result in a dictionary
+keyed by the current value from `xs`. This key will have the initial value `init`.
+Return this dictionary.
+
+```rust
+? collect(fn(x i) x*i 10 [1 2 3 4 5])
+; [1:0 2:10 3:20 4:30 5:40]
+
+? collect(fn(x i) x*i 10 [1 3 3 4 4])
+? [1:0 3:20 4:120]
+```
+
+#### collect1(f xs)
+
+Call `f` with each element in `xs` and collect the result in a dictionary.
+An element is collected only once.
+
+```rust
+? collect1(fn(x) x*10 [1 3 3 4 4])
+; [1:10 3:30 4:40]
+```
+
+#### counteq(x xs)
+
+Count how many `x` are there in `xs`.
+
+```rust
+? counteq(1 [1 2 3 1 1])
+; 3
+```
+
+#### countf(predic xs)
+
+Count how many elements in `xs` return `true` for `predic`.
+
+```rust
+? countf(is_odd [1 2 3 4 5])
+; 3
+```
+
+#### counts(xs)
+
+Count the number of occurrences for each element in `xs`.
+
+```rust
+? counts([1 3 3 4 4 5 4])
+; [1:1 3:2 4:3 5:1]
+```
+
+#### dif(xs)
+
+Folds `xs` with the minus (`-`) operator.
+
+```rust
+? dif([10 34 56 77])
+; -157
+```
 
 #### difs
 
-#### dig
+Incremental version of `dif`.
 
-#### dim
+```rust
+? difs([10 34 56 77])
+; [10 -24 -80 -157]
+```
 
-#### dip
+#### dig(xs co-ord)
 
-#### drop_while
+Dig into `xs` by a co-ordinate and return the value there.
 
-#### eachprev
+```rust
+? dig([[1 2] [3 4]] [0 1])
+; 2
 
-#### enum
+? dig([[1 2] [3 4]] [1 1])
+; 4
+```
 
-#### factor
+#### dim(xs)
 
-#### filter_by
+Return the dimension of `xs`.
 
-#### in
+```rust
+? dim([10 20 45 34])
+; [4]
 
-#### infs
+? dim([[10 20] [45 34]])
+; [2 2]
+```
 
-#### lazy
+#### dip(n xs)
 
-#### lift
+Drop the first `n` elements of `xs`. If `n` is negative, drop from the end.
 
-#### liftr
+```rust
+? dip(2 [10 20 30 40 50 60])
+; [30 40 50 60]
 
-#### listf
+? dip(-2 [10 20 30 40 50 60])
+; [10 20 30 40]
+```
 
-#### mn
+#### drop_while(predic xs)
 
-#### mns
+Drop from `xs` until `predic` returns `true`.
 
-#### mx
+```rust
+? drop_while(is_odd [1 3 5 6 7 8])
+; [6 7 8]
+```
 
-#### mxs
+#### eachprev(f xs)
 
-#### pack
+Call `f` with the current and the previous element in `xs`. Return the resulting sequence.
 
-#### pairs
+```rust
+? eachprev(`+` [1 2 3 4 5])
+; [3 5 7 9]
+```
 
-#### pos
+#### enum(f xs)
 
-#### prd
+Call `f` with each element of `xs` with all other elements of `xs` to make a tabulated result.
 
-#### prds
+```rust
+? enum(`*` [1 2 3 4 5])
+; [[1 2 3 4 5]
+;  [2 4 6 8 10]
+;  [3 6 9 12 15]
+;  [4 8 12 16 20]
+;  [5 10 15 20 25]]
+```
 
-#### push
+#### factor(xs & options)
 
-#### qt
+Assign "groups" to the values in `xs`. Return sequence of two elements - a dictionary of groupings and a
+vector of corresponding group for each element in `xs`.
+
+If specified, `options` must be a dictionary with the following entries:
+
+ - levels - `xs` as a set of groups
+ - sort - if `true`, use the sorted set of `xs` as groups.
+
+
+```rust
+? factor([10 20 30 40 30 50] ['levels:[50 40 30 20 10]])
+; [[50:1 40:2 30:3 20:4 10:5]
+;  [5 4 3 2 3 1]]
+
+? factor([10 20 30 40 30 50])
+; [[20:1 50:2 40:3 30:4 10:5]
+;  [5 1 4 3 4 2]]
+
+? factor([10 20 30 40 30 50] ['sort:1b])
+; [[10:1 20:2 30:3 40:4 50:5]
+;  [1 2 3 4 3 5]]
+```
+
+#### filter_by(predic xs yss)
+
+For each element in `xs` that `predic` returns `true`, pick the corresponding element from the sequence-of-sequences `yss`.
+
+```rust
+? filter_by(is_odd [1 2 3] [[10 20 30] [100 200 300] [1000 2000 3000]])
+; [[10 30]
+;  [100 300]
+;  [1000 3000]]
+``` 
+
+#### in(xs x)
+
+Return `true` if `x` is in `xs`, return `false` otherwise.
+
+#### infs(x)
+
+Return an infinite sequence of `x`s.
+
+```rust
+? infs(1b)
+; [1b 1b 1b 1b 1b 1b 1b 1b 1b 1b ...]
+```
+
+#### lazy(x f)
+
+Return an infinite sequence starting with `x` and whose tail in filled in by calls to the no-argument function `f`.
+
+```rust
+? evens:fn(x) lazy(x fn() evens(x+2))
+? xs:evens(2)
+
+? xs
+; [2 4 6 8 10 12 14 16 18 20 ...]
+```
+
+#### lift(n xs)
+
+Take the first `n` elements from `xs`. If `n` is negative, take from the end.
+
+```rust
+? lift(2 [10 20 30 40 50])
+; [10 20]
+
+? lift(-2 [10 20 30 40 50])
+; [40 50]
+```
+
+#### liftr(n xs)
+
+Take the first `n` elements from `xs`. If `xs` runs-out, take again from its head.
+
+```rust
+? liftr(10 [1 2 3 4 5])
+; [1 2 3 4 5 1 2 3 4 5]
+```
+
+#### listf(f r)
+
+Return an infinite sequence of calling `r`, `r1:f(r)`, `r2:f(r1)` and so on.
+
+```rust
+? listf(sqrt 10)
+; [10 3.162 1.778 1.334 1.155 1.075 1.037 1.018 1.009 ...]
+```
+
+#### mn(xs)
+
+Return the smallest value from `xs`.
+
+```rust
+? mn([10 90 8 20 12])
+' 8
+```
+
+#### mns(xs)
+
+Incrementally return the smallest value from `xs`.
+
+```rust
+? mns([10 90 8 20 12])
+; [10 10 8 8 8]
+```
+
+#### mx(xs)
+
+Return the largest value from `xs`.
+
+#### mxs(xs)
+
+Incrementally return the largest value from `xs`.
+
+#### pack(max_wt f xs)
+
+Pack items from `xs` into a new sequence until an maximum weight is met.
+Each element from `xs` is passed to the function `f` to compute the individual weight.
+
+Return a sequence of elements moved to the new list and the remaining elements from `xs`.
+
+```rust
+? pack(10 identity [2 5 3 2 1])
+; [[2 5 3]
+;  [2 1]]
+
+? pack(10 identity [2 5 30 2 1])
+; [[2 5 2 1]]
+``` 
+
+#### pairs(xs ys)
+
+Return a dictionary created from `xs` (keys) and `ys` (values).
+
+```rust
+? pairs([1 2 3] [10 20 30])
+; [1:10 3:30 2:20]
+```
+
+#### pos(xs x)
+
+Return the index of `x` in `xs`. Return `-1` if `x` is not in `xs`.
+
+```rust
+? pos([\q \u \e \e \n] \u)
+; 1
+
+? pos([10 56 34 90] 34)
+; 2
+
+? pos([10 56 34 90] 30)
+; -1
+```
+
+#### prd(xs)
+
+Fold `xs` using multiplication.
+
+```rust
+? prd([1 2 3 4 5])
+; 120
+```
+
+#### prds(xs)
+
+Incrementally fold `xs` using multiplication.
+
+```rust
+? prds([1 2 3 4 5])
+; [1 2 6 24 120]
+```
+
+#### push(xs x)
+
+Add an element to a sequence. The place where the new element is added depends on the exact
+type of the sequence.
+
+```rust
+? push([1 2 3 4 5] 6)
+; [1 2 3 4 5 6]
+
+? push(list(1 2 3 4 5) 6)
+; [6 1 2 3 4 5]
+
+? push(set([1 2 3 4 5]) 6)
+; [1 4 6 3 2 5]
+```
+
+#### qt(xs)
+
+Fold `xs` using division.
 
 #### qts
 
-#### replc
+Incrementally fold `xs` using division.
 
-#### replcf
+#### replc(xs x y)
 
-#### sel
+Replace `x` is `xs` by `y`.
 
-#### sum
+```rust
+? replc([1 2 1 3 4] 1 \a)
+; [a 2 a 3 4]
+```
 
-#### sums
+#### replcf(xs f y)
 
-#### take_while
+Replace all elements in `xs` that return `true` for `f` with `y`.
 
-#### til
+```rust
+? replcf([1 2 1 3 4] is_odd 100)
+; [100 2 100 100 4]
+```
 
-#### truths
+#### sel(flags xs)
 
-#### twins
+Return all elements `xs` for which a flag is set.
 
-#### without
+```rust
+? sel([1b 0b 0b 1b 1b] [1 2 3 4 5])
+; [1 4 5]
+```
 
-#### zip
+#### sum(xs)
 
-#### ~
+Fold `xs` using addition.
+
+#### sums(xs)
+
+Incrementally fold `xs` using addition.
+
+#### take_while(predic xs)
+
+Take elements from `xs` while `predic` returns `true`.
+
+#### til(a & b)
+
+Return a sequence with integers from `a` (inclusive) to `b` (exclusive).
+`a` defaults to `0`.
+
+```rust
+? til(5)
+; [0 1 2 3 4]
+
+? til(5 10)
+[5 6 7 8 9]
+```
+
+#### truths(xs)
+
+Return truths from `xs`.
+
+```rust
+? truths([1 0b "hello" 0b 23])
+; [1 hello 23]
+```
+
+#### twins(f xs)
+
+Call `f` with each pair from `xs`.
+
+```rust
+? twins(`+` [1 2 3 4 5 6])
+; [1 3 5 7 9 11]
+```
+
+#### without(x xs)
+
+Return `xs` without `x`.
+
+```rust
+? without(10 [1 2 10 3 4 10 5])
+; [1 2 3 4 5]
+```
+
+#### zip(xs ys)
+
+Pair `xs` with `ys.
+
+```rust
+? zip([1 2 3 4] [10 20 30 40])
+; [[1 10]
+;  [2 20]
+;  [3 30]
+;  [4 40]]
+``` 
+
+#### ~ (map)
+
+The `map` operator.
+
+```rust
+? (fn(x) x*x) ~ [1 2 3 4 5]
+; [1 4 9 16 25]
+```
