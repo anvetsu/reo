@@ -95,7 +95,7 @@
   (cond
     (= expr :true) true
     (= expr :false) false
-    (= expr :void) :void
+    (= expr :void) nil
     (tp/literal? expr) expr
     (tp/identifier? expr) (translate-ident expr)
     (tp/function? expr) (mkfn expr eval)

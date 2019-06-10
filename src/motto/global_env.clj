@@ -81,9 +81,7 @@
       (def gteq motto.lib.obj/gteq)
       (def size motto.lib.obj/size)
       (def nul nil)
-      (def void :void)
       (def is_nul clojure.core/nil?)
-      (def is_void motto.lib.obj/void?)
       (def ex motto.lib.obj/ex)
       (def with_ex motto.lib.obj/with-ex)
 
