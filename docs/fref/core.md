@@ -5,7 +5,7 @@ Most functions in [`clojure.core`](https://clojuredocs.org/clojure.core) are dir
 Motto has extended some core functions with additional features and also added some new functions.
 These are documented here.
 
-#### + - * /
+#### +, -, *, /
 
 The burrowing- arithmetic functions: addition, subtraction, multiplication and division.
 
@@ -24,7 +24,7 @@ The burrowing- arithmetic functions: addition, subtraction, multiplication and d
 ;  [60 800] 5000 60000]
 ```
 
-#### = <> < <= > >=
+#### =, <>, <, <=, >, >=
 
 The burrowing-comparison operators: equals, not-equals, less-than, less-than-or-equals, greater-than, greater-than-or-equals.
 
@@ -278,7 +278,7 @@ Return a function that applies `f` `n` times to an argument.
 ; 103
 ```
 
-#### to_double to_float to_int
+#### to_double, to_float, to_int
 
 Convert a string to a double, float or int.
 
