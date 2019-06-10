@@ -1,7 +1,7 @@
 # Function Reference
 
 1. [Core](fref/core.md)
-2. Math
+2. [Math](fref/math.md)
 3. Bits & Bytes
 4. Sequences
 5. Sets
