@@ -131,6 +131,7 @@
       (def bits motto.bitvec/from-seq)
       (def bools motto.bitvec/to-seq)
       (def count_bits motto.bitvec/length)
+      (def bits_size motto.bitvec/size)
       (def bvget motto.bitvec/at)
       (def bvand motto.bitvec/_band)
       (def bvor motto.bitvec/_bor)
@@ -168,7 +169,7 @@
       (def pow motto.burrow/pow)
       (def band motto.burrow/band)
       (def bor motto.burrow/bor)
-      (def bandNot motto.burrow/band-not)
+      (def band_not motto.burrow/band-not)
       (def bxor motto.burrow/bxor)
       (def burrow motto.burrow/burrow)
 
