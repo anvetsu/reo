@@ -24,6 +24,17 @@ The burrowing- arithmetic functions: addition, subtraction, multiplication and d
 ;  [60 800] 5000 60000]
 ```
 
+Note that division by zero will return infinity. Any arithmetic operation involving infinity will result in
+infinity.
+
+```rust
+? 1/0
+; inf
+
+? (1/0)*100
+; inf
+```
+
 #### =, <>, <, <=, >, >=
 
 The burrowing-comparison operators: equals, not-equals, less-than, less-than-or-equals, greater-than, greater-than-or-equals.
@@ -64,6 +75,27 @@ Numeric addition.
 ```rust
 ? add(1 2 3)
 ; 6
+```
+
+#### burrow(f x y)
+
+Burrows into `x` and `y` with the function `f`.
+
+```rust
+? sumsqr:fn(x y) x*x + y*y
+
+? sumsqr(1 4)
+; 17
+? sumsqr(2 5)
+; 29
+
+? sumsqrs:partial(burrow sumsqr)
+
+? sumsqrs([1 2 3] [4 5 6])
+; [17 29 45]
+
+? sumsqrs([[1 2] 3] [[4 5] 6])
+; [[17 29] 45]
 ```
 
 #### clj_refer(ns_sym & filters)
@@ -115,7 +147,7 @@ Create a new dictionary.
 
 #### div(n & ns)
 
-Integer division.
+Integer division. Division by zero will raise an exception.
 
 #### eq(x & xs)
 
