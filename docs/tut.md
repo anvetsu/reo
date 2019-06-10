@@ -34,11 +34,24 @@ language:
 
 ```rust
 ? 157.89 + 34.19
-; 192.07999999999998
+; 192.080
 
 ? 10 - 2 * 5
 ; 0
 ```
+
+Note that the precision of decimal numbers are limited to 3 digits after the decimal point only in printed output.
+Internally they are computed to 64-bits of precision. The output of decimal digits can be customized by the `setprec` function:
+
+```rust
+? setprec(14)
+; 14
+
+? 157.89 + 34.19
+192.07999999999998
+```
+
+For convenience of display, this tutorial will continue to show decimal results with 3 (or sometimes even less) digits of precision.
 
 Large numbers may be written with an underscore for ease of reading:
 
@@ -71,7 +84,7 @@ Divisions that involve an inexact floating-point number will produce an inexact 
 
 ```rust
 ? 56 / 3.0
-;18.666666666666668
+; 18.667
 ```
 
 Division by zero will return a constant that represents infinity, which can be used in other
@@ -255,9 +268,9 @@ Multiple variables can be bound in a single expression by specifying the variabl
 
 The values list must have as many expressions as there are variables, it may have more but not less.
 
-### Controlling visibility
+### Controlling scope
 
-Visibility or scope of variables can be controlled by declaring them within "code-blocks". A code-block is any sequence
+Scope or visibility of variables can be controlled by declaring them within "code-blocks". A code-block is any sequence
 of program expressions delimited by opening and closing curly-braces (`{` and `}`).
 
 In the following program, the global definition of `x` is "shadowed" by the local definition of `x` in the code-block:
@@ -346,7 +359,7 @@ You may freely mix numbers and vectors in an arithmetic expression. For example,
 ```rust
 ? tax:0.05
 ? price + tax * price
-; [62.7375 35.7 58.0125 63.525 24.675]
+; [62.738 35.7 58.013 63.525 24.675]
 ```
 
 ### Lists
@@ -560,7 +573,7 @@ vector indices starts at `0`.
 ; 10
 
 ? sqrt(xs(2))
-; 5.830951894845301
+; 5.831
 ```
 
 What if want to apply a function to each element in a sequence and construct a sequence of the results?
@@ -568,14 +581,14 @@ We can do that with the `map` function:
 
 ```rust
 ? map(sqrt xs)
-; [3.1622776601683795 8.831760866327848 5.830951894845301 9.486832980505138]
+; [3.162 8.832 5.831 9.487]
 ```
 
 Mapping a function over a sequence is a common operation, so we have an operator for that represented by the `~` (tilde) symbol.
 
 ```rust
 ? sqrt ~ xs
-; [3.1622776601683795 8.831760866327848 5.830951894845301 9.486832980505138]
+; [3.162 8.832 5.831 9.487]
 ```
 
 As a sequence itself is treated as a function, we can map it over a sequence of indices to extract a subset of the sequence:
@@ -888,7 +901,7 @@ Here is how you would express it as a *composition* of the functions `sqrt` and 
 
 ```rust
 ? sqrt(sum([1 2 3 4 5]))
-; 3.872983346207417
+; 3.873
 ```
 
 If this is a frequent computation, you can instantiate a new function defined as the composition of `sqrt` and `sum`
@@ -898,9 +911,9 @@ and apply that to any sequence.
 ? sqsum:^sqrt(sum(X1))
 
 ? sqsum([1 2 3 4 5])
-; 3.872983346207417
+; 3.873
 ? sqsum([10.5 90.2 5.6])
-; 10.310189135025603
+; 10.310
 ```
 
 The `comp` built-in function can ease the task of defining such compositions:
@@ -909,9 +922,9 @@ The `comp` built-in function can ease the task of defining such compositions:
 ? sqsum:comp(sqrt sum)
 
 ? sqsum([1 2 3 4 5])
-; 3.872983346207417
+; 3.873
 ? sqsum([10.5 90.2 5.6])
-; 10.310189135025603
+; 10.310
 
 ? primes:[2 3 5 7 11]
 ? b:inc~primes
