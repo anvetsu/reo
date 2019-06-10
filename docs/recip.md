@@ -83,7 +83,7 @@ vector before it could be directly indexed.
 Build enumerations or tabulations:
 
 ```rust
-? xs:enum(num_mul [0 1 2 3 4 5])
+? xs:enum(mul [0 1 2 3 4 5])
 
 ? xs
 ; [[0 0 0 0 0 0]
@@ -96,7 +96,7 @@ Build enumerations or tabulations:
 
 The above program computes the multiplication table from 0 - 5.
 
-We could've used ``*`` instead of `num_mul`, but `num_mul` is faster if the arguments are guarenteed to be numbers.
+We could've used ``*`` instead of `mul`, but `mul` is faster if the arguments are guarenteed to be numbers.
 
 ```rust
 ? nby3:fn(n) nth(nth(xs 3) n)
