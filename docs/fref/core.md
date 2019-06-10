@@ -1,4 +1,4 @@
-# Function Reference - Core
+# Core
 
 Most functions in [`clojure.core`](https://clojuredocs.org/clojure.core) are directly usable in Motto.
 
