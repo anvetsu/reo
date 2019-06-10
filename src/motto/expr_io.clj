@@ -131,7 +131,7 @@
         (tab/rt? x) (write-tab x)
         (tp/err? x) (write-err x)
         (string? v) (print v)
-        (double? v) (print-dbl v)
+        (or (double? v) (float? v)) (print-dbl v)
         (bv/bitvec? x) (write-bitvec x)
         (map? v) (write-dict v)
         (instance? java.util.Calendar v) (write-dt v)

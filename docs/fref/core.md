@@ -249,4 +249,59 @@ Numeric comparison.
 
 #### roll(n)
 
-size sub times to_double to_float to_int with_ex]
+Return a random integer between `0` (inclusive) and `n` (exclusive).
+
+#### size(x)
+
+Returns the number of components in `x`, which must be a sequence or a table.
+
+```rust
+? size([1 2 3 4 5])
+; 5
+
+? size([2 2]$[1 2 3 4 5])
+; 2
+```
+
+#### sub(n & ns)
+
+Numeric subtraction.
+
+#### times(n f)
+
+Return a function that applies `f` `n` times to an argument.
+
+```rust
+? i3:times(3 inc)
+
+? i3(100)
+; 103
+```
+
+#### to_double to_float to_int
+
+Convert a string to a double, float or int.
+
+```rust
+? setprec(10)
+; 10
+
+? to_double("12.344443443")
+; 12.3444434430
+
+? to_float("12.344443443")
+; 12.3444433212
+
+? to_int("12")
+; 12
+```
+
+#### with_ex(handler f)
+
+Calls the no-argument function `f`. If `f` raises an exception, call `handler` with the raised exception object.
+
+```rust
+? with_ex(fn(e) { wr("ERROR: ") wrln(e) 'failed } fn () ex('an_error))
+; ERROR: an_error
+; failed
+```
