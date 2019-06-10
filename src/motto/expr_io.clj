@@ -106,6 +106,19 @@
 (def ^:private t (symbol "1b"))
 (def ^:private f (symbol "0b"))
 
+(def ^:private dbl-prec-fmt (atom "%.3f"))
+
+(defn dbl-prec! [i]
+  (reset! dbl-prec-fmt (str "%." i "f"))
+  i)
+
+(defn- print-dbl [v]
+  (cond
+    (Double/isNaN v) (print "nan")
+    (= Double/NEGATIVE_INFINITY v) (print "_inf")
+    (= Double/POSITIVE_INFINITY v) (print "inf")
+    :else (print (format @dbl-prec-fmt v))))
+
 (defn write [x]
   (when (writable? x)
     (let [v  (cond
@@ -118,9 +131,7 @@
         (tab/rt? x) (write-tab x)
         (tp/err? x) (write-err x)
         (string? v) (print v)
-        (and (double? v) (Double/isNaN v)) (print "nan")
-        (= Double/NEGATIVE_INFINITY v) (print "_inf")
-        (= Double/POSITIVE_INFINITY v) (print "inf")
+        (double? v) (print-dbl v)
         (bv/bitvec? x) (write-bitvec x)
         (map? v) (write-dict v)
         (instance? java.util.Calendar v) (write-dt v)

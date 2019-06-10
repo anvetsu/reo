@@ -341,6 +341,7 @@
       (def dct motto.lib.dct/dct)
 
       ;; io
+      (def setprec motto.expr-io/dbl-prec!)
       (def wr motto.expr-io/write)
       (def wrln motto.expr-io/writeln)
       (def newln clojure.core/println)
