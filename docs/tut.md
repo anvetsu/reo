@@ -40,8 +40,8 @@ language:
 ; 0
 ```
 
-Note that the precision of decimal numbers are limited to 3 digits after the decimal point only in printed output.
-Internally they are computed to 64-bits of precision. The output of decimal digits can be customized by the `setprec` function:
+**Note** The precision of decimal numbers are limited to 3 digits after the decimal point only in printed output.
+Internally they are stored with more precision. The output of decimal digits can be customized by the `setprec` function:
 
 ```rust
 ? setprec(14)
@@ -52,6 +52,7 @@ Internally they are computed to 64-bits of precision. The output of decimal digi
 ```
 
 For convenience of display, this tutorial will continue to show decimal results with 3 (or sometimes even less) digits of precision.
+
 
 Large numbers may be written with an underscore for ease of reading:
 
