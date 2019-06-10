@@ -2,12 +2,12 @@
 
 1. [Core](fref/core.md)
 2. [Math](fref/math.md)
-3. [Bits & Bytes](fref/bits.md)
-4. [Sequences](fref/seq.md)
-5. Sets
-6. Regular Expressions
-7. Date & Time
-8. Tables
+3. [Sequences](fref/seq.md)
+4. Sets
+5. Regular Expressions
+6. Date & Time
+7. Tables
+8. [Bits & Bytes](fref/bits.md)
 9. Data Import/Export
 10. Combinatorics
 11. Plotting
