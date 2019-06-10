@@ -2,8 +2,8 @@
 
 1. [Core](fref/core.md)
 2. [Math](fref/math.md)
-3. Bits & Bytes
-4. Sequences
+3. [Bits & Bytes](fref/bits.md)
+4. [Sequences](fref/seq.md)
 5. Sets
 6. Regular Expressions
 7. Date & Time
