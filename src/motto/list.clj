@@ -18,12 +18,9 @@
   ([n x] (til n x 1))
   ([x] (til 0 x)))
 
-(defn listf
-  ([f n]
-   (let [r (f n)]
-     (lazy-seq (cons n (listf f r)))))
-  ([f]
-   (lazy-seq (cons (f) (listf f)))))
+(defn listf [f n]
+  (let [r (f n)]
+    (lazy-seq (cons n (listf f r)))))
 
 (defn lift [n xs]
   (let [[f n] (if (neg? n)
@@ -142,7 +139,7 @@
   (count-for #(= x %) xs))
 
 (defn counts [xs]
-  (collect inc 0 xs))
+  (collect (fn [x _] (inc x)) 0 xs))
 
 (defn zip [xs ys & yss]
   (apply map vector xs ys yss))
