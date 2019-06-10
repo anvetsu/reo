@@ -1,5 +1,10 @@
 # Function Reference - Core
 
+Most functions in [`clojure.core`](https://clojuredocs.org/clojure.core) are directly usable in Motto.
+
+Motto has extended some core functions with additional features and also added some new functions.
+These are documented here.
+
 #### + - * /
 
 The burrowing- arithmetic functions: addition, subtraction, multiplication and division.
@@ -99,24 +104,149 @@ A wrapper for Clojure [`use`](https://clojuredocs.org/clojure.core/use).
 ; [hello world]
 ```
 
-dict
+#### dict(x & xs)
 
-div
+Create a new dictionary.
 
-eq
+```rust
+? dict('a 1 'b 2)
+; [a:1 b:2]
+```
 
-ex
+#### div(n & ns)
 
-exit
+Integer division.
 
-fork
+#### eq(x & xs)
 
-gt
+Object equality.
 
-gteq
+#### ex(obj)
 
-is_dict
+Throw any object as an exception.
 
-is_double
+#### exit(status)
 
-is_empty is_even is_false is_float is_int is_list is_neg is_nul is_number? is_odd is_pos is_seq is_str is_string is_true is_vec is_zero lt lteq mul nul num_eq num_gt num_gteq num_lt num_lteq parse roll size sub times to_double to_float to_int with_ex]
+Exit the runtime with the given numeric exit status which defaults to `0`.
+
+#### fork(f g h)
+
+Return the function `fn(x) g(fx) h(x)`.
+
+#### gt(x & xs)
+
+Return `true` if the objects are in monotonically decreasing order, `false` otherwise.
+
+```rust
+? gt(3 2 1)
+; 1b
+
+? gt(\x \s \a)
+; 1b
+
+? gt([10 20] [1 2])
+; 1b
+
+? gt([0 1] [10 20] [1 2])
+; 0b
+```
+
+#### gteq(x & xs)
+
+Return `true` if the objects are in monotonically non-increasing order, `false` otherwise.
+
+#### is_dict(x)
+
+Check if the argument is a dictionary.
+
+#### is_double(x)
+
+Return `true` if `x` is a `double` value.
+
+#### is_empty(x)
+
+Return `true` if `x` is the empty sequence `[]`.
+
+#### is_even(n)
+
+Return `true` if `n` is an even number.
+
+#### is_false(x)
+
+Return `true` if `x` is the false value `0b`.
+
+#### is_float(x)
+
+Return `true` if `x` is a `float` value.
+
+#### is_int(x)
+
+Return `true` if `x` is an `int` value.
+
+#### is_list(x)
+
+Return `true` if `x` is a list.
+
+#### is_neg(n)
+
+Return `true` if `n` is a negative number.
+
+#### is_nul(x)
+
+Return `true` if `x` is the `nul` value.
+
+#### is_number(x)
+
+Return `true` if `x` is a number.
+
+#### is_odd(n)
+
+Return `true` if `n` is an odd number.
+
+#### is_pos(n)
+
+Return `true` if `n` is a positive number.
+
+#### is_seq(x)
+
+Return `true` if `x` is a sequence.
+
+#### is_str(x)
+
+Return `true` if `x` is a string.
+
+#### is_true(x)
+
+Return `true` if `x` is the truth value `1b`.
+
+#### is_vec(x)
+
+Return `true` if `x` is a vector.
+
+#### is_zero(n)
+
+Return `true` if `n` is `0`.
+
+#### lt(x & xs)
+
+Return `true` if the objects are in monotonically increasing order, `false` otherwise.
+
+#### lteq(x & xs)
+
+Return `true` if the objects are in monotonically non-decreasing order, `false` otherwise.
+
+#### mul(n & ns)
+
+Numeric multiplication.
+
+#### nul()
+
+Return `nul`.
+
+#### num_eq num_gt num_gteq num_lt num_lteq
+
+Numeric comparison.
+
+#### roll(n)
+
+size sub times to_double to_float to_int with_ex]

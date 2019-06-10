@@ -62,7 +62,7 @@
   ["emp:csv(\"test/data/emp.csv\")" 'emp
    "count(fields(emp))" 4
    "emp('Name)(0)" "Tom. G"
-   "sum(map(parse, emp('Salary)))" 12623.76
+   "sum(map(`read-string`, emp('Salary)))" 12623.76
    "emp('DOJ)(1)" "2014-03-15T10:10:45Z"
    "cfg:dict('types ['s 'i 'd])" 'cfg
    "emp:csv(\"test/data/emp.csv\" cfg)" 'emp
