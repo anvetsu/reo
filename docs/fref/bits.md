@@ -55,6 +55,7 @@ Expand a bit-vector to a sequence of booleans.
 
 Return the logical-or of two bit-vectors. A burrowing operator.
 
+```rust
 ? bor(11111b 010101b)
 ; 111111b
 
