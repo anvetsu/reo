@@ -18,7 +18,7 @@
     (fn []
       (shutdown)))))
 
-(def cli-opts [["-s" "--server" "HTTP server mode"]
+(def cli-opts [["-s" "--server" "HTTP server mode, expose the `POST /eval` API"]
                ["-p" "--port PORT" "HTTP server port"
                 :default 3030
                 :parse-fn #(Integer/parseInt %)
