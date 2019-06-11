@@ -318,8 +318,8 @@
       (def pdf motto.lib.stats/pdf)
       (def chisqtest motto.lib.stats/chisq-test)
       (def skewness incanter.stats/skewness)
-      (def quantile incanter.stats/quantile)
-      (def sample_normal incanter.stats/sample-normal)
+      (def quantile motto.lib.stats/quantile)
+      (def sample_normal motto.lib.stats/sample-normal)
       (def cor incanter.stats/correlation)
       (def cov incanter.stats/covariance)
       (def cmean incanter.stats/cumulative-mean)
@@ -334,6 +334,7 @@
       (def draw incanter.distributions/draw)
       (def zscore motto.lib.stats/zscore)
       (def dct motto.lib.dct/dct)
+      (def tabds motto.tab/maybe-dset)
 
       ;; io
       (def setprec motto.expr-io/dbl-prec!)

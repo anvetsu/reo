@@ -252,3 +252,16 @@
 
 (defn zscore [sd mean x]
   (/ (- x mean) sd))
+
+(defn quantile
+  ([x options]
+   (let [probs (get options 'probs [0.0 0.25 0.5 0.75 1.0])]
+     (s/quantile x :probs probs)))
+  ([x] (quantile x nil)))
+
+(defn sample-normal
+  ([x options]
+   (let [m (get options 'mean 0)
+         s (get options 'sd 1)]
+     (s/sample-normal x :mean m :sd s)))
+  ([x] (sample-normal x nil)))
