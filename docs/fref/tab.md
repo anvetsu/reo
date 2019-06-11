@@ -117,20 +117,85 @@ Return the first `n` values from a columnar table.
 ; price: [1344 1788.560]
 ```
 
-#### group(f init col by)
+#### group(f init col & by)
 
-#### group_count
+Summarize a column by another. The function `f` acts as the "accumulator" of the values of `col`,
+starting-off with `init`.
 
-#### club
+```rust
+? emp:['name 'dept 'salary] $ [['mat 'sam 'sally 'zen] [2 1 1 3] [1200 1340 1000 1500]]
+? emp
+; name: [mat sam sally zen]
+; dept: [2 1 1 3]
+; salary: [1200 1340 1000 1500]
 
-#### where
+? "total salary in each dept" group(`+` 0 emp('salary) emp('dept))
+; [2:1200 1:2340 3:1500]
+```
 
-#### !
+#### group_count(col & by)
 
-#### tmap
+Group and count.
 
-#### flip
+```rust
+? group_count(emp('dept))
+; [2:1 1:2 3:1]
+```
 
-#### save
+#### club(t1 t2)
 
-#### dataset
+Merge two tables.
+
+```rust
+? dept:['id 'title] $ [[1 2 3] ['accounts 'sales 'hr]]
+? dept
+; id: [1 2 3]
+; title: [accounts sales hr]
+
+? club(emp dept)
+; name: [mat sam sally zen]
+; dept: [2 1 1 3]
+; salary: [1200 1340 1000 1500]
+; id: [1 2 3]
+; title: [accounts sales hr]
+```
+
+#### where(predic t)
+
+Filter rows by predicate.
+
+```rust
+? where(fn(row) row('salary) > 1300, emp)
+; name: [sam zen]
+; dept: [1 3]
+; salary: [1340 1500]
+```
+
+#### ! (filter)
+
+Filter a sequence or a table.
+
+```rust
+? is_odd ! [1 2 3 4 5]
+; [1 3 5]
+
+? (fn(row) row('salary) > 1300) ! emp
+; name: [sam zen]
+; dept: [1 3]
+; salary: [1340 1500]
+```
+
+#### tmap(f t)
+
+Maps the function `f` over the table `t`. Return a new table of results.
+
+```rust
+? tmap(fn(row) {s:row('salary) assoc(row 'salary s + s*0.05)}, emp)
+; name: [mat sam sally zen]
+; dept: [2 1 1 3]
+; salary: [1260.000 1407.000 1050.000 1575.000]
+```
+
+#### flip(x)
+
+Convert a columnar table to a relational table and vice versa.
