@@ -1259,7 +1259,7 @@ $ curl --header "Content-Type: application/json" \\
 ```
 
 Remote evaluation might prove useful while dealing with very large data-sets, or for building data analysis apps.
-But you may want to sandbox the evaluator before exposing this feature via a public API.
+You should sandbox the evaluator before exposing this feature via a public API.
 
 ## Conclusion
 
