@@ -5,7 +5,7 @@
 3. [Sequences](fref/seq.md)
 4. [Sets](fref/set.md)
 5. [Regular Expressions](fref/rx.md)
-6. Date & Time
+6. [Date & Time](fref/dt.md)
 7. Tables
 8. [Bits & Bytes](fref/bits.md)
 9. Data Import/Export
