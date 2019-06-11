@@ -4,7 +4,7 @@
 2. [Math](fref/math.md)
 3. [Sequences](fref/seq.md)
 4. [Sets](fref/set.md)
-5. Regular Expressions
+5. [Regular Expressions](fref/rx.md)
 6. Date & Time
 7. Tables
 8. [Bits & Bytes](fref/bits.md)
