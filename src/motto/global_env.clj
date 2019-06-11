@@ -358,6 +358,6 @@
       (def str_write motto.lib.io/write-str)
       (def str_flush motto.lib.io/flush-writer)
       (def str_in_seq clojure.core/line-seq)
-      (def with_open motto.lib.io/with-open)
+      (def with_open motto.lib.io/-with-open-)
 
       (fn [expr] (eval expr)))))

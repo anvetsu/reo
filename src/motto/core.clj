@@ -45,10 +45,11 @@
 
 (defn -main [& args]
   (setup-sig-handler!)
-  (let [opts (:options (cli/parse-opts args cli-opts))]
+  (let [p-opts (cli/parse-opts args cli-opts)
+        opts (:options p-opts)]
     (cond
       (:version opts) (show-version! true)
-      (:help opts) (show-help! opts)
+      (:help opts) (show-help! p-opts)
       (:verbose opts) (f/verbose!))
     (when (:server opts)
       (httpd/start (:port opts)))

@@ -56,6 +56,6 @@
 
 (defn flush-writer [^Writer w] (safe (.flush w) true))
 
-(defn with-open [f s]
+(defn -with-open- [f s]
   (with-open [s s]
     (f s)))
