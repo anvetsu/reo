@@ -3,7 +3,7 @@
 1. [Core](fref/core.md)
 2. [Math](fref/math.md)
 3. [Sequences](fref/seq.md)
-4. Sets
+4. [Sets](fref/set.md)
 5. Regular Expressions
 6. Date & Time
 7. Tables
