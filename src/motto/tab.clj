@@ -23,9 +23,10 @@
   (:-meta- t))
 
 (defn t? [x]
-  (and (map? x)
-       (:coldict (tmeta x))
-       true))
+  (if (and (map? x)
+           (:coldict (tmeta x)))
+    true
+    false))
 
 (defn tcols [t]
   (when (t? t)
@@ -160,9 +161,10 @@
   (:-meta- x))
 
 (defn rt? [x]
-  (and (map? x)
-       (:table (rtmeta x))
-       true))
+  (if (and (map? x)
+           (:table (rtmeta x)))
+    true
+    false))
 
 (defn rtcols [x]
   (:columns (rtmeta x)))
