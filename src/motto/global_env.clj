@@ -260,12 +260,12 @@
       (def save motto.tab/-save-)
 
       ;; jdbc
-      (def datasource motto.dbconn/data-source)
-      (def open motto.dbconn/open)
-      (def close motto.dbconn/close)
-      (def stmt motto.dbconn/stmt)
-      (def qry motto.dbconn/qry)
-      (def cmd motto.dbconn/cmd)
+      (def db motto.dbconn/data-source)
+      (def db_open motto.dbconn/open)
+      (def db_close motto.dbconn/close)
+      (def db_stmt motto.dbconn/stmt)
+      (def db_qry motto.dbconn/qry)
+      (def db_cmd motto.dbconn/cmd)
 
       ;; csv
       (def csv motto.lib.csv/csv)
@@ -285,6 +285,9 @@
       (def json_dec motto.lib.json/str->json)
       (def json motto.lib.json/parse)
 
+      ;; excel
+      (def xls motto.lib.xls/read-xls)
+
       ;; combinatorics
       (def permutations clojure.math.combinatorics/permutations)
       (def count_permutations clojure.math.combinatorics/count-permutations)
@@ -295,9 +298,6 @@
       (def cartesian_product clojure.math.combinatorics/cartesian-product)
       (def selections clojure.math.combinatorics/selections)
       (def partitions clojure.math.combinatorics/partitions)
-
-      ;; excel
-      (def xls motto.lib.xls/read-xls)
 
       ;; charts
       (def plot motto.lib.charts/plot)
