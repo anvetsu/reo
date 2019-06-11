@@ -13,3 +13,6 @@ test:
 
 clean:
 	./lein clean
+
+deps:
+	./lein deps
