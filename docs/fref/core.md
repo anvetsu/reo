@@ -136,6 +136,10 @@ A wrapper for Clojure [`use`](https://clojuredocs.org/clojure.core/use).
 ; [hello world]
 ```
 
+#### cf(file)
+
+Compile the Motto script file to object code.
+
 #### dict(x & xs)
 
 Create a new dictionary.
@@ -186,6 +190,17 @@ Return `true` if the objects are in monotonically decreasing order, `false` othe
 #### gteq(x & xs)
 
 Return `true` if the objects are in monotonically non-increasing order, `false` otherwise.
+
+#### import(x & xs)
+
+See [https://clojuredocs.org/clojure.core/import](https://clojuredocs.org/clojure.core/import)
+
+```rust
+? import('`java.io.File`)
+
+? `File/separator`
+; /
+```
 
 #### is_dict(x)
 
