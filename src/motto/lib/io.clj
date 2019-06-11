@@ -41,7 +41,7 @@
 (defn flush-out [^OutputStream out] (safe (.flush out) true))
 
 (defn write-byte [^OutputStream out i]
-  (safe (.write out i) nil))
+  (safe (.write out i) true))
 
 (defn write-bytes [^OutputStream out bs]
   (safe (.write bs 0 (count bs)) nil))
@@ -56,6 +56,6 @@
 
 (defn flush-writer [^Writer w] (safe (.flush w) true))
 
-(defn with-is [f ^InputStream is]
-  (with-open [is is]
-    (f is)))
+(defn with-open [f s]
+  (with-open [s s]
+    (f s)))
