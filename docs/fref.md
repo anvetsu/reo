@@ -10,7 +10,7 @@
 8. [Bits & Bytes](fref/bits.md)
 9. [Data Import/Export](fref/data.md)
 10. [Combinatorics](fref/comb.md)
-11. Plotting
+11. [Plotting](fref/plot.md)
 12. Statistics
 13. File IO
 14. System Integration
