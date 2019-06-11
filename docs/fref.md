@@ -11,6 +11,6 @@
 9. [Data Import/Export](fref/data.md)
 10. [Combinatorics](fref/comb.md)
 11. [Plotting](fref/plot.md)
-12. Statistics
+12. [Statistics](fref/stat.md)
 13. File IO
 14. System Integration

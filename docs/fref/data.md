@@ -133,3 +133,9 @@ Load data from an Excel file. Return a columnar table.
 
  - 'sheet  - the index of the sheet to read (default - 0)
  - 'all_sheets - read all sheets? (default - 0b)
+
+## Stata
+
+#### dct(dict_path data_path)
+
+Load a Stata dataset file and return it as a columnar table.
