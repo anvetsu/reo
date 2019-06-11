@@ -8,7 +8,7 @@
 6. [Date & Time](fref/dt.md)
 7. [Tables](fref/tab.md)
 8. [Bits & Bytes](fref/bits.md)
-9. Data Import/Export
+9. [Data Import/Export](fref/data.md)
 10. Combinatorics
 11. Plotting
 12. Statistics

@@ -152,19 +152,19 @@ all_sheets - read all sheets? (default - 0b)
 Motto can read and write relational databases. It comes with an embedded relational database
 that can be used as local storage.
 
-The main functions for interacting with the database is `cmd` and `qry`. `Cmd` is used for data-definition and
-manipulation and `qry` is used for loading data into in-memory columnar tables.
+The main functions for interacting with the database is `db_cmd` and `db_qry`. `Db_cmd` is used for data-definition and
+manipulation and `db_qry` is used for loading data into in-memory columnar tables.
 
 ```rust
-? cmd("create table products (id varchar(20) primary key, name varchar(50), unit_price int, date_released date)")
+? db_cmd("create table products (id varchar(20) primary key, name varchar(50), unit_price int, date_released date)")
 ; 0
-? cmd("insert into products values('1', 'PS-178', 34000, '2019-02-25')")
+? db_cmd("insert into products values('1', 'PS-178', 34000, '2019-02-25')")
 ; 1
-? cmd("insert into products values('2', 'XTR-130', 23000, '2019-03-01')")
+? db_cmd("insert into products values('2', 'XTR-130', 23000, '2019-03-01')")
 ; 1
-? cmd("insert into products values('3', 'TTY-234', 45600, '2018-12-02')")
+? db_cmd("insert into products values('3', 'TTY-234', 45600, '2018-12-02')")
 ; 1
-? products:qry("select * from products")
+? products:db_qry("select * from products")
 ? products
 ; id: [1 2 3]
 ; name: [PS-178 XTR-130 TTY-234]
