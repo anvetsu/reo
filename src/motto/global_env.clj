@@ -257,8 +257,7 @@
       (def ! motto.tab/-filter-)
       (def tmap motto.tab/tmap)
       (def flip motto.tab/flip)
-      (def save motto.tab/save)
-      (def dataset incanter.core/dataset)
+      (def save motto.tab/-save-)
 
       ;; jdbc
       (def datasource motto.dbconn/data-source)
@@ -310,6 +309,7 @@
       (def save_view motto.lib.charts/save)
 
       ;; stats
+      (def dataset incanter.core/dataset)
       (def median incanter.stats/median)
       (def mean incanter.stats/mean)
       (def sd incanter.stats/sd)

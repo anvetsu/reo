@@ -246,7 +246,7 @@
     (rt? x) (rt->dset x)
     :else x))
 
-(defn save
+(defn -save-
   ([x filename options]
    (let [dat (maybe-dset x)
          delim (get options 'delim)
@@ -254,4 +254,4 @@
          append (get options 'append)]
      (ic/save dat filename :delim delim
               :header header :append append)))
-  ([x filename] (save x filename nil)))
+  ([x filename] (-save- x filename nil)))
