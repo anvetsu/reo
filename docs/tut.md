@@ -1235,6 +1235,32 @@ A script can be explicitly compiled into a `.mo` file by calling the `cf` (compi
 
 The object code is compiled on-the-fly to JVM byte code.
 
+### Remote Evaluation
+
+You can start Motto in HTTP server mode and use it to evaluate expressions on a server.
+
+Start the HTTP server, with no REPL:
+
+```shell
+$ java -jar target/motto-0.1.0-standalone.jar -s -r false
+```
+
+By default, the server listens on port `3030`.
+
+POST an evaluation request:
+
+```shell
+$ curl --header "Content-Type: application/json" \\
+  --request POST \
+  --data '{"expr": "[1 2 3] * 100"}' \
+  http://localhost:3030/eval
+
+; {"value":[100,200,300]}
+```
+
+Remote evaluation might prove useful while dealing with very large data-sets, or for building data analysis apps.
+But you may want to sandbox the evaluator before exposing this feature via a public API.
+
 ## Conclusion
 
 That concludes our first detailed peek at Motto. You may quit the REPL by calling the `exit` function:
