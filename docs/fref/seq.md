@@ -184,9 +184,24 @@ Call `f` with the current and the previous element in `xs`. Return the resulting
 ; [3 5 7 9]
 ```
 
-#### enum(f xs)
+#### enum(f xs & ys)
 
-Call `f` with each element of `xs` with all other elements of `xs` to make a tabulated result.
+Call `f` with each element of `xs` with all elements of `ys` to make a tabulated result.
+
+```rust
+? a: [0 1 2 3 4 5]
+? b: [2 3 5 7 11 13]
+
+? enum(`+` a b)
+; [[2 3 5 7 11 13]
+;  [3 4 6 8 12 14]
+;  [4 5 7 9 13 15]
+;  [5 6 8 10 14 16]
+;  [6 7 9 11 15 17]
+;  [7 8 10 12 16 18]]
+```
+
+If `ys` is omitted, `xs` will replace it.
 
 ```rust
 ? enum(`*` [1 2 3 4 5])

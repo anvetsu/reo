@@ -36,6 +36,9 @@ Return `true` if `x` is a relational table.
 Create multi-dimensional sequences and columnar tables.
 
 ```rust
+? 3 $ 4
+; [4 4 4]
+
 ? [3 4] $ [1 2 3 4 5 6 7 8 9 10]
 ; [[1 2 3 4]
 ;  [5 6 7 8]
