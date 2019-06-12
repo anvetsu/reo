@@ -131,7 +131,7 @@ How much salary increase is allotted to each employee?
 What is the total additional cost incurred to the company by the salary increase?
 
 ```lisp
-? sum(new_sals) - sals)
+? sum(new_sals - sals)
 
 ; 1014.75
 ```
