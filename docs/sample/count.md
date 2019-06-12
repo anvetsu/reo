@@ -10,7 +10,7 @@ Count from `start` till `end` (`start` is optional and defaults to `0`):
 
 First `n` evens and odds:
 
-``rust
+```rust
 ? a:til(10)
 
 ? a + a
