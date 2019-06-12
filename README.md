@@ -115,15 +115,15 @@ Let's write a function to compute a given percentage of each salary:
 We can use this function to give a 10% salary increment to all employees:
 
 ```lisp
-? incr(0.1) + sals
-
+? new_sals:incr(0.1) + sals
+? new_sals
 ; [2090.858 2579.368 1320.616 3740.616 1430.858]
 ```
 
 How much salary increase is allotted to each employee?
 
 ```lisp
-? (incr(0.1) + sals) - sals
+? new_sals - sals
 
 ; [190.078 234.48 120.05 340.05 130.077]
 ```
@@ -131,7 +131,7 @@ How much salary increase is allotted to each employee?
 What is the total additional cost incurred to the company by the salary increase?
 
 ```lisp
-? sum((incr(0.1) + sals) - sals)
+? sum(new_sals) - sals)
 
 ; 1014.75
 ```
