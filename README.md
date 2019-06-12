@@ -8,7 +8,7 @@ Motto is a programmable platform for data analysis.
  - A simple and expressive functional language for data analysis.
  - High-performance immutable data structures - lists, vectors, sets, dictionaries, tables.
  - Built-in statistical functions.
- - Powerful charting capabilities.
+ - Charting capabilities.
  - Parallel and distributed computing.
  - Seamless integration with the Java ecosystem and external tools.
 
