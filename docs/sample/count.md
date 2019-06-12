@@ -20,7 +20,7 @@ First `n` evens and odds:
 ; [1 3 5 7 9 11 13 15 17 19]
 ```
 
-Successors and the predecessors:
+Successors and predecessors:
 
 ```rust
 ? inc(1)
@@ -67,7 +67,7 @@ Isn't that the same as adding or subtracting by a constant?
 ; [1 2 3 4 5 6]
 ```
 
-Two sequences can be added or subtracted to produce a sequence or tables:
+Two sequences can be added or subtracted to produce a sequences or tables:
 
 ```rust
 ? a: [0 1 2 3 4 5]
