@@ -8,6 +8,7 @@ The programs in this section will also show you how to put the various aspects o
 2. [Counting Numbers](sample/count.md)
 3. [Weekly Sales Analysis](sample/sales.md)
 4. [Greedy Packing](sample/pack.md)
+5. [Sorting](sample/sort.md)
 
 **WIP**
 
