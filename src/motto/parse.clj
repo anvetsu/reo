@@ -7,14 +7,14 @@
 
 (def ^:private reserved-names #{'fn 'if 'rec 'ld})
 
-(def ^:private infix-fns {:hash '-concat-
-                          :semicolon '-conj-
-                          :at '-fold-
-                          :bang '-filter-
-                          :tilde '-map-
-                          :dollar '-tab-
-                          :fold-incr 'fold-incr
-                          :fold-times 'fold-times})
+(def ^:private infix-fns {:hash (symbol "#")
+                          :semicolon (symbol ";")
+                          :at (symbol "@")
+                          :bang '!
+                          :tilde (symbol "~")
+                          :dollar '$
+                          :fold-incr (symbol "@~")
+                          :fold-times (symbol "@>")})
 
 (def ^:private infix-fn-names (keys infix-fns))
 
