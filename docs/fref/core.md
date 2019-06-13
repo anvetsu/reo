@@ -171,7 +171,7 @@ Exit the runtime with the given numeric exit status which defaults to `0`.
 
 #### fork(f g h)
 
-Return the function `fn(x) g(fx) h(x)`.
+Return the function `fn(x) g(f(x) h(x))`.
 
 #### gt(x & xs)
 
