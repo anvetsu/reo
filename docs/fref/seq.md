@@ -294,13 +294,22 @@ Take the first `n` elements from `xs`. If `xs` runs-out, take again from its hea
 ; [1 2 3 4 5 1 2 3 4 5]
 ```
 
-#### listf(f r)
+#### listf(f & r)
 
 Return an infinite sequence of calling `r`, `r1:f(r)`, `r2:f(r1)` and so on.
 
 ```rust
 ? listf(sqrt 10)
 ; [10 3.162 1.778 1.334 1.155 1.075 1.037 1.018 1.009 ...]
+```
+
+If `r` is left out, return an infinite sequence of calling `f()`.
+
+```rust
+? r2:fn() roll(2)
+
+? take(5 listf(r2))
+; [0 1 0 1 0]
 ```
 
 #### mn(xs)

@@ -18,9 +18,13 @@
   ([n x] (til n x 1))
   ([x] (til 0 x)))
 
-(defn listf [f n]
-  (let [r (f n)]
-    (lazy-seq (cons n (listf f r)))))
+(defn listf
+  ([f n]
+   (let [r (f n)]
+     (lazy-seq (cons n (listf f r)))))
+  ([f]
+   (let [r (f)]
+     (lazy-seq (cons r (listf f))))))
 
 (defn lift [n xs]
   (let [[f n] (if (neg? n)
