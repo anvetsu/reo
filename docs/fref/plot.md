@@ -118,15 +118,16 @@ Line-chart will accept an extra option:
 
 For pie-chart, only `title` and `legend` options are considered.
 
-#### plotset(plot tag & args)
+#### plot_add(plot tag & args)
 
-Updates a plot and returns it.
+Update a plot or chart and return it.
 
 `Tag` must be one of,
 
  - 'boxplot - add an additional box to an existing box-plot
  - 'points - plot points on the given scatter-plot or xy-plot of the (x,y) points
- - 'lines - plot lines on the given scatter or line plot (xy-plot) of the (x,y) points.
+ - 'lines - plot lines on the given scatter or line plot (xy-plot) of the (x,y) points
+ - 'categories - add additional categories to an existing bar-chart or line-chart
 
 For `'boxplot`, `args` must be `(x options)`.
 Options can take the `serieslabel` key.
@@ -135,14 +136,17 @@ For `'points`, `args` must be `(x y options)`.
 Options can take the `serieslabel` key.
 
 For `'lines`, `args` must be `(x y options)`.
-Options keys: `[serieslabel points autosort]`.
+Option keys: `[serieslabel points autosort]`.
+
+For `'categories`, `args` must be `(categories values options)`.
+Option keys: `[serieslabel groupby]`.
 
 #### view(x & options)
 
 Display the chart or plot `x`.
 Option keys are `[title width height]`.
 
-#### chartset(chart tag & args)
+#### chart_set(chart tag & args)
 
 Update and return a chart or a plot.
 

@@ -131,11 +131,19 @@
          visible? (get options 'visible true)
          vertical (get options 'vertical true)
          group-by (get options 'groupby)
-         ac (charts/area-chart categories values
-                               :title title :x-label x-label
-                               :y-label y-label :legend legend
-                               :series-label series-label
-                               :vertical vertical :group-by group-by)]
+         ac (if (get options 'stacked)
+              (charts/stacked-area-chart
+               categories values
+               :title title :x-label x-label
+               :y-label y-label :legend legend
+               :series-label series-label
+               :vertical vertical :group-by group-by)
+              (charts/area-chart
+               categories values
+               :title title :x-label x-label
+               :y-label y-label :legend legend
+               :series-label series-label
+               :vertical vertical :group-by group-by))]
      (when visible?
        (ic/view ac))
      ac))
@@ -151,10 +159,18 @@
          visible? (get options 'visible true)
          group-by (get options 'groupby)
          legend (get options 'legend false)
-         bc (charts/bar-chart categories values
-                              :title title :x-label x-label
-                              :y-label y-label :group-by group-by
-                              :legend legend :series-label series-label)]
+         vertical (get options 'vertical true)
+         bc (if (get options 'stacked)
+              (charts/stacked-bar-chart
+               categories values
+               :title title :x-label x-label
+               :y-label y-label :group-by group-by
+               :legend legend :series-label series-label)
+              (charts/bar-chart
+               categories values
+               :title title :x-label x-label
+               :y-label y-label :group-by group-by
+               :legend legend :series-label series-label))]
      (when visible?
        (ic/view bc))
      bc))
@@ -244,12 +260,22 @@
             (u/ex (str "chart-set: invalid tag: " tag)))]
     (apply f chart args)))
 
-(defn chart-add [chart tag & args]
+(defn- add-categories
+  ([chart categories values options]
+   (let [group-by (get options 'groupby)
+         series-label (get options 'serieslabel)]
+     (charts/add-categories chart categories values
+                            :group-by group-by
+                            :series-label series-label)))
+  ([chart categories values] (add-categories chart categories values nil)))
+
+(defn plot-add [chart tag & args]
   (let [f (case tag
             boxplot add-box-plot
             points add-points
             lines add-lines
-            (u/ex (str "chart-add: invalid tag: " tag)))]
+            categories add-categories
+            (u/ex (str "plot-add: invalid tag: " tag)))]
     (apply f chart args)))
 
 (defn plot [tag & args]

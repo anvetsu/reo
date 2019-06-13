@@ -302,9 +302,9 @@
       ;; charts
       (def plot motto.lib.charts/plot)
       (def chart motto.lib.charts/chart)
-      (def plotset motto.lib.charts/chart-add)
+      (def plot_add motto.lib.charts/plot-add)
       (def view motto.lib.charts/view)
-      (def chartset motto.lib.charts/chart-set)
+      (def chart_set motto.lib.charts/chart-set)
       (def logaxis motto.lib.charts/log-axis)
       (def save_view motto.lib.charts/save)
 

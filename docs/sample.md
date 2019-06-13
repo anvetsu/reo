@@ -6,7 +6,8 @@ The programs in this section will also show you how to put the various aspects o
 
 1. [Visualizing Return on Investment](sample/roi.md)
 2. [Counting Numbers](sample/count.md)
-3. [Greedy Packing](sample/pack.md)
+3. [Weekly Sales Analysis](sample/sales.md)
+4. [Greedy Packing](sample/pack.md)
 
 **WIP**
 
