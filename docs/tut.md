@@ -1,7 +1,9 @@
 # Motto - A Primer
 
-Modern digital computers are very good at consuming and processing large amounts of data.
-They are also good at dealing with various *types* of data - numbers, texts, vectors, lists and tables.
+Computing is mostly about consuming data and interpreting it to create useful information.
+Data comes in all forms imaginable - numbers, texts, lists, tables, images and so on.
+Fortunately, we have digital computers that can be programmed to deal with data at all
+scale and complexity.
 
 As the representation of data becomes more complex, computer users tend to depend on specialized tools.
 For example, spreadsheet programs are used for visualizing and manipulating tabular data.
@@ -10,7 +12,7 @@ In contrast, Motto strives to be a powerful tool that can deal with data in many
 and shapes. The user interface to Motto is an elegant programming language that you can pick up
 in a weekend. This makes Motto a more expressive and scalable tool than a point-and-click GUI program.
 
-It is hoped that this tutorial will convince you of the veracity of that last sentence.
+It is hoped that this tutorial will convince you of the veracity of the preceding paragraph.
 
 This document is divided into the following sections:
 
