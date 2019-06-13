@@ -61,6 +61,10 @@ Perform a fold and return a sequence of incremental results.
 ; [1 5 34 1172 1373609]
 ```
 
+#### any(xs)
+
+Return a randomly selected value from `xs`.
+
 #### collect(f init xs)
 
 Call `f` with each element in `xs` and its index. Accumulates the result in a dictionary

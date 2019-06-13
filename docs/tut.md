@@ -884,14 +884,16 @@ the following program partially applies the `+` function to `5`. This operation 
 that, when called with an argument will complete the addition.
 
 ```rust
-? add5:partial(`+` 5)
+? add5:_(`+` 5)
 
 ? add5(10)
 ; 15
 
-? add5(5)
-; 10
+? add5([1 2 3 4 5])
+; [6 7 8 9 10]
 ```
+
+The `_` symbol denotes the `partial` function. You may also explicity write `partial` instead of `_`.
 
 Partial application is an important functional programming technique. We will call the `partial` function
 often while writing significant programs.
@@ -919,10 +921,10 @@ and apply that to any sequence.
 ; 10.310
 ```
 
-The `comp` built-in function can ease the task of defining such compositions:
+The `compose` built-in function, denoted by `o`, can ease the task of defining such compositions:
 
 ```rust
-? sqsum:comp(sqrt sum)
+? sqsum:o(sqrt sum)
 
 ? sqsum([1 2 3 4 5])
 ; 3.873
@@ -935,9 +937,11 @@ The `comp` built-in function can ease the task of defining such compositions:
 ? b
 ; [3 4 6 8 12]
 
-? comp(inc inc)~b
+? o(inc inc)~b
 ; [5 6 8 10 14]
 ```
+
+**Note** You may write `comp` instead of `o`, both identifiers are bound to the compose function.
 
 The composition for incrementing `n` number of times can be created by the `times` function:
 

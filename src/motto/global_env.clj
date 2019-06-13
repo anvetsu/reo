@@ -30,9 +30,11 @@
 (defn make-eval []
   (eval
    '(do
+      (def _ clojure.core/partial)
+      (def o clojure.core/comp)
       (def -neg- clojure.core/-)
       (def dict motto.list/dict)
-      (def roll rand-int)
+      (def roll clojure.core/rand-int)
       (def is_zero clojure.core/zero?)
       (def is_pos clojure.core/pos?)
       (def is_neg clojure.core/neg?)
@@ -182,6 +184,7 @@
 
       (def cf motto.compile/compile-file)
 
+      (def any clojure.core/rand-nth)
       (def push clojure.core/conj)
       (def -concat- motto.list/-concat-)
       (intern *ns* (symbol "#") motto.list/-concat-)

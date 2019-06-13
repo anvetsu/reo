@@ -140,6 +140,10 @@ A wrapper for Clojure [`use`](https://clojuredocs.org/clojure.core/use).
 
 Compile the Motto script file to object code.
 
+#### comp(f & fs), o(f & fs)
+
+Return the composition of the functions.
+
 #### dict(x & xs)
 
 Create a new dictionary.
@@ -274,6 +278,18 @@ Return `true` if `x` is a vector.
 
 Return `true` if `n` is `0`.
 
+#### juxt(f & fs)
+
+Return the juxtaposition of the function calls: `[f0(x) f1(x) ... fN(x)]`.
+
+```rust
+? f:fn(x) x + 2
+? g:fn(x) x + 3
+
+? juxt(f g)(10)
+; [12 13]
+```
+
 #### lt(x & xs)
 
 Return `true` if the objects are in monotonically increasing order, `false` otherwise.
@@ -293,6 +309,11 @@ Return `nul`.
 #### num_eq num_gt num_gteq num_lt num_lteq
 
 Numeric comparison.
+
+#### partial(f & args), _(f & args)
+
+Return a `f` with parially applied to `args`.
+Call the returned function to complete the computation of `f`.
 
 #### roll(n)
 
