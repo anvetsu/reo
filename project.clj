@@ -1,4 +1,4 @@
-(defproject motto "0.1.0"
+(defproject motto "0.0.1"
   :main motto.core
   :aot [motto.core]
   :dependencies [[org.clojure/clojure "1.10.0"]
