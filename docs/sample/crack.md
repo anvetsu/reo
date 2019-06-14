@@ -23,8 +23,6 @@ freqs:fn(s) {[xs seq(s) n lowers(s)] (fn(x) percent(counteq(x xs) n))~alphas}
 
 rotate:fork(drop `#` take)
 
-chisqr:fn(os es) sum((fn([o e]) pow(o-e, 2)/e)~zip(os es))
-
 table2:freqs("kdvnhoo lv ixq")
 
-(fn(n) chisqr(rotate(n table2) table))~til(26)
+(fn(n) chisq(rotate(n table2) table))~til(26)

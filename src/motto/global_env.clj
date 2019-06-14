@@ -316,6 +316,7 @@
       (def cdf motto.lib.stats/cdf)
       (def pdf motto.lib.stats/pdf)
       (def chisqtest motto.lib.stats/chisq-test)
+      (def chisq motto.lib.stats/chisq)
       (def skewness incanter.stats/skewness)
       (def quantile motto.lib.stats/quantile)
       (def sample_normal motto.lib.stats/sample-normal)

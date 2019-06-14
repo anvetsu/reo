@@ -76,7 +76,12 @@ Options:
 - 'probs - when(is_null(y)) - (repeat n-levels (/ n-levels)))
 - 'freq (default `nul`) - if given, these are rescaled to probabilities
 - 'correct (default `1b`) - use Yates' correction for continuity for 2x2 contingency tables
-  
+
+#### chisq(xs ys)
+
+Compare a list of observed frequencies `xs` with a list of expected frequencies `ys` using
+the *chi-square statistic*.
+
 #### skewness(x)
 
 Return the skewness of the data.
