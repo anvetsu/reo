@@ -383,6 +383,8 @@
                             (parse-block-bindings (rest tokens))
                             [nil tokens])
         [expr tokens] (p tokens)]
+    (when-not expr
+      (ex "invalid expression"))
     (if block?
       (loop [tokens tokens, exprs [expr]]
         (if (seq tokens)
