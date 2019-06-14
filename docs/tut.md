@@ -1344,5 +1344,5 @@ That concludes our first detailed peek at Motto. You may quit the REPL by callin
 
 Now you know enough to use Motto to solve serious data processing problems. But there is always something new
 to learn! For instance, how to import data from external sources like databases or spreadsheets?
-How to use data to build statistical models and visualizations? These questions and more will be answered in the rest of
+How to use data to build statistical models and visualizations? These questions and more will be answered by the rest of
 this [documentation](index.md).
