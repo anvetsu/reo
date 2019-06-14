@@ -302,7 +302,7 @@ Return `true` if the objects are in monotonically non-decreasing order, `false` 
 
 Numeric multiplication.
 
-#### nul()
+#### nul
 
 Return `nul`.
 

@@ -8,7 +8,7 @@
 (declare write)
 
 (defn- writable? [x]
-  (not (or (nil? x) (= x :void))))
+  (not (= x :void)))
 
 (def ^:private max-vec-out 100)
 
@@ -26,7 +26,7 @@
         (when (seq r)
           (if (>= i max-vec-out)
             (print " ...")
-            (do (when-not (nil? fr) (print " "))
+            (do (print " ")
                 (recur r (inc i))))))))
   (print "]"))
 
@@ -127,6 +127,7 @@
                    (fn? x)) '<fn>
                :else x)]
       (cond
+        (nil? x) (print 'nul)
         (tab/t? x) (write-coldict x)
         (tab/rt? x) (write-tab x)
         (tp/err? x) (write-err x)

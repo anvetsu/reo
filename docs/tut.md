@@ -28,6 +28,8 @@ This document is divided into the following sections:
 10. [Dealing with Errors](#err)
 11. [Scripts and Compilation](#scripts)
 12. [Remote Evaluation](#remote-evaluation)
+13. [Integration with the JVM](#jvm)
+14. [Conclusion](#conclusion)
 
 <a name="simp"></a>
 ## Simple Calculations
@@ -666,7 +668,7 @@ A dictionary is indexed by keys:
 ; 1500
 ```
 
-If a non-existing key is looked-up, a `nul` (null) value is returned, which has no printable representation.
+If a non-existing key is looked-up, a `nul` (null) value is returned.
 The function `is_nul` can be used to check if a value is `nul` or not.
 
 ```rust
@@ -1281,6 +1283,56 @@ $ curl --header "Content-Type: application/json" \\
 
 Remote evaluation might prove useful while dealing with very large data-sets, or for building data analysis apps.
 You should sandbox the evaluator before exposing this feature via a public API.
+
+<a name="jvm"></a>
+## Integration with the JVM
+
+Motto runs on top of the Java Virtual Machine and integrates with it seamlessly.
+Motto code is compiled to Java bytecode on the fly and can take advantage of JIT compilation.
+
+Functionality offered by the host platform is accessed in two ways,
+ - through Clojure function calls
+ - by directly importing Java classes and invoking their methods
+
+Here is how you would use functions from a standard Clojure namespace:
+
+```rust
+? clj_require(['`clojure.data` 'as 'd])
+
+? `d/diff`([1 2 3] [5 9 3 2 3 7])
+; [[1 2]
+;  [5 9 nul 2 3 7]
+;  [nul nul 3]]
+```
+
+Classes that are part of the Java `lang` package can be directly used.
+
+A class constructor is invoked by the `ClassName.(args ...)` function call.
+A method is accessed by the `.methodName(this ...)` syntax.
+Static fields are accessed by the `ClassName/memberName` syntax.
+
+```rust
+? f:fn() {`Thread/sleep`(1000) wrln('hi) rec()}
+
+? t:`Thread.`(f)
+
+? `.start`(t)
+; hi
+; hi
+...
+```
+
+Other packages that are part of the Java SDK has to be explicitly [imported](https://clojuredocs.org/clojure.core/import):
+
+```rust
+? import('`java.util.HashMap`)
+
+? m:`HashMap.`()
+? `.put`(m 1 "a")
+? `.put`(m 2 "b")
+? `.get`(m 1)
+; a
+```
 
 ## Conclusion
 
