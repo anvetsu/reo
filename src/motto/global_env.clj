@@ -186,6 +186,10 @@
 
       (def any clojure.core/rand-nth)
       (def push clojure.core/conj)
+      (def all clojure.core/every?)
+      (def not_all clojure.core/not-every?)
+      (def one (complement clojure.core/not-any?))
+      (def none clojure.core/not-any?)
       (intern *ns* (symbol "#") motto.list/-concat-)
       (intern *ns* (symbol ";") motto.list/-conj-)
       (intern *ns* (symbol "@") motto.list/-fold-)

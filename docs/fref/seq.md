@@ -61,6 +61,18 @@ Perform a fold and return a sequence of incremental results.
 ; [1 5 34 1172 1373609]
 ```
 
+#### all(predic xs)
+
+Return `true` if all elements in `xs` statisfies the predicate.
+
+```rust
+? all(is_odd [3 1 5 7])
+; 1b
+
+? all(is_odd [3 1 5 7 8])
+; 0b
+```
+
 #### any(xs)
 
 Return a randomly selected value from `xs`.
@@ -341,6 +353,36 @@ Return the largest value from `xs`.
 #### mxs(xs)
 
 Incrementally return the largest value from `xs`.
+
+#### none(predic xs)
+
+Return `true` is none of the elements of `xs` statisfies the predicate.
+
+```rust
+? none(is_odd [3 1 5 7 8])
+; 0b
+
+? none(is_odd [2 4 8])
+; 1b
+```
+
+#### not_all(predic xs)
+
+Return `true` is not all elements of `xs` statisfies the predicate.
+
+```rust
+? not_all(is_odd [3 1 5 7 8])
+; 1b
+```
+
+#### one(predic xs)
+
+Return `true` is at least one of the elements in `xs` statisfy the predicate.
+
+```rust
+? one(is_odd [3 1 5 7 8])
+; 1b
+```
 
 #### pack(max_wt f xs)
 
