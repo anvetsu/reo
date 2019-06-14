@@ -365,15 +365,23 @@
     (when next-parser
       (fetch-expr (next-parser tokens) nil))))
 
-(defn- blockify [exprs let?]
-  [(if let? :let :do) exprs])
+(defn- blockify [exprs bindings]
+  (if bindings
+    `[:let [~@(into [] (rest bindings)) ~@exprs]]
+    [:do exprs]))
+
+(defn- parse-block-bindings [tokens]
+  (if (= :open-sb (first tokens))
+    (parse-list (rest tokens))
+    [nil tokens]))
 
 (defn- parse-expr [tokens]
   (let [p (fn [tokens]
             (fetch-expr (parse-stmt tokens) parse-logical))
         block? (= :open-cb (first tokens))
-        let? (= :open-sb (first (rest tokens)))
-        tokens (if block? (rest tokens) tokens)
+        [bindings tokens] (if block?
+                            (parse-block-bindings (rest tokens))
+                            [nil tokens])
         [expr tokens] (p tokens)]
     (if block?
       (loop [tokens tokens, exprs [expr]]
@@ -381,7 +389,7 @@
           (let [tokens (ignore-comma tokens)
                 t (first tokens)]
             (if (= :close-cb t)
-              [(blockify exprs let?) (rest tokens)]
+              [(blockify exprs bindings) (rest tokens)]
               (let [[expr tokens] (p tokens)]
                 (recur tokens (conj exprs expr)))))
           (ex "code-block not closed")))
