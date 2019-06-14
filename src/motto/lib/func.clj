@@ -1,8 +1,10 @@
 (ns motto.lib.func)
 
 (defn fork [f g h]
-  (fn [x]
-    (g (f x) (h x))))
+  (fn [x & xs]
+    (let [r1 (apply f x xs)
+          r2 (apply h x xs)]
+      (g r1 r2))))
 
 (defn times [n f]
   (fn [x]

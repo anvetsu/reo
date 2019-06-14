@@ -270,4 +270,6 @@
 
 (deft funcs
   ["mnmx:fork(mn `#` mx)" 'mnmx
-   "mnmx([10 1 4 20 14 7])" [1 20]])
+   "mnmx([10 1 4 20 14 7])" [1 20]
+   "rotate:fork(drop `#` take)" 'rotate
+   "rotate(3 [1 2 3 4 5])" [4 5 1 2 3]])
