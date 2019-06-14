@@ -319,6 +319,14 @@ Call the returned function to complete the computation of `f`.
 
 Return a random integer between `0` (inclusive) and `n` (exclusive).
 
+#### set_prompt(s)
+
+Set the REPL prompt to the string `s`.
+
+#### set_prompt2(s)
+
+Set the REPL prompt for split-lines to the string `s`.
+
 #### size(x)
 
 Returns the number of components in `x`, which must be a sequence or a table.
