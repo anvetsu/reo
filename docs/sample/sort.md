@@ -22,7 +22,6 @@ Here is a function that transforms a sequence into a sequence of "couples":
 ? twos:fn(xs) zip(xs rest(xs))
 
 ? twos([1 2 3 4 5])
-twos([1 2 3 4 5])
 ; [[1 2]
 ;  [2 3]
 ;  [3 4]
