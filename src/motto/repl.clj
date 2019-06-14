@@ -30,9 +30,10 @@
           (try
             (let [s (eio/read-multiln multiln-prompt)]
               (if s
-                (let [exprs (c/compile-string s)
-                      val (e/evaluate-all exprs eval)]
-                  (eio/writeln val))
+                (when (seq s)
+                  (let [exprs (c/compile-string s)
+                        val (e/evaluate-all exprs eval)]
+                    (eio/writeln val)))
                 (System/exit 0)))
             (catch Exception ex
               (println (str "ERROR: " (force-err-msg ex)))
