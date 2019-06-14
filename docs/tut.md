@@ -27,6 +27,7 @@ This document is divided into the following sections:
 9. [Control Flow](#conds)
 10. [Dealing with Errors](#err)
 11. [Scripts and Compilation](#scripts)
+12. [Remote Evaluation](#remote-evaluation)
 
 <a name="simp"></a>
 ## Simple Calculations
@@ -1241,7 +1242,21 @@ A script can be explicitly compiled into a `.mo` file by calling the `cf` (compi
 
 The object code is compiled on-the-fly to JVM byte code.
 
-### Remote Evaluation
+### Commenting your code
+
+Motto does not have special syntax for commenting programs.
+You may include explanatory statements in your code as string literals.
+Some examples are given below:
+
+```rust
+? "rate of tax, slab 1" r1:0.2
+? "rate of tax, slab 2" r2:0.5
+
+? "calculate tax for a given sales price"
+? calc:fn(p) if (p > 10000 p * r2 p * r1)
+```
+
+## Remote Evaluation
 
 You can start Motto in HTTP server mode and use it to evaluate expressions on a server.
 
