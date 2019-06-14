@@ -265,6 +265,9 @@
 
 (declare parse-term parse-cmpr)
 
+(defn- validate-operand! [x]
+  (when-not x (ex "invalid or empty operand")))
+
 (defn- parse-arith [tokens precede opr-fns]
   (let [[x ts1] (precede tokens)]
     (if x
@@ -273,6 +276,7 @@
           (let [y (first ts1)]
             (if (contains? opr-fns y)
               (let [[z ts2] (precede (rest ts1))]
+                (validate-operand! z)
                 (recur ts2 [(y opr-fns) exprs z]))
               [exprs ts1]))
           [exprs ts1])))))
@@ -289,6 +293,7 @@
       (let [y (first ts1)]
         (if (some #{y} cmpr-opr-keys)
           (let [[z ts2] (parse-term (rest ts1))]
+            (validate-operand! z)
             [[(get cmpr-oprs-map y) x z] ts2])
           [x ts1]))
       [x nil])))
@@ -299,6 +304,7 @@
       (let [y (first ts1)]
         (if (or (= :and y) (= :or y))
           (let [[z ts2] (parse-expr (rest ts1))]
+            (validate-operand! z)
             [[y x z] ts2])
           [x ts1]))
       [x nil])))
