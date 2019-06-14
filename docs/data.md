@@ -23,9 +23,9 @@ Motto can import CSV encoded files and convert them to tables. For example, if t
 named "products.csv", we can import it as:
 
 ```rust
-? products:csv("products.csv")
+products:csv("products.csv")
 
-? products
+products
 ; ProductId: [1 2 3]
 ; ProductName: [PC-178 XTR-130 TTY-234]
 ; UnitPrice: [34000 23000 45600]
@@ -35,14 +35,14 @@ named "products.csv", we can import it as:
 One problem is that all values, even those that are supposed to be numbers, is imported as strings.
 
 ```rust
-? is_string(products('UnitPrice)(0))
+is_string(products('UnitPrice)(0))
 ; 1b
 ```
 
 So we need to do some explicit conversions before we can apply data processing operations on them:
 
 ```rust
-? sum(to_int ~ products('UnitPrice))
+sum(to_int ~ products('UnitPrice))
 ; 102600
 ```
 
@@ -51,18 +51,18 @@ take care of converting values at the time of load itself. The following call to
 the products columns as `string (ProductId)`, `string (ProductName)`, `int (UnitPrice)` and `date of format yyyy-MM-dd (DateReleased)`.
 
 ```rust
-? products:csv("products.csv" ['types:['s 's 'i "yyyy-MM-dd"]])
+products:csv("products.csv" ['types:['s 's 'i "yyyy-MM-dd"]])
 
-? products
+products
 ; ProductId: [1 2 3]
 ; ProductName: [PC-178 XTR-130 TTY-234]
 ; UnitPrice: [34000 23000 45600]
 ; DateReleased: [dt("2019-02-25T00:00:00") dt("2019-03-01T00:00:00") dt("2018-12-02T00:00:00")]
 
-? sum(products('UnitPrice))
+sum(products('UnitPrice))
 ; 102600
 
-? dtadd(products('DateReleased)(1) 'M 1)
+dtadd(products('DateReleased)(1) 'M 1)
 ; dt("2019-04-01T00:00:00")
 ```
 
@@ -98,18 +98,18 @@ Imagine that the products data is encoded as [JSON](https://json.org/) in the fi
 This data can be decoded and imported as a columnar table by calling the `json` function:
 
 ```rust
-? products:json("products.json")
+products:json("products.json")
 
-? products
+products
 ; ProductId: [1 2 3]
 ; ProductName: [PS-178 XTR-130 TTY-234]
 ; UnitPrice: [34000 23000 45600]
 ; DateReleased: [2019-02-25 2019-03-01 2018-12-02]
 
-? sum(products('UnitPrice))
+sum(products('UnitPrice))
 ; 102600
 
-? mx(products('UnitPrice))
+mx(products('UnitPrice))
 ; 45600
 ```
 
@@ -117,17 +117,17 @@ Sequences and dictionaries can be encoded as JSON strings using the `json_enc` f
 JSON encoded string can be decoded back to Motto structures using the `json_dec` function.
 
 ```rust
-? json_enc([['a:1 'b:2] ['a:3 'b:4]])
+json_enc([['a:1 'b:2] ['a:3 'b:4]])
 ; [{"a":1,"b":2},{"a":3,"b":4}]
 
-? json_dec(json_enc([['a:1 'b:2] ['a:3 'b:4]]))
+json_dec(json_enc([['a:1 'b:2] ['a:3 'b:4]]))
 ; [[a:1 b:2] [a:3 b:4]]
 ```
 
 The result of the above `json_dec` can be converted to columnar format by calling tab:
 
 ```rust
-? tab([['a:1 'b:2] ['a:3 'b:4]])
+tab([['a:1 'b:2] ['a:3 'b:4]])
 ; a: [1 3]
 ; b: [2 4]
 ```
@@ -137,14 +137,14 @@ The result of the above `json_dec` can be converted to columnar format by callin
 Excel files can be imported using the `xls` function.
 
 ```rust
-? xls("products.xls")
+xls("products.xls")
 ```
 
 It can take an optional dictionary argument with the following keys:
 
 ```
 sheet  - the index of the sheet to read (default - 0)
-all_sheets - read all sheets? (default - 0b)
+all_sheets - read all sheets(default - 0b)
 ```
 
 ## Relational Databases
@@ -156,16 +156,16 @@ The main functions for interacting with the database is `db_cmd` and `db_qry`. `
 manipulation and `db_qry` is used for loading data into in-memory columnar tables.
 
 ```rust
-? db_cmd("create table products (id varchar(20) primary key, name varchar(50), unit_price int, date_released date)")
+db_cmd("create table products (id varchar(20) primary key, name varchar(50), unit_price int, date_released date)")
 ; 0
-? db_cmd("insert into products values('1', 'PS-178', 34000, '2019-02-25')")
+db_cmd("insert into products values('1', 'PS-178', 34000, '2019-02-25')")
 ; 1
-? db_cmd("insert into products values('2', 'XTR-130', 23000, '2019-03-01')")
+db_cmd("insert into products values('2', 'XTR-130', 23000, '2019-03-01')")
 ; 1
-? db_cmd("insert into products values('3', 'TTY-234', 45600, '2018-12-02')")
+db_cmd("insert into products values('3', 'TTY-234', 45600, '2018-12-02')")
 ; 1
-? products:db_qry("select * from products")
-? products
+products:db_qry("select * from products")
+products
 ; id: [1 2 3]
 ; name: [PS-178 XTR-130 TTY-234]
 ; unit_price: [34000 23000 45600]
@@ -176,9 +176,9 @@ The values of `date_released` are returned as objects of the Java `Date` class. 
 before they can be easily processed.
 
 ```rust
-? products:assoc(products, 'date_released, dt ~ products('date_released))
+products:assoc(products, 'date_released, dt ~ products('date_released))
 
-? products
+products
 ; id: [1 2 3]
 ; name: [PS-178 XTR-130 TTY-234]
 ; unit_price: [34000 23000 45600]
@@ -194,8 +194,8 @@ The easiest way to fetch data over HTTP is via the `http_get` function. This fun
 `future` object that can be queried with the `http_res` (http-result) function.
 
 ```rust
-? f:http_get("https://some-server/data.json")
-? result:http_res(f)
+f:http_get("https://some-server/data.json")
+result:http_res(f)
 ```
 
 `Http_res` will block until the result is filled with response from the HTTP call.
@@ -205,17 +205,17 @@ The returned value will be a dictionary with the following main keys - `headers`
 The following program will return a special `timeout` status if the HTTP request does not complete within a second:
 
 ```rust
-? result:http_res(f 1000 ['status:'timeout])
+result:http_res(f 1000 ['status:'timeout])
 ```
 
 There is a more generic function for making HTTP requests. This is called `http_req`. For example,
 this function can be used as follows for POSTing JSON data to a HTTP server:
 
 ```rust
-? f:http_req(['url:"https://some-server/login" 'method:'post
+f:http_req(['url:"https://some-server/login" 'method:'post
               'headers:["Content-Type": "application/json"]
 	      'body:json_enc(["user": "abc" "token": "xyz111"])])
-? result:http_res(f)
+result:http_res(f)
 ```
 
 [Back](index.md)
