@@ -1,7 +1,7 @@
 (ns motto.config)
 
 (def ^:private prompt-str (atom "=> "))
-(def ^:private prompt2-str (atom "- "))
+(def ^:private prompt2-str (atom ".. "))
 
 (defn prompt [] @prompt-str)
 

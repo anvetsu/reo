@@ -137,14 +137,14 @@ Some examples:
 #### Multi-line expressions
 
 Long expressions can be split across multiple lines by ending each line with a backward slash (`\`).
-The REPL will mark each new line of the expression with the `-` prompt.
+The REPL will mark each new line of the expression with the `.. ` prompt.
 
 The following example shows how to split the expression `(2 + 2 * 3) / 2` across multiple lines.
 
 ```rust
-(2 + 2 \
-- * 3 \
-- ) / 2
+=> (2 + 2 \
+.. * 3 \
+.. ) / 2
 ; 4
 ```
 
@@ -152,7 +152,7 @@ Expressions enclosed in `( )`, `[ ]` and `{ }` can be split to multiple space wi
 
 ```rust
 [1 2 3
-- 4 5]
+.. 4 5]
 ; [1 2 3 4 5]
 ```
 
