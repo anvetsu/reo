@@ -45,11 +45,11 @@ weight is achieved. This new sequence along with the rest of the original sequen
 An example of using `pack`:
 
 ```rust
-? pack(10 identity [1 5 8 3 4 1 2 7])
+pack(10 identity [1 5 8 3 4 1 2 7])
 ; [[1 5 3 1]
 ;  [2 7]]
 
-? pack(10 identity [1 5 8 3 4 2])
+pack(10 identity [1 5 8 3 4 2])
 ; [[1 5 3]]
 ```
 
@@ -62,20 +62,20 @@ pack_bag:fn(cmpr maxwt) first(pack(maxwt iweight sort(cmpr, items)))
 Now we have everything required to start packing!
 
 ```rust
-? bag_by_wt:pack_bag(by_wt 20)
-? bag_by_val:pack_bag(by_val 20)
-? bag_by_rat:pack_bag(by_rat 20)
+bag_by_wt:pack_bag(by_wt 20)
+bag_by_val:pack_bag(by_val 20)
+bag_by_rat:pack_bag(by_rat 20)
 
-? bag_by_wt
+bag_by_wt
 ; [[book 10 1]
 ; [vase 50 2]
 ; [radio 20 4]
 ; [painting 90 9]]
 
-? bag_by_val
+bag_by_val
 ; [[computer 200 20]]
 
-? bag_by_rat
+bag_by_rat
 ; [[vase 50 2]
 ;  [clock 175 10]
 ;  [book 10 1]
@@ -85,13 +85,13 @@ Now we have everything required to start packing!
 It's just a matter of folding these bags by value to figure out the best method:
 
 ```rust
-? totval:fn(bag) sum(ivalue ~ bag)
+totval:fn(bag) sum(ivalue ~ bag)
 
-? w:totval(bag_by_wt)
-? v:totval(bag_by_val)
-? r:totval(bag_by_rat)
+w:totval(bag_by_wt)
+v:totval(bag_by_val)
+r:totval(bag_by_rat)
 
-? [w v r]
+[w v r]
 ; [170 200 255]
 ```
 
@@ -99,8 +99,8 @@ We may use fold again to automate the task of finding the best method:
 
 
 ```rust
-? best_of_2:fn([n1 b1] [n2 b2]) if (b1 > b2 [n1 b1] [n2 b2])
-? best_of_2 @ [['by_weight w] ['by_val v] ['by_ratio r]]
+best_of_2:fn([n1 b1] [n2 b2]) if (b1 > b2 [n1 b1] [n2 b2])
+best_of_2 @ [['by_weight w] ['by_val v] ['by_ratio r]]
 ; [by_ratio 255]
 ```
 
@@ -141,13 +141,13 @@ best_fit:fn(maxwt) max_by_val @ best_fits(maxwt)
 So what's the optimal combination that gives the maximum value for a bag that can carry 20u?
 
 ```rust
-? bag:best_fit(20)
-? bag
+bag:best_fit(20)
+bag
 ; [[clock 175 10]
 ;  [painting 90 9]
 ;  [book 10 1]]
 
-? totval(bag)
+totval(bag)
 ; 275
 ```
 

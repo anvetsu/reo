@@ -5,16 +5,16 @@
 Concatenate two sequences. Put atomic arguments into sequences as required.
 
 ```rust
-? [1 2 3]#[4 5]
+[1 2 3]#[4 5]
 ; [1 2 3 4 5]
 
-? [1 2 3]#4
+[1 2 3]#4
 ; [1 2 3 4]
 
-? 1#[2 3]
+1#[2 3]
 ; [1 2 3]
 
-? 1#2
+1#2
 ; [1 2]
 ```
 
@@ -23,13 +23,13 @@ Concatenate two sequences. Put atomic arguments into sequences as required.
 Push an object to the front or back of a sequence.
 
 ```rust
-? 1;[2 3]
+1;[2 3]
 ; [1 2 3]
 
-? [2 3];4
+[2 3];4
 ; [2 3 4]
 
-? [1 2 3];[4 5]
+[1 2 3];[4 5]
 ; [1 2 3 [4 5]]
 ```
 
@@ -38,7 +38,7 @@ Push an object to the front or back of a sequence.
 Insert an operator or function between each element of a sequence and reduce the sequence to a single value.
 
 ```rust
-? (fn(x y) x*x + y*y) @ [1 2 3 4 5]
+(fn(x y) x*x + y*y) @ [1 2 3 4 5]
 1373609
 ```
 
@@ -48,7 +48,7 @@ Start with an initial sequence, pass it to a function. Extend the sequence with 
 Repeat the process `n` times.
 
 ```rust
-? (fn (x) x;sum(lift(-2 x))) @> 10 [1 1]
+(fn (x) x;sum(lift(-2 x))) @> 10 [1 1]
 ; [1 1 2 3 5 8 13 21 34 55 89 144]
 ```
 
@@ -57,7 +57,7 @@ Repeat the process `n` times.
 Perform a fold and return a sequence of incremental results.
 
 ```rust
-? (fn(x y) x*x + y*y) @~ [1 2 3 4 5]
+(fn(x y) x*x + y*y) @~ [1 2 3 4 5]
 ; [1 5 34 1172 1373609]
 ```
 
@@ -66,10 +66,10 @@ Perform a fold and return a sequence of incremental results.
 Return `true` if all elements in `xs` statisfies the predicate.
 
 ```rust
-? all(is_odd [3 1 5 7])
+all(is_odd [3 1 5 7])
 ; 1b
 
-? all(is_odd [3 1 5 7 8])
+all(is_odd [3 1 5 7 8])
 ; 0b
 ```
 
@@ -84,11 +84,11 @@ keyed by the current value from `xs`. This key will have the initial value `init
 Return this dictionary.
 
 ```rust
-? collect(fn(x i) x*i 10 [1 2 3 4 5])
+collect(fn(x i) x*i 10 [1 2 3 4 5])
 ; [1:0 2:10 3:20 4:30 5:40]
 
-? collect(fn(x i) x*i 10 [1 3 3 4 4])
-? [1:0 3:20 4:120]
+collect(fn(x i) x*i 10 [1 3 3 4 4])
+[1:0 3:20 4:120]
 ```
 
 #### collect1(f xs)
@@ -97,7 +97,7 @@ Call `f` with each element in `xs` and collect the result in a dictionary.
 An element is collected only once.
 
 ```rust
-? collect1(fn(x) x*10 [1 3 3 4 4])
+collect1(fn(x) x*10 [1 3 3 4 4])
 ; [1:10 3:30 4:40]
 ```
 
@@ -106,7 +106,7 @@ An element is collected only once.
 Count how many `x` are there in `xs`.
 
 ```rust
-? counteq(1 [1 2 3 1 1])
+counteq(1 [1 2 3 1 1])
 ; 3
 ```
 
@@ -115,7 +115,7 @@ Count how many `x` are there in `xs`.
 Count how many elements in `xs` return `true` for `predic`.
 
 ```rust
-? countf(is_odd [1 2 3 4 5])
+countf(is_odd [1 2 3 4 5])
 ; 3
 ```
 
@@ -124,7 +124,7 @@ Count how many elements in `xs` return `true` for `predic`.
 Count the number of occurrences for each element in `xs`.
 
 ```rust
-? counts([1 3 3 4 4 5 4])
+counts([1 3 3 4 4 5 4])
 ; [1:1 3:2 4:3 5:1]
 ```
 
@@ -133,7 +133,7 @@ Count the number of occurrences for each element in `xs`.
 Folds `xs` with the minus (`-`) operator.
 
 ```rust
-? dif([10 34 56 77])
+dif([10 34 56 77])
 ; -157
 ```
 
@@ -142,7 +142,7 @@ Folds `xs` with the minus (`-`) operator.
 Incremental version of `dif`.
 
 ```rust
-? difs([10 34 56 77])
+difs([10 34 56 77])
 ; [10 -24 -80 -157]
 ```
 
@@ -151,10 +151,10 @@ Incremental version of `dif`.
 Dig into `xs` by a co-ordinate and return the value there.
 
 ```rust
-? dig([[1 2] [3 4]] [0 1])
+dig([[1 2] [3 4]] [0 1])
 ; 2
 
-? dig([[1 2] [3 4]] [1 1])
+dig([[1 2] [3 4]] [1 1])
 ; 4
 ```
 
@@ -163,10 +163,10 @@ Dig into `xs` by a co-ordinate and return the value there.
 Return the dimension of `xs`.
 
 ```rust
-? dim([10 20 45 34])
+dim([10 20 45 34])
 ; [4]
 
-? dim([[10 20] [45 34]])
+dim([[10 20] [45 34]])
 ; [2 2]
 ```
 
@@ -175,10 +175,10 @@ Return the dimension of `xs`.
 Drop the first `n` elements of `xs`. If `n` is negative, drop from the end.
 
 ```rust
-? dip(2 [10 20 30 40 50 60])
+dip(2 [10 20 30 40 50 60])
 ; [30 40 50 60]
 
-? dip(-2 [10 20 30 40 50 60])
+dip(-2 [10 20 30 40 50 60])
 ; [10 20 30 40]
 ```
 
@@ -187,7 +187,7 @@ Drop the first `n` elements of `xs`. If `n` is negative, drop from the end.
 Drop from `xs` until `predic` returns `true`.
 
 ```rust
-? drop_while(is_odd [1 3 5 6 7 8])
+drop_while(is_odd [1 3 5 6 7 8])
 ; [6 7 8]
 ```
 
@@ -196,7 +196,7 @@ Drop from `xs` until `predic` returns `true`.
 Call `f` with the current and the previous element in `xs`. Return the resulting sequence.
 
 ```rust
-? eachprev(`+` [1 2 3 4 5])
+eachprev(`+` [1 2 3 4 5])
 ; [3 5 7 9]
 ```
 
@@ -205,10 +205,10 @@ Call `f` with the current and the previous element in `xs`. Return the resulting
 Call `f` with each element of `xs` with all elements of `ys` to make a tabulated result.
 
 ```rust
-? a: [0 1 2 3 4 5]
-? b: [2 3 5 7 11 13]
+a: [0 1 2 3 4 5]
+b: [2 3 5 7 11 13]
 
-? enum(`+` a b)
+enum(`+` a b)
 ; [[2 3 5 7 11 13]
 ;  [3 4 6 8 12 14]
 ;  [4 5 7 9 13 15]
@@ -220,7 +220,7 @@ Call `f` with each element of `xs` with all elements of `ys` to make a tabulated
 If `ys` is omitted, `xs` will replace it.
 
 ```rust
-? enum(`*` [1 2 3 4 5])
+enum(`*` [1 2 3 4 5])
 ; [[1 2 3 4 5]
 ;  [2 4 6 8 10]
 ;  [3 6 9 12 15]
@@ -240,15 +240,15 @@ If specified, `options` must be a dictionary with the following entries:
 
 
 ```rust
-? factor([10 20 30 40 30 50] ['levels:[50 40 30 20 10]])
+factor([10 20 30 40 30 50] ['levels:[50 40 30 20 10]])
 ; [[50:1 40:2 30:3 20:4 10:5]
 ;  [5 4 3 2 3 1]]
 
-? factor([10 20 30 40 30 50])
+factor([10 20 30 40 30 50])
 ; [[20:1 50:2 40:3 30:4 10:5]
 ;  [5 1 4 3 4 2]]
 
-? factor([10 20 30 40 30 50] ['sort:1b])
+factor([10 20 30 40 30 50] ['sort:1b])
 ; [[10:1 20:2 30:3 40:4 50:5]
 ;  [1 2 3 4 3 5]]
 ```
@@ -258,7 +258,7 @@ If specified, `options` must be a dictionary with the following entries:
 For each element in `xs` that `predic` returns `true`, pick the corresponding element from the sequence-of-sequences `yss`.
 
 ```rust
-? filter_by(is_odd [1 2 3] [[10 20 30] [100 200 300] [1000 2000 3000]])
+filter_by(is_odd [1 2 3] [[10 20 30] [100 200 300] [1000 2000 3000]])
 ; [[10 30]
 ;  [100 300]
 ;  [1000 3000]]
@@ -273,7 +273,7 @@ Return `true` if `x` is in `xs`, return `false` otherwise.
 Return an infinite sequence of `x`s.
 
 ```rust
-? infs(1b)
+infs(1b)
 ; [1b 1b 1b 1b 1b 1b 1b 1b 1b 1b ...]
 ```
 
@@ -282,10 +282,10 @@ Return an infinite sequence of `x`s.
 Return an infinite sequence starting with `x` and whose tail in filled in by calls to the no-argument function `f`.
 
 ```rust
-? evens:fn(x) lazy(x fn() evens(x+2))
-? xs:evens(2)
+evens:fn(x) lazy(x fn() evens(x+2))
+xs:evens(2)
 
-? xs
+xs
 ; [2 4 6 8 10 12 14 16 18 20 ...]
 ```
 
@@ -294,10 +294,10 @@ Return an infinite sequence starting with `x` and whose tail in filled in by cal
 Take the first `n` elements from `xs`. If `n` is negative, take from the end.
 
 ```rust
-? lift(2 [10 20 30 40 50])
+lift(2 [10 20 30 40 50])
 ; [10 20]
 
-? lift(-2 [10 20 30 40 50])
+lift(-2 [10 20 30 40 50])
 ; [40 50]
 ```
 
@@ -306,7 +306,7 @@ Take the first `n` elements from `xs`. If `n` is negative, take from the end.
 Take the first `n` elements from `xs`. If `xs` runs-out, take again from its head.
 
 ```rust
-? liftr(10 [1 2 3 4 5])
+liftr(10 [1 2 3 4 5])
 ; [1 2 3 4 5 1 2 3 4 5]
 ```
 
@@ -315,16 +315,16 @@ Take the first `n` elements from `xs`. If `xs` runs-out, take again from its hea
 Return an infinite sequence of calling `r`, `r1:f(r)`, `r2:f(r1)` and so on.
 
 ```rust
-? listf(sqrt 10)
+listf(sqrt 10)
 ; [10 3.162 1.778 1.334 1.155 1.075 1.037 1.018 1.009 ...]
 ```
 
 If `r` is left out, return an infinite sequence of calling `f()`.
 
 ```rust
-? r2:fn() roll(2)
+r2:fn() roll(2)
 
-? take(5 listf(r2))
+take(5 listf(r2))
 ; [0 1 0 1 0]
 ```
 
@@ -333,7 +333,7 @@ If `r` is left out, return an infinite sequence of calling `f()`.
 Return the smallest value from `xs`.
 
 ```rust
-? mn([10 90 8 20 12])
+mn([10 90 8 20 12])
 ' 8
 ```
 
@@ -342,7 +342,7 @@ Return the smallest value from `xs`.
 Incrementally return the smallest value from `xs`.
 
 ```rust
-? mns([10 90 8 20 12])
+mns([10 90 8 20 12])
 ; [10 10 8 8 8]
 ```
 
@@ -359,10 +359,10 @@ Incrementally return the largest value from `xs`.
 Return `true` is none of the elements of `xs` statisfies the predicate.
 
 ```rust
-? none(is_odd [3 1 5 7 8])
+none(is_odd [3 1 5 7 8])
 ; 0b
 
-? none(is_odd [2 4 8])
+none(is_odd [2 4 8])
 ; 1b
 ```
 
@@ -371,7 +371,7 @@ Return `true` is none of the elements of `xs` statisfies the predicate.
 Return `true` is not all elements of `xs` statisfies the predicate.
 
 ```rust
-? not_all(is_odd [3 1 5 7 8])
+not_all(is_odd [3 1 5 7 8])
 ; 1b
 ```
 
@@ -380,7 +380,7 @@ Return `true` is not all elements of `xs` statisfies the predicate.
 Return `true` is at least one of the elements in `xs` statisfy the predicate.
 
 ```rust
-? one(is_odd [3 1 5 7 8])
+one(is_odd [3 1 5 7 8])
 ; 1b
 ```
 
@@ -392,11 +392,11 @@ Each element from `xs` is passed to the function `f` to compute the individual w
 Return a sequence of elements moved to the new list and the remaining elements from `xs`.
 
 ```rust
-? pack(10 identity [2 5 3 2 1])
+pack(10 identity [2 5 3 2 1])
 ; [[2 5 3]
 ;  [2 1]]
 
-? pack(10 identity [2 5 30 2 1])
+pack(10 identity [2 5 30 2 1])
 ; [[2 5 2 1]]
 ``` 
 
@@ -405,7 +405,7 @@ Return a sequence of elements moved to the new list and the remaining elements f
 Return a dictionary created from `xs` (keys) and `ys` (values).
 
 ```rust
-? pairs([1 2 3] [10 20 30])
+pairs([1 2 3] [10 20 30])
 ; [1:10 3:30 2:20]
 ```
 
@@ -414,13 +414,13 @@ Return a dictionary created from `xs` (keys) and `ys` (values).
 Return the index of `x` in `xs`. Return `-1` if `x` is not in `xs`.
 
 ```rust
-? pos([\q \u \e \e \n] \u)
+pos([\q \u \e \e \n] \u)
 ; 1
 
-? pos([10 56 34 90] 34)
+pos([10 56 34 90] 34)
 ; 2
 
-? pos([10 56 34 90] 30)
+pos([10 56 34 90] 30)
 ; -1
 ```
 
@@ -429,7 +429,7 @@ Return the index of `x` in `xs`. Return `-1` if `x` is not in `xs`.
 Fold `xs` using multiplication.
 
 ```rust
-? prd([1 2 3 4 5])
+prd([1 2 3 4 5])
 ; 120
 ```
 
@@ -438,7 +438,7 @@ Fold `xs` using multiplication.
 Incrementally fold `xs` using multiplication.
 
 ```rust
-? prds([1 2 3 4 5])
+prds([1 2 3 4 5])
 ; [1 2 6 24 120]
 ```
 
@@ -448,13 +448,13 @@ Add an element to a sequence. The place where the new element is added depends o
 type of the sequence.
 
 ```rust
-? push([1 2 3 4 5] 6)
+push([1 2 3 4 5] 6)
 ; [1 2 3 4 5 6]
 
-? push(list(1 2 3 4 5) 6)
+push(list(1 2 3 4 5) 6)
 ; [6 1 2 3 4 5]
 
-? push(set([1 2 3 4 5]) 6)
+push(set([1 2 3 4 5]) 6)
 ; [1 4 6 3 2 5]
 ```
 
@@ -471,7 +471,7 @@ Incrementally fold `xs` using division.
 Replace `x` is `xs` by `y`.
 
 ```rust
-? replc([1 2 1 3 4] 1 \a)
+replc([1 2 1 3 4] 1 \a)
 ; [a 2 a 3 4]
 ```
 
@@ -480,7 +480,7 @@ Replace `x` is `xs` by `y`.
 Replace all elements in `xs` that return `true` for `f` with `y`.
 
 ```rust
-? replcf([1 2 1 3 4] is_odd 100)
+replcf([1 2 1 3 4] is_odd 100)
 ; [100 2 100 100 4]
 ```
 
@@ -489,7 +489,7 @@ Replace all elements in `xs` that return `true` for `f` with `y`.
 Return all elements `xs` for which a flag is set.
 
 ```rust
-? sel([1b 0b 0b 1b 1b] [1 2 3 4 5])
+sel([1b 0b 0b 1b 1b] [1 2 3 4 5])
 ; [1 4 5]
 ```
 
@@ -511,10 +511,10 @@ Return a sequence with integers from `a` (inclusive) to `b` (exclusive).
 `a` defaults to `0`.
 
 ```rust
-? til(5)
+til(5)
 ; [0 1 2 3 4]
 
-? til(5 10)
+til(5 10)
 [5 6 7 8 9]
 ```
 
@@ -523,7 +523,7 @@ Return a sequence with integers from `a` (inclusive) to `b` (exclusive).
 Return truths from `xs`.
 
 ```rust
-? truths([1 0b "hello" 0b 23])
+truths([1 0b "hello" 0b 23])
 ; [1 hello 23]
 ```
 
@@ -532,7 +532,7 @@ Return truths from `xs`.
 Call `f` with each pair from `xs`.
 
 ```rust
-? twins(`+` [1 2 3 4 5 6])
+twins(`+` [1 2 3 4 5 6])
 ; [1 3 5 7 9 11]
 ```
 
@@ -541,7 +541,7 @@ Call `f` with each pair from `xs`.
 Return `xs` without `x`.
 
 ```rust
-? without(10 [1 2 10 3 4 10 5])
+without(10 [1 2 10 3 4 10 5])
 ; [1 2 3 4 5]
 ```
 
@@ -550,7 +550,7 @@ Return `xs` without `x`.
 Pair `xs` with `ys.
 
 ```rust
-? zip([1 2 3 4] [10 20 30 40])
+zip([1 2 3 4] [10 20 30 40])
 ; [[1 10]
 ;  [2 20]
 ;  [3 30]
@@ -562,7 +562,7 @@ Pair `xs` with `ys.
 The `map` operator.
 
 ```rust
-? (fn(x) x*x) ~ [1 2 3 4 5]
+(fn(x) x*x) ~ [1 2 3 4 5]
 ; [1 4 9 16 25]
 ```
 
@@ -577,7 +577,7 @@ Return `true` if `x` is a set, otherwise return `false`.
 Return `true` is `x` is a subset of `y`.
 
 ```rust
-? is_subset(set([3 2]) set([1 2 3 4 5]))
+is_subset(set([3 2]) set([1 2 3 4 5]))
 ; 1b
 ```
 
@@ -586,7 +586,7 @@ Return `true` is `x` is a subset of `y`.
 Return `true` is `x` is a super-set of `y`.
 
 ```rust
-? is_superset(set([1 2 3 4 5]) set([3 2]))
+is_superset(set([1 2 3 4 5]) set([3 2]))
 ; 1b
 ```
 
@@ -595,7 +595,7 @@ Return `true` is `x` is a super-set of `y`.
 Return the sequence `xs` as a set.
 
 ```rust
-? set([1 2 1 3 2 4])
+set([1 2 1 3 2 4])
 ; [1 4 3 2]
 ```
 
@@ -604,10 +604,10 @@ Return the sequence `xs` as a set.
 Return the difference of the sets.
 
 ```rust
-? x:set([1 2 3 4 5])
-? y:set([3 2])
+x:set([1 2 3 4 5])
+y:set([3 2])
 
-? setd(x y)
+setd(x y)
 ; [1 4 5]
 ```
 
@@ -616,7 +616,7 @@ Return the difference of the sets.
 Return the intersection of the sets.
 
 ```rust
-? seti(x y)
+seti(x y)
 ; [3 2]
 ```
 
@@ -625,14 +625,14 @@ Return the intersection of the sets.
 Return the natural join of two relational sets.
 
 ```rust
-? emp:set([['name:'sam 'emp_dept:1 'salary:1500]
+emp:set([['name:'sam 'emp_dept:1 'salary:1500]
            ['name:'mat 'emp_dept:2 'salary:2000]
 	   ['name:'san 'emp_dept:1 'salary:1300]])
 
-? dept:set([['dept:1 'title:'accounts]
+dept:set([['dept:1 'title:'accounts]
             ['dept:2 'title:'sales]])
 
-? setj(emp dept)
+setj(emp dept)
 ; [[dept:1 title:accounts name:sam emp_dept:1 salary:1500]
 ;  [dept:2 title:sales name:sam emp_dept:1 salary:1500]
 ;  [dept:1 title:accounts name:mat emp_dept:2 salary:2000]
@@ -644,7 +644,7 @@ Return the natural join of two relational sets.
 If `on` is specified, it must be a mapping of keys on which to perform the joins.
 
 ```rust
-? setj(emp dept ['emp_dept:'dept])
+setj(emp dept ['emp_dept:'dept])
 ; [[dept:1 title:accounts name:sam emp_dept:1 salary:1500]
 ;  [dept:1 title:accounts name:san emp_dept:1 salary:1300]
 ;  [dept:2 title:sales name:mat emp_dept:2 salary:2000]]
@@ -655,7 +655,7 @@ If `on` is specified, it must be a mapping of keys on which to perform the joins
 Remove unwanted keys from a relational set.
 
 ```rust
-? setp(emp ['name 'salary])
+setp(emp ['name 'salary])
 ; [[name:sam salary:1500]
 ;  [name:san salary:1300]
 ;  [name:mat salary:2000]]
@@ -667,10 +667,10 @@ Filter the set based on the predicate.
 
 
 ```rust
-? x
+x
 ; [1 4 3 2 5]
 
-? setsel(is_odd x)
+setsel(is_odd x)
 ; [1 3 5]
 ```
 
@@ -679,6 +679,6 @@ Filter the set based on the predicate.
 Return the union of the sets.
 
 ```rust
-? setu(set([1 2 3]) set([3 4 5]) set([5 5 5]))
+setu(set([1 2 3]) set([3 4 5]) set([5 5 5]))
 ; [1 4 3 2 5]
 ```

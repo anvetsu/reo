@@ -3,6 +3,7 @@
             [incanter.distributions]
             [incanter.stats]
             [incanter.charts]
+            [motto.config]
             [motto.compile]
             [motto.dbconn]
             [motto.type]
@@ -30,6 +31,9 @@
 (defn make-eval []
   (eval
    '(do
+      (def set_prompt motto.config/prompt!)
+      (def set_prompt2 motto.config/prompt2!)
+
       (def _ clojure.core/partial)
       (def o clojure.core/comp)
       (def -neg- clojure.core/-)

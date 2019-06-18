@@ -5,10 +5,10 @@
 Perform a logical-and on two bit-vectors. A burrowing operator.
 
 ```rust
-? band(001110b 010101b)
+band(001110b 010101b)
 ; 0001b
 
-? band([001110b 111100b] 010101b)
+band([001110b 111100b] 010101b)
 ; [0001b 0101b]
 ```
 
@@ -17,10 +17,10 @@ Perform a logical-and on two bit-vectors. A burrowing operator.
 Clear all of the bits in `a` for the corresponding bit set in `b`. A burrowing operator.
 
 ```rust
-? band_not(11111b 010101b)
+band_not(11111b 010101b)
 ; 10101b
 
-? band_not(11111b [010101b 11111b])
+band_not(11111b [010101b 11111b])
 ; [10101b b]
 ```
 
@@ -29,7 +29,7 @@ Clear all of the bits in `a` for the corresponding bit set in `b`. A burrowing o
 Compress the boolean sequence `bs` into a bit-vector.
 
 ```rust
-? bits([1b 1b 0b 1b])
+bits([1b 1b 0b 1b])
 ; 1101b
 ```
 
@@ -38,7 +38,7 @@ Compress the boolean sequence `bs` into a bit-vector.
 Return the number of bits of space actually in use by the bit-vector `a`.
 
 ```rust
-? bits_size(010110b)
+bits_size(010110b)
 ; 64
 ```
 
@@ -47,7 +47,7 @@ Return the number of bits of space actually in use by the bit-vector `a`.
 Expand a bit-vector to a sequence of booleans.
 
 ```rust
-? bools(1101b)
+bools(1101b)
 ; [1b 1b 0b 1b]
 ```
 
@@ -56,10 +56,10 @@ Expand a bit-vector to a sequence of booleans.
 Return the logical-or of two bit-vectors. A burrowing operator.
 
 ```rust
-? bor(11111b 010101b)
+bor(11111b 010101b)
 ; 111111b
 
-? bor(11111b [010101b 11111b])
+bor(11111b [010101b 11111b])
 ; [111111b 11111b]
 ```
 
@@ -69,18 +69,18 @@ Return logical-and of `a` and `b`. Update the bit-vector `a` if `clone` is `fals
 
 
 ```rust
-? x:11111b
+x:11111b
 
-? bvand(x 010101b)
+bvand(x 010101b)
 ; 0101b
 
-? x
+x
 ; 11111b
 
-? bvand(x 010101b 0b)
+bvand(x 010101b 0b)
 ; 0101b
 
-? x
+x
 ; 0101b
 ```
 
@@ -94,10 +94,10 @@ Update `a` if `clone` is `false`. (Default is `true`).
 Return `true` if `a` has any bits set that are also set in `b`.
 
 ```rust
-? bvcross(010101b 110000b)
+bvcross(010101b 110000b)
 ; 1b
 
-? bvcross(010101b 100000b)
+bvcross(010101b 100000b)
 ; 0b
 ```
 
@@ -107,13 +107,13 @@ Set the bit in `a` at index `i` to the complement of its current value.
 Updates `a` in-place.
 
 ```rust
-? x
+x
 ; 0101b
 
-? bvflip(x 1)
+bvflip(x 1)
 ; 0001b
 
-? x
+x
 ; 0001b
 ```
 
@@ -125,10 +125,10 @@ Return the bit of `a` at index `i`.
 ?x
 ; 0001b
 
-? bvget(x 0)
+bvget(x 0)
 ; 0b
 
-? bvget(x 3)
+bvget(x 3)
 ; 1b
 ```
 
@@ -140,7 +140,7 @@ Call `f` for each bit in `a`.
 ?x
 ; 0001b
 
-? bviter(wrln x)
+bviter(wrln x)
 ; 0b
 ; 0b
 ; 0b
@@ -152,13 +152,13 @@ Call `f` for each bit in `a`.
 Flip all bits in `a`, update `a` in-place.
 
 ```rust
-? x
+x
 ; 0001b
 
-? bvnot(x)
+bvnot(x)
 ; 111b
 
-? x
+x
 ; 111b
 ```
 
@@ -179,10 +179,10 @@ Perform a logical-exclusive-or on two bit-vectors. A burrowing operator.
 Create an array of bytes.
 
 ```rust
-? byte_array(10)
+byte_array(10)
 ; [0 0 0 0 0 0 0 0 0 0]
 
-? byte_array(10, [1 2 3])
+byte_array(10, [1 2 3])
 ; [1 2 3 0 0 0 0 0 0 0]
 ```
 
@@ -191,6 +191,6 @@ Create an array of bytes.
 Return the "logical size" of the bit-vector `a`: the index of the highest set bit in the `a` plus one.
 
 ```rust
-? count_bits(010110b)
+count_bits(010110b)
 ; 5
 ```

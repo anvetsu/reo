@@ -37,10 +37,10 @@ Return the angle theta from the conversion of rectangular coordinates (x, y) to 
 Return the biggest value of `x` and `y`. A burrowing operation.
 
 ```rust
-? big(1 2)
+big(1 2)
 ; 2
 
-? big([[1 2 3]] [[0 5 1]])
+big([[1 2 3]] [[0 5 1]])
 ; [[1 5 3]]
 ```
 
@@ -112,10 +112,10 @@ Return the value of the first argument raised to the power of the second argumen
 A burrowing operator.
 
 ```rust
-? pow(2 3)
+pow(2 3)
 ; 8.000
 
-? pow([1 2 3 4] 3)
+pow([1 2 3 4] 3)
 ; [1.000 8.000 27.000 64.000]
 ```
 
