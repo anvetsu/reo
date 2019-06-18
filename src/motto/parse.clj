@@ -111,7 +111,7 @@
 (defn- param-access [expr]
   (walk/walk
    #(if-let [i (param-ref %)]
-      [:call 'nth ['-x- i]]
+      [:call 'clojure.core/nth ['-x- i]]
       (param-access %))
    identity expr))
 
@@ -265,6 +265,9 @@
 
 (declare parse-term parse-cmpr)
 
+(defn- validate-operand! [x]
+  (when-not x (ex "invalid or empty operand")))
+
 (defn- parse-arith [tokens precede opr-fns]
   (let [[x ts1] (precede tokens)]
     (if x
@@ -273,6 +276,7 @@
           (let [y (first ts1)]
             (if (contains? opr-fns y)
               (let [[z ts2] (precede (rest ts1))]
+                (validate-operand! z)
                 (recur ts2 [(y opr-fns) exprs z]))
               [exprs ts1]))
           [exprs ts1])))))
@@ -289,6 +293,7 @@
       (let [y (first ts1)]
         (if (some #{y} cmpr-opr-keys)
           (let [[z ts2] (parse-term (rest ts1))]
+            (validate-operand! z)
             [[(get cmpr-oprs-map y) x z] ts2])
           [x ts1]))
       [x nil])))
@@ -299,6 +304,7 @@
       (let [y (first ts1)]
         (if (or (= :and y) (= :or y))
           (let [[z ts2] (parse-expr (rest ts1))]
+            (validate-operand! z)
             [[y x z] ts2])
           [x ts1]))
       [x nil])))
@@ -317,14 +323,14 @@
 (defn- multi-define-dict [pat dict]
   (let [ks (keys pat)
         bs (map (fn [k] [:define (valid-ident k)
-                         [:call 'get ['-x- (get pat k)]]])
+                         [:call 'clojure.core/get ['-x- (get pat k)]]])
                 ks)]
     `[:let [[~(symbol "-x-") ~dict] ~@bs]]))
 
 (defn- multi-define [ns vs]
   (if (map? ns)
     (multi-define-dict ns vs)
-    (let [bs (map (fn [n i] [:define (valid-ident n) [:call 'get ['-x- i]]])
+    (let [bs (map (fn [n i] [:define (valid-ident n) [:call 'clojure.core/nth ['-x- i]]])
                   ns (range (count ns)))]
       `[:let [[~(symbol "-x-") ~vs] ~@bs]])))
 
@@ -365,23 +371,33 @@
     (when next-parser
       (fetch-expr (next-parser tokens) nil))))
 
-(defn- blockify [exprs let?]
-  [(if let? :let :do) exprs])
+(defn- blockify [exprs bindings]
+  (if bindings
+    `[:let [~@(into [] (rest bindings)) ~@exprs]]
+    [:do exprs]))
+
+(defn- parse-block-bindings [tokens]
+  (if (= :open-sb (first tokens))
+    (parse-list (rest tokens))
+    [nil tokens]))
 
 (defn- parse-expr [tokens]
   (let [p (fn [tokens]
             (fetch-expr (parse-stmt tokens) parse-logical))
         block? (= :open-cb (first tokens))
-        let? (= :open-sb (first (rest tokens)))
-        tokens (if block? (rest tokens) tokens)
+        [bindings tokens] (if block?
+                            (parse-block-bindings (rest tokens))
+                            [nil tokens])
         [expr tokens] (p tokens)]
+    (when-not expr
+      (ex "invalid expression"))
     (if block?
       (loop [tokens tokens, exprs [expr]]
         (if (seq tokens)
           (let [tokens (ignore-comma tokens)
                 t (first tokens)]
             (if (= :close-cb t)
-              [(blockify exprs let?) (rest tokens)]
+              [(blockify exprs bindings) (rest tokens)]
               (let [[expr tokens] (p tokens)]
                 (recur tokens (conj exprs expr)))))
           (ex "code-block not closed")))

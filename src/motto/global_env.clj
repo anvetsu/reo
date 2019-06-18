@@ -3,6 +3,7 @@
             [incanter.distributions]
             [incanter.stats]
             [incanter.charts]
+            [motto.config]
             [motto.compile]
             [motto.dbconn]
             [motto.type]
@@ -30,6 +31,9 @@
 (defn make-eval []
   (eval
    '(do
+      (def set_prompt motto.config/prompt!)
+      (def set_prompt2 motto.config/prompt2!)
+
       (def _ clojure.core/partial)
       (def o clojure.core/comp)
       (def -neg- clojure.core/-)
@@ -186,6 +190,10 @@
 
       (def any clojure.core/rand-nth)
       (def push clojure.core/conj)
+      (def all clojure.core/every?)
+      (def not_all clojure.core/not-every?)
+      (def one (complement clojure.core/not-any?))
+      (def none clojure.core/not-any?)
       (intern *ns* (symbol "#") motto.list/-concat-)
       (intern *ns* (symbol ";") motto.list/-conj-)
       (intern *ns* (symbol "@") motto.list/-fold-)
@@ -312,6 +320,7 @@
       (def cdf motto.lib.stats/cdf)
       (def pdf motto.lib.stats/pdf)
       (def chisqtest motto.lib.stats/chisq-test)
+      (def chisq motto.lib.stats/chisq)
       (def skewness incanter.stats/skewness)
       (def quantile motto.lib.stats/quantile)
       (def sample_normal motto.lib.stats/sample-normal)

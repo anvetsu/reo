@@ -1,6 +1,7 @@
 (ns motto.lib.stats
   (:require [incanter.stats :as s]
             [incanter.core :as ic]
+            [motto.list :as ls]
             [motto.tab :as tab]
             [motto.util :as u]))
 
@@ -186,6 +187,11 @@
                    :table table :probs probs
                    :freq freq)))
   ([x] (s/chisq-test :x x)))
+
+(defn chisq [os es]
+  (let [xs (map (fn [[o e]] (/ (Math/pow (- o e) 2) e))
+                (ls/zip os es))]
+    (reduce + 0 xs)))
 
 (defn distance [tp x & xs]
   (let [y (first xs)]

@@ -159,7 +159,8 @@
    "a"                10
    "{[a 100 b 200] a+b}" 300
    "a"                10
-   "{[a 100 b 200] a+b c:3}" 'c])
+   "{[a 100 b 200] a+b c:3}" 'c
+   "c" 3])
 
 (deft op-test
   ["`+`(1 2)"     3
@@ -254,7 +255,10 @@
    "m:[x:'a y:'b]" 'm
    "m" {10 'a 20 'b}
    "m(x)" 'a
-   "m(y)" 'b])
+   "m(y)" 'b
+   "f:fork(quot `#` rem)" 'f
+   "[x y]:f(10 5)" 'y
+   "[x y]" [2 0]])
 
 (deft fn-destruct
   ["f:fn([x y]) x + y" 'f
@@ -269,4 +273,6 @@
 
 (deft funcs
   ["mnmx:fork(mn `#` mx)" 'mnmx
-   "mnmx([10 1 4 20 14 7])" [1 20]])
+   "mnmx([10 1 4 20 14 7])" [1 20]
+   "rotate:fork(drop `#` take)" 'rotate
+   "rotate(3 [1 2 3 4 5])" [4 5 1 2 3]])

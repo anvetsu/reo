@@ -5,12 +5,12 @@
 Return `true` if `x` is a columnar table.
 
 ```rust
-? t:['product_id 'price] $ [['a1 'a2 'a3] [1344 1788.56 1200]]
-? t
+t:['product_id 'price] $ [['a1 'a2 'a3] [1344 1788.56 1200]]
+t
 ; product_id: [a1 a2 a3]
 ; price: [1344 1788.560 1200]
 
-? is_tab(t)
+is_tab(t)
 ; 1b
 ```
 
@@ -19,15 +19,15 @@ Return `true` if `x` is a columnar table.
 Return `true` if `x` is a relational table.
 
 ```rust
-? r:flip(t)
-? r
+r:flip(t)
+r
 ; product_id   price
 ; --------------------------------
 ;      a1    1344
 ;      a2 1788.56
 ;      a3    1200
 
-? is_rtab(r)
+is_rtab(r)
 ; 1b
 ```
 
@@ -36,15 +36,15 @@ Return `true` if `x` is a relational table.
 Create multi-dimensional sequences and columnar tables.
 
 ```rust
-? 3 $ 4
+3 $ 4
 ; [4 4 4]
 
-? [3 4] $ [1 2 3 4 5 6 7 8 9 10]
+[3 4] $ [1 2 3 4 5 6 7 8 9 10]
 ; [[1 2 3 4]
 ;  [5 6 7 8]
 ;  [9 10 1 2]]
 
-? ['a 'b] $ [[1 2 3] [10 20 30]]
+['a 'b] $ [[1 2 3] [10 20 30]]
 ; a: [1 2 3]
 ; b: [10 20 30]
 ```
@@ -55,16 +55,16 @@ Create multi-dimensional sequences and columnar tables.
 Convert relational data to columnar format.
 
 ```rust
-? tab([3 4], [1 2 3 4 5 6 7 8 9 10])
+tab([3 4], [1 2 3 4 5 6 7 8 9 10])
 ; [[1 2 3 4]
 ;  [5 6 7 8]
 ;  [9 10 1 2]]
 
-? tab(['a 'b], [[1 2 3] [10 20 30]])
+tab(['a 'b], [[1 2 3] [10 20 30]])
 ; a: [1 2 3]
 ; b: [10 20 30]
 
-? tab([['a:1 'b:10]
+tab([['a:1 'b:10]
        ['a:2 'b:20]
        ['a:3 'b:30]])
 ; a: [1 2 3]
@@ -76,7 +76,7 @@ Convert relational data to columnar format.
 Create relational tables.
 
 ```rust
-? rtab(['a 'b] [[1 2 3] [10 20 30]])
+rtab(['a 'b] [[1 2 3] [10 20 30]])
 ;   a  b
 ; ---------
 ;   1  2  3
@@ -88,10 +88,10 @@ Create relational tables.
 Return the column names from a (columnar or relational) table.
 
 ```rust
-? fields(t)
+fields(t)
 ; [product_id price]
 
-? fields(r)
+fields(r)
 ; [product_id price]
 ```
 
@@ -100,11 +100,11 @@ Return the column names from a (columnar or relational) table.
 Return data from a (columnar or relational) table.
 
 ```rust
-? data(t)
+data(t)
 ; [[a1 a2 a3]
 ;  [1344 1788.560 1200]]
 
-? data(r)
+data(r)
 ; [[a1 1344]
 ;  [a2 1788.560]
 ;  [a3 1200]]
@@ -115,7 +115,7 @@ Return data from a (columnar or relational) table.
 Return the first `n` values from a columnar table.
 
 ```rust
-? top(2 t)
+top(2 t)
 ; product_id: [a1 a2]
 ; price: [1344 1788.560]
 ```
@@ -126,13 +126,13 @@ Summarize a column by another. The function `f` acts as the "accumulator" of the
 starting-off with `init`.
 
 ```rust
-? emp:['name 'dept 'salary] $ [['mat 'sam 'sally 'zen] [2 1 1 3] [1200 1340 1000 1500]]
-? emp
+emp:['name 'dept 'salary] $ [['mat 'sam 'sally 'zen] [2 1 1 3] [1200 1340 1000 1500]]
+emp
 ; name: [mat sam sally zen]
 ; dept: [2 1 1 3]
 ; salary: [1200 1340 1000 1500]
 
-? "total salary in each dept" group(`+` 0 emp('salary) emp('dept))
+"total salary in each dept" group(`+` 0 emp('salary) emp('dept))
 ; [2:1200 1:2340 3:1500]
 ```
 
@@ -141,7 +141,7 @@ starting-off with `init`.
 Group and count.
 
 ```rust
-? group_count(emp('dept))
+group_count(emp('dept))
 ; [2:1 1:2 3:1]
 ```
 
@@ -150,12 +150,12 @@ Group and count.
 Merge two tables.
 
 ```rust
-? dept:['id 'title] $ [[1 2 3] ['accounts 'sales 'hr]]
-? dept
+dept:['id 'title] $ [[1 2 3] ['accounts 'sales 'hr]]
+dept
 ; id: [1 2 3]
 ; title: [accounts sales hr]
 
-? club(emp dept)
+club(emp dept)
 ; name: [mat sam sally zen]
 ; dept: [2 1 1 3]
 ; salary: [1200 1340 1000 1500]
@@ -168,7 +168,7 @@ Merge two tables.
 Filter rows by predicate.
 
 ```rust
-? where(fn(row) row('salary) > 1300, emp)
+where(fn(row) row('salary) > 1300, emp)
 ; name: [sam zen]
 ; dept: [1 3]
 ; salary: [1340 1500]
@@ -179,10 +179,10 @@ Filter rows by predicate.
 Filter a sequence or a table.
 
 ```rust
-? is_odd ! [1 2 3 4 5]
+is_odd ! [1 2 3 4 5]
 ; [1 3 5]
 
-? (fn(row) row('salary) > 1300) ! emp
+(fn(row) row('salary) > 1300) ! emp
 ; name: [sam zen]
 ; dept: [1 3]
 ; salary: [1340 1500]
@@ -193,7 +193,7 @@ Filter a sequence or a table.
 Maps the function `f` over the table `t`. Return a new table of results.
 
 ```rust
-? tmap(fn(row) {s:row('salary) assoc(row 'salary s + s*0.05)}, emp)
+tmap(fn(row) {s:row('salary) assoc(row 'salary s + s*0.05)}, emp)
 ; name: [mat sam sally zen]
 ; dept: [2 1 1 3]
 ; salary: [1260.000 1407.000 1050.000 1575.000]
