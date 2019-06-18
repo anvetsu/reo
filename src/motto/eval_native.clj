@@ -95,7 +95,7 @@
   (cond
     (= expr :true) true
     (= expr :false) false
-    (= expr :void) nil
+    (= expr :void) :void
     (tp/literal? expr) expr
     (tp/identifier? expr) (translate-ident expr)
     (tp/function? expr) (mkfn expr eval)
@@ -110,7 +110,7 @@
       (throw ex))))
 
 (defn evaluate-all [exprs eval]
-  (loop [exprs exprs, val nil]
+  (loop [exprs exprs, val :void]
     (if (seq exprs)
       (let [val (evaluate (first exprs) eval)]
         (recur (rest exprs) val))
