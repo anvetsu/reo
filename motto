@@ -1,0 +1,33 @@
+#!/bin/bash
+
+platform="motto"
+# Shell script wrapper for the platform
+motto_jar=`ls target/motto-*-standalone.jar 2>/dev/null | head -1 | tr -d '[:space:]'` 
+
+if [ ! -z "$motto_jar" ] && [ -f $motto_jar ];
+then
+    if [ -z "$JAVA_HOME" ] &&  [ ! -x "$JAVA_CMD" ] && ! type -f java > /dev/null
+    then
+        echo "Could not find Java executable"
+        echo "Please either set JAVA_CMD or put java (>=1.6) in your \$PATH ($PATH)."
+        exit 1
+    else
+        if [ -x "$JAVA_CMD" ];
+        then
+            java_cmd="$JAVA_CMD"
+        elif [ ! -z "$JAVA_HOME" ] && [ -x "$JAVA_HOME/bin/java" ];
+        then
+            java_cmd="$JAVA_HOME/bin/java"
+        else
+            java_cmd=`which java`
+        fi
+    fi
+else
+    echo "Fatal Error: Could not find pre-built $platform jar files"
+    exit 1
+fi
+
+echo "Using $motto_jar and $java_cmd"
+$java_cmd -jar $motto_jar
+
+echo "Goodbye."
