@@ -111,7 +111,7 @@
 (defn- param-access [expr]
   (walk/walk
    #(if-let [i (param-ref %)]
-      [:call 'nth ['-x- i]]
+      [:call 'clojure.core/nth ['-x- i]]
       (param-access %))
    identity expr))
 
@@ -323,14 +323,14 @@
 (defn- multi-define-dict [pat dict]
   (let [ks (keys pat)
         bs (map (fn [k] [:define (valid-ident k)
-                         [:call 'get ['-x- (get pat k)]]])
+                         [:call 'clojure.core/get ['-x- (get pat k)]]])
                 ks)]
     `[:let [[~(symbol "-x-") ~dict] ~@bs]]))
 
 (defn- multi-define [ns vs]
   (if (map? ns)
     (multi-define-dict ns vs)
-    (let [bs (map (fn [n i] [:define (valid-ident n) [:call 'get ['-x- i]]])
+    (let [bs (map (fn [n i] [:define (valid-ident n) [:call 'clojure.core/nth ['-x- i]]])
                   ns (range (count ns)))]
       `[:let [[~(symbol "-x-") ~vs] ~@bs]])))
 
