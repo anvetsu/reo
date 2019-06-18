@@ -255,7 +255,10 @@
    "m:[x:'a y:'b]" 'm
    "m" {10 'a 20 'b}
    "m(x)" 'a
-   "m(y)" 'b])
+   "m(y)" 'b
+   "f:fork(quot `#` rem)" 'f
+   "[x y]:f(10 5)" 'y
+   "[x y]" [2 0]])
 
 (deft fn-destruct
   ["f:fn([x y]) x + y" 'f
