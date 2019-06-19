@@ -5,7 +5,7 @@ Most functions in [`clojure.core`](https://clojuredocs.org/clojure.core) are dir
 Motto has extended some core functions with additional features and also added some new functions.
 These are documented here.
 
-#### +, -, *, /
+#### +, -, *, /, %
 
 The burrowing- arithmetic functions: addition, subtraction, multiplication and division.
 
@@ -24,14 +24,21 @@ The burrowing- arithmetic functions: addition, subtraction, multiplication and d
 ;  [60 800] 5000 60000]
 ```
 
-Note that division by zero will return infinity. Any arithmetic operation involving infinity will result in
+The `residue` operator `%` return modulus, truncated towards negative infinity.
+
+```lisp
+[3 4 5] % 2
+; [1 0 1]
+```
+
+Note that division or residue by zero will return infinity. Any arithmetic operation involving infinity will result in
 infinity.
 
 ```lisp
 1/0
 ; inf
 
-(1/0)*100
+(1%0)*100
 ; inf
 ```
 

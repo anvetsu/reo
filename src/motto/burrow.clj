@@ -53,11 +53,16 @@
     Double/POSITIVE_INFINITY
     (/ x y)))
 
+(defn- safe-mod [x y]
+  (if (zero? y)
+    Double/POSITIVE_INFINITY
+    (mod x y)))
+
 (def add   (partial burrow +))
 (def sub   (partial burrow -))
 (def mul   (partial burrow *))
 (def div   (partial burrow safe-div))
-(def residue (partial burrow mod))
+(def residue (partial burrow safe-mod))
 (def pow   (partial burrow math/pow))
 (def eq    (partial burrow =))
 (def neq   (partial burrow not-eq))
