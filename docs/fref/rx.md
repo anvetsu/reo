@@ -8,7 +8,7 @@ Return a regular expression by compiling the string pattern `s`.
 
 Return a lazy sequence of successive matches of pattern in string.
 
-```rust
+```lisp
 rx_seq(rx("[0-9]+") "abs123def345ghi567")
 ; [123 345 567]
 ```
@@ -17,7 +17,7 @@ rx_seq(rx("[0-9]+") "abs123def345ghi567")
 
 Return the next regex match, if any, of string to pattern.
 
-```rust
+```lisp
 rx_find (rx("\d+") "abc12345def")
 ; 12345
 ```
@@ -31,7 +31,7 @@ Return the match, if any, of string to pattern.
 Return an instance of `java.util.regex.Matcher`, for use, e.g. in
 `rx_find`.
 
-```rust
+```lisp
 m:rx_matcher(rx("\d+") "abc12345def")
 
 rx_find(m)

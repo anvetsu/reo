@@ -4,7 +4,7 @@
 
 Perform a logical-and on two bit-vectors. A burrowing operator.
 
-```rust
+```lisp
 band(001110b 010101b)
 ; 0001b
 
@@ -16,7 +16,7 @@ band([001110b 111100b] 010101b)
 
 Clear all of the bits in `a` for the corresponding bit set in `b`. A burrowing operator.
 
-```rust
+```lisp
 band_not(11111b 010101b)
 ; 10101b
 
@@ -28,7 +28,7 @@ band_not(11111b [010101b 11111b])
 
 Compress the boolean sequence `bs` into a bit-vector.
 
-```rust
+```lisp
 bits([1b 1b 0b 1b])
 ; 1101b
 ```
@@ -37,7 +37,7 @@ bits([1b 1b 0b 1b])
 
 Return the number of bits of space actually in use by the bit-vector `a`.
 
-```rust
+```lisp
 bits_size(010110b)
 ; 64
 ```
@@ -46,7 +46,7 @@ bits_size(010110b)
 
 Expand a bit-vector to a sequence of booleans.
 
-```rust
+```lisp
 bools(1101b)
 ; [1b 1b 0b 1b]
 ```
@@ -55,7 +55,7 @@ bools(1101b)
 
 Return the logical-or of two bit-vectors. A burrowing operator.
 
-```rust
+```lisp
 bor(11111b 010101b)
 ; 111111b
 
@@ -68,7 +68,7 @@ bor(11111b [010101b 11111b])
 Return logical-and of `a` and `b`. Update the bit-vector `a` if `clone` is `false`. (Default is `true`).
 
 
-```rust
+```lisp
 x:11111b
 
 bvand(x 010101b)
@@ -93,7 +93,7 @@ Update `a` if `clone` is `false`. (Default is `true`).
 
 Return `true` if `a` has any bits set that are also set in `b`.
 
-```rust
+```lisp
 bvcross(010101b 110000b)
 ; 1b
 
@@ -106,7 +106,7 @@ bvcross(010101b 100000b)
 Set the bit in `a` at index `i` to the complement of its current value.
 Updates `a` in-place.
 
-```rust
+```lisp
 x
 ; 0101b
 
@@ -121,7 +121,7 @@ x
 
 Return the bit of `a` at index `i`.
 
-```rust
+```lisp
 ?x
 ; 0001b
 
@@ -136,7 +136,7 @@ bvget(x 3)
 
 Call `f` for each bit in `a`.
 
-```rust
+```lisp
 ?x
 ; 0001b
 
@@ -151,7 +151,7 @@ bviter(wrln x)
 
 Flip all bits in `a`, update `a` in-place.
 
-```rust
+```lisp
 x
 ; 0001b
 
@@ -178,7 +178,7 @@ Perform a logical-exclusive-or on two bit-vectors. A burrowing operator.
 
 Create an array of bytes.
 
-```rust
+```lisp
 byte_array(10)
 ; [0 0 0 0 0 0 0 0 0 0]
 
@@ -190,7 +190,7 @@ byte_array(10, [1 2 3])
 
 Return the "logical size" of the bit-vector `a`: the index of the highest set bit in the `a` plus one.
 
-```rust
+```lisp
 count_bits(010110b)
 ; 5
 ```

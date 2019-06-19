@@ -2,7 +2,7 @@
 
 Weekly sales for each hour of the working-day:
 
-```rust
+```lisp
 total_by_hr:[[5 3 0 2 8 1 3 5]
                [9 3 9 8 1 3 9 3]
                [4 0 6 6 5 4 0 6]
@@ -13,7 +13,7 @@ total_by_hr:[[5 3 0 2 8 1 3 5]
 
 Cumulative totals and total sales:
 
-```rust
+```lisp
 sums ~ total_by_hr
 ; [[5 8 8 10 18 19 22 27]
 ;  [9 12 21 29 30 33 42 45]
@@ -31,7 +31,7 @@ sum(sum ~ total_by_hr)
 
 Average sale for each day and average of total sales:
 
-```rust
+```lisp
 mean ~ total_by_hr
 ; [3.375 5.625 3.875 4.000 4.625 3.250]
 
@@ -41,7 +41,7 @@ mean(mean ~ total_by_hr)
 
 Visualize the data:
 
-```rust
+```lisp
 c:chart('bar hrs first(total_by_hr) ['xlabel:"hours" 'ylabel:"sales"])
 (fn(x) plot_add(c 'categories hrs x)) ~ rest(total_by_hr)
 view(c)
@@ -49,7 +49,7 @@ view(c)
 
 ![sales chart 1](../images/sales1.png)
 
-```rust
+```lisp
 chart('bar ['mon 'tue 'wed 'thu 'fri 'sat], sum ~ total_by_hr,
         ['title:"Weekly Sales" 'xlabel:"days" 'ylabel:"total sales"])
 ```

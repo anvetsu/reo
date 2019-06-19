@@ -36,7 +36,7 @@ Return the angle theta from the conversion of rectangular coordinates (x, y) to 
 
 Return the biggest value of `x` and `y`. A burrowing operation.
 
-```rust
+```lisp
 big(1 2)
 ; 2
 
@@ -111,7 +111,7 @@ A constant holding a Not-a-Number (NaN) value of type `double`.
 Return the value of the first argument raised to the power of the second argument.
 A burrowing operator.
 
-```rust
+```lisp
 pow(2 3)
 ; 8.000
 

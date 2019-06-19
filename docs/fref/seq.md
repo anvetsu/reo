@@ -4,7 +4,7 @@
 
 Concatenate two sequences. Put atomic arguments into sequences as required.
 
-```rust
+```lisp
 [1 2 3]#[4 5]
 ; [1 2 3 4 5]
 
@@ -22,7 +22,7 @@ Concatenate two sequences. Put atomic arguments into sequences as required.
 
 Push an object to the front or back of a sequence.
 
-```rust
+```lisp
 1;[2 3]
 ; [1 2 3]
 
@@ -37,7 +37,7 @@ Push an object to the front or back of a sequence.
 
 Insert an operator or function between each element of a sequence and reduce the sequence to a single value.
 
-```rust
+```lisp
 (fn(x y) x*x + y*y) @ [1 2 3 4 5]
 1373609
 ```
@@ -47,7 +47,7 @@ Insert an operator or function between each element of a sequence and reduce the
 Start with an initial sequence, pass it to a function. Extend the sequence with the result.
 Repeat the process `n` times.
 
-```rust
+```lisp
 (fn (x) x;sum(lift(-2 x))) @> 10 [1 1]
 ; [1 1 2 3 5 8 13 21 34 55 89 144]
 ```
@@ -56,7 +56,7 @@ Repeat the process `n` times.
 
 Perform a fold and return a sequence of incremental results.
 
-```rust
+```lisp
 (fn(x y) x*x + y*y) @~ [1 2 3 4 5]
 ; [1 5 34 1172 1373609]
 ```
@@ -65,7 +65,7 @@ Perform a fold and return a sequence of incremental results.
 
 Return `true` if all elements in `xs` statisfies the predicate.
 
-```rust
+```lisp
 all(is_odd [3 1 5 7])
 ; 1b
 
@@ -83,7 +83,7 @@ Call `f` with each element in `xs` and its index. Accumulates the result in a di
 keyed by the current value from `xs`. This key will have the initial value `init`.
 Return this dictionary.
 
-```rust
+```lisp
 collect(fn(x i) x*i 10 [1 2 3 4 5])
 ; [1:0 2:10 3:20 4:30 5:40]
 
@@ -96,7 +96,7 @@ collect(fn(x i) x*i 10 [1 3 3 4 4])
 Call `f` with each element in `xs` and collect the result in a dictionary.
 An element is collected only once.
 
-```rust
+```lisp
 collect1(fn(x) x*10 [1 3 3 4 4])
 ; [1:10 3:30 4:40]
 ```
@@ -105,7 +105,7 @@ collect1(fn(x) x*10 [1 3 3 4 4])
 
 Count how many `x` are there in `xs`.
 
-```rust
+```lisp
 counteq(1 [1 2 3 1 1])
 ; 3
 ```
@@ -114,7 +114,7 @@ counteq(1 [1 2 3 1 1])
 
 Count how many elements in `xs` return `true` for `predic`.
 
-```rust
+```lisp
 countf(is_odd [1 2 3 4 5])
 ; 3
 ```
@@ -123,7 +123,7 @@ countf(is_odd [1 2 3 4 5])
 
 Count the number of occurrences for each element in `xs`.
 
-```rust
+```lisp
 counts([1 3 3 4 4 5 4])
 ; [1:1 3:2 4:3 5:1]
 ```
@@ -132,7 +132,7 @@ counts([1 3 3 4 4 5 4])
 
 Folds `xs` with the minus (`-`) operator.
 
-```rust
+```lisp
 dif([10 34 56 77])
 ; -157
 ```
@@ -141,7 +141,7 @@ dif([10 34 56 77])
 
 Incremental version of `dif`.
 
-```rust
+```lisp
 difs([10 34 56 77])
 ; [10 -24 -80 -157]
 ```
@@ -150,7 +150,7 @@ difs([10 34 56 77])
 
 Dig into `xs` by a co-ordinate and return the value there.
 
-```rust
+```lisp
 dig([[1 2] [3 4]] [0 1])
 ; 2
 
@@ -162,7 +162,7 @@ dig([[1 2] [3 4]] [1 1])
 
 Return the dimension of `xs`.
 
-```rust
+```lisp
 dim([10 20 45 34])
 ; [4]
 
@@ -174,7 +174,7 @@ dim([[10 20] [45 34]])
 
 Drop the first `n` elements of `xs`. If `n` is negative, drop from the end.
 
-```rust
+```lisp
 dip(2 [10 20 30 40 50 60])
 ; [30 40 50 60]
 
@@ -186,7 +186,7 @@ dip(-2 [10 20 30 40 50 60])
 
 Drop from `xs` until `predic` returns `true`.
 
-```rust
+```lisp
 drop_while(is_odd [1 3 5 6 7 8])
 ; [6 7 8]
 ```
@@ -195,7 +195,7 @@ drop_while(is_odd [1 3 5 6 7 8])
 
 Call `f` with the current and the previous element in `xs`. Return the resulting sequence.
 
-```rust
+```lisp
 eachprev(`+` [1 2 3 4 5])
 ; [3 5 7 9]
 ```
@@ -204,7 +204,7 @@ eachprev(`+` [1 2 3 4 5])
 
 Call `f` with each element of `xs` with all elements of `ys` to make a tabulated result.
 
-```rust
+```lisp
 a: [0 1 2 3 4 5]
 b: [2 3 5 7 11 13]
 
@@ -219,7 +219,7 @@ enum(`+` a b)
 
 If `ys` is omitted, `xs` will replace it.
 
-```rust
+```lisp
 enum(`*` [1 2 3 4 5])
 ; [[1 2 3 4 5]
 ;  [2 4 6 8 10]
@@ -239,7 +239,7 @@ If specified, `options` must be a dictionary with the following entries:
  - sort - if `true`, use the sorted set of `xs` as groups.
 
 
-```rust
+```lisp
 factor([10 20 30 40 30 50] ['levels:[50 40 30 20 10]])
 ; [[50:1 40:2 30:3 20:4 10:5]
 ;  [5 4 3 2 3 1]]
@@ -257,7 +257,7 @@ factor([10 20 30 40 30 50] ['sort:1b])
 
 For each element in `xs` that `predic` returns `true`, pick the corresponding element from the sequence-of-sequences `yss`.
 
-```rust
+```lisp
 filter_by(is_odd [1 2 3] [[10 20 30] [100 200 300] [1000 2000 3000]])
 ; [[10 30]
 ;  [100 300]
@@ -272,7 +272,7 @@ Return `true` if `x` is in `xs`, return `false` otherwise.
 
 Return an infinite sequence of `x`s.
 
-```rust
+```lisp
 infs(1b)
 ; [1b 1b 1b 1b 1b 1b 1b 1b 1b 1b ...]
 ```
@@ -281,7 +281,7 @@ infs(1b)
 
 Return an infinite sequence starting with `x` and whose tail in filled in by calls to the no-argument function `f`.
 
-```rust
+```lisp
 evens:fn(x) lazy(x fn() evens(x+2))
 xs:evens(2)
 
@@ -293,7 +293,7 @@ xs
 
 Take the first `n` elements from `xs`. If `n` is negative, take from the end.
 
-```rust
+```lisp
 lift(2 [10 20 30 40 50])
 ; [10 20]
 
@@ -305,7 +305,7 @@ lift(-2 [10 20 30 40 50])
 
 Take the first `n` elements from `xs`. If `xs` runs-out, take again from its head.
 
-```rust
+```lisp
 liftr(10 [1 2 3 4 5])
 ; [1 2 3 4 5 1 2 3 4 5]
 ```
@@ -314,14 +314,14 @@ liftr(10 [1 2 3 4 5])
 
 Return an infinite sequence of calling `r`, `r1:f(r)`, `r2:f(r1)` and so on.
 
-```rust
+```lisp
 listf(sqrt 10)
 ; [10 3.162 1.778 1.334 1.155 1.075 1.037 1.018 1.009 ...]
 ```
 
 If `r` is left out, return an infinite sequence of calling `f()`.
 
-```rust
+```lisp
 r2:fn() roll(2)
 
 take(5 listf(r2))
@@ -332,7 +332,7 @@ take(5 listf(r2))
 
 Return the smallest value from `xs`.
 
-```rust
+```lisp
 mn([10 90 8 20 12])
 ' 8
 ```
@@ -341,7 +341,7 @@ mn([10 90 8 20 12])
 
 Incrementally return the smallest value from `xs`.
 
-```rust
+```lisp
 mns([10 90 8 20 12])
 ; [10 10 8 8 8]
 ```
@@ -358,7 +358,7 @@ Incrementally return the largest value from `xs`.
 
 Return `true` is none of the elements of `xs` statisfies the predicate.
 
-```rust
+```lisp
 none(is_odd [3 1 5 7 8])
 ; 0b
 
@@ -370,7 +370,7 @@ none(is_odd [2 4 8])
 
 Return `true` is not all elements of `xs` statisfies the predicate.
 
-```rust
+```lisp
 not_all(is_odd [3 1 5 7 8])
 ; 1b
 ```
@@ -379,7 +379,7 @@ not_all(is_odd [3 1 5 7 8])
 
 Return `true` is at least one of the elements in `xs` statisfy the predicate.
 
-```rust
+```lisp
 one(is_odd [3 1 5 7 8])
 ; 1b
 ```
@@ -391,7 +391,7 @@ Each element from `xs` is passed to the function `f` to compute the individual w
 
 Return a sequence of elements moved to the new list and the remaining elements from `xs`.
 
-```rust
+```lisp
 pack(10 identity [2 5 3 2 1])
 ; [[2 5 3]
 ;  [2 1]]
@@ -404,7 +404,7 @@ pack(10 identity [2 5 30 2 1])
 
 Return a dictionary created from `xs` (keys) and `ys` (values).
 
-```rust
+```lisp
 pairs([1 2 3] [10 20 30])
 ; [1:10 3:30 2:20]
 ```
@@ -413,7 +413,7 @@ pairs([1 2 3] [10 20 30])
 
 Return the index of `x` in `xs`. Return `-1` if `x` is not in `xs`.
 
-```rust
+```lisp
 pos([\q \u \e \e \n] \u)
 ; 1
 
@@ -428,7 +428,7 @@ pos([10 56 34 90] 30)
 
 Fold `xs` using multiplication.
 
-```rust
+```lisp
 prd([1 2 3 4 5])
 ; 120
 ```
@@ -437,7 +437,7 @@ prd([1 2 3 4 5])
 
 Incrementally fold `xs` using multiplication.
 
-```rust
+```lisp
 prds([1 2 3 4 5])
 ; [1 2 6 24 120]
 ```
@@ -447,7 +447,7 @@ prds([1 2 3 4 5])
 Add an element to a sequence. The place where the new element is added depends on the exact
 type of the sequence.
 
-```rust
+```lisp
 push([1 2 3 4 5] 6)
 ; [1 2 3 4 5 6]
 
@@ -470,7 +470,7 @@ Incrementally fold `xs` using division.
 
 Replace `x` is `xs` by `y`.
 
-```rust
+```lisp
 replc([1 2 1 3 4] 1 \a)
 ; [a 2 a 3 4]
 ```
@@ -479,7 +479,7 @@ replc([1 2 1 3 4] 1 \a)
 
 Replace all elements in `xs` that return `true` for `f` with `y`.
 
-```rust
+```lisp
 replcf([1 2 1 3 4] is_odd 100)
 ; [100 2 100 100 4]
 ```
@@ -488,7 +488,7 @@ replcf([1 2 1 3 4] is_odd 100)
 
 Return all elements `xs` for which a flag is set.
 
-```rust
+```lisp
 sel([1b 0b 0b 1b 1b] [1 2 3 4 5])
 ; [1 4 5]
 ```
@@ -510,7 +510,7 @@ Take elements from `xs` while `predic` returns `true`.
 Return a sequence with integers from `a` (inclusive) to `b` (exclusive).
 `a` defaults to `0`.
 
-```rust
+```lisp
 til(5)
 ; [0 1 2 3 4]
 
@@ -522,7 +522,7 @@ til(5 10)
 
 Return truths from `xs`.
 
-```rust
+```lisp
 truths([1 0b "hello" 0b 23])
 ; [1 hello 23]
 ```
@@ -531,7 +531,7 @@ truths([1 0b "hello" 0b 23])
 
 Call `f` with each pair from `xs`.
 
-```rust
+```lisp
 twins(`+` [1 2 3 4 5 6])
 ; [1 3 5 7 9 11]
 ```
@@ -540,7 +540,7 @@ twins(`+` [1 2 3 4 5 6])
 
 Return `xs` without `x`.
 
-```rust
+```lisp
 without(10 [1 2 10 3 4 10 5])
 ; [1 2 3 4 5]
 ```
@@ -549,7 +549,7 @@ without(10 [1 2 10 3 4 10 5])
 
 Pair `xs` with `ys.
 
-```rust
+```lisp
 zip([1 2 3 4] [10 20 30 40])
 ; [[1 10]
 ;  [2 20]
@@ -561,7 +561,7 @@ zip([1 2 3 4] [10 20 30 40])
 
 The `map` operator.
 
-```rust
+```lisp
 (fn(x) x*x) ~ [1 2 3 4 5]
 ; [1 4 9 16 25]
 ```
@@ -576,7 +576,7 @@ Return `true` if `x` is a set, otherwise return `false`.
 
 Return `true` is `x` is a subset of `y`.
 
-```rust
+```lisp
 is_subset(set([3 2]) set([1 2 3 4 5]))
 ; 1b
 ```
@@ -585,7 +585,7 @@ is_subset(set([3 2]) set([1 2 3 4 5]))
 
 Return `true` is `x` is a super-set of `y`.
 
-```rust
+```lisp
 is_superset(set([1 2 3 4 5]) set([3 2]))
 ; 1b
 ```
@@ -594,7 +594,7 @@ is_superset(set([1 2 3 4 5]) set([3 2]))
 
 Return the sequence `xs` as a set.
 
-```rust
+```lisp
 set([1 2 1 3 2 4])
 ; [1 4 3 2]
 ```
@@ -603,7 +603,7 @@ set([1 2 1 3 2 4])
 
 Return the difference of the sets.
 
-```rust
+```lisp
 x:set([1 2 3 4 5])
 y:set([3 2])
 
@@ -615,7 +615,7 @@ setd(x y)
 
 Return the intersection of the sets.
 
-```rust
+```lisp
 seti(x y)
 ; [3 2]
 ```
@@ -624,7 +624,7 @@ seti(x y)
 
 Return the natural join of two relational sets.
 
-```rust
+```lisp
 emp:set([['name:'sam 'emp_dept:1 'salary:1500]
            ['name:'mat 'emp_dept:2 'salary:2000]
 	   ['name:'san 'emp_dept:1 'salary:1300]])
@@ -643,7 +643,7 @@ setj(emp dept)
 
 If `on` is specified, it must be a mapping of keys on which to perform the joins.
 
-```rust
+```lisp
 setj(emp dept ['emp_dept:'dept])
 ; [[dept:1 title:accounts name:sam emp_dept:1 salary:1500]
 ;  [dept:1 title:accounts name:san emp_dept:1 salary:1300]
@@ -654,7 +654,7 @@ setj(emp dept ['emp_dept:'dept])
 
 Remove unwanted keys from a relational set.
 
-```rust
+```lisp
 setp(emp ['name 'salary])
 ; [[name:sam salary:1500]
 ;  [name:san salary:1300]
@@ -666,7 +666,7 @@ setp(emp ['name 'salary])
 Filter the set based on the predicate.
 
 
-```rust
+```lisp
 x
 ; [1 4 3 2 5]
 
@@ -678,7 +678,7 @@ setsel(is_odd x)
 
 Return the union of the sets.
 
-```rust
+```lisp
 setu(set([1 2 3]) set([3 4 5]) set([5 5 5]))
 ; [1 4 3 2 5]
 ```

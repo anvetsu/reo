@@ -9,7 +9,7 @@ These are documented here.
 
 The burrowing- arithmetic functions: addition, subtraction, multiplication and division.
 
-```rust
+```lisp
 1 + 2 * 3 / 2
 ; 4
 
@@ -27,7 +27,7 @@ The burrowing- arithmetic functions: addition, subtraction, multiplication and d
 Note that division by zero will return infinity. Any arithmetic operation involving infinity will result in
 infinity.
 
-```rust
+```lisp
 1/0
 ; inf
 
@@ -39,7 +39,7 @@ infinity.
 
 The burrowing-comparison operators: equals, not-equals, less-than, less-than-or-equals, greater-than, greater-than-or-equals.
 
-```rust
+```lisp
 1 = 2
 ; 0b
 
@@ -60,7 +60,7 @@ The burrowing-comparison operators: equals, not-equals, less-than, less-than-or-
 
 The logical operators: and, or.
 
-```rust
+```lisp
 1 = 1 & 3 = 4
 ; 0b
 
@@ -72,7 +72,7 @@ The logical operators: and, or.
 
 Numeric addition.
 
-```rust
+```lisp
 add(1 2 3)
 ; 6
 ```
@@ -81,7 +81,7 @@ add(1 2 3)
 
 Burrows into `x` and `y` with the function `f`.
 
-```rust
+```lisp
 sumsqr:fn(x y) x*x + y*y
 
 sumsqr(1 4)
@@ -105,7 +105,7 @@ A wrapper for Clojure [`refer`](https://clojuredocs.org/clojure.core/refer).
 If provided, `filters` must be a dictionary.
 
 
-```rust
+```lisp
 clj_refer('clojure.string ['only: ['capitalize 'trim]])
 capitalize(trim("  hello world  "))
 ; Hello world
@@ -115,7 +115,7 @@ capitalize(trim("  hello world  "))
 
 A wrapper for Clojure [`require`](https://clojuredocs.org/clojure.core/require).
 
-```rust
+```lisp
 clj_require(['`clojure.java.io` 'as 'io])
 
 `io/file`("abc.txt")
@@ -126,7 +126,7 @@ clj_require(['`clojure.java.io` 'as 'io])
 
 A wrapper for Clojure [`use`](https://clojuredocs.org/clojure.core/use).
 
-```rust
+```lisp
 clj_use(['`clojure.string` 'as 's 'only ['split]])
 
 `s/replace`("foobar" "foo" "squirrel")
@@ -148,7 +148,7 @@ Return the composition of the functions.
 
 Create a new dictionary.
 
-```rust
+```lisp
 dict('a 1 'b 2)
 ; [a:1 b:2]
 ```
@@ -177,7 +177,7 @@ Return the function `fn(x) g(f(x) h(x))`.
 
 Return `true` if the objects are in monotonically decreasing order, `false` otherwise.
 
-```rust
+```lisp
 gt(3 2 1)
 ; 1b
 
@@ -199,7 +199,7 @@ Return `true` if the objects are in monotonically non-increasing order, `false` 
 
 See [https://clojuredocs.org/clojure.core/import](https://clojuredocs.org/clojure.core/import)
 
-```rust
+```lisp
 import('`java.io.File`)
 
 `File/separator`
@@ -282,7 +282,7 @@ Return `true` if `n` is `0`.
 
 Return the juxtaposition of the function calls: `[f0(x) f1(x) ... fN(x)]`.
 
-```rust
+```lisp
 f:fn(x) x + 2
 g:fn(x) x + 3
 
@@ -331,7 +331,7 @@ Set the REPL prompt for split-lines to the string `s`.
 
 Returns the number of components in `x`, which must be a sequence or a table.
 
-```rust
+```lisp
 size([1 2 3 4 5])
 ; 5
 
@@ -347,7 +347,7 @@ Numeric subtraction.
 
 Return a function that applies `f` `n` times to an argument.
 
-```rust
+```lisp
 i3:times(3 inc)
 
 i3(100)
@@ -358,7 +358,7 @@ i3(100)
 
 Convert a string to a double, float or int.
 
-```rust
+```lisp
 setprec(10)
 ; 10
 
@@ -376,7 +376,7 @@ to_int("12")
 
 Calls the no-argument function `f`. If `f` raises an exception, call `handler` with the raised exception object.
 
-```rust
+```lisp
 with_ex(fn(e) { wr("ERROR: ") wrln(e) 'failed } fn () ex('an_error))
 ; ERROR: an_error
 ; failed

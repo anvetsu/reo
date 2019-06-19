@@ -33,7 +33,7 @@ For qq-plot, `args` should be `(xs & options)`.
  - 'data - a dataset
  - 'visible - (default `1b`)
 
-```rust
+```lisp
 ys:[[1.4 2.3 3.2 4.5] [10 20 30 40]]
 plot('qq [1 2 3 4 5] ['data:dataset(ys)])
 ```

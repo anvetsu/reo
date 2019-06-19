@@ -4,7 +4,7 @@
 
 Return `true` if `x` is a columnar table.
 
-```rust
+```lisp
 t:['product_id 'price] $ [['a1 'a2 'a3] [1344 1788.56 1200]]
 t
 ; product_id: [a1 a2 a3]
@@ -18,7 +18,7 @@ is_tab(t)
 
 Return `true` if `x` is a relational table.
 
-```rust
+```lisp
 r:flip(t)
 r
 ; product_id   price
@@ -35,7 +35,7 @@ is_rtab(r)
 
 Create multi-dimensional sequences and columnar tables.
 
-```rust
+```lisp
 3 $ 4
 ; [4 4 4]
 
@@ -54,7 +54,7 @@ Create multi-dimensional sequences and columnar tables.
 Create multi-dimensional sequences and columnar tables.
 Convert relational data to columnar format.
 
-```rust
+```lisp
 tab([3 4], [1 2 3 4 5 6 7 8 9 10])
 ; [[1 2 3 4]
 ;  [5 6 7 8]
@@ -75,7 +75,7 @@ tab([['a:1 'b:10]
 
 Create relational tables.
 
-```rust
+```lisp
 rtab(['a 'b] [[1 2 3] [10 20 30]])
 ;   a  b
 ; ---------
@@ -87,7 +87,7 @@ rtab(['a 'b] [[1 2 3] [10 20 30]])
 
 Return the column names from a (columnar or relational) table.
 
-```rust
+```lisp
 fields(t)
 ; [product_id price]
 
@@ -99,7 +99,7 @@ fields(r)
 
 Return data from a (columnar or relational) table.
 
-```rust
+```lisp
 data(t)
 ; [[a1 a2 a3]
 ;  [1344 1788.560 1200]]
@@ -114,7 +114,7 @@ data(r)
 
 Return the first `n` values from a columnar table.
 
-```rust
+```lisp
 top(2 t)
 ; product_id: [a1 a2]
 ; price: [1344 1788.560]
@@ -125,7 +125,7 @@ top(2 t)
 Summarize a column by another. The function `f` acts as the "accumulator" of the values of `col`,
 starting-off with `init`.
 
-```rust
+```lisp
 emp:['name 'dept 'salary] $ [['mat 'sam 'sally 'zen] [2 1 1 3] [1200 1340 1000 1500]]
 emp
 ; name: [mat sam sally zen]
@@ -140,7 +140,7 @@ emp
 
 Group and count.
 
-```rust
+```lisp
 group_count(emp('dept))
 ; [2:1 1:2 3:1]
 ```
@@ -149,7 +149,7 @@ group_count(emp('dept))
 
 Merge two tables.
 
-```rust
+```lisp
 dept:['id 'title] $ [[1 2 3] ['accounts 'sales 'hr]]
 dept
 ; id: [1 2 3]
@@ -167,7 +167,7 @@ club(emp dept)
 
 Filter rows by predicate.
 
-```rust
+```lisp
 where(fn(row) row('salary) > 1300, emp)
 ; name: [sam zen]
 ; dept: [1 3]
@@ -178,7 +178,7 @@ where(fn(row) row('salary) > 1300, emp)
 
 Filter a sequence or a table.
 
-```rust
+```lisp
 is_odd ! [1 2 3 4 5]
 ; [1 3 5]
 
@@ -192,7 +192,7 @@ is_odd ! [1 2 3 4 5]
 
 Maps the function `f` over the table `t`. Return a new table of results.
 
-```rust
+```lisp
 tmap(fn(row) {s:row('salary) assoc(row 'salary s + s*0.05)}, emp)
 ; name: [mat sam sally zen]
 ; dept: [2 1 1 3]

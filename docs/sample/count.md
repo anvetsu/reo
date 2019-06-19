@@ -2,7 +2,7 @@
 
 Count from `start` till `end` (`start` is optional and defaults to `0`):
 
-```rust
+```lisp
 xs:til(1 7)
 xs
 ; [1 2 3 4 5 6]
@@ -10,7 +10,7 @@ xs
 
 First `n` evens and odds:
 
-```rust
+```lisp
 a:til(10)
 
 a + a
@@ -22,7 +22,7 @@ a + til(1 11)
 
 Successors and predecessors:
 
-```rust
+```lisp
 inc(1)
 ; 2
 
@@ -35,21 +35,21 @@ dec ~ xs
 
 Predecessors of predecessors will take us to the land of *integers*:
 
-```rust
+```lisp
 dec ~ dec ~ xs
 ; [-1 0 1 2 3 4]
 ```
 
 Let's reverse the operation:
 
-```rust
+```lisp
 inc ~ inc ~ dec ~ (dec ~ xs)
 ; [1 2 3 4 5 6]
 ```
 
 Being able to apply the same function `n` times is useful:
 
-```rust
+```lisp
 times(3 dec) ~ xs
 ; [-2 -1 0 1 2 3]
 
@@ -59,7 +59,7 @@ times(3 inc)~times(3 dec) ~ xs
 
 Isn't that the same as adding or subtracting by a constant?
 
-```rust
+```lisp
 xs - 3
 ; [-2 -1 0 1 2 3]
 
@@ -69,7 +69,7 @@ xs - 3
 
 Two sequences can be added or subtracted to produce a sequences or tables:
 
-```rust
+```lisp
 a: [0 1 2 3 4 5]
 b: [2 3 5 7 11 13]
 
@@ -119,7 +119,7 @@ Any two integers `a` and `b` are related in the following ways
 
 These relations are captured by the `<`, `=` and `>` functions.
 
-```rust
+```lisp
 1 < 2
 ; 1b
 
@@ -129,7 +129,7 @@ These relations are captured by the `<`, `=` and `>` functions.
 
 `1b` stands for `true` (the relation holds) and `0b` stands for `false`.
 
-```rust
+```lisp
 a:til(1 6)
 a
 ; [1 2 3 4 5]
@@ -172,7 +172,7 @@ enum(`>` a b)
 
 Lesser and greater in two lists:
 
-```rust
+```lisp
 sml(a b)
 ; [1 2 3 2 1]
 
@@ -208,7 +208,7 @@ max @ a
 
 You may also use the pre-defined convenience functions:
 
-```rust
+```lisp
 sum(a)
 ; 20
 
@@ -221,7 +221,7 @@ mx(a)
 
 ## Discovering Multiplication & Power
 
-```rust
+```lisp
 m:3
 n:5
 
@@ -233,7 +233,7 @@ sum(n$m)
 
 The result shows that multiplication is just repeated addition.
 
-```rust
+```lisp
 n*m
 n*m
 15
@@ -241,7 +241,7 @@ n*m
 
 In the same line, finding the `n`<sup>th</sup> power of `m` can be achieved by repeated multiplication.
 
-```rust
+```lisp
 prd(n $ m)
 ; 243
 
@@ -251,7 +251,7 @@ pow(m n)
 
 Consider the following relation:
 
-```rust
+```lisp
 pow(3 5) * pow(3 2)
 ; 2187.0
 
@@ -261,7 +261,7 @@ pow(3 5) * pow(3 2)
 
 This equivalence can be explained in terms of the earlier definition of `power`:
 
-```rust
+```lisp
 prd(5$3) * prd(2$3)
 ; 2187
 

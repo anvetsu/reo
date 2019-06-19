@@ -94,7 +94,7 @@ Option keys:
 
  - 'probs (default [0.0 0.25 0.5 0.75 1.0])
 
-```rust
+```lisp
 quantile(sample_normal(100))
 
 quantile(sample_normal(100) ['probs:[0.025 0.975]])
