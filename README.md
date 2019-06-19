@@ -18,7 +18,7 @@ Make sure you have JDK 10 or later installed. You can build and run `Motto` with
 
 ```
 $ make
-$ java -jar target/motto-<version>-standalone.jar
+$ ./motto
 ```
 
 This will land you in the REPL, where you can play with the platform:
