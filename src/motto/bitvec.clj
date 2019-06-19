@@ -91,9 +91,12 @@
         (f (.get bv i))
         (recur (inc i))))))
 
-(defn flip-all [^BitSet bv]
-  (.flip bv 0 (.length bv))
-  bv)
+(defn flip-all
+  ([^BitSet bv n]
+  (.flip bv 0 n)
+   bv)
+  ([^BitSet bv]
+   (flip-all bv (.length bv))))
 
 (defn _band
   ([a b clone?]

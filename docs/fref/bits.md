@@ -137,7 +137,7 @@ bvget(x 3)
 Call `f` for each bit in `a`.
 
 ```lisp
-?x
+x
 ; 0001b
 
 bviter(wrln x)
@@ -147,7 +147,7 @@ bviter(wrln x)
 ; 1b
 ```
 
-#### bvnot(a)
+#### bvnot(a & offset)
 
 Flip all bits in `a`, update `a` in-place.
 
@@ -160,6 +160,15 @@ bvnot(x)
 
 x
 ; 111b
+```
+
+Offset defaults to the last set index in the bit-vector.
+
+```lisp
+=> bvnot(1100b)
+; 00b
+=> bvnot(1100b 4)
+; 0011b
 ```
 
 #### bvor(a b & clone)
