@@ -148,3 +148,7 @@ and <a href="https://clojure.org/" target="_blank">Clojure</a> variants of that 
 
 Reo itself is implemented in Clojure and makes extensive use of its core functions, immutable datastructures and evaluator.
 Reo runs on top of the Java Virtual Machine and is integrated well into that high-quality platform.
+
+
+Copyright (c) 2019 Anvetsu Technologies Pvt Ltd (https://anvetsu.com/)
+Please see the LICENSE file for licensing terms.
