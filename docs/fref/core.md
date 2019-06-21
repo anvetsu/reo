@@ -1,8 +1,8 @@
 # Core
 
-Most functions in [`clojure.core`](https://clojuredocs.org/clojure.core) are directly usable in Motto.
+Most functions in [`clojure.core`](https://clojuredocs.org/clojure.core) are directly usable in Reo.
 
-Motto has extended some core functions with additional features and also added some new functions.
+Reo has extended some core functions with additional features and also added some new functions.
 These are documented here.
 
 #### +, -, *, /, %
@@ -145,7 +145,7 @@ split("hello world" rx(" "))
 
 #### cf(file)
 
-Compile the Motto script file to object code.
+Compile the Reo script file to object code.
 
 #### comp(f & fs), o(f & fs)
 

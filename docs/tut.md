@@ -1,4 +1,4 @@
-# Motto - A Primer
+# Reo - A Primer
 
 Computing is mostly about consuming data and interpreting it to create useful information.
 Data comes in all forms imaginable - numbers, texts, lists, tables, images and so on.
@@ -8,9 +8,9 @@ scale and complexity.
 As the representation of data becomes more complex, computer users tend to depend on specialized tools.
 For example, spreadsheet programs are used for visualizing and manipulating tabular data.
 
-In contrast, Motto strives to be a powerful tool that can deal with data in many forms
-and shapes. The user interface to Motto is an elegant programming language that you can pick up
-in a weekend. This makes Motto a more expressive and scalable tool than a point-and-click GUI program.
+In contrast, Reo strives to be a powerful tool that can deal with data in many forms
+and shapes. The user interface to Reo is an elegant programming language that you can pick up
+in a weekend. This makes Reo a more expressive and scalable tool than a point-and-click GUI program.
 
 It is hoped that this tutorial will convince you of the veracity of the preceding paragraph.
 
@@ -34,7 +34,7 @@ This document is divided into the following sections:
 <a name="simp"></a>
 ## Simple Calculations
 
-For simple data objects, like numbers and booleans, Motto behaves like any traditional programming
+For simple data objects, like numbers and booleans, Reo behaves like any traditional programming
 language:
 
 ```lisp
@@ -331,7 +331,7 @@ The statements may be optionally separated using comma.
 <a name="lists"></a>
 ## Vectors and Lists
 
-Motto can also operate on vectors of values, delimited by opening and closing square brackets.
+Reo can also operate on vectors of values, delimited by opening and closing square brackets.
 Vectors support access to items by index in log32N hops.
 
 Assume that we have to find the total price of not one by five products. The prices and corresponding
@@ -801,7 +801,7 @@ We will learn more about tables in the [next chapter](data.md).
 <a name="funs"></a>
 ## Functions
 
-So far we have used many functions that come built-in with Motto - `map`, `sum`, `reduce` and so on.
+So far we have used many functions that come built-in with Reo - `map`, `sum`, `reduce` and so on.
 We have seen that the operators like `+`, `*` and `=` themselves are functions.
 
 In this section we will see how we can define our own functions. A function is created by the `fn` keyword, followed
@@ -1137,7 +1137,7 @@ if (1>2 100
 
 ### Repeating yourself
 
-Motto does not have imperative looping constructs like the `for` loop or `while` loop. Instead, repetitive
+Reo does not have imperative looping constructs like the `for` loop or `while` loop. Instead, repetitive
 code execution is achieved by recursive function calls.
 
 A common example of recursion is the function to compute the `n`<sup>th</sup> Fibonacci number:
@@ -1168,13 +1168,13 @@ fib(25)
 <a name="err"></a>
 ## Dealing with Errors
 
-Motto runs on top of the Java Virtual Machine and some low-level function calls will raise exceptions.
+Reo runs on top of the Java Virtual Machine and some low-level function calls will raise exceptions.
 Sometimes, a function you write also may want to report a critical condition by raising an exception.
 This can be achieved by calling the `ex` function, which can take any object as argument.
 
 ```lisp
 ex("fatal!")
-; ERROR: throw+: [:type :motto-ex, :obj "fatal!"]
+; ERROR: throw+: [:type :reo-ex, :obj "fatal!"]
 ```
 
 As another example, consider the following function. It will divide `100` by a given number. If this number is
@@ -1188,7 +1188,7 @@ f(5)
 ; 20
 
 ?f(0)
-; ERROR: throw+: [:type :motto-ex, :obj "zero!"]
+; ERROR: throw+: [:type :reo-ex, :obj "zero!"]
 ```
 
 The REPL will catch and print the exception. You may also write your own exception handlers using the
@@ -1223,7 +1223,7 @@ safe_f(0)
 <a name="scripts"></a>
 ## Scripts & Compilation
 
-Motto source files usually have the extension `.m`.
+Reo source files usually have the extension `.m`.
 Source files can be loaded into the interpreter by invoking the `ld` command.
 It is customary to call `ld` without the `.m` extension.
 
@@ -1246,7 +1246,7 @@ The object code is compiled on-the-fly to JVM byte code.
 
 ### Commenting your code
 
-Motto does not have special syntax for commenting programs.
+Reo does not have special syntax for commenting programs.
 You may include explanatory statements in your code as string literals.
 Some examples are given below:
 
@@ -1260,12 +1260,12 @@ calc:fn(p) if (p > 10000 p * r2 p * r1)
 
 ## Remote Evaluation
 
-You can start Motto in HTTP server mode and use it to evaluate expressions on a server.
+You can start Reo in HTTP server mode and use it to evaluate expressions on a server.
 
 Start the HTTP server, with no REPL:
 
 ```shell
-$ java -jar target/motto-0.1.0-standalone.jar -s -r false
+$ java -jar target/reo-0.1.0-standalone.jar -s -r false
 ```
 
 By default, the server listens on port `3030`.
@@ -1287,8 +1287,8 @@ You should sandbox the evaluator before exposing this feature via a public API.
 <a name="jvm"></a>
 ## Integration with the JVM
 
-Motto runs on top of the Java Virtual Machine and integrates with it seamlessly.
-Motto code is compiled to Java bytecode on the fly and can take advantage of JIT compilation.
+Reo runs on top of the Java Virtual Machine and integrates with it seamlessly.
+Reo code is compiled to Java bytecode on the fly and can take advantage of JIT compilation.
 
 Functionality offered by the host platform is accessed in two ways,
  - through Clojure function calls
@@ -1336,13 +1336,13 @@ m:`HashMap.`()
 
 ## Conclusion
 
-That concludes our first detailed peek at Motto. You may quit the REPL by calling the `exit` function:
+That concludes our first detailed peek at Reo. You may quit the REPL by calling the `exit` function:
 
 ```lisp
 exit()
 ```
 
-Now you know enough to use Motto to solve serious data processing problems. But there is always something new
+Now you know enough to use Reo to solve serious data processing problems. But there is always something new
 to learn! For instance, how to import data from external sources like databases or spreadsheets?
 How to use data to build statistical models and visualizations? These questions and more will be answered by the rest of
 this [documentation](index.md).

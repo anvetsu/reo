@@ -1,6 +1,6 @@
 # Data Import and Export
 
-Motto can read and write data encoded in various formats.
+Reo can read and write data encoded in various formats.
 It can also fetch data from external sources like databases and HTTP servers.
 
 ## Delimited Files
@@ -19,7 +19,7 @@ ProductId,ProductName,UnitPrice,DateReleased
 
 Data formatted in this way is known as CSV (comma-separated-values) encoded.
 
-Motto can import CSV encoded files and convert them to tables. For example, if the above data is contained in a file
+Reo can import CSV encoded files and convert them to tables. For example, if the above data is contained in a file
 named "products.csv", we can import it as:
 
 ```rust
@@ -114,7 +114,7 @@ mx(products('UnitPrice))
 ```
 
 Sequences and dictionaries can be encoded as JSON strings using the `json_enc` function.
-JSON encoded string can be decoded back to Motto structures using the `json_dec` function.
+JSON encoded string can be decoded back to Reo structures using the `json_dec` function.
 
 ```rust
 json_enc([['a:1 'b:2] ['a:3 'b:4]])
@@ -149,7 +149,7 @@ all_sheets - read all sheets(default - 0b)
 
 ## Relational Databases
 
-Motto can read and write relational databases. It comes with an embedded relational database
+Reo can read and write relational databases. It comes with an embedded relational database
 that can be used as local storage.
 
 The main functions for interacting with the database is `db_cmd` and `db_qry`. `Db_cmd` is used for data-definition and
@@ -172,7 +172,7 @@ products
 ; date_released: [#inst "2019-02-24T18:30:00.000-00:00" #inst "2019-02-28T18:30:00.000-00:00" #inst "2018-12-01T18:30:00.000-00:00"]
 ```
 
-The values of `date_released` are returned as objects of the Java `Date` class. This needs to be converted to Motto's date-time type
+The values of `date_released` are returned as objects of the Java `Date` class. This needs to be converted to Reo's date-time type
 before they can be easily processed.
 
 ```rust
@@ -185,7 +185,7 @@ products
 ; date_released: [dt("2019-02-25T00:00:00") dt("2019-03-01T00:00:00") dt("2018-12-02T00:00:00")]
 ```
 
-As Motto internally uses [JDBC](https://en.wikipedia.org/wiki/Java_Database_Connectivity),
+As Reo internally uses [JDBC](https://en.wikipedia.org/wiki/Java_Database_Connectivity),
 it can be easily extended to talk to any database with a JDBC driver.
 
 ## HTTP Services

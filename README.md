@@ -1,6 +1,6 @@
-# Motto
+# Reo
 
-Motto is a programmable platform for data analysis.
+Reo is a programmable platform for data analysis.
 
 #### Features
 
@@ -14,21 +14,21 @@ Motto is a programmable platform for data analysis.
 
 ### Getting Started
 
-Make sure you have JDK 10 or later installed. You can build and run `Motto` with the following commands:
+Make sure you have JDK 10 or later installed. You can build and run `Reo` with the following commands:
 
 ```
 $ make
-$ ./motto
+$ ./reo
 ```
 
 This will land you in the REPL, where you can play with the platform:
 
 ```
-motto v0.0.1
+reo v0.0.1
 =>
 ```
 
-The `=>` prompt shows that Motto is waiting for your input.
+The `=>` prompt shows that Reo is waiting for your input.
 
 It is suggested that you work through the following short tutorial and then
 proceed to the rest of the [Documentation](docs/index.md).
@@ -36,7 +36,7 @@ proceed to the rest of the [Documentation](docs/index.md).
 ### A 5-minute Tutorial
 
 In this short tutorial, let's create and manipulate a database for managing employee salaries.
-A columnar-table is one of the basic structures used by Motto. This format makes it easy and efficient to
+A columnar-table is one of the basic structures used by Reo. This format makes it easy and efficient to
 write functions that aggregate values in individual columns.
 
 We use the `tab` function to manually create a table:
@@ -58,7 +58,7 @@ Let's have a look at the table now:
 ; salary: [1900.78 2344.88 1200.56 3400.56 1300.78]
 ```
 
-**Note** In this tutorial, the output from Motto will be identified by a semi-colon (;).
+**Note** In this tutorial, the output from Reo will be identified by a semi-colon (;).
 This is not part of the output produced by the real REPL.
 
 Here is a quick "statistical" summary of the table:
@@ -141,10 +141,10 @@ To learn more, please go the [detailed documentation](docs/index.md).
 
 ## Acknowledgments
 
-The basic design of Motto is inspired by the <a href="https://en.wikipedia.org/wiki/APL_(programming_language)" target="_blank">APL</a>
+The basic design of Reo is inspired by the <a href="https://en.wikipedia.org/wiki/APL_(programming_language)" target="_blank">APL</a>
 family of array programming languages. Another major influence is Lisp,
 especially the <a href="https://en.wikipedia.org/wiki/Scheme_%28programming_language%29" target="_blank">Scheme</a>
 and <a href="https://clojure.org/" target="_blank">Clojure</a> variants of that language.
 
-Motto itself is implemented in Clojure and makes extensive use of its core functions, immutable datastructures and evaluator.
-Motto runs on top of the Java Virtual Machine and is integrated well into that high-quality platform.
+Reo itself is implemented in Clojure and makes extensive use of its core functions, immutable datastructures and evaluator.
+Reo runs on top of the Java Virtual Machine and is integrated well into that high-quality platform.

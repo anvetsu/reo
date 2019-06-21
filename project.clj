@@ -1,6 +1,6 @@
-(defproject motto "0.0.1"
-  :main motto.core
-  :aot [motto.core]
+(defproject reo "0.0.1"
+  :main reo.core
+  :aot [reo.core]
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [org.clojure/tools.cli "0.4.2"]
                  [org.clojure/math.combinatorics "0.1.5"]

@@ -1,4 +1,4 @@
-# Motto Documentation
+# Reo Documentation
 
 1. [A Primer](tut.md)
 2. [Useful Recipes](recip.md)
