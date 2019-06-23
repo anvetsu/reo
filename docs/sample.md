@@ -9,6 +9,7 @@ The programs in this section will also show you how to put the various aspects o
 3. [Weekly Sales Analysis](sample/sales.md)
 4. [Greedy Packing](sample/pack.md)
 5. [Sorting](sample/sort.md)
+6. [Raw Records](sample/raw.md)
 
 **WIP**
 
