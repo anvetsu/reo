@@ -64,7 +64,6 @@
 
 (defn stop []
   (when @server
-    ;; graceful shutdown: wait 100ms for existing requests to be finished
-    ;; :timeout is optional, when no timeout, stop immediately
+    ;; wait 100ms for existing requests finish.
     (@server :timeout 100)
     (reset! server nil)))
