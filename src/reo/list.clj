@@ -231,6 +231,16 @@
                      (conj rs ys))))
           rs)))))
 
+(defn at
+  ([xs dims]
+   (if (seqable? dims)
+     (get-in xs dims)
+     (get xs dims)))
+  ([xs dims x]
+   (if (seqable? dims)
+     (assoc-in xs dims x)
+     (assoc xs dims x))))
+
 (defn without-iter [xs ys]
   (loop [xs xs, rs ys]
     (if (seq xs)

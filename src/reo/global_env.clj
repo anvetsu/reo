@@ -235,6 +235,7 @@
       (def in reo.list/in?)
       (def infs reo.list/infs)
       (def dig reo.list/dig)
+      (def at reo.list/at)
       (def without reo.list/without)
       (def eachprev reo.list/each-previous)
       (def factor reo.list/factor)

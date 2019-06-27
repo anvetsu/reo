@@ -63,7 +63,7 @@ Perform a fold and return a sequence of incremental results.
 
 #### all(predic xs)
 
-Return `true` if all elements in `xs` statisfies the predicate.
+Return `true` if all elements in `xs` satisfies the predicate.
 
 ```lisp
 all(is_odd [3 1 5 7])
@@ -76,6 +76,21 @@ all(is_odd [3 1 5 7 8])
 #### any(xs)
 
 Return a randomly selected value from `xs`.
+
+#### at(xs coords & x)
+
+Return the element from `xs` at the given co-ordinate.
+If `x` is specified, return a new sequence to value at the co-ordinate set to `x`.
+
+```lisp
+xs:[1 2 [3 [4 5] 6]]
+
+at(xs [2 1 1])
+; 5
+
+at(xs [2 1 1], 100)
+; [1 2 [3 [4 100] 6]]
+```
 
 #### collect(f init xs)
 
@@ -146,7 +161,7 @@ difs([10 34 56 77])
 ; [10 -24 -80 -157]
 ```
 
-#### dig(xs co-ord)
+#### dig(xs coords)
 
 Dig into `xs` by a co-ordinate and return the value there.
 
@@ -156,6 +171,15 @@ dig([[1 2] [3 4]] [0 1])
 
 dig([[1 2] [3 4]] [1 1])
 ; 4
+```
+
+There can be multiple levels of co-ordinates:
+
+```lisp
+xs:[[41 26 38] [14 87 42] [30 28 19] [65 40 55] [19 31 64] [45 82 74]]
+
+dig(xs [[0 4 5] [0 2]])
+; [[41 38] [19 64] [45 74]]
 ```
 
 #### dim(xs)
@@ -356,7 +380,7 @@ Incrementally return the largest value from `xs`.
 
 #### none(predic xs)
 
-Return `true` is none of the elements of `xs` statisfies the predicate.
+Return `true` is none of the elements of `xs` satisfies the predicate.
 
 ```lisp
 none(is_odd [3 1 5 7 8])
@@ -368,7 +392,7 @@ none(is_odd [2 4 8])
 
 #### not_all(predic xs)
 
-Return `true` is not all elements of `xs` statisfies the predicate.
+Return `true` is not all elements of `xs` satisfies the predicate.
 
 ```lisp
 not_all(is_odd [3 1 5 7 8])
@@ -377,7 +401,7 @@ not_all(is_odd [3 1 5 7 8])
 
 #### one(predic xs)
 
-Return `true` is at least one of the elements in `xs` statisfy the predicate.
+Return `true` is at least one of the elements in `xs` satisfy the predicate.
 
 ```lisp
 one(is_odd [3 1 5 7 8])
