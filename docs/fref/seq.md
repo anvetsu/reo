@@ -80,6 +80,8 @@ Return a randomly selected value from `xs`.
 #### at(xs coords & x)
 
 Return the element from `xs` at the given co-ordinate.
+The argument `xs` can be either a sequence or a dictionary.
+
 If `x` is specified, return a new sequence to value at the co-ordinate set to `x`.
 
 ```lisp
