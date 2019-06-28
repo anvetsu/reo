@@ -549,6 +549,18 @@ til(5 10)
 [5 6 7 8 9]
 ```
 
+Generate a symmetric sequence:
+
+```lisp
+s:fn(n) (sub ~ til(-n)) # til(1 n)
+
+s(6)
+; [-5 -4 -3 -2 -1 0 1 2 3 4 5]
+
+s(2)
+; [-1 0 1]
+```
+
 #### truths(xs)
 
 Return truths from `xs`.
