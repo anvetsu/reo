@@ -12,11 +12,17 @@
              (conj r (burrow opr (first x) (first y))))
       r)))
 
-(defn- seq-x-burrow [opr x y]
-  (loop [x x, r []]
-    (if (seq x)
-      (recur (rest x) (conj r (burrow opr (first x) y)))
-      r)))
+(defn- seq-x-burrow
+  ([opr x y]
+   (loop [x x, r []]
+     (if (seq x)
+       (recur (rest x) (conj r (burrow opr (first x) y)))
+       r)))
+  ([opr x]
+   (loop [x x, r []]
+     (if (seq x)
+       (recur (rest x) (conj r (burrow opr (first x))))
+       r))))
 
 (defn seq-y-burrow [opr x y]
   (loop [y y, r []]
@@ -24,12 +30,17 @@
       (recur (rest y) (conj r (burrow opr x (first y))))
       r)))
 
-(defn burrow [opr x y]
-  (cond
-    (and (u/atomic? x) (u/atomic? y)) (opr x y)
-    (and (seqable? x) (seqable? y)) (seq-burrow opr x y)
-    (seqable? x) (seq-x-burrow opr x y)
-    :else (seq-y-burrow opr x y)))
+(defn burrow
+  ([opr x y]
+   (cond
+     (and (u/atomic? x) (u/atomic? y)) (opr x y)
+     (and (seqable? x) (seqable? y)) (seq-burrow opr x y)
+     (seqable? x) (seq-x-burrow opr x y)
+     :else (seq-y-burrow opr x y)))
+  ([opr x]
+   (cond
+     (u/atomic? x) (opr x)
+     :else (seq-x-burrow opr x))))
 
 (defn- not-eq [a b]
   (not (= a b)))

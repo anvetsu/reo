@@ -84,7 +84,7 @@ add(1 2 3)
 ; 6
 ```
 
-#### burrow(f x y)
+#### burrow(f x & y)
 
 Burrows into `x` and `y` with the function `f`.
 
