@@ -18,6 +18,9 @@
   ([n x] (til n x 1))
   ([x] (til 0 x)))
 
+(defn nof [n x]
+  (into [] (repeat n x)))
+
 (defn listf
   ([f n]
    (let [r (f n)]

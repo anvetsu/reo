@@ -80,9 +80,9 @@ Return a randomly selected value from `xs`.
 #### at(xs coords & x)
 
 Return the element from `xs` at the given co-ordinate.
-The argument `xs` can be either a sequence or a dictionary.
+The argument `xs` can be either a vector or a dictionary.
 
-If `x` is specified, return a new sequence to value at the co-ordinate set to `x`.
+If `x` is specified, return a new sequence with value at the co-ordinate set to `x`.
 
 ```lisp
 xs:[1 2 [3 [4 5] 6]]
@@ -379,6 +379,11 @@ Return the largest value from `xs`.
 #### mxs(xs)
 
 Incrementally return the largest value from `xs`.
+
+#### nof(n x)
+
+Return a vector with `n` copies of `x`.
+(This is the non-lazy version of (`repeat`)[https://clojuredocs.org/clojure.core/repeat]).
 
 #### none(predic xs)
 

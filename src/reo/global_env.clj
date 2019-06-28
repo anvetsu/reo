@@ -228,6 +228,7 @@
       (def zip reo.list/zip)
       (def pairs reo.list/pairs)
       (def listf reo.list/listf)
+      (def nof reo.list/nof)
       (def pos reo.list/index-of)
       (def truths reo.list/truths)
       (def dim reo.list/dim)
