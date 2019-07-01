@@ -216,7 +216,7 @@
 (defn- dig-thru [xs dims]
   (loop [xs xs, dims dims]
     (if (seq dims)
-      (recur (get xs (first dims))
+      (recur (nth xs (first dims))
              (rest dims))
       xs)))
 
@@ -227,7 +227,7 @@
           rdims (seq (rest dims))]
       (loop [fdim fdim, rs []]
         (if (seq fdim)
-          (let [ys (get xs (first fdim))]
+          (let [ys (nth xs (first fdim))]
             (recur (rest fdim)
                    (if rdims
                      (concat rs [(dig ys rdims)])
