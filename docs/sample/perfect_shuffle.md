@@ -18,9 +18,8 @@ deck_of:fn(n) til(1 n+1)
 Solve the test cases:
 
 ```lisp
-results:(solve ~ [deck_of(8) deck_of(24) deck_of(52) deck_of(100)
-                  deck_of(1020) deck_of(1024) deck_of(1024) deck_of(10000)])
-expected:[3 11 8 30 1018 10 10 300]
+results:(solve ~ (deck_of ~ [8 24 52 100 1020 1024 10000]))
+expected:[3 11 8 30 1018 10 300]
 
 results = expected
 ; [1b 1b 1b 1b 1b 1b 1b 1b]
