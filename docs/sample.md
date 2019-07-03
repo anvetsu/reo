@@ -10,7 +10,6 @@ The programs in this section will also show you how to put the various aspects o
 4. [Greedy Packing](sample/pack.md)
 5. [Sorting](sample/sort.md)
 6. [Raw Records](sample/raw.md)
-
-**WIP**
+7. [Perfect Shuffle](sample/perfect_shuffle.md)
 
 [Back](index.md)
