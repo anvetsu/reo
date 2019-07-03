@@ -4,14 +4,9 @@ A program that can perform a [perfect shuffle](http://rosettacode.org/wiki/Perfe
 
 ```lisp
 perfect_shuffle:fn(xs) flatten(apply(zip split(xs)))
-
-solve_iter:fn(xs ys n) if (eql(ys xs) & is_pos(n)
-                           n
+solve_iter:fn(xs ys n) if (eql(ys xs) & is_pos(n) n
                            rec(xs perfect_shuffle(ys) inc(n)))
-
-solve:fn(xs) if (is_even(count(xs))
-                 solve_iter(xs xs 0)
-                 0)
+solve:fn(xs) if (is_even(count(xs)) solve_iter(xs xs 0) 0)
 ```
 
 A utility for generating a deck with `n` cards:
@@ -20,7 +15,7 @@ A utility for generating a deck with `n` cards:
 deck_of:fn(n) til(1 n+1)
 ```
 
-Solving the test cases from Rosetta Code:
+Solve the test cases:
 
 ```lisp
 results:(solve ~ [deck_of(8) deck_of(24) deck_of(52) deck_of(100)
