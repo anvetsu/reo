@@ -325,3 +325,9 @@
      (map f arg)))
   ([f xs ys]
    (map (fn [x] (f x ys)) xs)))
+
+(defn split
+  ([n xs]
+   (split-at n xs))
+  ([xs]
+   (split-at (quot (count xs) 2) xs)))

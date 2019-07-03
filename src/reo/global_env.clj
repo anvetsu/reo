@@ -76,6 +76,7 @@
       (def div clojure.core//)
       (def mul clojure.core/*)
 
+      (def eql clojure.core/=)
       (def eq reo.lib.obj/eq)
       (def lt reo.lib.obj/lt)
       (def lteq reo.lib.obj/lteq)
@@ -245,6 +246,8 @@
       (def filter_by reo.list/filter-by)
       (def lazy reo.list/lazy)
       (def enum reo.list/enum)
+      (def split reo.list/split)
+      (def splitf clojure.core/split-with)
 
       ;; table
       (def is_tab reo.tab/t?)

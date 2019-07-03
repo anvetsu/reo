@@ -524,6 +524,14 @@ sel([1b 0b 0b 1b 1b] [1 2 3 4 5])
 ; [1 4 5]
 ```
 
+#### split(n xs)
+
+Split the sequence into two at the position `n`, which defaults to `count(xs)/2`.
+
+#### splitf(predic xs)
+
+Split the sequence at the first element where the predicate returns `false`.
+
 #### sum(xs)
 
 Fold `xs` using addition.

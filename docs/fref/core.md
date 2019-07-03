@@ -164,9 +164,13 @@ dict('a 1 'b 2)
 
 Integer division. Division by zero will raise an exception.
 
-#### eq(x & xs)
+#### eq(x y & ys)
 
-Object equality.
+Object equality, implemented in terms of [`clojure.core/compare`](https://clojuredocs.org/clojure.core/compare).
+
+#### eql(x y & ys)
+
+Object equality, implemented in terms of [`clojure.core/=`](https://clojuredocs.org/clojure.core/=).
 
 #### ex(obj)
 
@@ -180,7 +184,7 @@ Exit the runtime with the given numeric exit status which defaults to `0`.
 
 Return the function `fn(x) g(f(x) h(x))`.
 
-#### gt(x & xs)
+#### gt(x y & ys)
 
 Return `true` if the objects are in monotonically decreasing order, `false` otherwise.
 
@@ -198,7 +202,7 @@ gt([0 1] [10 20] [1 2])
 ; 0b
 ```
 
-#### gteq(x & xs)
+#### gteq(x y & ys)
 
 Return `true` if the objects are in monotonically non-increasing order, `false` otherwise.
 
@@ -297,11 +301,11 @@ juxt(f g)(10)
 ; [12 13]
 ```
 
-#### lt(x & xs)
+#### lt(x y & ys)
 
 Return `true` if the objects are in monotonically increasing order, `false` otherwise.
 
-#### lteq(x & xs)
+#### lteq(x y & ys)
 
 Return `true` if the objects are in monotonically non-decreasing order, `false` otherwise.
 
