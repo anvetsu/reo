@@ -5,7 +5,7 @@ This program shows two greedy solutions to the [0/1 Knapsack problem](https://en
 Imagine that we have to pack the following items into a bag that carry a maximum weight of 20u (units - kg or pound).
 Each item is encoded as `[item_name, value, weight]`.
 
-```lisp
+```sml
 items:[['clock 175 10]
        ['painting 90 9]
        ['radio 20 4]
@@ -16,10 +16,10 @@ items:[['clock 175 10]
 
 It will be useful to define accessor functions for an item's fields:
 
-```lisp
+```sml
 iname:first
 ivalue:second
-iweight:fn(item) item(2)
+iweight: fn (item) item(2)
 ```
 
 We can sort the items by either weight, value or the ratio of value to weight.
@@ -28,10 +28,10 @@ Finally we will choose the best packing by comparing the total value of items pa
 
 Here we define the three predicates required for sorting:
 
-```lisp
-by_wt:fn([_ _ w1] [_ _ w2]) w1 < w2
-by_val:fn([_ v1 _] [_ v2 _]) v1 > v2
-by_rat:fn([_ v1 w1] [_ v2 w2]) v1/w1 > v2/w2
+```sml
+by_wt: fn ([_ _ w1] [_ _ w2]) w1 < w2
+by_val: fn ([_ v1 _] [_ v2 _]) v1 > v2
+by_rat: fn ([_ v1 w1] [_ v2 w2]) v1/w1 > v2/w2
 ```
 
 The `pack_bag` function, which we define next, will take a predicate and the maximum allowed weight
@@ -55,8 +55,8 @@ pack(10 identity [1 5 8 3 4 2])
 
 OK, let's define `pack_bag`:
 
-```lisp
-pack_bag:fn(cmpr maxwt) first(pack(maxwt iweight sort(cmpr, items)))
+```sml
+pack_bag: fn (cmpr maxwt) first(pack(maxwt iweight sort(cmpr, items)))
 ```
 
 Now we have everything required to start packing!
@@ -84,13 +84,14 @@ bag_by_rat
 
 It's just a matter of folding these bags by value to figure out the best method:
 
-```lisp
-totval:fn(bag) sum(ivalue ~ bag)
+```sml
+totval: fn (bag) sum(ivalue ~ bag)
 
 w:totval(bag_by_wt)
 v:totval(bag_by_val)
 r:totval(bag_by_rat)
-
+```
+```lisp
 [w v r]
 ; [170 200 255]
 ```
@@ -98,8 +99,10 @@ r:totval(bag_by_rat)
 We may use fold again to automate the task of finding the best method:
 
 
+```sml
+best_of_2: fn ([n1 b1] [n2 b2]) if (b1 > b2 [n1 b1] [n2 b2])
+```
 ```lisp
-best_of_2:fn([n1 b1] [n2 b2]) if (b1 > b2 [n1 b1] [n2 b2])
 best_of_2 @ [['by_weight w] ['by_val v] ['by_ratio r]]
 ; [by_ratio 255]
 ```
@@ -118,24 +121,24 @@ All possible subsets of a set can be obtained by calling the built-in `subsets` 
 
 We also need a function to find the total weight of a combination:
 
-```lisp
-totwt:fn(bag) sum(iweight ~ bag)
+```sml
+totwt: fn (bag) sum(iweight ~ bag)
 ```
 
 The `best_fits` function defined below will filter out all overweight combinations
 from all possible subsets (i.e the [power set](https://en.wikipedia.org/wiki/Power_set) of `items`).
 Note that the first subset, which is empty, is ignored by the `filter` operation.
 
-```lisp
-best_fits:fn(maxwt) (fn(bag) num_lteq(totwt(bag), maxwt)) ! rest(subsets(items))
+```sml
+best_fits: fn (maxwt) (fn(bag) num_lteq(totwt(bag), maxwt)) ! rest(subsets(items))
 ```
 
 The next function picks the best from the bags returned by `best_fits`.
 This is calculated by folding the results by a `maximum-by-value` function.
 
-```lisp
-max_by_val:fn(a b) if (totval(a) > totval(b) a b)
-best_fit:fn(maxwt) max_by_val @ best_fits(maxwt)
+```sml
+max_by_val: fn (a b) if (totval(a) > totval(b) a b)
+best_fit: fn (maxwt) max_by_val @ best_fits(maxwt)
 ```
 
 So what's the optimal combination that gives the maximum value for a bag that can carry 20u?

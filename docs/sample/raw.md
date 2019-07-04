@@ -118,10 +118,11 @@ Note that we forced the entire result into a vector so that elements can be acce
 
 Now let's print a new report in increasing order of payment:
 
-```lisp
+```sml
 p:fn(z) wrln(format("%-6s %3.2f %3d %6.2f" z(0) float(z(1)) z(2) float(z(3))))
 ss:sort(^X1(3) < X2(3), zs)
-
+```
+```lisp
 doseq([s ss] p(s))
 ; Beth   40.00  10 400.00
 ; Sam    40.50  10 405.00

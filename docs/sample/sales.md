@@ -2,7 +2,7 @@
 
 Weekly sales for each hour of the working-day:
 
-```lisp
+```sml
 total_by_hr:[[5 3 0 2 8 1 3 5]
                [9 3 9 8 1 3 9 3]
                [4 0 6 6 5 4 0 6]
@@ -41,7 +41,7 @@ mean(mean ~ total_by_hr)
 
 Visualize the data:
 
-```lisp
+```sml
 c:chart('bar hrs first(total_by_hr) ['xlabel:"hours" 'ylabel:"sales"])
 (fn(x) plot_add(c 'categories hrs x)) ~ rest(total_by_hr)
 view(c)
@@ -49,7 +49,7 @@ view(c)
 
 ![sales chart 1](../images/sales1.png)
 
-```lisp
+```sml
 chart('bar ['mon 'tue 'wed 'thu 'fri 'sat], sum ~ total_by_hr,
         ['title:"Weekly Sales" 'xlabel:"days" 'ylabel:"total sales"])
 ```

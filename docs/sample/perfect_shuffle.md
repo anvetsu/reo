@@ -12,7 +12,7 @@ solve: fn (xs) if (is_even(count(xs)) solve_iter(xs xs 0) 0)
 A utility for generating a deck with `n` cards:
 
 ```sml
-deck_of:fn(n) til(1 n+1)
+deck_of: fn (n) til(1 n+1)
 ```
 
 Solve the test cases:
