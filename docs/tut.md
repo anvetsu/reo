@@ -426,10 +426,11 @@ You make such infinite sequences with the help of the `lazy` function, which tak
 
 Here is how you can use `lazy` to generate an endless sequence of integers, given a starting value:
 
-```lisp
-nums:fn(n) lazy(n fn()nums(inc(n)))
+```sml
+nums: fn (n) lazy(n fn()nums(inc(n)))
 xs:nums(10)
-
+```
+```lisp
 "take as many integers as you want: "
 lift(20 xs)
 ; [10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29]
@@ -809,8 +810,8 @@ by the function parameters (enclosed in brackets) and the function body.
 
 Here is how we will define a function that doubles its argument:
 
-```lisp
-dbl:fn(a) a + a
+```sml
+dbl: fn (a) a + a
 ```
 
 There is no explicit `return` statement, the value of the last expression in the function will be automatically returned.
@@ -833,8 +834,8 @@ dbl([[2 3] 4 5 [[[6 7]]]])
 
 As another example, let's define a function that increments an amount by a percentage rate:
 
-```lisp
-incr:fn(percent amount) amount + amount * (percent/100.0)
+```sml
+incr: fn (percent amount) amount + amount * (percent/100.0)
 ```
 
 The following are all valid ways we can use this two-argument function:
@@ -995,9 +996,10 @@ In an earlier section we saw that functions defined with the `^` operator accept
 Each of these arguments has to be explicitly referenced with variables names `X1...XN`. What if we want to define a function
 with `n` number of required parameters and `x` optional parametersThe following example will show you how to do this:
 
+```sml
+prn_args: fn (x & xs) { wrln(x) wrln(xs) }
+```
 ```lisp
-prn_args:fn(x & xs) { wrln(x) wrln(xs) }
-
 prn_args(10)
 ; 10
 
@@ -1060,9 +1062,10 @@ Function parameters can be defined as data-patterns of vectors and dictionaries.
 
 The following example shows how to define a function with a vector pattern:
 
-```lisp
+```sml
 f:fn([x y z]) x+y+z
-
+```
+```lisp
 f([10 20 30])
 ; 60
 ```
@@ -1072,9 +1075,10 @@ the variables in the pattern. Note that a pattern variable will default to `nul`
 
 The next function destructures its dictionary argument:
 
+```sml
+g: fn ([a:'a b:'b]) a + b
+```
 ```lisp
-g:fn([a:'a b:'b]) a + b
-
 g(['a:10 'b:20])
 ; 30
 ```
@@ -1154,13 +1158,14 @@ Recursions that run deep can cause a stack-overflow error to happen.
 This can be prevented by making the recursive call from a <a href="https://en.wikipedia.org/wiki/Tail_call" target="_blank">tail position</a>
 using the special `rec` construct.
 
-```lisp
-fib2:fn (n a b) if (n = 0 a
+```sml
+fib2: fn (n a b) if (n = 0 a
                       n = 1 b
 		      rec(n - 1, b, a + b))
 
-fib:fn(n) fib2(n 0 1)
-
+fib: fn (n) fib2(n 0 1)
+```
+```lisp
 fib(25)
 ; 75025
 ```
@@ -1207,11 +1212,12 @@ by `handler_fn` will then become the return value of `with_ex`.
 
 The next function offers a safer version of `f`, utilizing `with_ex`:
 
-```lisp
-safe_f:fn(n) with_ex(^{ wrln(str("ERROR: " X1)),
+```sml
+safe_f: fn (n) with_ex(^{ wrln(str("ERROR: " X1)),
                           inf },
 		       ^f(n))
-
+```
+```lisp
 safe_f(5)
 ; 20
 
@@ -1250,12 +1256,12 @@ Reo does not have special syntax for commenting programs.
 You may include explanatory statements in your code as string literals.
 Some examples are given below:
 
-```lisp
+```sml
 "rate of tax, slab 1" r1:0.2
 "rate of tax, slab 2" r2:0.5
 
 "calculate tax for a given sales price"
-calc:fn(p) if (p > 10000 p * r2 p * r1)
+calc: fn (p) if (p > 10000 p * r2 p * r1)
 ```
 
 ## Remote Evaluation
@@ -1311,11 +1317,12 @@ A class constructor is invoked by the `ClassName.(args ...)` function call.
 A method is accessed by the `.methodName(this ...)` syntax.
 Static fields are accessed by the `ClassName/memberName` syntax.
 
-```lisp
-f:fn() {`Thread/sleep`(1000) wrln('hi) rec()}
+```sml
+f: fn () {`Thread/sleep`(1000) wrln('hi) rec()}
 
 t:`Thread.`(f)
-
+```
+```lisp
 `.start`(t)
 ; hi
 ; hi

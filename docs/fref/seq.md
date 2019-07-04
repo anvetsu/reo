@@ -39,7 +39,7 @@ Insert an operator or function between each element of a sequence and reduce the
 
 ```lisp
 (fn(x y) x*x + y*y) @ [1 2 3 4 5]
-1373609
+; 1373609
 ```
 
 #### @> (fold-times)

@@ -98,9 +98,10 @@ The above program computes the multiplication table from 0 - 5.
 
 We could've used ``*`` instead of `mul`, but `mul` is faster if the arguments are guarenteed to be numbers.
 
+```sml
+nby3: fn (n) nth(nth(xs 3) n)
+```
 ```lisp
-nby3:fn(n) nth(nth(xs 3) n)
-
 nby3(3)
 ; 9
 
