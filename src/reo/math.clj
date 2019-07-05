@@ -20,6 +20,9 @@
 (defn sqrt [x]
   (Math/sqrt x))
 
+(defn nthrt [x n]
+  (Math/pow Math/E (/ (Math/log x) n)))
+
 (defn abs [^Double x]
   (Math/abs x))
 

@@ -97,6 +97,7 @@
       (def ceil reo.math/ceil)
       (def floor reo.math/floor)
       (def sqrt reo.math/sqrt)
+      (def nthrt reo.math/nthrt)
       (def E java.lang.Math/E)
       (def PI java.lang.Math/PI)
       (def abs reo.math/abs)

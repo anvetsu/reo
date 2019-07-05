@@ -106,6 +106,10 @@ Return the natural logarithm of the sum of the argument and 1.
 
 A constant holding a Not-a-Number (NaN) value of type `double`.
 
+#### nthrt(x n)
+
+Return the `n`<sup>th</sup> root of `x`.
+
 #### pow(x y)
 
 Return the value of the first argument raised to the power of the second argument.
