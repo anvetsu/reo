@@ -112,12 +112,24 @@
   (reset! dbl-prec-fmt (str "%." i "f"))
   i)
 
+(defn- trim-trailing-zeros [^String s]
+  (if (str/ends-with? s "0")
+    (loop [rs (seq s), i 0, j 0]
+      (if (seq rs)
+        (if (= (first rs) \0)
+          (recur (rest rs) (inc i) (if (zero? j) i j))
+          (recur (rest rs) (inc i) 0))
+        (if (pos? j)
+          (.substring s 0 j)
+          s)))
+    s))
+
 (defn- print-dbl [v]
   (cond
     (Double/isNaN v) (print "nan")
     (= Double/NEGATIVE_INFINITY v) (print "_inf")
     (= Double/POSITIVE_INFINITY v) (print "inf")
-    :else (print (format @dbl-prec-fmt v))))
+    :else (print (trim-trailing-zeros (format @dbl-prec-fmt v)))))
 
 (defn write [x]
   (when (writable? x)
