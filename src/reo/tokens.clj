@@ -76,6 +76,7 @@
       (= ch \e)
       (= ch \E)
       (= ch \b)
+      (= ch \N)
       (and (= ch \-)
            (= (Character/toLowerCase prev) \e))))
 

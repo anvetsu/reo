@@ -104,6 +104,26 @@ arithmetic operations. The only catch is that any operation that involve infinit
 ; inf
 ```
 
+Integer values are by default encoded in 64-bit two's complement format.
+Very large integer literals are automatically converted to `big-integers`, identified by the `N` suffix.
+Big-integers have arbitrary-precision, limited only by the available memory.
+
+```lisp
+9999999999999999999999999999999999999999999999999
+; 9999999999999999999999999999999999999999999999999N
+```
+
+Arithmetic operations involving at-least one big-integer will return big-integer results. Note that operations on
+integers can result in an overflow. This can be avoided by marking one of the arguments explicitly as a big-integer.
+
+```lisp
+9999999999999 * 88888888888
+; ERROR: integer overflow
+
+9999999999999 * 88888888888N
+; 888888888879911111111112N
+```
+
 The comparison and logical operators return boolean values. Boolean literals are represented compactly as `1b` (true)
 and `0b` (false).
 
