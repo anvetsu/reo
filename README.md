@@ -1,6 +1,6 @@
 # Reo
 
-Reo is a programmable platform for data analysis.
+Reo is a programming language and environment for data analysis.
 
 #### Features
 
