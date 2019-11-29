@@ -119,20 +119,26 @@
   (let [[body ts] (parse-expr tokens)]
     [(tp/make-fn (vec '(& -x-)) (param-access body)) ts]))
 
+(defn- parse-cond2 [ts conds]
+  (let [[c ts1] (parse-expr ts)]
+    (if (= :closep (first ts1))
+      [(conj conds c) ts1 true]
+      (let [[b ts2] (parse-expr ts1)]
+        [(conj conds [c b]) ts2 false]))))
+
+(defn- wrap-cond [[conds ts]]
+  [[:cond conds] ts])
+
 (defn- parse-cond [tokens]
-  (let [[conds ts]
-        (loop [ts tokens, conds []]
-          (if (seq ts)
-            (let [ts (ignore-comma ts)]
-              (if (= :closep (first ts))
-                [(conj conds :false) ts]
-                (let [[c ts1] (parse-expr ts)]
-                  (if (= :closep (first ts1))
-                    [(conj conds c) ts1]
-                    (let [[b ts2] (parse-expr ts1)]
-                      (recur ts2 (conj conds [c b])))))))
-            [conds nil]))]
-    [[:cond conds] ts]))
+  (wrap-cond
+   (loop [ts tokens, conds []]
+     (if (seq ts)
+       (let [ts (ignore-comma ts)]
+         (if (= :closep (first ts))
+           [(conj conds :false) ts]
+           (let [[conds ts done?] (parse-cond2 ts conds)]
+             (if done? [conds ts] (recur ts conds)))))
+       [conds nil]))))
 
 (defn- parse-if [tokens]
   (cond
